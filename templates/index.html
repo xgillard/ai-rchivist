@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>AI-rchivist</title>
+        
+        <!-- JQUERY -->
+        <script
+			  src="https://code.jquery.com/jquery-3.7.1.min.js"
+			  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+			  crossorigin="anonymous"></script>
+		
+        <!-- Bootstrap -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+        <!-- My own stuff -->
+        <link rel="stylesheet" href="/static/machine_in_the_loop.css" />
+        <script src="/static/machine_in_the_loop.js"></script>
+    </head>
+    <body>
+        <!-- *** BEGIN NAVIGATION ************************************************************************************************************ -->
+        <header class="navbar navbar-expand-lg justify-content-center" style="background-color: deeppink;" data-bs-theme="dark">
+            <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap">
+              <a class="navbar-brand" href="#"><i class="bi bi-robot"></i> AI-rchivist</a>
+              
+              <div class="offcanvas-lg offcanvas-end flex-grow-1">
+                <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
+                    <li class="nav-item">
+                        <a  id="nav-document" class="nav-link" href="#" onclick="nav_to('document')">Document</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Doctype + Act Date + Fact Date + Summary -->
+                        <a id="nav-metadata" class="nav-link" href="#" onclick="nav_to('metadata')">Meta Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="nav-persons" class="nav-link" href="#" onclick="nav_to('persons')">Persons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="nav-locations" class="nav-link" href="#" onclick="nav_to('locations')">Locations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="post('/save', session_data)"><i class="bi bi-floppy2"></i></a>
+                    </li>
+                </ul>
+              </div>
+            </nav>
+        </header>
+        <!-- *** END NAVIGATION **************************************************************************************************************** -->
+        <script type="text/javascript">
+            var session_data = {{Self::to_string(self)|escape("none")}};
+        </script>
+
+        <!-- *** BEGIN CHATBOX ***************************************************************************************************************** -->
+        <div id="chatbox" class="chatbox-container">
+        <div class="chatbox">
+            <div class="chatbox-header">
+                <span class="chatbox-title"> <i class="bi bi-chat-text-fill"></i> Ask Improvements </span>
+                <button class="btn-close" aria-label="Close" onclick="toggle_chatbox()"></button>
+            </div>
+            <div class="chatbox-body" id="chat-messages">
+                <!-- Chat messages will be appended here -->
+            </div>
+            <div class="chatbox-footer">
+                <form id="chat-form">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="message-input" placeholder="Type your message...">
+                        <button class="btn btn-primary" type="submit" id="message-submit">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="chatbtn">
+        <button type="button" class="btn btn-info" onclick="toggle_chatbox()"><i class="bi bi-chat-text-fill"></i></button>
+    </div>
+    <!-- *** END CHATBOX ********************************************************************************************************************* -->
+    <!-- *** BEGIN PAYLOAD ******************************************************************************************************************* -->
+    <div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+            <!-- ==============================================================================================================================-->
+            <!-- === DOCUMENT =================================================================================================================-->
+            <!-- ==============================================================================================================================-->
+            <div id="tab-document" class="container">
+                <div class="mb-3">
+                <label for="dta-document" class="form-label">Transcription of the Document</label>
+                <textarea id="dta-document" name="dta-document" class="form-control" rows="30" placeholder="Transcription of the document" aria-label="Transcription of the Document">{{document}}</textarea>
+                </div>
+            </div>
+            <!-- ==============================================================================================================================-->
+            <!-- === METADATA =================================================================================================================-->
+            <!-- ==============================================================================================================================-->
+            <div id="tab-metadata" class="container">
+                <!-- ~~~ DOCTYPE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Type of the Document</span>
+                    <select id="dta-doctype" name="dta-doctype" class="form-select" aria-label="Type of the document" onblur="session_data.doctype = $(this).val()">
+                        <option value="UNKNOWN"  >Unknown</option>
+                        <option value="REMISSION">Remission</option>
+                        <option value="SENTENCE" >Sentence</option>
+                    </select>
+                </div>
+                <!-- ~~~ DATES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Act Date</span>
+                    <input type="text" class="form-control" id="dta-actdate" name="dta-actdate" placeholder="UNKNOWN" value="{{metadata.act_date}}"  onblur="session_data.act_date = $(this).val()" aria-label="Act Date" />
+                    
+                    <span class="input-group-text">Facts Date</span>
+                    <input type="text" class="form-control" id="dta-factdate" name="dta-factdate" placeholder="UNKNOWN" value="{{metadata.fact_date}}" onblur="session_data.fact_date = $(this).val()" aria-label="Facts Date" />
+                </div>
+                <!-- ~~~ Summary ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <div class="mb-3">
+                <label for="dta-summary-en" class="form-label">Summary in English</label>
+                <textarea id="dta-summary-en" name="dta-summary-en" class="form-control" placeholder="Summary in English" aria-label="Summary in English" onblur="session_data.summary.en = $(this).val()" >{{metadata.summary.en}}</textarea>
+                </div>
+
+                <div class="mb-3">
+                <label for="dta-summary-fr" class="form-label">Summary in French</label>
+                <textarea id="dta-summary-fr" name="dta-summary-fr" class="form-control" placeholder="Summary in French" aria-label="Summary in French" onblur="session_data.summary.fr = $(this).val()" >{{metadata.summary.fr}}</textarea>
+                </div>
+
+                <div class="mb-3">
+                <label for="dta-summary-nl" class="form-label">Summary in Dutch</label>
+                <textarea id="dta-summary-nl" name="dta-summary-nl" class="form-control" placeholder="Summary in Dutch"  aria-label="Summary in Dutch" onblur="session_data.summary.nl = $(this).val()" >{{metadata.summary.nl}}</textarea>
+                </div>
+                
+                <div class="mb-3">
+                <label for="dta-summary-de" class="form-label">Summary in German</label>
+                <textarea id="dta-summary-de" name="dta-summary-de" class="form-control" placeholder="Summary in German" aria-label="Summary in German" onblur="session_data.summary.de = $(this).val()" >{{metadata.summary.de}}</textarea>
+                </div>
+
+                
+                
+                <script type="text/javascript">
+                    // doing it this way ensures i have a compilation error if metadata.doctype is not defined
+                    var preload = "{{metadata.doctype}}"; 
+                    if (preload == "REMISSION" || preload == "SENTENCE") {
+                        $("#dta-doctype").val(preload);
+                    } else {
+                        $("#dta-doctype").val("UNKNOWN");
+                    }
+                </script>
+            </div>
+            <!-- ==============================================================================================================================-->
+            <!-- === PERSONS ==================================================================================================================-->
+            <!-- ==============================================================================================================================-->
+            <div id="tab-persons" class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Function</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for person in persons %}
+                        <tr>
+                            <td contenteditable="true" data-field="first_name" onblur="session_data.persons[{{loop.index0}}].firstname = $(this).text()" >{{person.firstname}}</td>
+                            <td contenteditable="true" data-field="last_name"  onblur="session_data.persons[{{loop.index0}}].lastname  = $(this).text()">{{person.lastname}}</td>
+                            <td contenteditable="true" data-field="role"       onblur="session_data.persons[{{loop.index0}}].role      = $(this).text()">{{person.role}}</td>
+                            <td contenteditable="true" data-field="function"   onblur="session_data.persons[{{loop.index0}}].function  = $(this).text()">{{person.function}}</td>
+                        </tr>
+                        {% endfor %}                    
+                    </tbody>
+                </table>
+            </div>
+            <!-- ==============================================================================================================================-->
+            <!-- === LOCATIONS ================================================================================================================-->
+            <!-- ==============================================================================================================================-->
+            <div id="tab-locations" class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Location Type</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for location in locations %}
+                        <tr>
+                            <td contenteditable="true" data-field="loc_name" onblur="session_data.locations[{{loop.index0}}].name    = $(this).text()" >{{location.name}}</td>
+                            <td contenteditable="true" data-field="loctype"  onblur="session_data.locations[{{loop.index0}}].loctype = $(this).text()">{{location.loctype}}</td>
+                        </tr>
+                        {% endfor %}                    
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <!-- *** END PAYLOAD ********************************************************************************************************************* -->
+    <script type="text/javascript">
+        nav_to('document');
+    </script>
+    </body>
+</html>
