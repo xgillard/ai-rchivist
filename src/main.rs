@@ -1,6 +1,6 @@
 use anyhow::Result;
 use askama::Template;
-use axum::{routing::{get, post}, Json, Router};
+use axum::{extract::Path, routing::{get, post}, Json, Router};
 use serde::{Deserialize, Serialize};
 use tokio::net::TcpListener;
 
@@ -53,7 +53,8 @@ pub struct Location {
     pub loctype: String,
 }
 
-async fn index() -> MainData {
+async fn index(Path(x): Path<usize>) -> MainData {
+    println!("go fetch document {x} and process it");
     // MainData::default()
     //
     let json = include_str!("../response.json");
@@ -69,7 +70,7 @@ async fn save(Json(data): Json<MainData>) -> MainData {
 #[tokio::main]
 async fn main() -> Result<()> {
     let router = Router::new()
-        .route("/", get(index))
+        .route("/:id", get(index))
         .route("/save", post(save))
         .nest_service("/static/", tower_http::services::ServeDir::new("static"))
         .fallback(|| async { Fallback });
