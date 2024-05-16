@@ -155,19 +155,16 @@
                         <th scope="col">Last Name</th>
                         <th scope="col">Role</th>
                         <th scope="col">Function</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                        {% for person in persons %}
-                        <tr>
-                            <td contenteditable="true" data-field="first_name" onblur="session_data.persons[{{loop.index0}}].firstname = $(this).text()" >{{person.firstname}}</td>
-                            <td contenteditable="true" data-field="last_name"  onblur="session_data.persons[{{loop.index0}}].lastname  = $(this).text()">{{person.lastname}}</td>
-                            <td contenteditable="true" data-field="role"       onblur="session_data.persons[{{loop.index0}}].role      = $(this).text()">{{person.role}}</td>
-                            <td contenteditable="true" data-field="function"   onblur="session_data.persons[{{loop.index0}}].function  = $(this).text()">{{person.function}}</td>
-                        </tr>
-                        {% endfor %}                    
-                    </tbody>
+                    <tbody></tbody>
                 </table>
+                <button type="button" class="btn btn-primary" onclick="add_person()"><i class="bi bi-plus-circle"></i> Add Person</button>
+                
+                <script type="text/javascript">
+                    display_all_persons()
+                </script>
             </div>
             <!-- ==============================================================================================================================-->
             <!-- === LOCATIONS ================================================================================================================-->
@@ -178,17 +175,16 @@
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Location Type</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                        {% for location in locations %}
-                        <tr>
-                            <td contenteditable="true" data-field="loc_name" onblur="session_data.locations[{{loop.index0}}].name    = $(this).text()" >{{location.name}}</td>
-                            <td contenteditable="true" data-field="loctype"  onblur="session_data.locations[{{loop.index0}}].loctype = $(this).text()">{{location.loctype}}</td>
-                        </tr>
-                        {% endfor %}                    
-                    </tbody>
+                    <tbody></tbody>
                 </table>
+                <button type="button" class="btn btn-primary" onclick="add_location()"><i class="bi bi-plus-circle"></i> Add Location</button>
+                
+                <script type="text/javascript">
+                    display_all_locations()
+                </script>
             </div>
         </form>
     </div>

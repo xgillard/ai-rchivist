@@ -73,3 +73,16 @@
     position: relative;
     display: block;
 }
+
+.cmd-btn {
+}
+.cmd-btn button {
+    font-size: 30px;
+    font-weight: bold;
+    color: whitesmoke;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background-color: #31d2f2;
+    border: #31d2f2;
+}
