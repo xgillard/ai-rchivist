@@ -1,3 +1,5 @@
+use std::env;
+
 use anyhow::Result;
 use askama::Template;
 use axum::{extract::Path, routing::{get, post}, Json, Router};
@@ -74,18 +76,19 @@ fn initial_convers(document: &str) -> Vec<ChatMessage> {
 }
 
 fn interact_with_llm(conversation: Vec<ChatMessage>) -> ChatMessage {
-    /* THIS IS WHAT SHOULD BE DONE 
-    let client = Client::new(None, None, None, None).unwrap();
-    let response = client.chat(
-        Model::OpenMistral7b, 
-        conversation, 
-        Default::default()).unwrap();
-    
-    response.choices[0].message.clone()
-    */
-    let response = include_str!("../response.json");
-    let message = ChatMessage::new_assistant_message(response, None);
-    message
+    if env::var("USE_LLM").unwrap() == "true" {
+        let client = Client::new(None, None, None, None).unwrap();
+        let response = client.chat(
+            Model::OpenMistral7b, 
+            conversation, 
+            Default::default()).unwrap();
+        
+        response.choices[0].message.clone()
+    } else {
+        let response = include_str!("../response.json");
+        let message = ChatMessage::new_assistant_message(response, None);
+        message
+    }
 }
 
 #[tokio::main]
