@@ -72,6 +72,23 @@ function toggle_chatbox() {
 function refresh_conversation(conversation) {
     // TODO
 }
+function send_chat() {
+    // prepare to send message
+    message = {
+        "role"   : "user",
+        "content": $("#message-input").val()
+    };
+    conversation.push(message);
+
+    // actually do send the message
+    $.ajax({
+        url:         "/chat",
+        type:        "POST",
+        data:        JSON.stringify(state),
+        contentType: "application/json; charset=utf-8",
+        dataType:    "json",
+    }).done(set_global_state);
+}
 /************************************************************************************************************************************************************************/
 /***** DOCUMENT *********************************************************************************************************************************************************/
 /************************************************************************************************************************************************************************/

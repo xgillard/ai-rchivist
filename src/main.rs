@@ -2,8 +2,9 @@ use anyhow::Result;
 use askama::Template;
 use axum::{extract::Path, routing::{get, post}, Json, Router};
 use dotenv::dotenv;
-use mistralai_client::v1::chat::ChatMessage;
+use mistralai_client::v1::{chat::ChatMessage, client::Client, constants::Model};
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use tokio::net::TcpListener;
 
 pub mod model;
@@ -16,28 +17,75 @@ struct Fallback;
 
 #[derive(Debug, Clone, Template, Serialize, Deserialize)]
 #[template(path = "index.html")]
-struct Index {
+struct GlobalState {
     pub document_data: DocumentData,
     pub conversation : Vec<ChatMessage>,
 }
-impl Index {
-    pub fn to_string(&self) -> String {
+impl GlobalState {
+    pub fn to_json(&self) -> String {
         serde_json::to_string_pretty(self).unwrap()
     }
 }
 
-async fn index(Path(x): Path<usize>) -> Index {
+async fn index(Path(x): Path<usize>) -> GlobalState {
     println!("go fetch document {x} and process it");
-    // MainData::default()
-    //
-    let json = include_str!("../response.json");
-    let data : DocumentData = serde_json::from_str(json).unwrap();
-    Index{document_data: data, conversation: vec![]}
+    let document = include_str!("../document.txt");
+    initial_interaction(document.to_string())
 }
 
-async fn save(Json(data): Json<Index>) -> Index {
+async fn save(Json(data): Json<GlobalState>) -> GlobalState {
     println!("{:#?}", data.document_data);
     data.clone()
+}
+
+async fn chat(Json(mut state): Json<GlobalState>) -> Json<GlobalState> {
+    let message = interact_with_llm(state.conversation.clone());
+    let response = message.content.clone();
+    state.conversation.push(message);
+    
+    // FIXME: gérer les rponses du llm qui pourraient etre toute pétées
+    let mut response: Value = serde_json::from_str(&response).unwrap();
+    response["document"]    = serde_json::Value::String(state.document_data.document.clone());
+    state.document_data     = serde_json::from_value(response).unwrap();
+
+    Json::from(state)
+}
+
+fn initial_interaction(document: String) -> GlobalState {
+    let mut convers = initial_convers(&document);
+    let response = interact_with_llm(convers.clone());
+
+    // FIXME: gérer les rponses du llm qui pourraient etre toute pétées
+    let mut docdata: Value = serde_json::from_str(&response.content).unwrap();
+    docdata["document"]    = serde_json::Value::String(document);
+    let docdata = serde_json::from_value(docdata).unwrap();
+    convers.push(response);
+
+    GlobalState { document_data: docdata, conversation: convers }
+}
+
+fn initial_convers(document: &str) -> Vec<ChatMessage> {
+    let prompt= include_str!("../prompt.txt");
+    let prompt = format!("{prompt}\n# Document\n{document}");
+
+    vec![
+        ChatMessage::new_user_message(&prompt)
+    ]
+}
+
+fn interact_with_llm(conversation: Vec<ChatMessage>) -> ChatMessage {
+    /* THIS IS WHAT SHOULD BE DONE 
+    let client = Client::new(None, None, None, None).unwrap();
+    let response = client.chat(
+        Model::OpenMistral7b, 
+        conversation, 
+        Default::default()).unwrap();
+    
+    response.choices[0].message.clone()
+    */
+    let response = include_str!("../response.json");
+    let message = ChatMessage::new_assistant_message(response, None);
+    message
 }
 
 #[tokio::main]
@@ -47,6 +95,7 @@ async fn main() -> Result<()> {
     let router = Router::new()
         .route("/:id", get(index))
         .route("/save", post(save))
+        .route("/chat", post(chat))
         .nest_service("/static/", tower_http::services::ServeDir::new("static"))
         .fallback(|| async { Fallback });
 

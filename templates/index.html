@@ -62,10 +62,10 @@
                 <!-- Chat messages will be appended here -->
             </div>
             <div class="chatbox-footer">
-                <form id="chat-form">
+                <form id="chat-form" onsubmit="return false;">
                     <div class="input-group">
                         <input type="text" class="form-control" id="message-input" placeholder="Type your message...">
-                        <button class="btn btn-primary" type="submit" id="message-submit">Send</button>
+                        <button class="btn btn-primary" id="message-submit" onclick="send_chat()">Send</button>
                     </div>
                 </form>
             </div>
@@ -167,7 +167,7 @@
     </div>
     <!-- *** END PAYLOAD ********************************************************************************************************************* -->
     <script type="text/javascript">
-        set_global_state( {{Self::to_string(self)|escape("none")}} );
+        set_global_state( {{Self::to_json(self)|escape("none")}} );
         nav_to('document');
     </script>
     </body>
