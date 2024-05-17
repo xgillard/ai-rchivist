@@ -18,8 +18,8 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 
         <!-- My own stuff -->
-        <link rel="stylesheet" href="/static/machine_in_the_loop.css" />
-        <script src="/static/machine_in_the_loop.js"></script>
+        <link rel="stylesheet" href="/static/ai-rchivist.css" />
+        <script src="/static/ai-rchivist.js"></script>
     </head>
     <body>
         <!-- *** BEGIN NAVIGATION ************************************************************************************************************ -->
@@ -43,16 +43,13 @@
                         <a id="nav-locations" class="nav-link" href="#" onclick="nav_to('locations')">Locations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="post('/save', session_data)"><i class="bi bi-floppy2"></i></a>
+                        <a class="nav-link" href="#" onclick="post('/save', state)"><i class="bi bi-floppy2"></i></a>
                     </li>
                 </ul>
               </div>
             </nav>
         </header>
         <!-- *** END NAVIGATION **************************************************************************************************************** -->
-        <script type="text/javascript">
-            var session_data = {{Self::to_string(self)|escape("none")}};
-        </script>
 
         <!-- *** BEGIN CHATBOX ***************************************************************************************************************** -->
         <div id="chatbox" class="chatbox-container">
@@ -87,7 +84,7 @@
             <div id="tab-document" class="container">
                 <div class="mb-3">
                 <label for="dta-document" class="form-label">Transcription of the Document</label>
-                <textarea id="dta-document" name="dta-document" class="form-control" rows="30" placeholder="Transcription of the document" aria-label="Transcription of the Document">{{document}}</textarea>
+                <textarea id="dta-document" name="dta-document" class="form-control" rows="30" placeholder="Transcription of the document" aria-label="Transcription of the Document" onblur="document_data.document = $(this).val()"></textarea>
                 </div>
             </div>
             <!-- ==============================================================================================================================-->
@@ -97,7 +94,7 @@
                 <!-- ~~~ DOCTYPE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div class="input-group mb-3">
                     <span class="input-group-text">Type of the Document</span>
-                    <select id="dta-doctype" name="dta-doctype" class="form-select" aria-label="Type of the document" onblur="session_data.doctype = $(this).val()">
+                    <select id="dta-doctype" name="dta-doctype" class="form-select" aria-label="Type of the document" onblur="document_data.doctype = $(this).val()">
                         <option value="UNKNOWN"  >Unknown</option>
                         <option value="REMISSION">Remission</option>
                         <option value="SENTENCE" >Sentence</option>
@@ -106,43 +103,31 @@
                 <!-- ~~~ DATES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div class="input-group mb-3">
                     <span class="input-group-text">Act Date</span>
-                    <input type="text" class="form-control" id="dta-actdate" name="dta-actdate" placeholder="UNKNOWN" value="{{metadata.act_date}}"  onblur="session_data.act_date = $(this).val()" aria-label="Act Date" />
+                    <input type="text" class="form-control" id="dta-actdate" name="dta-actdate" placeholder="UNKNOWN" onblur="document_data.act_date = $(this).val()" aria-label="Act Date" />
                     
                     <span class="input-group-text">Facts Date</span>
-                    <input type="text" class="form-control" id="dta-factdate" name="dta-factdate" placeholder="UNKNOWN" value="{{metadata.fact_date}}" onblur="session_data.fact_date = $(this).val()" aria-label="Facts Date" />
+                    <input type="text" class="form-control" id="dta-factdate" name="dta-factdate" placeholder="UNKNOWN" onblur="document_data.fact_date = $(this).val()" aria-label="Facts Date" />
                 </div>
                 <!-- ~~~ Summary ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <div class="mb-3">
                 <label for="dta-summary-en" class="form-label">Summary in English</label>
-                <textarea id="dta-summary-en" name="dta-summary-en" class="form-control" placeholder="Summary in English" aria-label="Summary in English" onblur="session_data.summary.en = $(this).val()" >{{metadata.summary.en}}</textarea>
+                <textarea id="dta-summary-en" name="dta-summary-en" class="form-control" placeholder="Summary in English" aria-label="Summary in English" onblur="document_data.summary.en = $(this).val()" ></textarea>
                 </div>
 
                 <div class="mb-3">
                 <label for="dta-summary-fr" class="form-label">Summary in French</label>
-                <textarea id="dta-summary-fr" name="dta-summary-fr" class="form-control" placeholder="Summary in French" aria-label="Summary in French" onblur="session_data.summary.fr = $(this).val()" >{{metadata.summary.fr}}</textarea>
+                <textarea id="dta-summary-fr" name="dta-summary-fr" class="form-control" placeholder="Summary in French" aria-label="Summary in French" onblur="document_data.summary.fr = $(this).val()" ></textarea>
                 </div>
 
                 <div class="mb-3">
                 <label for="dta-summary-nl" class="form-label">Summary in Dutch</label>
-                <textarea id="dta-summary-nl" name="dta-summary-nl" class="form-control" placeholder="Summary in Dutch"  aria-label="Summary in Dutch" onblur="session_data.summary.nl = $(this).val()" >{{metadata.summary.nl}}</textarea>
+                <textarea id="dta-summary-nl" name="dta-summary-nl" class="form-control" placeholder="Summary in Dutch"  aria-label="Summary in Dutch" onblur="document_data.summary.nl = $(this).val()" ></textarea>
                 </div>
                 
                 <div class="mb-3">
                 <label for="dta-summary-de" class="form-label">Summary in German</label>
-                <textarea id="dta-summary-de" name="dta-summary-de" class="form-control" placeholder="Summary in German" aria-label="Summary in German" onblur="session_data.summary.de = $(this).val()" >{{metadata.summary.de}}</textarea>
+                <textarea id="dta-summary-de" name="dta-summary-de" class="form-control" placeholder="Summary in German" aria-label="Summary in German" onblur="document_data.summary.de = $(this).val()" ></textarea>
                 </div>
-
-                
-                
-                <script type="text/javascript">
-                    // doing it this way ensures i have a compilation error if metadata.doctype is not defined
-                    var preload = "{{metadata.doctype}}"; 
-                    if (preload == "REMISSION" || preload == "SENTENCE") {
-                        $("#dta-doctype").val(preload);
-                    } else {
-                        $("#dta-doctype").val("UNKNOWN");
-                    }
-                </script>
             </div>
             <!-- ==============================================================================================================================-->
             <!-- === PERSONS ==================================================================================================================-->
@@ -161,10 +146,6 @@
                     <tbody></tbody>
                 </table>
                 <button type="button" class="btn btn-primary" onclick="add_person()"><i class="bi bi-plus-circle"></i> Add Person</button>
-                
-                <script type="text/javascript">
-                    display_all_persons()
-                </script>
             </div>
             <!-- ==============================================================================================================================-->
             <!-- === LOCATIONS ================================================================================================================-->
@@ -181,15 +162,12 @@
                     <tbody></tbody>
                 </table>
                 <button type="button" class="btn btn-primary" onclick="add_location()"><i class="bi bi-plus-circle"></i> Add Location</button>
-                
-                <script type="text/javascript">
-                    display_all_locations()
-                </script>
             </div>
         </form>
     </div>
     <!-- *** END PAYLOAD ********************************************************************************************************************* -->
     <script type="text/javascript">
+        set_global_state( {{Self::to_string(self)|escape("none")}} );
         nav_to('document');
     </script>
     </body>

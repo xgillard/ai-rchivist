@@ -1,72 +1,42 @@
-use std::env;
-
 use anyhow::Result;
 use askama::Template;
 use axum::{extract::Path, routing::{get, post}, Json, Router};
 use dotenv::dotenv;
+use mistralai_client::v1::chat::ChatMessage;
 use serde::{Deserialize, Serialize};
 use tokio::net::TcpListener;
+
+pub mod model;
+use model::*;
 
 /// This is a dummy placeholder to route incorrect requests towards an error page
 #[derive(Debug, Clone, Copy, Default, Template)]
 #[template(path = "fallback.html")]
 struct Fallback;
 
-
-#[derive(Debug, Clone, Default, Template, Serialize, Deserialize)]
+#[derive(Debug, Clone, Template, Serialize, Deserialize)]
 #[template(path = "index.html")]
-pub struct MainData {
-    pub document:  String,
-    #[serde(flatten)]
-    pub metadata:  Metadata,
-    pub persons:   Vec<Person>,
-    pub locations: Vec<Location>,
+struct Index {
+    pub document_data: DocumentData,
+    pub conversation : Vec<ChatMessage>,
 }
-impl MainData {
+impl Index {
     pub fn to_string(&self) -> String {
         serde_json::to_string_pretty(self).unwrap()
     }
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct Metadata {
-    pub doctype :  String,
-    pub act_date:  String,
-    pub fact_date: String,
-    pub summary:   MultiLingual,
-}
-
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct MultiLingual {
-    pub en: String,
-    pub fr: String,
-    pub nl: String,
-    pub de: String,
-}
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct Person {
-    pub firstname: String,
-    pub lastname:  String,
-    pub role:      String,
-    pub function:  String,
-}
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct Location {
-    pub name: String,
-    pub loctype: String,
-}
-
-async fn index(Path(x): Path<usize>) -> MainData {
+async fn index(Path(x): Path<usize>) -> Index {
     println!("go fetch document {x} and process it");
     // MainData::default()
     //
     let json = include_str!("../response.json");
-    let data : MainData = serde_json::from_str(json).unwrap();
-    data
+    let data : DocumentData = serde_json::from_str(json).unwrap();
+    Index{document_data: data, conversation: vec![]}
 }
 
-async fn save(Json(data): Json<MainData>) -> MainData {
-    println!("{:#?}", data);
+async fn save(Json(data): Json<Index>) -> Index {
+    println!("{:#?}", data.document_data);
     data.clone()
 }
 
