@@ -1,6 +1,9 @@
+use std::env;
+
 use anyhow::Result;
 use askama::Template;
 use axum::{extract::Path, routing::{get, post}, Json, Router};
+use dotenv::dotenv;
 use serde::{Deserialize, Serialize};
 use tokio::net::TcpListener;
 
@@ -69,6 +72,8 @@ async fn save(Json(data): Json<MainData>) -> MainData {
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    dotenv()?;
+
     let router = Router::new()
         .route("/:id", get(index))
         .route("/save", post(save))
