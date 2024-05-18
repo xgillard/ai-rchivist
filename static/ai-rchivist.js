@@ -87,13 +87,26 @@ function send_chat() {
         data:        JSON.stringify(state),
         contentType: "application/json; charset=utf-8",
         dataType:    "json",
-    }).done(set_global_state);
+        success:     set_global_state, 
+        error:       error_handler,
+    });
 }
 /************************************************************************************************************************************************************************/
 /***** DOCUMENT *********************************************************************************************************************************************************/
 /************************************************************************************************************************************************************************/
 function refresh_document(doc) {
     $("#dta-document").val(doc)
+}
+function initiate_conversation() {
+    $.ajax({
+        url:         "/initiate",
+        type:        "POST",
+        data:        JSON.stringify(document_data.document),
+        contentType: "application/json; charset=utf-8",
+        dataType:    "json",
+        success:     set_global_state, 
+        error:       error_handler,
+    });
 }
 /************************************************************************************************************************************************************************/
 /***** METADATA *********************************************************************************************************************************************************/
@@ -214,7 +227,7 @@ function delete_location(idx) {
 /***** UTILS ************************************************************************************************************************************************************/
 /************************************************************************************************************************************************************************/
 function post(url, data) {
-    $.ajax({
+    return $.ajax({
         url:         url,
         type:        "POST",
         data:        JSON.stringify(data),
@@ -222,6 +235,23 @@ function post(url, data) {
         dataType:    "json",
         success:     function(){
             console.log("post ok")
-        }
+        }, 
+        error: error_handler,
     })  
+}
+function error_handler(xhr, err) {
+    $("#error-panel").html(
+        `
+        <div class="errorbox">
+            <div class="errorbox-header">
+                <span class="errorbox-title"> <i class="bi bi-cone-striped"></i> Oops !</span>
+                <button class="btn-close" aria-label="Close" onclick="$('#error-panel').hide()"></button>
+            </div>
+            <div class="errorbox-body">
+                ${xhr.responseText}
+            </div>
+        </div>
+        `
+    );
+    $("#error-panel").show();
 }

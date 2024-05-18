@@ -18,6 +18,7 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 
         <!-- My own stuff -->
+        <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
         <link rel="stylesheet" href="/static/ai-rchivist.css" />
         <script src="/static/ai-rchivist.js"></script>
     </head>
@@ -85,6 +86,7 @@
                 <div class="mb-3">
                 <label for="dta-document" class="form-label">Transcription of the Document</label>
                 <textarea id="dta-document" name="dta-document" class="form-control" rows="30" placeholder="Transcription of the document" aria-label="Transcription of the Document" onblur="document_data.document = $(this).val()"></textarea>
+                <button type="button" class="btn btn-primary" onclick="initiate_conversation()"><i class="bi bi-robot"></i> Analyze Document</button>
                 </div>
             </div>
             <!-- ==============================================================================================================================-->
@@ -165,6 +167,7 @@
             </div>
         </form>
     </div>
+    <div id="error-panel" class="errorbox-container"></div>
     <!-- *** END PAYLOAD ********************************************************************************************************************* -->
     <script type="text/javascript">
         set_global_state( {{Self::to_json(self)|escape("none")}} );
