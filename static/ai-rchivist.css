@@ -43,6 +43,24 @@
 }
 
 
+.message {
+    position: relative;
+    border-radius: 15px;
+    display: block;
+    padding: .5em;
+    margin: .5em;
+    width: 75%;
+}
+
+.assistant-message {
+    float: left;
+    background-color:#31d2f2;
+}
+.user-message {
+    float: right;
+    background-color:#a7fd92;
+}
+
 /* ---------------------------------------------------------------------------------------------------------------------------------------------------------- */
 .errorbox-container {
     position: fixed;

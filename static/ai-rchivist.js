@@ -62,6 +62,12 @@ function set_global_conversation(convers) {
     conversation  = state.conversation;
     refresh_conversation(conversation);
 }
+function reset_data_version(version) {
+    console.log(version)
+    version.document    = document_data.document;
+    state.document_data = version;
+    set_global_documentdata(version);
+}
 /************************************************************************************************************************************************************************/
 /***** CHATBOX***********************************************************************************************************************************************************/
 /************************************************************************************************************************************************************************/
@@ -70,7 +76,38 @@ function toggle_chatbox() {
     $('#chatbtn').toggle()
 }
 function refresh_conversation(conversation) {
-    // TODO
+    $("#chat-messages").empty();
+
+    conversation ??= 0;
+    if (conversation == 0) {
+        return;
+    } else {
+        conversation
+            .slice(1) // skip the system prompt
+            .forEach(function(message) {
+                if (message.role.toLowerCase() == "assistant") {
+                    try {
+                        let version = JSON.parse(message.content);
+                        $("#chat-messages").append(
+                            $("<div class='message assistant-message' onclick='reset_data_version(JSON.parse(JSON.stringify($(this).data(\"version\"))))'>" +
+                              "There you go, I updated the information (click on this message to return to this version)"+
+                              "</div>"
+                            ).data("version", version)
+                        )
+                    } catch (err) {
+                        $("#chat-messages").append(
+                            $(`<div class='message assistant-message'>Sorry, the response I produced was ill formatted</div>`)
+                        )
+                    }
+                } else {
+                    $("#chat-messages").append(
+                        $(`<div class='message user-message'>${message.content}</div>`)
+                    )
+                }
+            });
+
+            $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+    }
 }
 function send_chat() {
     // prepare to send message
@@ -79,6 +116,9 @@ function send_chat() {
         "content": $("#message-input").val()
     };
     conversation.push(message);
+
+    // clear the input
+    $("#message-input").val("");
 
     // actually do send the message
     $.ajax({
