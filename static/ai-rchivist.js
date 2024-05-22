@@ -141,7 +141,7 @@ function initiate_conversation() {
     $.ajax({
         url:         "/initiate",
         type:        "POST",
-        data:        JSON.stringify(document_data.document),
+        data:        JSON.stringify({"document": document_data.document}),
         contentType: "application/json; charset=utf-8",
         dataType:    "json",
         success:     set_global_state, 

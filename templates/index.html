@@ -170,7 +170,7 @@
     <div id="error-panel" class="errorbox-container"></div>
     <!-- *** END PAYLOAD ********************************************************************************************************************* -->
     <script type="text/javascript">
-        set_global_state( {{Self::to_json(self)|escape("none")}} );
+        set_global_state( {{ app_state|tojson|safe }} );
         nav_to('document');
     </script>
     </body>
