@@ -83,7 +83,7 @@ function refresh_conversation(conversation) {
         return;
     } else {
         conversation
-            .slice(1) // skip the system prompt
+            .slice(2) // skip the system prompt
             .forEach(function(message) {
                 if (message.role.toLowerCase() == "assistant") {
                     try {
@@ -117,8 +117,12 @@ function send_chat() {
     };
     conversation.push(message);
 
-    // clear the input
+    // UPDATE UI :: clear the input + add message to chat
     $("#message-input").val("");
+    $("#chat-messages").append(
+        $(`<div class='message user-message'>${message.content}</div>`)
+    )
+    $("#chat-messages").append(typing_dots());
 
     // actually do send the message
     $.ajax({
@@ -131,6 +135,15 @@ function send_chat() {
         error:       error_handler,
     });
 }
+function typing_dots() {
+    return $(
+        '<div class="message assistant-message typing-dots">' +
+        '   <span class="dot"></span> ' +
+        '    <span class="dot"></span>' +
+        '    <span class="dot"></span>' +
+        '</div>'
+        );
+}
 /************************************************************************************************************************************************************************/
 /***** DOCUMENT *********************************************************************************************************************************************************/
 /************************************************************************************************************************************************************************/
@@ -138,14 +151,21 @@ function refresh_document(doc) {
     $("#dta-document").val(doc)
 }
 function initiate_conversation() {
+    $("#please-wait").show();
     $.ajax({
         url:         "/initiate",
         type:        "POST",
         data:        JSON.stringify({"document": document_data.document}),
         contentType: "application/json; charset=utf-8",
         dataType:    "json",
-        success:     set_global_state, 
-        error:       error_handler,
+        success: function(data) {
+            set_global_state(data);
+            $("#please-wait").hide();
+        }, 
+        error: function(data) {
+            error_handler(data);
+            $("#please-wait").hide();
+        },
     });
 }
 /************************************************************************************************************************************************************************/
