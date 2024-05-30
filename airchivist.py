@@ -25,7 +25,7 @@ def empty() -> str:
 
 @app.route("/<int:id>")
 def with_id(id: int) -> str: 
-    with open("document.txt") as f:
+    with open("document.txt", encoding="utf8") as f:
         document  = f.read()
         app_state = initial_interaction(document)
         return render_template('index.html', app_state=app_state)
@@ -59,7 +59,7 @@ def chat() -> dict:
 # SERVER LOGIC
 #########################################################################################################
 def initial_convers(document: str) -> list[dict]:
-    with open("prompt.txt") as f:
+    with open("prompt.txt", encoding="utf8") as f:
         sysprompt = f.read()
         usrprompt = document
         return [
@@ -69,7 +69,7 @@ def initial_convers(document: str) -> list[dict]:
 
 def interact_with_llm(conversation: list[dict]) -> dict:
     if not use_llm:
-        with open("response.json") as f:
+        with open("response.json", encoding="utf8") as f:
             return {
                 "role"    : "assistant", 
                 "content" : f.read()
