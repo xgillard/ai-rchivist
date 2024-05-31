@@ -48,6 +48,10 @@ function set_global_state(newstate) {
     set_global_documentdata(state.document_data);
     set_global_conversation(state.conversation);
 }
+function set_global_model(model) {
+    state.model = model;
+    $("#dta-model").val(model);
+}
 function set_global_documentdata(data) {
     document_data = data;
     refresh_documentdata(document_data);

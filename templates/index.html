@@ -28,7 +28,7 @@
             <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap">
               <a class="navbar-brand" href="#"><i class="bi bi-robot"></i> AI-rchivist</a>
               
-              <div class="offcanvas-lg offcanvas-end flex-grow-1">
+              <div class="collapse navbar-collapse">
                 <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav">
                     <li class="nav-item">
                         <a  id="nav-document" class="nav-link" href="#" onclick="nav_to('document')">Document</a>
@@ -47,6 +47,27 @@
                         <a class="nav-link" href="#" onclick="post('/save', state)"><i class="bi bi-floppy2"></i></a>
                     </li>
                 </ul>
+              </div>
+
+              <div class="d-flex col-2">
+                <div class="input-group">
+                    <span class="input-group-text">Model</span>
+                    <select id="dta-model" name="dta-model" class="form-select" style="font-family: monospace; font-size: small; white-space: pre; " aria-label="Model" onblur="state.model = $(this).val()">
+                        <!-- Open Source -->
+                        <option value="open-mistral-7b"        >{{ keep_fmt("Mistral 7B     32k (🡅 0.20€ 🡇  0.20€)") | safe }}</option>
+                        <option value="open-mixtral-8x7b"      >{{ keep_fmt("Mixtral 8x7B   32k (🡅 0.65€ 🡇  0.65€)") | safe }}</option>
+                        <option value="open-mixtral-8x22b"     >{{ keep_fmt("Mixtral 8x22B  64k (🡅 1.90€ 🡇  5.60€)") | safe }}</option>
+                        <!-- Proprietary: Mistral -->
+                        <option value="mistral-small-2402"     >{{ keep_fmt("Mistral Small  32k (🡅 0.90€ 🡇  2.80€)") | safe }}</option>
+                        <option value="mistral-medium-2312"    >{{ keep_fmt("Mistral Medium 32k (🡅 2.50€ 🡇  7.50€)") | safe }}</option>
+                        <option value="mistral-large-2402"     >{{ keep_fmt("Mistral Large  32k (🡅 3.80€ 🡇 11.30€)") | safe }}</option>
+                        <!-- Proprietary: OpenAI -->
+                        <!--
+                        <option value="gpt-3.5-turbo"          >GPT 3.5 TURBO  16k (🡅 0.50€ 🡇  1.50€)</option>
+                        <option value="gpt-4-o"                >GPT 4o        128k (🡅 5.00€ 🡇 15.00€)</option>
+                        <option value="gpt-4-turbo"            >GPT 4 TURBO   128k (🡅 0.00€ 🡇 30.00€)</option>
+                        -->
+                    </select>
               </div>
             </nav>
         </header>
