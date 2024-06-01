@@ -2,6 +2,7 @@ import os
 import json
 import datasets 
 import pandas as pd
+from threading                        import RLock
 from io                               import StringIO
 from flask                            import Flask, render_template, request, Response
 from dotenv                           import load_dotenv
@@ -60,7 +61,9 @@ def prepare_dataset() -> pd.DataFrame:
     ds.insert(4, "labeling", [ None for _ in range(len(ds)) ])
     return ds
 
-# FIXME: how can I ensure it is not modified concurrently ?
+# ce reentrant lock (peut etre acquis pls fois par le meme thread permet de garantir l'acces correct
+# au dataset (qui n'est pas thread safe)
+DS_LOCK = RLock()
 DATASET = prepare_dataset()
 
 #########################################################################################################
@@ -68,14 +71,17 @@ DATASET = prepare_dataset()
 #########################################################################################################
 @app.route("/")
 def empty() -> str:
-    not_processed_yet = DATASET[DATASET["labeling"].isnull()]
-    not_processed_yet = not_processed_yet.sample(1)["id"]
+    with DS_LOCK:
+        not_processed_yet = DATASET[DATASET["labeling"].isnull()]
+        not_processed_yet = not_processed_yet.sample(1)["id"]
     return with_id(int(not_processed_yet))
 
 @app.route("/<int:id>")
 def with_id(id: int) -> str:
-    row       = DATASET.iloc[id]
-    app_state = json.loads(row["labeling"]) if row["labeling"] else initial_interaction(DEFAULT_MODEL, id, row["text"])
+    with DS_LOCK:
+        row           = DATASET.iloc[id]
+        labeling,text = row[["labeling", "text"]]
+    app_state = json.loads(labeling) if labeling else initial_interaction(DEFAULT_MODEL, id, text)
     return render_template('index.html', app_state=app_state)
 
 #########################################################################################################
@@ -89,8 +95,9 @@ def initiate() -> dict:
 @app.route("/save", methods=["POST"])
 def save() -> dict: 
     app_state = request.json
-    print(f"{json.dumps(app_state)}")
-    DATASET.loc[int(app_state["id"]), "labeling"] = json.dumps(app_state)
+    labeling  = json.dumps(app_state)
+    with DS_LOCK:
+        DATASET.loc[int(app_state["id"]), "labeling"] = labeling
     return app_state
 
 @app.route("/chat", methods=["POST"])
@@ -110,7 +117,8 @@ def chat() -> dict:
 @app.route("/dump")
 def dump(): 
     out = StringIO()
-    DATASET.to_json(out, index=False)
+    with DS_LOCK:
+        DATASET.to_json(out, index=False)
     csv = out.getvalue()
     response = Response(csv, content_type='text/json')
     response.headers['Content-Disposition'] = 'attachment; filename=data.json'
