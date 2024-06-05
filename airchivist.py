@@ -9,6 +9,13 @@ from dotenv import load_dotenv
 from mistralai.client import MistralClient
 from mistralai.models.chat_completion import ChatMessage
 
+from checkpointing import (
+    checkpointed,
+    critical,
+    generational,
+    latest_checkpoint,
+)
+
 ##############################################################################
 # SERVER INITIALIZATION
 ##############################################################################
@@ -16,8 +23,9 @@ load_dotenv()
 DEFAULT_MODEL = 'open-mistral-7b'
 
 app = Flask(__name__)
-api_key = os.getenv('MISTRAL_API_KEY')
-use_llm = os.getenv('USE_LLM').lower() == 'true'
+use_llm = str(os.getenv('USE_LLM')).lower() == 'true'
+checkpt = str(os.getenv('CHECKPOINT_DIR'))
+api_key = str(os.getenv('MISTRAL_API_KEY'))
 client = MistralClient(api_key=api_key)
 
 
@@ -42,21 +50,25 @@ def default_appstate(id: int = 0, text: str = '') -> dict:
 
 
 def prepare_dataset() -> pd.DataFrame:
-    ds = datasets.load_dataset('arch-be/brabant-xvii', name='doc_by_doc')
-    #
-    train = ds['train'].to_pandas()
-    test = ds['test'].to_pandas()
-    valid = ds['valid'].to_pandas()
-    # insert additional 'subset' column
-    train.insert(0, 'subset', ['train'] * len(train))
-    test.insert(0, 'subset', ['test'] * len(test))
-    valid.insert(0, 'subset', ['valid'] * len(valid))
-    # combine all subsets into one big dataframe
-    ds = pd.concat([train, test, valid], axis='index', ignore_index=True)
-    # insert one additional column to hold the json state
-    ds.insert(0, 'id', [i for i in range(len(ds))])
-    ds.insert(4, 'labeling', [None for _ in range(len(ds))])
-    return ds
+    if previously_checkpointed := latest_checkpoint(checkpt):
+        return pd.read_json(previously_checkpointed)
+    else:
+        ds = datasets.load_dataset('arch-be/brabant-xvii', name='doc_by_doc')
+        #
+        train = ds['train'].to_pandas()
+        test = ds['test'].to_pandas()
+        valid = ds['valid'].to_pandas()
+        # insert additional 'subset' column
+        train.insert(0, 'subset', ['train'] * len(train))
+        test.insert(0, 'subset', ['test'] * len(test))
+        valid.insert(0, 'subset', ['valid'] * len(valid))
+        # combine all subsets into one big dataframe
+        ds = pd.concat([train, test, valid], axis='index', ignore_index=True)
+        # insert one additional column to hold the json state
+        ds.insert(0, 'id', [i for i in range(len(ds))])
+        ds.insert(4, 'validated', [False for _ in range(len(ds))])
+        ds.insert(5, 'labeling', [None for _ in range(len(ds))])
+        return ds
 
 
 # ce reentrant lock (peut etre acquis pls fois par le meme thread permet de
@@ -65,13 +77,18 @@ DS_LOCK = RLock()
 DATASET = prepare_dataset()
 
 
+@critical(DS_LOCK)
+def save_dataset(fname):
+    DATASET.to_json(fname)
+
+
 ##############################################################################
 # ROUTES -- PAGES
 ##############################################################################
 @app.route('/')
 def empty() -> str:
     with DS_LOCK:
-        not_processed_yet = DATASET[DATASET['labeling'].isnull()]
+        not_processed_yet = DATASET[DATASET['validated'] == False]
         not_processed_yet = not_processed_yet.sample(1)['id']
     return with_id(int(not_processed_yet))
 
@@ -101,6 +118,8 @@ def initiate() -> dict:
 
 
 @app.route('/save', methods=['POST'])
+@generational(directory=checkpt)
+@checkpointed(save_dataset, directory=checkpt)
 def save() -> dict:
     app_state = request.json
     labeling = json.dumps(app_state)

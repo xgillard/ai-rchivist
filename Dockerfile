@@ -8,13 +8,14 @@ FROM ubuntu:24.04
 RUN apt-get update
 RUN apt-get install -y python3 python3-pip python3-venv
 
-COPY run.sh           /opt/airchivist/run.sh
-COPY static           /opt/airchivist/static/
-COPY templates        /opt/airchivist/templates/
-COPY .env             /opt/airchivist/.env
-COPY airchivist.py    /opt/airchivist/airchivist.py
-COPY requirements.txt /opt/airchivist/requirements.txt
-COPY prompt.txt       /opt/airchivist/prompt.txt
+COPY run.sh                       /opt/airchivist/run.sh
+COPY static                       /opt/airchivist/static/
+COPY templates                    /opt/airchivist/templates/
+COPY .env                         /opt/airchivist/.env
+COPY airchivist.py                /opt/airchivist/airchivist.py
+COPY checkpointing.py             /opt/airchivist/checkpointing.py
+COPY requirements.txt             /opt/airchivist/requirements.txt
+COPY prompt.txt                   /opt/airchivist/prompt.txt
 # --- mock stuffs ------------------------------------------
 COPY document.txt                 /opt/airchivist/document.txt
 COPY response.json                /opt/airchivist/response.json
