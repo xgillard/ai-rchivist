@@ -90,7 +90,7 @@ def empty() -> str:
     with DS_LOCK:
         not_processed_yet = DATASET[DATASET['validated'] == False]
         not_processed_yet = not_processed_yet.sample(1)['id']
-    return with_id(int(not_processed_yet))
+    return with_id(int(not_processed_yet.iloc[0]))
 
 
 @app.route('/<int:id>')

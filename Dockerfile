@@ -1,8 +1,42 @@
-# This dockerfile is used to create the xaviergillard/airchivist:latest image
-# docker build -t xaviergillard/airchivist:latest .
+# # The AIRchivist
 #
-# It is then run as follow:
-# docker run -p 8080:8080 -t xaviergillard/airchivist:latest
+# The airchivist is a prototype aiming to exploit an agentic LLM to perform data extraction in ancient texts whose transcription
+# and understanding might be hard to grasp for present day people. In a second phase, this prototype should be recycled as a 
+# tool to help archivist speedup their inventoriation process.
+#
+# ## Building the image
+#
+# Should you ever need to update the code of the airchivist (be it to adapt the LLM prompt), then you would likely need to rebuild
+# the docker image before deploying it in your infrastructure. This dockerfile was used to create the xaviergillard/airchivist:latest 
+# image. To create your own flavor of this container, you will need to adapt the following command according to your very needs.
+# ```
+# docker build -t xaviergillard/airchivist:latest .
+# ```
+# 
+# ## Running the image
+#
+# ### On linux/OSX
+# ```
+# docker run --name    the-airchivist                                                                                                  \
+#            --mount   "type=bind,src=$(pwd)\checkpoints,dst=/opt/airchivist/checkpoints"                                              \
+#            -e        "CHECKPOINT_DIR=/opt/airchivist/checkpoints/"                                                                   \
+#            -e        "MISTRAL_API_KEY=ABCDEFGHIJKLMNOPQSRTUVWXYZ"                                                                    \
+#            -e        "USE_LLM=false"                                                                                                 \
+#            -p        8080:8080                                                                                                       \
+#            -t        xaviergillard/airchivist:latest
+# ```
+#
+# ### On Windows
+# ```
+# docker run --name    the-airchivist                                                                                                  ^
+#            --mount   "type=bind,src=C:\Users\xavier.gillard\Documents\REPO\ai-rchivist\checkpoints,dst=/opt/airchivist/checkpoints"  ^
+#            -e        "CHECKPOINT_DIR=/opt/airchivist/checkpoints/"                                                                   ^
+#            -e        "MISTRAL_API_KEY=ABCDEFGHIJKLMNOPQSRTUVWXYZ"                                                                    ^
+#            -e        "USE_LLM=false"                                                                                                 ^
+#            -p        8080:8080                                                                                                       ^
+#            -t        xaviergillard/airchivist:latest
+# ```
+#
 FROM ubuntu:24.04
 
 RUN apt-get update
