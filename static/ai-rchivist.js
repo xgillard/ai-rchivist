@@ -24,6 +24,7 @@ function nav_to(tab) {
 /***** GLOBAL STATE *****************************************************************************************************************************************************/
 /************************************************************************************************************************************************************************/
 var state = {
+    "id": 0,
     "document_data": {
         "document" : "example document",
         "doctype"  : "UNKNOWN",
@@ -43,8 +44,29 @@ var state = {
 var document_data = state.document_data;
 var conversation  = state.conversation;
 
+function ensure_ok_state(newstate) {
+    newstate.id            = newstate.id || 0;
+    newstate.document_data = ensure_ok_documentdata(newstate.document_data);
+    newstate.conversation  = newstate.conversation || [];
+    return newstate;
+}
+function ensure_ok_documentdata(docdata) {
+    docdata.document   = docdata.document   || "example document";
+    docdata.doctype    = docdata.doctype    || "UNKNOWN";
+    docdata.act_date   = docdata.act_date   || "UNKNOWN";
+    docdata.fact_date  = docdata.fact_date  || "UNKNOWN";
+    docdata.summary    = docdata.summary    || {};
+    docdata.summary.en = docdata.summary.en || "english";
+    docdata.summary.fr = docdata.summary.fr || "french";
+    docdata.summary.nl = docdata.summary.nl || "dutch";
+    docdata.summary.de = docdata.summary.de || "german";
+    docdata.persons    = docdata.persons    || [];
+    docdata.locations  = docdata.locations  || [];
+    return docdata;
+}
+
 function set_global_state(newstate) {
-    state = newstate;
+    state = ensure_ok_state(newstate);
     set_global_documentdata(state.document_data);
     set_global_conversation(state.conversation);
 }
@@ -159,7 +181,7 @@ function initiate_conversation() {
     $.ajax({
         url:         "/initiate",
         type:        "POST",
-        data:        JSON.stringify({"document": document_data.document}),
+        data:        JSON.stringify({"id": state.id, "document": document_data.document}),
         contentType: "application/json; charset=utf-8",
         dataType:    "json",
         success: function(data) {

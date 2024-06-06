@@ -80,4 +80,8 @@ def latest_checkpoint(directory):
     """
     Returns the latest known checkpoint
     """
-    return max((join(directory, e) for e in listdir(directory)), key=getmtime)
+    return max(
+        (join(directory, e) for e in listdir(directory)),
+        key=getmtime,
+        default=None,
+    )

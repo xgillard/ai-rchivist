@@ -120,7 +120,7 @@ def with_id(id: int) -> str:
         row = DATASET.iloc[id]
         labeling, text = row[['labeling', 'text']]
     app_state = (
-        json.loads(labeling)
+        json.loads(labeling, strict=False)
         if labeling
         else initial_interaction(DEFAULT_MODEL, id, text)
     )
@@ -136,7 +136,9 @@ def with_id(id: int) -> str:
 def initiate() -> dict:
     app_state = request.json
     return initial_interaction(
-        app_state['model'], int(app_state['id']), app_state['document']
+        app_state.get('model', DEFAULT_MODEL),
+        int(app_state['id']),
+        app_state['document']
     )
 
 
@@ -157,13 +159,13 @@ def save() -> dict:
 @app.route('/chat', methods=['POST'])
 def chat() -> dict:
     app_state = request.json
-    model = app_state['model']
+    model = app_state.get('model', DEFAULT_MODEL)
     conversation = app_state['conversation']
     document = app_state['document_data']['document']
     response = interact_with_llm(model, conversation)
     conversation.append(response)
     app_state['conversation'] = conversation
-    app_state['document_data'] = json.loads(response['content'])
+    app_state['document_data'] = json.loads(response['content'], strict=False)
     app_state['document_data']['document'] = document
     return app_state
 
@@ -214,7 +216,7 @@ def initial_interaction(model: str, id: int, document: str) -> dict:
     response = interact_with_llm(model, convers)
     # append response to initial conversation
     convers.append(response)
-    docdata = json.loads(response['content'])
+    docdata = json.loads(response['content'], strict=False)
     docdata['document'] = document
     return {'id': id, 'document_data': docdata, 'conversation': convers}
 
