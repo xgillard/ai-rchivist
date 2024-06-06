@@ -2,9 +2,10 @@ import os
 import json
 import datasets
 import pandas as pd
+from typing import NamedTuple
 from threading import RLock
 from io import StringIO
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, redirect, url_for
 from dotenv import load_dotenv
 from mistralai.client import MistralClient
 from mistralai.models.chat_completion import ChatMessage
@@ -75,6 +76,16 @@ def prepare_dataset() -> pd.DataFrame:
 # garantir l'acces correct au dataset (qui n'est pas thread safe)
 DS_LOCK = RLock()
 DATASET = prepare_dataset()
+NB_ITEMS = len(DATASET)
+
+
+class Progress(NamedTuple):
+    done: int
+    all: int
+    
+    @property
+    def percentile(self):
+        return (self.done / self.all) * 100.0
 
 
 @critical(DS_LOCK)
@@ -82,15 +93,25 @@ def save_dataset(fname):
     DATASET.to_json(fname)
 
 
+@critical(DS_LOCK)
+def not_validated():
+    return DATASET[~DATASET['validated']]
+
+
+@critical(DS_LOCK)
+def progress():
+    validated = DATASET[DATASET['validated']]
+    return Progress(len(validated), NB_ITEMS)
+
+
 ##############################################################################
 # ROUTES -- PAGES
 ##############################################################################
 @app.route('/')
 def empty() -> str:
-    with DS_LOCK:
-        not_processed_yet = DATASET[DATASET['validated'] == False]
-        not_processed_yet = not_processed_yet.sample(1)['id']
-    return with_id(int(not_processed_yet.iloc[0]))
+    doc = not_validated().sample(1)
+    num = int(doc['id'].iloc[0])
+    return redirect(url_for('with_id', id=num))
 
 
 @app.route('/<int:id>')
@@ -103,7 +124,7 @@ def with_id(id: int) -> str:
         if labeling
         else initial_interaction(DEFAULT_MODEL, id, text)
     )
-    return render_template('index.html', app_state=app_state)
+    return render_template('index.html', app_state=app_state, progress=progress())
 
 
 ##############################################################################
@@ -124,7 +145,10 @@ def save() -> dict:
     app_state = request.json
     labeling = json.dumps(app_state)
     with DS_LOCK:
-        DATASET.loc[int(app_state['id']), 'labeling'] = labeling
+        DATASET.loc[int(app_state['id']), ['labeling', 'validated']] = (
+            labeling,
+            True,
+        )
     return app_state
 
 
@@ -145,10 +169,9 @@ def chat() -> dict:
 @app.route('/dump')
 def dump():
     out = StringIO()
-    with DS_LOCK:
-        DATASET.to_json(out, index=False)
-    csv = out.getvalue()
-    response = Response(csv, content_type='text/json')
+    save_dataset(out)
+    out = out.getvalue()
+    response = Response(out, content_type='text/json')
     response.headers['Content-Disposition'] = 'attachment; filename=data.json'
     return response
 

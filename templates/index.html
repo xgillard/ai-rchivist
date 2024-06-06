@@ -43,12 +43,31 @@
                     <li class="nav-item">
                         <a id="nav-locations" class="nav-link" href="#" onclick="nav_to('locations')">Locations</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="post('/save', state)"><i class="bi bi-floppy2"></i></a>
-                    </li>
                 </ul>
               </div>
-
+              <!-- *** BEGIN PROGRESS TRACKING ***************************************************************************************************** -->
+              <div class="d-flex col-2">
+                <div id="progress-tracking" class="progress custom-progress">
+                    <div class="progress-label">{{ progress.done }} / {{progress.all}}</div>
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{ progress.percentile  }}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <!-- prev -->
+                    <a class="btn btn-header btn-outline-secondary" href="#" role="button" onclick="history.back()">
+                        <i class="bi bi-chevron-compact-left"></i>
+                    </a>
+                    <!-- save -->
+                    <a class="btn btn-header btn-outline-secondary" href="#" onclick="post('/save', state)">
+                        <i class="bi bi-floppy2"></i>
+                    </a>
+                    <!-- next -->
+                    <a class="btn btn-header btn-outline-secondary" href="/" role="button">
+                        <i class="bi bi-chevron-compact-right"></i>
+                    </a>
+                </div>
+              </div>
+              <!-- *** END PROGRESS TRACKING ******************************************************************************************************* -->
               <div class="d-flex col-2">
                 <div class="input-group">
                     <span class="input-group-text">Model</span>
@@ -75,137 +94,137 @@
 
         <!-- *** BEGIN CHATBOX ***************************************************************************************************************** -->
         <div id="chatbox" class="chatbox-container">
-        <div class="chatbox">
-            <div class="chatbox-header">
-                <span class="chatbox-title"> <i class="bi bi-chat-text-fill"></i> Ask Improvements </span>
-                <button class="btn-close" aria-label="Close" onclick="toggle_chatbox()"></button>
+            <div class="chatbox">
+                <div class="chatbox-header">
+                    <span class="chatbox-title"> <i class="bi bi-chat-text-fill"></i> Ask Improvements </span>
+                    <button class="btn-close" aria-label="Close" onclick="toggle_chatbox()"></button>
+                </div>
+                <div class="chatbox-body" id="chat-messages">
+                    <!-- Chat messages will be appended here -->
+                </div>
+                <div class="chatbox-footer">
+                    <form id="chat-form" onsubmit="return false;">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="message-input" placeholder="Type your message...">
+                            <button class="btn btn-primary" id="message-submit" onclick="send_chat()">Send</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="chatbox-body" id="chat-messages">
-                <!-- Chat messages will be appended here -->
+        </div>
+
+        <div id="chatbtn">
+            <button type="button" class="btn btn-info" onclick="toggle_chatbox()"><i class="bi bi-chat-text-fill"></i></button>
+        </div>
+        <!-- *** END CHATBOX ***************************************************************************************************************** -->
+        <!-- *** BEGIN PLEASE WAIT *********************************************************************************************************** -->
+        <div id="please-wait" style="display: none;">
+            <div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; opacity: 60%; background-color: black; display: block;"></div>
+            <div style="position: absolute; top: calc(50% - 75px); left: calc(50% - 100px); opacity: 100%; background-color: white; display: block; width: 200px; height: 150px; border-radius: 20px;">
+                <div class="typing-dots" style="position: relative; top: 50%;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
             </div>
-            <div class="chatbox-footer">
-                <form id="chat-form" onsubmit="return false;">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="message-input" placeholder="Type your message...">
-                        <button class="btn btn-primary" id="message-submit" onclick="send_chat()">Send</button>
+        </div>
+        <!-- *** END PLEASE WAIT ************************************************************************************************************* -->
+
+        <!-- *** BEGIN PAYLOAD *************************************************************************************************************** -->
+        <div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+                <!-- ==========================================================================================================================-->
+                <!-- === DOCUMENT =============================================================================================================-->
+                <!-- ==========================================================================================================================-->
+                <div id="tab-document" class="container">
+                    <div class="mb-3">
+                    <label for="dta-document" class="form-label">Transcription of the Document</label>
+                    <textarea id="dta-document" name="dta-document" class="form-control" rows="30" placeholder="Transcription of the document" aria-label="Transcription of the Document" onblur="document_data.document = $(this).val()"></textarea>
+                    <button type="button" class="btn btn-primary" onclick="initiate_conversation()"><i class="bi bi-robot"></i> Analyze Document</button>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div id="chatbtn">
-        <button type="button" class="btn btn-info" onclick="toggle_chatbox()"><i class="bi bi-chat-text-fill"></i></button>
-    </div>
-    <!-- *** END CHATBOX ********************************************************************************************************************* -->
-    <!-- *** BEGIN PLEASE WAIT *************************************************************************************************************** -->
-    <div id="please-wait" style="display: none;">
-        <div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; opacity: 60%; background-color: black; display: block;"></div>
-        <div style="position: absolute; top: calc(50% - 75px); left: calc(50% - 100px); opacity: 100%; background-color: white; display: block; width: 200px; height: 150px; border-radius: 20px;">
-            <div class="typing-dots" style="position: relative; top: 50%;">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </div>
-        </div>
-    </div>
-    <!-- *** END PLEASE WAIT **************************************************************************************************************** -->
-
-    <!-- *** BEGIN PAYLOAD ******************************************************************************************************************* -->
-    <div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
-            <!-- ==============================================================================================================================-->
-            <!-- === DOCUMENT =================================================================================================================-->
-            <!-- ==============================================================================================================================-->
-            <div id="tab-document" class="container">
-                <div class="mb-3">
-                <label for="dta-document" class="form-label">Transcription of the Document</label>
-                <textarea id="dta-document" name="dta-document" class="form-control" rows="30" placeholder="Transcription of the document" aria-label="Transcription of the Document" onblur="document_data.document = $(this).val()"></textarea>
-                <button type="button" class="btn btn-primary" onclick="initiate_conversation()"><i class="bi bi-robot"></i> Analyze Document</button>
                 </div>
-            </div>
-            <!-- ==============================================================================================================================-->
-            <!-- === METADATA =================================================================================================================-->
-            <!-- ==============================================================================================================================-->
-            <div id="tab-metadata" class="container">
-                <!-- ~~~ DOCTYPE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Type of the Document</span>
-                    <select id="dta-doctype" name="dta-doctype" class="form-select" aria-label="Type of the document" onblur="document_data.doctype = $(this).val()">
-                        <option value="UNKNOWN"  >Unknown</option>
-                        <option value="REMISSION">Remission</option>
-                        <option value="SENTENCE" >Sentence</option>
-                    </select>
-                </div>
-                <!-- ~~~ DATES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Act Date</span>
-                    <input type="text" class="form-control" id="dta-actdate" name="dta-actdate" placeholder="UNKNOWN" onblur="document_data.act_date = $(this).val()" aria-label="Act Date" />
+                <!-- ==========================================================================================================================-->
+                <!-- === METADATA =============================================================================================================-->
+                <!-- ==========================================================================================================================-->
+                <div id="tab-metadata" class="container">
+                    <!-- ~~~ DOCTYPE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Type of the Document</span>
+                        <select id="dta-doctype" name="dta-doctype" class="form-select" aria-label="Type of the document" onblur="document_data.doctype = $(this).val()">
+                            <option value="UNKNOWN"  >Unknown</option>
+                            <option value="REMISSION">Remission</option>
+                            <option value="SENTENCE" >Sentence</option>
+                        </select>
+                    </div>
+                    <!-- ~~~ DATES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Act Date</span>
+                        <input type="text" class="form-control" id="dta-actdate" name="dta-actdate" placeholder="UNKNOWN" onblur="document_data.act_date = $(this).val()" aria-label="Act Date" />
+                        
+                        <span class="input-group-text">Facts Date</span>
+                        <input type="text" class="form-control" id="dta-factdate" name="dta-factdate" placeholder="UNKNOWN" onblur="document_data.fact_date = $(this).val()" aria-label="Facts Date" />
+                    </div>
+                    <!-- ~~~ Summary ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                    <div class="mb-3">
+                    <label for="dta-summary-en" class="form-label">Summary in English</label>
+                    <textarea id="dta-summary-en" name="dta-summary-en" class="form-control" placeholder="Summary in English" aria-label="Summary in English" onblur="document_data.summary.en = $(this).val()" ></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="dta-summary-fr" class="form-label">Summary in French</label>
+                    <textarea id="dta-summary-fr" name="dta-summary-fr" class="form-control" placeholder="Summary in French" aria-label="Summary in French" onblur="document_data.summary.fr = $(this).val()" ></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="dta-summary-nl" class="form-label">Summary in Dutch</label>
+                    <textarea id="dta-summary-nl" name="dta-summary-nl" class="form-control" placeholder="Summary in Dutch"  aria-label="Summary in Dutch" onblur="document_data.summary.nl = $(this).val()" ></textarea>
+                    </div>
                     
-                    <span class="input-group-text">Facts Date</span>
-                    <input type="text" class="form-control" id="dta-factdate" name="dta-factdate" placeholder="UNKNOWN" onblur="document_data.fact_date = $(this).val()" aria-label="Facts Date" />
+                    <div class="mb-3">
+                    <label for="dta-summary-de" class="form-label">Summary in German</label>
+                    <textarea id="dta-summary-de" name="dta-summary-de" class="form-control" placeholder="Summary in German" aria-label="Summary in German" onblur="document_data.summary.de = $(this).val()" ></textarea>
+                    </div>
                 </div>
-                <!-- ~~~ Summary ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                <div class="mb-3">
-                <label for="dta-summary-en" class="form-label">Summary in English</label>
-                <textarea id="dta-summary-en" name="dta-summary-en" class="form-control" placeholder="Summary in English" aria-label="Summary in English" onblur="document_data.summary.en = $(this).val()" ></textarea>
+                <!-- ==========================================================================================================================-->
+                <!-- === PERSONS ==============================================================================================================-->
+                <!-- ==========================================================================================================================-->
+                <div id="tab-persons" class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Function</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary" onclick="add_person()"><i class="bi bi-plus-circle"></i> Add Person</button>
                 </div>
-
-                <div class="mb-3">
-                <label for="dta-summary-fr" class="form-label">Summary in French</label>
-                <textarea id="dta-summary-fr" name="dta-summary-fr" class="form-control" placeholder="Summary in French" aria-label="Summary in French" onblur="document_data.summary.fr = $(this).val()" ></textarea>
+                <!-- ==========================================================================================================================-->
+                <!-- === LOCATIONS ============================================================================================================-->
+                <!-- ==========================================================================================================================-->
+                <div id="tab-locations" class="container">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Location Type</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary" onclick="add_location()"><i class="bi bi-plus-circle"></i> Add Location</button>
                 </div>
-
-                <div class="mb-3">
-                <label for="dta-summary-nl" class="form-label">Summary in Dutch</label>
-                <textarea id="dta-summary-nl" name="dta-summary-nl" class="form-control" placeholder="Summary in Dutch"  aria-label="Summary in Dutch" onblur="document_data.summary.nl = $(this).val()" ></textarea>
-                </div>
-                
-                <div class="mb-3">
-                <label for="dta-summary-de" class="form-label">Summary in German</label>
-                <textarea id="dta-summary-de" name="dta-summary-de" class="form-control" placeholder="Summary in German" aria-label="Summary in German" onblur="document_data.summary.de = $(this).val()" ></textarea>
-                </div>
-            </div>
-            <!-- ==============================================================================================================================-->
-            <!-- === PERSONS ==================================================================================================================-->
-            <!-- ==============================================================================================================================-->
-            <div id="tab-persons" class="container">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Function</th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <button type="button" class="btn btn-primary" onclick="add_person()"><i class="bi bi-plus-circle"></i> Add Person</button>
-            </div>
-            <!-- ==============================================================================================================================-->
-            <!-- === LOCATIONS ================================================================================================================-->
-            <!-- ==============================================================================================================================-->
-            <div id="tab-locations" class="container">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Location Type</th>
-                        <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <button type="button" class="btn btn-primary" onclick="add_location()"><i class="bi bi-plus-circle"></i> Add Location</button>
-            </div>
-        </form>
-    </div>
-    <div id="error-panel" class="errorbox-container"></div>
-    <!-- *** END PAYLOAD ********************************************************************************************************************* -->
-    <script type="text/javascript">
-        set_global_state( {{ app_state|tojson|safe }} );
-        nav_to('document');
-    </script>
+            </form>
+        </div>
+        <div id="error-panel" class="errorbox-container"></div>
+        <!-- *** END PAYLOAD ***************************************************************************************************************** -->
+        <script type="text/javascript">
+            set_global_state( {{ app_state|tojson|safe }} );
+            nav_to('document');
+        </script>
     </body>
 </html>

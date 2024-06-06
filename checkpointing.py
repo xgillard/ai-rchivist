@@ -19,7 +19,7 @@ def critical(lock):
         @wraps(fn)
         def decoration(*args, **kwargs):
             with lock:
-                fn(*args, **kwargs)
+                return fn(*args, **kwargs)
 
         return decoration
 
