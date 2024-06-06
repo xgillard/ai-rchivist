@@ -82,7 +82,7 @@ NB_ITEMS = len(DATASET)
 class Progress(NamedTuple):
     done: int
     all: int
-    
+
     @property
     def percentile(self):
         return (self.done / self.all) * 100.0
@@ -124,7 +124,9 @@ def with_id(id: int) -> str:
         if labeling
         else initial_interaction(DEFAULT_MODEL, id, text)
     )
-    return render_template('index.html', app_state=app_state, progress=progress())
+    return render_template(
+        'index.html', app_state=app_state, progress=progress()
+    )
 
 
 ##############################################################################
