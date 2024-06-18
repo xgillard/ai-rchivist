@@ -9,23 +9,6 @@ from os.path import join, getmtime
 from functools import wraps
 
 
-def critical(lock):
-    """
-    This deceorator indicates that the function is actually the content of
-    a critical section gated with the given lock
-    """
-
-    def decorator(fn):
-        @wraps(fn)
-        def decoration(*args, **kwargs):
-            with lock:
-                return fn(*args, **kwargs)
-
-        return decoration
-
-    return decorator
-
-
 def checkpointed(save, directory='./checkpoints'):
     """
     This parameterized decorator lets you snapshot the value of a given
