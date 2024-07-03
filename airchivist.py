@@ -68,8 +68,8 @@ def prepare_dataset() -> pd.DataFrame:
     with sqlite3.connect(DATASET_DB) as conn:
         try:
             return pd.read_sql('SELECT * FROM dataset', conn)
-        except:
-            ### Initial computation is actually needed
+        except pd.errors.DatabaseError:
+            # Initial computation is actually needed
             ds = datasets.load_dataset('arch-be/brabant-xvii', name='doc_by_doc')
             #
             train = ds['train'].to_pandas()
@@ -93,7 +93,9 @@ def prepare_dataset() -> pd.DataFrame:
             ds.to_sql('dataset', conn)
             return ds
 
+
 _ = prepare_dataset()
+
 
 class Progress(NamedTuple):
     'A plain data class to keep track of the labeling progress'
@@ -106,14 +108,13 @@ class Progress(NamedTuple):
         return (self.done / self.all) * 100.0
 
 
-
 def one_id_not_validated() -> int:
     '''
     returns the id of an item that has not been marked as validated yet
     '''
     with sqlite3.connect(DATASET_DB) as conn:
-        df = pd.read_sql_query("SELECT id from dataset WHERE not validated LIMIT 1", conn)
-        return int(df.iloc[0,0])
+        df = pd.read_sql_query("SELECT id from dataset WHERE not validated ORDER BY RANDOM() LIMIT 1", conn)
+        return int(df.iloc[0, 0])
 
 
 def progress() -> Progress:
