@@ -126,8 +126,10 @@ function refresh_conversation(conversation) {
                         )
                     }
                 } else {
+                    let version = JSON.parse(message.version);
                     $("#chat-messages").append(
-                        $(`<div class='message user-message'>${message.content}</div>`)
+                        $(`<div class='message user-message' onclick='reset_data_version(JSON.parse(JSON.stringify($(this).data(\"version\"))))'>${message.content}</div>`)
+                        .data("version", version)
                     )
                 }
             });
@@ -139,7 +141,8 @@ function send_chat() {
     // prepare to send message
     message = {
         "role"   : "user",
-        "content": $("#message-input").val()
+        "content": $("#message-input").val(),
+        "version": JSON.stringify(document_data)
     };
     conversation.push(message);
 

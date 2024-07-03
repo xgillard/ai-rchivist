@@ -50,6 +50,7 @@
     padding: .5em;
     margin: .5em;
     width: 75%;
+    cursor: pointer;
 }
 
 .assistant-message {
