@@ -1,7 +1,6 @@
 __pycache__/
 virtualenv/
 .env
-data/dataset.db
 checkpoints/
 prepa-db/rsp_json/
 prepa-db/dataset.db
