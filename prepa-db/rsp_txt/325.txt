@@ -1,0 +1,220 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen te wetene allen luyden tegenwoidich ende
+toecommende dat wy ontfangen hebben die oitmoedighe
+supplicatie van gillis vande guechte wonachtich binnen der
+prochie van wambeke in onser lande van brabant inhoudende
+hoe dat hy suppliant omtrent onser lieve vrouwen daghe half
+ougst anno 1538 geseten es binnen der parochie van sinte
+cathelynen lombeke ten huyse van everart vanden slachmolen
+metten scepene ende wethouderen aldaer ende nae dat zy tussenhen
+goede chiere gemaect hadden es de suppliant met eenigen vanden
+selven wethouderen ende met andere goede mannen thuys waert
+gegaen ende onder wegen commende esser een persoen geweest
+geheeten jan van bossuyt en heeft totten suppliant geseyt
+gillis gaanwy alhier onder ons beyden sy ghecken met ons
+den suppliant metten arme nemende ende hem leydende eenen
+anderen wech ende ter stont onder hen beyde zynde
+geeft die voornoemde jan van bossuyt totten suppliant met grammen
+moede gevraecht wat hadde $$ te lombeke te doene
+de suppliant antwoerde om die bede die ghy op my hadt
+doen heysschen van $$ daer ic maer op $$ geseten
+was doen seyde de voirnoemden jan met spytige woerden ghy
+zyt snoder dan noeyt dief die aen de galghe gehangen
+was die suppliant vraechde waerom datte de voirnoemden jan
+seyde omdat ghy soe menighen quaden eedt gedaen hebt
+om die bede gevende den suppliant vele vuyle d$$erssche
+injurieuse woerden die onverdrachgelyck waeren dwelck
+die suppliant presenteert te affirmeren by eede op dats noot zy
+ende naer vele vuyle spytighe injurieuse woerden die
+de suppliant nyet langer en heeft connen verdraghen heeft met
+hittigen bloede ende vuyt evelen moede naer den voirnoemden
+jan gesmeten met een labuer scuppe die hy in zyn handt
+hadde ende heeft den selven jan gegeven eenen slach achter
+op zyn hooft dat hy metten selven slage ter erden viel
+ende es alsoe blyven liggen gelyck oft hy doot geweest
+hadde dit siende de suppliant nyet tegenstaende die
+onverdragelicke woerden injurieuse woerden die hy vanden
+voirnoemden jan eerst hadde moeten lyden heeft hem metter hant
+genomen ende hem gebeden om genade zeer vriendelycken
+biddende dat hy hem eenige kennisse geven woude twelck
+die voirschreven jan nyet gedaen en heeft mits welcken die suppliant
+van hem gesceeden is ende es de voirschreven jan corts daer naer
+opgestaen ende hem ge$ van twee oft drie van zyne gebueren
+thuyswert geleyt geweest ende tot hem selven gecommenn zynde
+be.... zyn groot ongelyck heeft vuyt dyen gebeden
+zynder huysvr$$ ende anderen zyner vrinden die daer present
+waeren dat zy zoe verre hy van dier quetsuren storve den
+suppliant tselve souden willen vergeven sonder eenige wraeke
+daeraf te nemene oft te doene want het zoe wel zyn
+schult was dat tselve feyt gebuert was als tsuppliants
+schult van welcke quetsuren ende anders datter toegeslegen
+is die voirnoemden jan binnen 14 daeghen daernaer oft daeromtrent
+gecommen is van levende lyve ter doot ende hoewel tvoirschreven
+feyt den suppliant vuyt gronden synder herten zeere leet is hem
+buchtende rigeur van iustitie heeft hem sedert geabsenteert
+vuyt onsen landen ende heerlicheden levende in groote miserie
+ende armoede ende en soude inden selven nyet dorren wederkeeren
+noch converseren ten zy dat onse gracie remissie ende pardoene
+hem hierop gedeylt en werdden alsoe hy seegt ons daerom zeer
+oitmoedelyk biddende soe eest dat wy die zaecken voerscreven
+onergemerct den voirnoemden gillis vande guechte suppliant genegen
+wesende tzynder bede ende begheerte ende hem willende in
+dit stuck gracie ende genaede prefereren voir rigeur van
+justicien bysonder in consideratie van onse wedercompste
+in onsen landen van herwaets over ende ter contenplatie vande
+grasien ende $$torien die god almachtich duer zynder godlicker
+goederthierentheyt ons verleent heeft duerende onse ...en
+ende absentie van onsen voirschreven lande van herwerts inden keyserrycke
+ende tochten die wy zedert gedaen hebben zoe in hongrien affrycken
+als elders tegens den turck moren ende anderen ongelovige ende
+insgelycx in gedenckensse vanden peyse ende eewige vrientscap
+met ende tusschen onsen zeer lieven ende beminden den brueder den
+kerstelicxsten coninck van vranckerycke ende ons hebben
+inden gevalle als boven vergeven geremitteert ende quytgescolden
+vergeven remitteren ende schelde quyte vuyt vuyt onser zonderlinge
+gracie mits desen onsen brieve tfeyt ende manslach boven verclaert
+mitsgaders alle peynen boete ende breucke corporelle ende
+criminelle daerinne hy ter cansen van dien ende mit datter
+aencleeft iegens ons ende iusticie mesdaen ende mesbruyct mach
+hebben ende hebben hem daeraf weder gestelt ende gerestitueert
+stellen weder ende restitueren tot zyne goede faeme naeme
+ende geruchte in onsen voirschreven lande ende heerlickheyden
+mitgaders tot zyne onverbuerden goeden indien hy eenighe
+heeft alsoe hy was voir de toecompste vanden voirschreven manslach
+imponerende hierop een eewich zwygen ende scilencie onssen
+procureur generael van brabant ende alle anderen onsen
+rechteren iusticieen ende officieren wie zy zyn stisfactie
+ende beteringe eerst ende alvooren gedaen der geinteresseerde
+partie indien tselve noch nyet gedaen en is ende eenige daer
+toe dient civillyck alleenelyc behoudelyck dz die voirnoemde
+suppliant gehouden wert tvoirschreven feyt iegens ons te beteren civilyc
+naer der gelegentheyt vande saecken ende die faculteyt van
+zynen goeden ende te betalen ende reffonderen die redelycke
+costen van iusticien indien daer eenige zyn ter taxatie
+ende arbiterscepe van onsen lieven ende getrouwen die cancellier
+ende luyden van onsen raede in brabant die wy daer toe
+committeren den welcken wy bevelen dat voir hen groepen
+die ghene dier over behooren geroupen te zyne zy procederen
+wel ende duechdelyck ter verifficatie ende interinering van desen
+naer huere vorme ende inhouden welck interinemente h$ suppliant
+gehouden zal zyn aldaer te versuecken binnen eenen iaere
+naer datum van desen opte verbuerte van te verliesen
+deffect derselver ende dat gedaen ende die voirschreven amende
+civille ende costen van iusticien iendien daer eenige zyn
+getaxeert gearbitreert ende byden suppliant betaelt zynde in handen
+van onsen ontfanger vande expl..ten die gehouden wordt
+van de amende civille ontfanck te maeken rekninge ende
+bewys ende reliqua te doene tonsen behoef met anderen $$ partien, peynen?
+van zynen ontfange zy onsen drossart van brabant meyer
+van loevene amman van buressel schouteten van
+antwerpen ende vanden bossche ende allen anderen onsen
+ende der smaeler heeren ende van onsen vasallen rechteren
+iusticieren ende officieren on voirschreven lants ende hertochdoms
+van brabant tegenwoirdich ende toecommende huere stedehouderen
+ende eenen iegelyc van hen bezondere zoet behooren sal doen
+laten ende gedooghen den voirnoemden suppliant van dese onsen gracie
+kennisse ende pardoene ende van alden inhouden van desen
+inder vuegen ende manieren voren verhaelt rustelyck
+vredelyc volcommelyc ende eeuwelyc genyeten ende gebruycken
+sonder hem te doene oft te laeten geschiene nu noch in
+toecommende tyden eenich hinder letsel oft moeyenisse aen
+lyfve noch aen goede in eeniger manieren ter contrarien
+maer indien zyn lyf oft eenige van zyne onverbuerde
+goeden zyn oft waeren hiernaemaels hieromme gevangen
+gearresteert oft becommert dat zy die stellen ende setten
+oft doen setten stellen setten ter stont ende sonder vertreck tot
+volcommen delivrancie slakinge ende delivrancie want ons
+alsoe gelieft ende ten eynde dat dit goet vast ende gestaedich
+blyve teeuwigen daege zoe hebben wy onsen zegel hieraen
+doen hangen behoudens in anderen saecken ons recht
+ende eenen iegelycken tzyne in allen gegeven in onser
+stadt van ghendt inde maendt van merte int jaer onssheren
+duysent vyfhondert negenendertich van onsen keyserrycke
+txxe ende van spaengien beyde den cer$$ ende anderen
+txxiiije aldus gescreven opte plycke byden keyser
+ende geteekent verreyken visa $$
+gecollationeert ende bevonden accorderend
+metter minuten [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "1538-08-15",
+  "persons": [
+    {
+      "firstname": "gillis",
+      "lastname": "vande guechte",
+      "role": "suppliant",
+      "function": "unknown"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "van bossuyt",
+      "role": "accused",
+      "function": "unknown"
+    }
+  ],
+  "locations": [
+    {
+      "name": "wambeke",
+      "loctype": "prochie"
+    },
+    {
+      "name": "sinte cathelynen lombeke",
+      "loctype": "parochie"
+    },
+    "onser lande van brabant",
+    "unspecified locations"
+  ],
+  "summary": {
+    "en": "Gillis vande guechte, the suppliant, asks for remission against Jan van bossuyt who accused him of theft and assault near Sint-Catharina-Lombeek in Brabant around August 15, 1538. After a heated argument, the suppliant struck the accused with a shovel, causing him to fall to the ground. The suppliant then left the scene, but later returned to ask for mercy and offer compensation.",
+    "fr": "Gillis vande guechte, le suppliant, demande la rémission contre Jan van bossuyt qui l'a accusé de vol et d'agression près de Sint-Catharina-Lombeek dans le Brabant autour du 15 août 1538. Après une vive dispute, le suppliant a frappé l'accusé avec une pelle, le faisant tomber à terre. Le suppliant est ensuite parti, mais est revenu plus tard pour demander miséricorde et offrir une compensation.",
+    "nl": "Gillis vande guechte, de verzoeker, vraagt vergeving van Jan van bossuyt, die hem van diefstal en mishandeling bij Sint-Catharina-Lombeek in Brabant beschuldigde rond 15 augustus 1538. Na een hevige ruzie sloeg de verzoeker de beschuldigde met een schop, waardoor hij op de grond viel. De verzoeker vertrok vervolgens, maar keerde later terug om genade en compensatie te verzoeken.",
+    "de": "Gillis vande guechte, der Bittsteller, bittet um Absolution von Jan van bossuyt, der ihn der Diebstahls und Körperverletzung bei Sint-Catharina-Lombeek in Brabant um den 15. August 1538 beschuldigt hat. Nach einem heftigen Streit schlug der Bittsteller den Angeklagten mit einer Schaufel, wodurch er zu Boden fiel. Der Bittsteller verließ dann die Szene, kam aber später zurück, um Vergebung und Entschädigung zu bitten."
+  }
+}
+```

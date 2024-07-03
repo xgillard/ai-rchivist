@@ -1,0 +1,285 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie
+kaerle etc. doen te weten allen ieghewoirdich ende
+toecommende dat wij ontfaen hebben die oetmoedighe suplicacie
+van ambrosius jan ende symoen sconincx gebruederen kinderen
+wylen henrycx conincx alle drie jonge gesellen ongehuwt
+daer aff die voirscreven sijmoen maer oudt en is zestien jaeren off
+daeromtrent woenende tot viersele onder santhoven in onsen
+lande van brabant inhoudende hoe dat tsondaeghs voer
+sinte marie magdaleenen dach lestleen jan goes vanden
+bogaerde innegeseten des dorps van nyele heeft getrouwt
+gehadt binnen die prochie van pulle een jonghe dochtere
+aldaer woenachtich geheeten amel vaes ende naedien die
+noen maeltijt is gehouden geweest zoe zijn sachternoens
+die bruydeghoem ende die bruyt met hueren vrinden ende
+maghen naevolgende der ouder manieren tsamen gegaen
+tot viersele in een herberge ten huyse van jan van zande
+ende alle die andere herberghen zyn insgelycx vol geweest
+van volcke van diverssche dorpen zoe van nyelen santhoven
+van pulle ende van viersele voirscreven ende de voirscreven supplianten
+waeren insgelijcx met geselscap aldaer drinckende te
+wetene de voirscreven ambrosius inden wildeman ende de voirscreven
+jan ende symoen inden keyser ende ten selven tijdt sandt
+de voirscreven jan goes brudeghoem zynen spelman totten voirscreven
+ambrosius een vanden supplianten dat hy by hem soude willen
+commen om daer te drinckene den twist die zy underlinge
+te voeren gehadt hadden aengaende der voirscreven amelen zynde
+bruyt daer op de voirscreven ambrosius totten speelman seyde dese
+oft gelijcke woerden ick en compts hem nyet want hy
+hem beduchte om deswille datter vele volcx was van nyele
+by den voirscreven brudeghoem datter ongenuchte zoude mogen vuyte
+commen om daer te drinckene den twist die zy underlinge
+te voeren gehadt hadden aengaende der voirscreven
+amelen vuytstaende hadden ende mits der hoverdyen der voirscreven
+de voirscreven jan goes met zekeren zynen geselscape den voirscreven
+ambrosius tot viersele aengedaen hadden ende is de voirscreven
+speelman van stonden aen ewech gegaen naer den voirscreven
+bruydeghoem hem seggende die antwoirde vanden voirscreven ambrosius
+ende zeer corts daer nae de voirscreven ambrosius heeft gehoirt
+zekere groot gevecht opde plaetse van viersele voirscreven ende
+vernemende dat tselve tusschen de voirscreven van pulle santhoven
+ende nyele was ende dat zy deen iegen dandere strytbaer
+waeren nyet wetende wie van hen tselve toegecommen was
+zoe is de voirscreven ambrosius van stonden aen vuytgeloepen
+hebbende eenen stalen boghe gespannen in zyn handt met eenen
+pyl oft eenen bont daerop van gelycken is de voirscreven jan
+zyn broedere vuytgeloepen oyck hebbende eenen stalen boghe
+in zyn hant ende siende beyde de voirscreven gebruederen dat
+tselve gevecht was tusschen die van nyele ter eenre ende
+die van santhoven ende pulle ter anderen zyden ende oyck
+hoirende dat huer broeder symoen daer onder was met die
+van pulle ende van santhoven zoe zyn de voirscreven ambrosius
+ende jan achter aen gevallen met die van pulle ende
+van santhoven ende heeft de voirscreven jan zynen boghe ontlost
+op die van nyele maer nyemant daer van en is gequetst
+geweest ende is van stonden aen de voirscreven jan by die van nyele
+ter eerden geslagen geweest nyet wetende van wyen zonder
+nochtans dat hy is gequetst geweest ende opgestaen zynde
+zynder scheede getrocken ende heeft daermede gehouwen op
+die van nyele ende onder d andere metten selven zynen messe
+eenen hauw gegeven eenen van nyele geheeten jan der kinderen
+willemssone op zyn hooft ende die zelve jan der kinderen
+heeft noch eenen slach van eender pycken ofte stocken gehad
+op zyn hooft op die selve wonde daermede de voirscreven wonde
+is zeere bezwaert geweest ende de voirscreven ambrosius in
+zyn aencommen riep tegen die van nyele slaet doot slaet doot
+ick zalt vuytdragen vryhouden off diergelycke woorden
+zonder nochtans dat hy zyn boghe heeft eenichssins gelost
+gehadt maer is met beyden zynen broederen in desen
+supplianten strytbaer geweest tegen die van nyele zoe
+dat naedien zekere poise tselve gevecht geduert hadde
+de voirscreven van nyele zyn bedwongen geweest vanden supplianten
+ende anderen van hueren gheselscape achterwaerts te
+deysene in welck gevecht is vanden zyden van die van
+nyele gequetst geweest de voirscreven jan der kinderen vanden
+voirscreven jan suppliant ende noch van eenen anderen van zynen
+geselscape daer aff de supplianten nyet en weten den naem
+vanden ghenen diet gedaen heeft zoe dat de voirscreven jan der
+kinderen vanden voirscreven twee quetsuren binnen zeven oft
+acht dagen daer nae is van levende lyve ter doot gecommen
+tdwelck den supplianten vuyt gronden hens herten leet is
+ende vande zyden vanden supplianten zyn insgelycx drie off
+vier persoonen gequetst geweest ende mits dien dat de
+voirscreven jan een vanden voirscreven gebruederen den voirscreven afflivigen
+heeft gewont gehadt ende dat die andere supplianten
+zyn broederen hebben mede in tselve gevecht strytbaer
+geweest zoe hebben zy beduchtende rigeur van iusticie
+hen geabsenteert vuyt onsen landen ende heerlicheyden
+ende en souden inden selven nyet dorren wederomme commen
+verkeeren oft converseren ten zy dat hen onse gracie
+hier op woirde verleent alzoe zy seggen ons
+daeromme oetmoedelick biddende. soe est
+dat wy desen aengesien compassie ende medelyden hebbende
+metten voirnoemden suplianten ende willende hen in desen gracie ende
+genaede prefereren voer rigeur ende strancheyt van iusticie
+zunderlinge ter eeren ende weerdicheyt van der bitter passie ons heeren
+die hy leet voere ons allen op zulcken dach als huyden hebben den
+selven supplianten ende elcken van hen inden gevalle als boven
+quytgescolden ende vergeven scelden quyte ende vergheven vuyt
+onser zunderlinger gratien by desen den dootslach voeren
+verhaelt mitsgaders oyck alle peynen ende amenden corporelle
+ende criminelle daer inne zy hen overmits ende vuyt saken
+van tgene des voirscreven is tegens ons onse hoocheyt ende iusticie
+eenichssins mogen hebben ontgaen ende hebben hen dien aengaende
+gerestitueert ende gestelt restitueren ende stellen by desen tot
+huere goede fame ende name in onsen lande ende hertochdom
+van brabant ende allen anderen onsen landen ende heerlicheden
+ende tot hueren goeden noch tertyt nyet geconfisqueert
+zynde zoe verre daer eenighe waeren imponerende hier op
+een eeuwich zwygen ende silencie onsen procureur generael
+ende allen anderen onsen rechteren iusticieren ende officiren
+onsser voirscreven landts van brabant hoedanige die zyn oft wesen
+mogen satisfactie nochtans yerst ende alvoeren gedaen
+der partien geinteresseerde zoe verre die noch nyet
+gedaen en ware civylick alleenlyck behoudelyck
+nochtans dat zy den voirscreven dootslach jegens ons civylick
+beteren zullen naer gelegentheyt vander mesdaet ende
+faculteyt van hueren goeden ende oyck dat zy gehouden
+worden te betalen de redelycken costen van iusticien dairomme
+gedaen ende naegevolght indien datter eenige geschyet
+zyn ter taxacien ende arbiterscepe van onsen lieven ende
+getrouwen den cancellier ende luyden van onsen raede in
+brabant die wy daer toe committeren ontbieden daeromme
+ende bevelen den voirscreven onssen cancellier ende luyden van
+onssen rade in brabant dat voer hemlieden geroupen de
+gene die daeromme behoiren geroepen te zyne zy procederen
+ende doen procederen wel ende duechdelyck totter verifficacie
+ende interrimente van desen onsen iegenwoirdigen brieve
+ende dat gedaen ende de voirscreven civile boete ende costen van
+iusticien indien datter eenige zyn getaxeert gearbitreert
+ende betaelt alst behoiren zal van welcke civile boete
+de ghene van onsen rentmeesters dient aengaet ghehouden wort
+ontfanck te maken rekeninghe bewys ende reliqua ten doene
+tot onsen prouffyte metten anderen penningen van zynen ontfange
+zy onsen drossat van brabant marcgrave van antwerpen
+ende alle andere onse ende onsen vassallen off smaelre
+heeren rechteren iusticieren ende officieren onssen voirscreven
+lants van brabant ende van overmaze hoedanige die zyn
+off wesen mogen tegenwoirdege ende toecomende hueren
+stedehouderen ende elck van hen zoe hem toebehoirt ende
+aengaen mach den voirscreven supplianten van dese onse
+gracie ende remissie inder manieren voirscreven rustelyck
+ende peyselyck doen ende laten genyeten ende gebruycken
+sonder hemluyden off eenich van hen te doen noch te laten
+gheschien in lyve noch in goede eenich hinder letsel
+oft moyenesse ter contrarien maer inden huerluyder
+lyven off onverbuerden goeden daeromme gevanghen becommert
+off gearresteert waren dat zy die die terstont stellen oft
+doen stellen tot volcommen delivrance ende stakinge want
+ons alsoe belieft ende ten eynde dat dit goet vaste
+ende gestadich blyve tot eeuwighen daghen zoe hebben wij
+onsen zegel hier aen doen hanghen behoudelyck in anderen
+zaken ons recht ende eenen yegelycken tzyne in allen
+gegeven in onse stede van bruessel op den goeden vrydach
+inde maent van april int jaer onsses heeren duysent vijfhondert
+ende dryendertich van onsen keyser rycke t v° ende
+van onsen rycken van castillien ende andere t xix°
+aldus stont ghescreven opde plycke byden keyser
+in zynen rade ende gheteekent l. de zoete visa etc.
+ghecollacionneert tegens
+originale brieven by my
+j. de cock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "07-22-1533",
+  "persons": [
+    {
+      "firstname": "Ambrosius",
+      "lastname": "Sconincx",
+      "role": "Suppliant",
+      "function": "Son"
+    },
+    {
+      "firstname": "Jan",
+      "lastname": "Sconincx",
+      "role": "Suppliant",
+      "function": "Son"
+    },
+    {
+      "firstname": "Symoen",
+      "lastname": "Sconincx",
+      "role": "Suppliant",
+      "function": "Son"
+    },
+    {
+      "firstname": "Henrycx",
+      "lastname": "Conincx",
+      "role": "Father of the suppliants",
+      "function": "King"
+    },
+    {
+      "firstname": "Jan",
+      "lastname": "Goes vanden Bogaerde",
+      "role": "Groom",
+      "function": "Resident of Nyelen"
+    },
+    {
+      "firstname": "Amel",
+      "lastname": "Vaes",
+      "role": "Bride",
+      "function": "Resident of Pulle"
+    },
+    {
+      "firstname": "Jan",
+      "lastname": "Der Kinderen Willemssone",
+      "role": "Injured",
+      "function": "Resident of Nyelen"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Viersele",
+      "loctype": "Parish"
+    },
+    {
+      "name": "Santhoven",
+      "loctype": "Parish"
+    },
+    {
+      "name": "Pulle",
+      "loctype": "Parish"
+    },
+    {
+      "name": "Nyelen",
+      "loctype": "Parish"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "Province"
+    }
+  ],
+  "summary": {
+    "en": "The Sconincx brothers, sons of King Henrycx Conincx, request remission for a fight that took place on July 22, 1533. The fight occurred after the wedding of Jan Goes vanden Bogaerde and Amel Vaes in Nyelen. The Sconincx brothers were drinking with the groom's friends when a dispute arose regarding Amel. The brothers left the tavern and later got into a fight with a group from Nyelen. Jan Der Kinderen Willemssone was injured in the fight. The Sconincx brothers and their father left the country out of fear of justice and have now returned, requesting remission.",
+    "fr": "Les frères Sconincx, fils du roi Henrycx Conincx, demandent la rémission pour une bagarre qui a eu lieu le 22 juillet 1533. La bagarre a eu lieu après le mariage de Jan Goes vanden Bogaerde et Amel Vaes à Nyelen. Les frères Sconincx buvaient avec les amis du marié lorsqu'un différend est survenu concernant Amel. Les frères sont partis de la taverne et ont ensuite eu une bagarre avec un groupe de Nyelen. Jan Der Kinderen Willemssone a été blessé dans la bagarre. Les frères Sconincx et leur père ont quitté le pays par crainte de la justice et sont maintenant de retour, demandant la rémission.",
+    "nl": "De broers Sconincx, zonen van koning Henrycx Conincx, vragen vergeving voor een gevecht dat plaatsvond op 22 juli 1533. Het gevecht vond plaats na het huwelijk van Jan Goes vanden Bogaerde en Amel Vaes in Nyelen. De broers Sconincx dronken met de vrienden van de bruidegom toen er een conflict ontstond over Amel. De broers verlieten de herberg en kregen later een gevecht met een groep uit Nyelen. Jan Der Kinderen Willemssone werd gewond in het gevecht. De broers Sconincx en hun vader verlieten het land uit angst voor de rechtshandhaving en zijn nu terug, om vergeving vragen.",
+    "de": "Die Brüder Sconincx, Söhne von König Henrycx Conincx, bitten um Vergebung für einen Kampf, der am 22. Juli 1533 stattfand. Der Kampf fand nach der Hochzeit von Jan Goes vanden Bogaerde und Amel Vaes in Nyelen statt. Die Brüder Sconincx tranken mit den Freunden des Bräutigams, als ein Streit über Amel entstand. Die Brüder verließen die Taverne und gerieten später in einen Kampf mit einer Gruppe aus Nyelen. Jan Der Kinderen Willemssone wurde im Kampf verletzt. Die Brüder Sconincx und ihr Vater verließen das Land aus Furcht vor der Rechtsprechung und sind nun zurückgekehrt, um Vergebung zu bitten."
+  }
+}
+```

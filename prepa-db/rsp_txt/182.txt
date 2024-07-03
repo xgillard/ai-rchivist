@@ -1,0 +1,156 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc doen te wetene alle tegenwoordige
+ende toecomende dat wy hebben ontfangen d’oytmoedige
+supplicatie van cornelis bollen ingesetene van
+cuntich inhoudende hoe dat hy was genpprehendeert byden
+officier alles inder pretext dat hy suppliant by wylen raphael
+maes geirriteert geweest synde ende grootelyck
+geinjurieert in colere soude hebben gesegt schiet
+hem doot gelyck hy oock naer hem heeft gescoeten ende hem
+soo heeft geraeckt dat hy daervan eenighen tyd daer
+naer gestorven was daer nocgtans die getuighe
+de naest geweest synde ter plaetse alhier
+den schout was gegeven hebben verclaert sulcx
+nyet gehoort te hebben ende daer die getuyghen
+sulcx gedeponeert hebbende $$$el ende gansch
+syn reprochabel gelyck hy suppliant daers
+jegens den voorschreven officier daerover wesende
+in proces voor schepenen van cuntich sulcx by
+syne reprochen heeft geullegeerts gestelt in tfeyte
+sulcx dat hy suppliant dyenaengaende nyet en meynde te
+wesen culpabel dan voor soo veele die voors. suppliant
+in colelere hen eenichsints soude mogen hebben
+vergeten waervan hen nochtans nyeten gedenckt
+soo badt hy suppliant oytmoedelyck dat ons geliefde
+t’gene voorschreven innesiende ende dat den sone den
+suppliant den voorschreven raphael maes alleenlyck heeft geschoten
+met een roer maer gelaeden met hagel waermede
+men niemant lichtelyck is doot schie$en $en te
+verleenende onse oepene brieen van remis daerttoe
+dienende soo eest dat wy desen aengesien ghe
+neycht wesende ter beden des voors. suppliants ende
+willende hem in dit stuck prefereren gratie ende mise
+ricordie voor strangheyt ende rigeur van recht heb
+ben den selven suppliant inden gevalle als boven gere
+mitteert quytgeschonden ende vergeven remitteren
+schelden quite ende vegeven vuyt sunderlinghe
+gratien en desen onsen brieve tfeyt ende ongeva$
+boven geruert midtsgaeders alle offensie ende
+breucke corporelle ende criminelle daer
+inne hy hem overmidts ende vuyt saecken
+van $$$ tgene des voors. is tegen ons ende
+justitie eenichsints mach hebben ontgaen e$
+mesdragen ende hem dyen aengaende wede$
+gestelt ende gerustitueert stellen weder g$
+ende restitueren tot toot syne goeden nam$
+fame ende geruchte in onsen voors. lande v$
+brabant ende allen anderen onsen landen ende
+heerlyckheden ende tot syn onverbeurden
+goederen indien hy eenighe onder ons heeft
+gelyck ende in andere manieren soe hy was voor de
+toecompste vande voors. feyte imponerende hiero$
+een eeuwich geswych onsen lieve ende getrouwe
+raedt ende procureur generael van brabant ende alle$
+anderen onse justicieren ende officieren wie sy
+syyn$ satisfactie ende beternisse jerst ende voor
+al gedaen der partye geintereseerde indyen d$
+noch nyet gedaen en sy ende eenighe daertoe stae$
+civilych alleenlych behoudelych dat de voors. supp$
+gehouden sal syn tvoors. feyt tegen ons te beteren
+civilych naer gelegentheyt vander saecken ende facu$
+teyt van synen goeden met oock te betaelen de rede
+lycke costen van justicien hieromme alreede
+gedaen ende de doen alles ter taxatien ende mode
+ratien van onsen seer lieve ende getrouwen die can$
+cellier ende luyden van $$$$ onsen raede in brabant
+die wy daertoe gecomitteert hebben ende comitteren
+ende desen met te betaelen een dobbel amende ontbie
+den daerom ende bevelen den selven onsen cancellier
+ende raedtslieden dat voor hen geroepen dat voor
+hen geroepen en gene die daerom behoiren ge
+roepen te syn sy procederen wel ende deughdelyck
+ter verificatie ende interinement van desen ende
+totter taxatie van dobbel amende ende modera
+tie vande voors. van justitien alsoo sy sullen
+vinden te behoorene welck interinement de
+voors suppliant gehouden sal syn te versueckene
+ende hem in persoone te presenteren in onsen
+voors rade binnen sesse maenden naestcomende
+opte pene van te verbeuren deffect van desen
+ende dat gedaen ende de selve dobbel amende costen
+van iustitien getaxeert ende betaelt synde in handen
+vande genen dyen dat behooren sal sy onse voors.
+procureur generael in brabant ende alle andere onse
+rechteren justicieren $$ officieren ende onder
+saeten tegenwoordige ende toecomende dyen dat aen
+gaen sal mogen huere stedehouderen ende een
+jegelyck van hen besundere soe hem toebehooren
+sal doen laten ende gedoogen den voors. suppliant van
+deser onser tegenwoordiger gracien ende remissien
+ende van allen d’inhouden van desen inder vueghen
+ende manieren voere verhaelt rustelyck vrede
+lyck volcomelyck sonder hem te doene oft te
+laeten geschieden nu noch in comende tyden $$
+ennich hynder letsel oft moeyenisse aen lyff
+noch aen goeden ter contrarien maer indyen syn
+lyff oft eenige van syne onverbeurde goeden
+daerom gearresteert becommert oft belet waeren
+dat sy die setten ende stellen terstont sonder vertreck
+tot geheelder ende volcomender delivrancie want ons
+alsoo gelieft ende ten eynde dat dit vast ende ge
+stadich blyve tot eeuwige dagen soe hebben wy
+onsen segel hier aen doen hanghen behoudeyck
+in anderen dingen onsen rechte ende eenen yegelyoken
+anderen dessyns gegeven inde maent van meert
+1654 ende van onsen rycke get 34e
+sas happart [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+

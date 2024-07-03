@@ -1,0 +1,136 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+quytsceldinge van $$ vorsters vanden walde in limborch van zekeren
+mesusen mits zekere somme
+kaerle byder gratien goids etc. allen den ghenen
+die desen onsen brief zullen zien saluyt wy hebben
+ontfangen die oitmoedige supplicatie van claes vorsters
+ende peeter scheyn ingeseten ons lants van lymborch
+inhoudende hoe dat zy corts hier bevoiren zyn
+geweest vorsters ende bewaerders vanden walde in
+onsen voirs. lande van lymborch ende doende hen ampten
+zy bedragen zyn wairden dat zy hen voirsterampten
+nyet te rechte bedient en zouden hebben maer contrarie
+hueren eedt gedaen hadden ende holt ende anders laten
+vuytvaren sonder die te hebben den recht aenbracht
+daer van zij te rechte gestelt zijn geweest voer den drossaet
+ende scepenen van balen inden selven lande gelegen ende
+nae dat die sake lange aldaer int recht gestaen heeft
+ende die scepenen van balen der saken nyet wys zynde
+hebben hen beroepen voer die mannen van leene inden
+selven lande die den scepenen van balen voerscreven ter
+leerongen gegeven hebben ende is mit vonnisse geweest
+dat die voers. supplianten hueren voirsterampt verbuert
+hadden ende nyet weerdich en waren ennige ampten
+meer te bedreven ende egheen getuyge te moegen gheven
+ende daer toe gevallen zyn in de peene van xl golt
+gulden als blycken mach byden selven vonnisse ende
+want zy de vors. somme van xl golden gulden$ betaelt
+hebben aenden amptman van lymborch tot onsen behoef
+zoe hebben ons de selve supplianten erustelyc versocht vanden
+anderen excessen ende abuysen hen te willen verleenen
+onse gracie ende brieven van pardoene in behoirlycker
+marge: sy hier af verantwoirt
+byden voirs. amptman
+van lymborch
+formen soe eest dat wy de saken voerscreven overgemerct genegen
+wesende ter bede ende begheerte vanden voirsnoemde supplianten ende hen
+willende in desen gracie ende genade prefereren voer strangheyt
+van justicien hebben inden gevalle als boven vergeven quytgescolden
+ende geremitteert vergeven scelden quijt ende remitteren vuyt
+sonderlinge gracie mits desen onsen brieve die feyten ende
+stucken boven geruert mitgaders alle peyne ende bruecke
+corporel criminel ende civil daer inne zy ter causen van
+die mit datter aencleeft mesdaen mesbruyct ende gevallen
+moegen wesen jegens ons ende justicie ende hebben
+hen als te desen gerestitueert ende wedergestelt restitueren
+ende stellen weder tot hueren goede fame name ende geruchte
+ende tot hueren onverbuerden goeden in dien zyre ennige
+hebben gelyck ende in alder manieren als zy waren voer
+die toecompst ende geschiedenisse vanden feyten ende stucken
+voerscreven imponerende hier op silentie ende eeuwich
+zwygen onsen procureur generael ende allen anderen onsen
+richteren justicieren officieren ende amptluyden behouden
+dat de voirnoemde supplianten betalen zullen de voers. somme
+van xl golt gulden nae vuytwysen der vonnisse voerscreven
+op dat zijt alnoch nyet gedaen en hebben ontbieden
+daer om ende bevelen onsen lieven ende getruwen die
+cancellier ende luyden van onsen rade in brabant ende
+allen anderen onsen rechteren justicieren officieren ende
+amptluyden wien dit aengaen sal moegen hueren
+stedehouderen ende elcken van hen bezondere zoe hem toebehoeren
+sal dat zy den voernoemden suppliant doen laeten ende gedoegen
+van dese onse gracie quijtsceldinge ende remissie ende van al
+den inhouden van desen inder vuegen ende manieren voeren verhaelt
+rustelyc vredelyc ende volcommelic genyeten ende gebruycken
+sonder hen te doen ofte laten geschien ennich hinder letsel
+oft moyenisse ter contrarie in enniger manieren want ons
+alsoe gelieft des torconden hebben wy den zegel daer van
+den roemschen keyser onsen heeren ende grootvader ende wy
+duerende den tyt van onser ombejaertheyt gebruyct hebben
+gegeven in onser stat van bruessel den iiiiden dach van
+decembri int jaer ons heeren duysent vyfhondert ende
+vyfthiene aldus stont gescreven boven opte plycke by
+myn heere den prince in zijnen rade ende geteekent haneton
+die collatie van deser copien
+is gedaen ende bevonden concorderende
+metten originale by my
+$ $$ $ [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "claes",
+      "lastname": "vorsters",
+      "role": "supplicant",
+      "function": "land owner"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "scheyn",
+

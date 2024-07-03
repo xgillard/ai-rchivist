@@ -1,0 +1,296 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. allen den genen die desen onsen brief zullen
+sien saluyt wy hebben ontfangen die oetmoedige supplicatie
+van janne van bollebergen poirter ende vischcoopere binnen
+onse stede van loevenen inhoudende hoe al eyst zoe dat de
+voirs. suppliant hem altyts wel ende eerlick geregeert ende
+gedragen heeft soe wel in zyn voirs. ambacht van vischcoop$
+als onder die coopluden ende andere daermede hy te doene
+gehadt heeft oick dat hy altyt van goede fame ende
+name geweest heeft sonder achterhaelt oft verwon$
+geweest te hebben van eenigen stucken weerdich zynd$
+van pugnicie desen nyet tegenstaende onsen meyer
+van loeven oft zyn stedehouderen heeft hem onlancx
+leden gecalengeert ende aengesproken voirs scepenen aldaer
+hem imponerende ende te laste leggende dat hy
+op sinte barthelemeeus dage lestleden int dit jaer
+xvc twintich ten welcken tyde wy inde voirs.
+onse stadt van loevenen waren met een wetsteen
+gewegen ende veroch vercocht zoude hebben eenen
+hovelinc zekere zalm tot vyf pont toe sonder die
+gewegen te hebben met geseighden gewichten soe
+hy sculdich was van doen ende dat hy tot diversen
+stonden binnen eenen jare herweerts metten voirs.
+wetsteen zyn zalm uuytgewegen ende vercocht
+zoude hebben zoe dat opten selven sinte barthelemeeus
+dage henryck de meester diener van onsen
+voirs. meyere die recht tegen over die vischbanck
+vanden voirs. suppliant stont zoude totten selven suppliant
+geseyt hebben ick calengere u dairaf daerop hy
+suppliant vraechde waeraf daerop de voirs. henryck
+de meester weder zeyde van dat ghy weght
+met uwen wetsteen ende wel weet dat ghy
+nyet wegen en moecht dan met geseighde gewichten
+waerop de voirs. suppliant antworde dat is myn scul$
+want den wetsteen meer dan vyf pont weght ende
+dat hy daer nyet meer gewichts en hadde segge$
+voirt en weght hy nyet meer dan vyf pont soe
+geve iick u den besten zalm die iick op myn banck
+hebbe hoewel de voirs. hendrick seet ende mainteneert
+dat de voirs. wetsteen metten geseighde gewichten
+maer bevonden was wegende vier ponden zeere
+luttel uuytslaende seggende daeromme totten voirs.
+suppliant ghy en hebt nyet gedaen als een eerlick man
+dat ghy met desen wetsteen gewegen hebt voer
+vyf pont ende hy en wecht maer scaers viere pont
+voirst is hem supliant geimponeert ende te laste geleyt
+geweest hoe dat voere den oigst lestleden ten tyde
+dat tcoren noch stont en wyes alsoe hy suppliant commen
+was een voet pat inne sy een stuck corens nyet verre
+van pellenberch by een cleyn straetken aldaer hebbende
+thoot nae pellenberch is hem int voirs. stuck corens
+te gemoete gecommen mariken cobbelgiers huysvrouwe
+zegers hertogen commende van pellenberch omme
+naeder voirs. stadt van loevenen te gaen maintenerende
+de voirs. meyer dat zy totten suppliant geseyt zoude
+hebben ghy bonne ghy en hebt my nyet tanveerden
+noch met my nyet te doene anneert oft hanteert
+uwe hoeren ende dat zy oick zeyde ghy bonne
+doet ghy my datte men en zoudts eender hoeren
+int bordeel nyet doen ende dat tot dier sake dat coren
+aldaer zeere ontstucken gebroken was soe datter
+een plaetse int selve coren was zoe groot als
+een tafele oft daeromtrent ende dat de lieden seyden
+dat tselve gedaen was byden voirs. suppliant ende
+mariken ende hoe wel de selve mariken noch
+yement anders dan den voirs. meyer over hem supliant
+voir recht beclaecht heeft oick dat francisque
+de medelienes clerck van onsen cueken meester
+gesworen ende gedeposeert heeft voir burchmeester
+ende twee scepenen in presencien vanden secretarys der
+voirs. onsen stadt dat hy noynt totten selven suppliant
+stuer noch salm met oft zonder gewichte gecocht
+hadde anders dan dat hy hem overslaen hadde met
+zyn wetsteen alsulcke stuer ende salm als hy inden
+myn te loevenen gecocht hadde omme daermede zyne
+wille te doene daerby nyement gecort noch scade
+gehadt heeft nyetmin de voirs. wethouderen hebben
+opten xiiien dach van novembrie lestleden ter maninge
+van onsen voirs. meyer gewesen met vonnesse dat
+de voirs. suppliant verbuert heeft zyn ambacht tien jaeren
+lanck geduerende ende dat hy sculdich zoude syn ter
+beternisse van des voers. is te doene eenen wech tot
+sinte peters te rome derweerts te porren bynnen
+veertich dagen doen naer doen stcommende ende tien jaren
+lanck over berch te bliven als byden dictum vanden
+voers. vonnisse breedere blycken mach daerof dinhoude$
+hiernae volcht van woorde tot woorde es by scepenen
+van lovenen ter manissen smeyers den thoen voirs. overs$
+ende op al behoirlick geledt hebbende gewesen met
+vonnisse dat de voirs. jan van bollenberghe verbue$
+sal hebben syn ambacht thien jaren lanck geduyren$
+ende dat hy sculdich sal syn ter beternissen vandes
+voers. es te doene eenen wech tot sinte peters te
+rome daerweerts te porren bynnen veertich dagen
+naestcommende ende tien jaren lanck over berch
+te blivene ende van al goede waerheyt te bringen
+naedeser stadt recht aldus uuytgesproken ende
+gewesen by scepenen van lovenen int jaer ons heeren
+duysent vyfhondert ende twintich opden dertienste
+dach der maent van novembry aldus ondergeteekent
+j edelheere aldus ondergescreven dit iegenwoirdich
+dictum is getrocken uuyt zekere copie autentycke by
+j edelheere gesworen clerck oft secretarys der stadt
+van loevenen geteekent ende is tselve dictum metter
+voirs. autentycke copie bevonden concorderende by my
+geteekent a boudewyns overmits welcken
+vonnisse de voirs. suppliant vreesende rigeur van
+justicien ende dat tgunt des voirs. is over hem geth$
+souden moghen wesen heeft hem geabsenteert
+uuyt onse voirs. stadt van lovenen aldair hy ny$
+en soude dorren commen keeren hanteren noch
+converseren tot zyne groote scade ende achterdeele
+ende geheele verderfnisse van zyn wyf ende kinderen
+ten zy dat onse gracie hem hier op verleent en worde
+ons omme de selve oetmoedelyck biddende waeromme zoe
+eest dat wy de saken voirs. overgemerct den voirn.
+suppliant genes genegen wesende tot zyne bede ende
+begeerte zonderlinge in faveur ende tot ernstige
+bede ende versueck van enigen onsen spa$len dieneren
+hebben inden gevallen als boven quytgescholden
+ende vergeven schelden quyte ende vergheven uuyt
+onsen zunderlinge gracie by desen al tgene des
+hy ter saken ende mesuz voirs. iegens ons ende
+justicien mesdaen mesbruyct ende verbuert mach hebben
+ende hebben hem als daerof wedergestelt ende
+gerestitueert wederstellen ende restitueren tot zyne
+goede fame name ende geruchte in onsen lande ende
+hertochdom van brabant ende allen anderen onsen landen
+ende heerlicheden zunderlinge in onse voirs. stede
+van lovenen ende tot zyn onverbuerden goeden indien
+hy eenige heeft alsoe als hy was voirde toecompste
+vanden saken ende mesusen voirscreven imponerende
+hierop onsen procureur generael van brabant ende allen
+anderen onsen justicieren ende officieren een eeuwich
+zwygen satisfactie ende beteringe nochtans gedaen
+partie geinteresseerdt indien die nyet gedaen en is op
+datter eenige toe staet civilyck alleenlyck ende uuyt
+onser meerdere gracien hebben den voirs. wech van roome
+ende woenstadt overberch daer inne hy gecondempneert
+is als voirs. gecommiteert ende verandert commiteren
+ende veranderen by desen in een wech oft bevaert die
+hy gehouden wert te doene ten drie coningen tot
+coelen tusschen dit ende den eersten dach vander
+vastenen naestcommende ende daerof van daer behoirlicke
+certifficatie te bringen behoudelyc nochtans
+dat hangende den voirs. tyt ende totten selven iersten
+dacht vander vastenen de selve suppliant en sal nyet
+mogen commen hanteren noch converseren in onse
+voirs. stadt van lovenen ende bovendien hebben hem
+oick uuyt onser zunderlinge gracie geoctroyeert
+geconsenteert ende geaccordeert octroyeren consenteren
+ende accorderen dat hy naeder voirs. yersten dach
+vanden vastenen ende den voirs. wech van coelen by hem
+volbracht zynde sal mogen voirtan zyn voirs. ambacht
+ende neeringe van vischcoopere mitsgaders het dekenscap
+vander grote gulde vander oude boge in onse voirs.
+stadt van loevenen dat hy tot noch toe bedient heeft
+ende anderen staten officien ende diensten daertoe hy
+gepromoveert ende gekoren sal zyn continuerende
+ende exerceren gelyck ende inder manieren als hy
+dede ende doen mochte hem daer toe gereabiliteert
+ende rehabiliteren mids desen onsen brieve behoudelic$
+oick dat hy gehouden sal zyn te betalen die
+redelicken costen van justicien daeromme gedaen ende
+naegevolcht ter taxacie ende arbitraegen van
+onsen lieven ende getruwen den cancellier ende luden
+van onsen rade in brabant die wy daertoe committeren
+ontbieden daeromme ende bevelen den selven van
+onsen rade in brabant dat voir henlieden geroupen de
+gene die daerover behoiren geroupen te zyne zy
+procederen wel ende duechdelick ter verificatien
+ende interinemente van desen ende dat gedaen
+zy onse voirs. meyer van lovenen ende alle andere
+onsen ende der f vassalen oft smalre heeren
+rechteren justicieren ende officieren onsen voirs.
+lants van brabant ende van overmaze wien
+dit aengaen sal mogen hueren stedehouderen
+ende een iegelick van hen zoe hem toebehooren
+zal den voirs. suppliant van dese onse gracie
+pardoene commutacie rehabilitacie octroy ende
+accord$ zoe ende inder manieren als boven
+doen laten ende gedoigen peyselick ende vredelick
+genyeten ende gebruycken sonder hem te doen noch
+te laten geschyen in lyve noch in goede eenich hinder
+letsel oft stoot ter contrarien maer oft zyn lyf
+oft eenige van zyn onverbuerden goeden daeromme
+gevangen becommert oft gearresteert waren dat
+zy die terstont stellen oft doen stellen tot volcommen
+delivrancie want ons alsoe belieft des torconden
+soe hebben wy onsen zegel hier aen doen hangen
+gegeven in onse stede van bruessel den xven dach
+van decembre int jair onsen heeren duysent vyfhondert
+ende twintich ende van onsen rycken te
+wetene vanden roemschen tweeste ende van
+spaengnen etc. tvyffte aldus stont gescreven opte plycke
+byden keyser in zynen rade ende geteekent haneton ende
+stont noch gescreven onder de selve plycke collacie es gedaen
+die collatie van desen copien
+es gedaen ende bevonden accorderende
+metten originale by my
+$$trat$$ [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "1525-11-13",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "janne",
+      "lastname": "van bollebergen",
+      "role": "suppliant",
+      "function": "poorter and fishmonger"
+    },
+    {
+      "firstname": "henryck",
+      "lastname": "de meester",
+      "role": "accuser",
+      "function": "servant of the mayor"
+    },
+    {
+      "firstname": "francisque",
+      "lastname": "de medelienes",
+      "role": "witness",
+      "function": "clerk of the curate master"
+    },
+    {
+      "firstname": "mariken",
+      "lastname": "cobbelgiers",
+      "role": "witness",
+      "function": "housewife"
+    }
+  ],
+  "locations": [
+    {
+      "name": "loevenen",
+      "loctype": "town"
+    },
+    {
+      "name": "pellenberch",
+      "loctype": "place"
+    },
+    {
+      "name": "rome",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Jan van bollebergen, a poorter and fishmonger in the town of loevenen, has received a remission for his fishmonger's trade. He was accused of selling fish weighed with a false weight. He defended himself by saying that the weight was correct and that the accusation was false. The mayor's servant, henryck de meester, accused him, but the clerk of the curate master, francisque de medelienes, and the housewife mariken cobbelgiers, testified in favor of jan van bollebergen. The mayor has granted him a remission to continue his trade and has forbidden anyone to accuse him of this crime again.",
+    "fr": "Jan van bollebergen, un poorter et marchand de poisson dans la ville de loevenen, a reçu une rémission pour son métier de marchand de poisson. Il a été accusé de vendre du poisson avec un faux poids. Il s'est défendu en disant que le poids était correct et que l'accusation était fausse. Le serviteur du maire, henryck de meester, l'a accusé, mais le clerc du curé maître, francisque de medelienes, et la femme au foyer mariken cobbelgiers, ont témoigné en sa faveur. Le maire lui a accordé une rémission pour continuer son métier et a interdit à quiconque de l'accuser de ce crime à nouveau.",
+    "nl": "Jan van bollebergen, een poorter en viskoopman in de stad loevenen, heeft een remissie ontvangen voor zijn viskoopmanschap. Hij werd beschuldigd van vis te verkopen gewogen met een vals gewicht. Hij verdedigde zichzelf door te zeggen dat het gewicht correct was en dat de beschuldiging onjuist was. De dienaar van de burgemeester, henryck de meester, beschuldigde hem, maar de klerk van de koster, francisque de medelienes, en het huisvrouw mariken cobbelgiers, getuigden in het voordeel van jan van bollebergen. De burgemeester heeft hem een remissie verleend om zijn beroep voort te zetten en heeft iedereen verboden hem van dit misdrijf te beschuldigen.",
+    "de": "Jan van bollebergen, ein Bürger und Fischhändler in der Stadt loevenen, hat eine Remission für seinen Fischhandel erhalten. Er wurde beschuldigt, Fisch mit einem falschen Gewicht zu verkaufen. Er verteidigte sich, indem er sagte, dass das Gewicht korrekt war und dass die Anschuldigung falsch war. Der Diener des Bürgermeisters, henryck de meester, beschuldigte ihn, aber der Küsterklerk francisque de medelienes und das Hausfrau mariken cobbelgiers, sagten als Zeugen in seinem Namen aus. Der Bürgermeister gewährte ihm eine Remission, um sein Gewerbe fortzusetzen und verbietet jedem, ihn dieses Verbrechen beschuldigen."
+  }
+}

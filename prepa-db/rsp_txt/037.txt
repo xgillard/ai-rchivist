@@ -1,0 +1,172 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remission pour jehan de mazy demourant a rohcquierez
+pour ung $$$ par luy $$$ sur la personne
+avoir voulut efforce une $$$ fille
+que $$$ sa voulonte
+maximilian et phelippe par la grace de dieu archiducz daustrice
+ducz de bourgouigne de lothraine de brabant de lembourg de lutcembourg
+et de quelres contes de flandres dartois de bourgoigne palatins de
+haynnau de hollande de zeelande de namur et de zuytphen, marquises
+du saint empire seigneurs de frise de salins et de malines savoir
+faisons a tous nous avoir recue lumble supplicacion de jehan de
+mazy demourant a rohcquierez empres notre ville de nyvelle $
+contenant que comme de puis naquerres ledit suppliant a trouve
+en sa maison une $$$ fille de la maison de de bierniemont pour
+avoir du braix pour brasser en sa maison alaquelle ledit suppiant
+en fist delivrer par sa femme tant quelle * vouloit avoir et
+incontinant se parti devant ladite fille en allant en ung bois estant
+entre sa maison dudit suppliant et la maison de ladite fille et quant
+ladicte fille vient audict bois ledict suppliant luy osta son sacq et par
+forche len vouloit apresser den avoir sa voulente comme de la
+cougnoistre charnelement et combien que ladicte fille soy deffendi tout
+le mieulx quelle povoit de fait er de parrolles toutefuoyes ledit
+suppliant ne vouloit cesser de son emprinse le constraindant si avant
+que la fille crya tant quelle povoit combien que ledit supliant
+lui estouppa la bouche dherbes et moistres quil trouva illecques
+et tant que finablement y survient ung homme voyant lequel homme
+ledit suppliant laissa ladicte fille sans parfaire naccomplir sadicte
+voulente et $$pnable empro$$$ pour occasion duquel cas ledit
+suppliant doubtant rigeur de justice noseroit jamais converser
+en notredit pays de brabant mais le $$ endroit $$ ztenir absent
+et vivre en povrete et misere en estrainges marches se notre grace
+et misericorde neluy estoit sur et impartie dont actendu ce que
+dit est meismement ladvenue dudit cas et que ledit suppliant a
+touiours este de bonne vie fame et renommee sans oucques avoir
+este attaint ou $$$ daucun autre vilain cas blasmie ou
+reproche si comme il dist il nous a fait treshumblement supplier
+pourquoy nous ces choses considerees ayans pitie et compassion
+dudit suppliant voulons adez grace et misericorde preferer a
+rigeur de justice avons a icellui suppliant ou cas dessusdict quicte
+remis et pardonne quictons remectons et pardonnons de notre certaine
+science et de grace especial par ces presetes le fait et cas dessusdict
+ensemble toute paine amende et offense corporelle et criminele
+en quoy pour occasion des choses dessusdites les circunstances et deppendences
+ou aucuns dicelles il a et peult avoir mesprins et estre encouru
+envers nous et justice et lavons quant a ce restitue et restituons
+a ses bonne fame et renommee ou pays et a ses biens non confisquez
+sacuns en y a en imposant sur ce silence perpetuel a notre procureur
+et a tous noz autres officiers quelzconques satiffoction toutefvois
+face a partie premierement et avant tout enire se $$$ face nest
+civilement tant seullement et parmy et moyennant ce que
+ledit suppliant sera tenus dele nous amender civilement selon
+lexigence du cas et la faculte de ses biens a larbitraige et tauxacoion
+de noz aimez et feaulx les chancellier et autres genz de notre conseil
+en brabant que a ce avons commis et commectons par cesdits presentes $
+$ donnons en mandement a iceulx noz chancellier et autres gens
+de notre conseil en brabant que appelle pardevant eulx iceulx
+qui pour ce feront a appeler ils procedentet facent proceder bien
+et diligemment ala verification et interinement de ces presentes
+et alarbitraige et tauxation de ladite amende civile ainsi et par
+la maniere quil appartiendra et ce fait et ladite amende civile ainsi
+tauxee et payee a notre rentmaistre cui ce regardera lequel den
+sera tenu den faire recepte a notre prouffit mandons a iceulx
+chancellier et gens de conseil a noz seneschal bailli de nyvelle
+et de notre $$$ pays de brabant et a tous autres noz justiciers
+et officiers presents et avenir leurs $$$ et a chacun deulx en droit
+soy et sicomme alui appartiendra que de notre presente remission et
+pardon selon et par la maniere que dit est ils facent seuffrent
+et laissent ledit suppliant plainement paysiblement **joyr et
+user sans lui faire ou donner ne souffffrir estre fait ou donne ores
+ne pour le temps advenir en corps ne en biens quelque arrest
+destourbier ou empeschement au contraire et afin que ce soit
+chose ferme et estable a tousiours nous avons fait mectre notre
+seel a ces presentes saulf en autres choses notre droit et $$$ en
+toutes donne en notre ville de bruxelles le xij jour du mois
+davril lan de grace mil quatrecens quatrevings et cincq
+apres pasques ainsi signe par monseigneur le duc ou voirs
+messeigneur robert cotereau chancelier maistres jehan de houthem jehan
+de coudenberghe jehan de watermale et autres du conseil
+estoient present greyve visa
+collonn$$ aux letres originaulx
+et $$$ par moy [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "12th April 1445",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "jehan",
+      "lastname": "de mazy",
+      "role": "supplicant",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "fille",
+      "lastname": "de bierniemont",
+      "role": "victim",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "maximilian",
+      "lastname": "et phelippe",
+      "role": "grantors",
+      "function": "archdukes of Austria, dukes of Burgundy, Lothier, Brabant, Limburg, Luxemburg, and counties of Flanders, Artois, Burgundy, Hainaut, Holland, Zeeland, Namur, and Zutphen, marquises of the Holy Roman Empire, lords of Frisia, Salins, and Malines"
+    }
+  ],
+  "locations": [
+    {
+      "name": "nyvelle",
+      "loctype": "city"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "bruxelles",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Jehan de Mazy, a resident of Rohquierez near the city of Nyvelle, seeks remission for an act of violence against a maidservant from the house of Bierniemont. He admits to having accosted her in a wooded area and attempting to force himself upon her, but claims that he desisted when an unknown man appeared. Due to fear of justice, he has been living in exile and poverty in foreign lands. The archdukes Maximilian and Philip, grant him remission, pardoning him for the act and restoring his good name and unconfiscated property, on the condition that he pay a civil fine and remain silent under penalty of satisfaction to the prosecutor and other officers.",
+    "fr": "Jehan de Mazy, résidant à Rohquierez près de la ville de Nyvelle, demande la rémission d'un acte de violence contre une servante de la maison de Bierniemont. Il admet l'avoir approchée dans une zone boisée et avoir tenté de la forcer, mais prétend avoir cessé lorsqu'un homme inconnu est apparu. Par crainte de la justice, il a vécu en exil et en pauvreté dans des terres étrangères. Les archiducs Maximilien et Philippe lui accordent la rémission, lui pardonnant l'acte et restaurant sa bonne réputation et ses biens non confisqués, à condition qu'il paie une amende civile et reste silencieux sous peine de satisfaction envers le procureur et les autres officiers.",
+    "nl": "Jehan de Mazy, wonende in Rohquierez nabij de stad Nyvelle, vraagt vergeving voor een daad van geweld tegen een dienstmeisje uit het huis van Bierniemont. Hij erkent dat hij haar in een bosachtig gebied benaderde en probeerde zich op haar te werpen, maar beweert dat hij stopte toen een onbekende man verscheen. Uit angst voor de rechtspraak heeft hij in ballingschap en armoede geleefd in vreemde landen. De hertogen Maximiliaan en Filips verlenen hem vergeving, vergeven hem het feit en herstellen zijn goede naam en ongeconfisqueerde eigendommen, op voorwaarde dat hij een burgerlijke boete betaalt en stilte houdt onder straf van tevredenstelling van de procureur en andere ambtenaren.",
+    "de": "Jehan de Mazy, ein Bewohner von Rohquierez in der Nähe der Stadt Nyvelle, sucht Vergebung für eine Gewalttat gegen ein Dienstmädchen aus dem Haus Bierniemont. Er gibt zu, es in einem bewaldeten Gebiet angegriffen zu haben und es zu zwingen, sich ihm hinzugeben, aber er behauptet, aufgehört zu haben, als ein unbekannter Mann erschien. Aus Furcht vor der Gerechtigkeit hat er im Exil und in Armut in fremden Ländern gelebt. Die Erzherzöge Maximilian und Philip gewähren ihm Vergebung, indem sie ihm die Tat vergeben und seinen guten Ruf und sein unbeschlagnahmtes Eigentum wiederherstellen, vorausgesetzt, er zahlt eine Geldstrafe und hält Stillschweigen unter Strafe der Zufriedenstellung des Staatsanwalts und aller anderen Beamten."
+  }
+}
+```

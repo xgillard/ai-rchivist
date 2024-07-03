@@ -1,0 +1,217 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie voer willebort van aesdonk wouter van gallekaerle etc. doen te weten allen iegenwoirdichen ende toecomendedat wij ontfaen hebben die oetmoedige supplnatie van woutervan galle arm scamel gehuwt man, inhoudende hoe datgeleden inden somer ontrint st. jansdach xvc achtendertichhij suppliant ende wijlen doen levende adriaen kanaerts metmeer andere sceptreckere te trecken hadden een scip toebehorendepieter vrancx om tselve scip te trecken van heffene naervilvoerden tot vute ende hij suppliant ende wijlen alsoe de voirscreven wijlen adriaen achterbleeff ende ginck sitten drinckenmet meer andere te huyse van willem torrekens totheffene voirscreven soe heeft den voirscreven suppliant den selven adriaenminnelyck gebeden dat hij met hem tvoirscreven scip wilde voir tegaen trecken op dat de scipper bij zijnen ende zijnder gesellenachterblijvende geen schade lijden en zoude, ende dat zijtreckers inde boete nyet te vallen en hadden dyer toestaettegens die gene die achterblijven, soe es den voirscreven wijlen adriaenopgestaen maer commende voorbij een ander herberge, geheetende croone, is hij adriaen daer inne geroepen geweest ende esdaer weder gaen sitten drincken, dwelck ziende jan moenseen van zijn voirscreven medegesellen, heeft den selve adriaen oycgebeden dat hij met hem gaen wilde ende tvoirscreven scip helpenvoir te trecken, dwelck hij adriaen nyet geerne en dedehoe wel hij ten lesten opgestaen is ende met hem jan voirscreven gegaen naer tvoirscreven scip ende aldaer gecommen zijnde, soeheeft den voirscreven wijlen adriaen zeer qualyck gesproken endewilde weder werts gaen. doen de voirscreven suppliant liggendealdaer int ghars hem rustende den$$$ selven wijlen adriaenanderwerf vrindelijck ende minnelijck gebeden heeft dat hijdaer bij hen blijven wilde ende nyet wech gaen voer dat tvoirscreven scip afgetrocken waere soe es de selve adriaen den voirscreven suppliant toegeschoeten ende heeft hem met den hechtevan zijnen opstekere in zijnen sicht gestoken ende metvuysten geslagen als dat hij suppliant zeer bloede, dwelckziende den$$$ knaepe oft bey noot$$$ van den selven scippervraechde den voirnoemde adriaen waerom hij den voirscreven suppliantsloech ende smeet, doen heeft de selve adriaen russ$$$ metzijnen messe vuyter eerden gesteken ende daer mede nae denvoirnoemde knape geworpen ende naer tvoirscreven scip getrocken
+wesende ter plaetsen daert behoirde, soe zijn zij suppliant ende wijlen doen levende adriaen metten voirscreven jan moens,claes kempe ende meer andere treckers voirscreven gegaen in de voirnoemdecroone ende daer sitten drincken sulcx dat daer weder woirdengeresen tusschen hem wijlen adriaen ende den suppliant, in demanieren dat hij adriaen totten suppliant seyde hem gevende eene
+toenaem seghende wouter noen naye maect u van hier vuyt
+desen gelage, waerop hij suppliant antwoirde ic wil
+geerne gaen waer mijn gelach betaelt het is alsoe wel
+mijn gelach alst u soeckende alsoe bij den selven wijlen adriaen
+op hem suppliant werringe$$$ ende noise om te vechten, doen
+den suppliant vele scamperhede de hij al goeder tierelijck ende
+pacientelijck verdroech, stekende voirts bij den voirscreven wijlen
+adriaen met sijnen opstekere naer hem suppliant als dat
+hij met dyen steke quetstede een oudt man geheeten willem
+nijs in zijn hant die welcke hem adriaen vraechde segh
+waerom quetst ghij mij, waerop wijlen adriaen antwoorde
+het es mij leet ic meende dien wouter van galle denoterende
+den suppliant wel geraect te hebben, ende alsoe daer een
+jonck meysen in quam soe es de voirscreven suppliant bij haer gese$$$
+dwelck ziende bij den voirscreven wijlen adriaen heeft tot hem suppliant
+geseyt staet up ghij wouter noey naeye ic wil daer sitten
+bij tmeysen daer ghij sit mit welcken hij suppliant op stont en
+liet hem daer sitten ende corte daer nae soe es die voirscreven wijlen
+adriaen bij den selven suppliant comen sitten ende heeft hem gesla$$$in zijn aensicht wel drije wers met eenen strecken leeren $$$
+van eenen degen die hij wijlen adriaen in zijn handt hadde seggende
+totten suppliant weerdt u weerdt u ghij en soudt u mij es dorren
+weeren daerop hij suppliant antwoirde slaet ghij mij
+ic en heb u nyet mesdaen, ic en wil nyet vechten of gelijcke woirde
+in substantie ende hadde alsoe geerne vanden voirscreven wijlen adriaen
+verdrach gehadt mits dat hij nyet en begeerde te vechten moch=
+=te nochtans de voirscreven adriaen hem met eenen grammen m$$$
+toegeschooten mits welcke hij suppliant oyck opschietende
+zijn alsoe tsamen worden bordelende als dat dese wijlen
+adriaen een steke genegen heeft daer af hij gestorven is
+ter causen van den welcken de voirnoemden suppliant dit grootelijckx
+sijn lijf heeft moeten verweeren mits dat hij geen verdrach
+noch vanden voirscreven wijlen adriaen ontslegen en conste wesen
+als boven vreesende rigeur van justicien heeft hem sedert
+geabsenteert vuyt onsen landen ende heerlicheyden ende en zoude
+daer inne nyet dorren wederkeeren al eest dat hem de toecompste
+van tselve feyt hertelijck leet es ende daer af peys met presentie$$$heeft ten zij dat onse gracie hem hierop verleent worde
+alsoe hij seyt, om die welcke hij ons zeer oetmoedelijck
+gebeden heeft waeromme soe eest dat wij des # aengesien#
+den voirnoemde suppliant geneycht wesende tot zijnder voirscreven beden ende
+begeerten ende willende hem en des gracie ende genade
+persereren voer rigeur van justicien, hebben inden gevalle als boven
+geremitteert quytgescholden ende vergeven, remitteren,
+schelden quyte ende vergeven vuyt onse zunderlinge gracien bij
+desen$$$ den dootslach voert verclaert mitsgaders oyck alle
+peyne ende amende corporelle ende criminelle daer inne hij
+hem overmits ende vuyt saken van tgimt$$$ des voirscreven jegens
+ons ende justicie eenichssins mach hebben ontgaen ende
+hebben hem dyen aengaende gerestitueert ende gestelt
+restitueren ende stellen bij desen tot zijnen goede faeme ende
+naeme in onsen lande ende heerlicheyden ende tot zijn goeden noch
+tertijt nyet geconfisqueert zijnde zoe verre daer eenige
+waren, imponerende hierop een eeuwich zwijgen ende
+silence ons procureur generael in brabant ende allen anderen onsen
+rechteren justicieren ende officieren $$$ $$$ van brabant
+hoedanige die zijn of wesen mogen, satisfactie nochtans
+eerst ende alvoeren gedaen der geinteresseerde partien zoe verre
+die noch nyet gedaen en waere civilijck alleenlijck
+behoudelijck dat hij gehouden werdt den voirscreven dootslach
+jegens ons civilijck te beteren naer gelegentheyt vande
+mesdaet ende faculteyt van zijnen goeden ende oyck
+te betaelen die redelijcke costen van justicien, daeromme
+gedaen ende naegevolght indyen datter eenige geschiet
+zijn der taxatie ende arbiterscepe van onsen lieven ende
+getruwen den cancellier ende luyden van ons raede in
+brabant die wij daertoe admitteren, ontbieden daeromme
+ende bevelen onsen voirscreven cancellier ende luyden van ons raeden in
+brabant dat vier henlieden geroupen die gene die daerom
+behoiren geroepen te zijne, zij procederen ende doen procederen
+wel ende duechdelijck totter verifficatie ende intervenierende$$$ van desen
+ons tegewoirdigen brieve naer louter vorme ende inhouden
+ende welck intervenieren die voirscreven suppliant gehouden sal zijn
+onsen voirscreven raede te versoecken binnen eenen jaere naer data
+van desen op die pene van te verbueren deffect der selver
+ende dat gedaen ende die voirscreven civile boete ende costen van
+justicien getaxeert gearbitreert ende betaelt sijnde alst
+behoirt van welcke civile boete die gene van ons rentmeester
+dient aengaet, gehouden wert ontfanck te maken rekening
+bewijs ende reliqua te doene tot onsen proffijte metten and$$$
+penningen van zijnen ontfang$$$, zij onsen drossaet van brabant
+meyer van vilvoerden ende alle andere onse ende ons vassallen of
+smalre heeren richteren justicieren ende officieren onssen voirscreven
+lants van brabant ende van overmaze hoedanige die zijn
+of wesen mogen, iegenwoirdich ende toecomende
+hueren stedehouderen ende elck van hen soeken dat
+toebehoiren sal of aengaen sal mogen, doen laten ende
+gedoogen den voirnoemde suppliant van dese onse gracie ende
+remissie inder manieren voirscreven, rustelijck vredelijck
+ende eeuwelijck genyeten ende gebruycken sonder hem
+te doene noch te laten geschien in lijfve noch in goede
+eenich hinder letsel of moyenisse ter contrarien
+maer indyen zijn lijf of onverbeurde goeden daeromme
+gevangen becommert oft gearresteert waren, dat zij
+die terstont stellen of doen stellen tot volcommen delivrans$$$
+ende slakinge want ons alsoe belieft, ende ten
+eynde dat dit goet vast ende gestadich blijve tot
+eeuwygen dagen, soe hebben wij ons zegel hieraen
+doen hangen, behoudelijck in anderen saken ons recht
+ende eenen yegelijck tzijne in allen gegeven in onse
+stede van bruessele inde maent van meye int jaer
+ons heeren duysent vijfhondert ende negenendertich
+van onsen keyserijcke txxe ende van ons rijcken van
+castille ende andere txxiiije. aldus stont gescreven op te
+plycke bij den keyser in zijnen raede ende geteekent
+l. de zoete, noch stont gescreven op te selve plycke
+visa $$$
+ghecollacionneert tegens die
+originale brieven bij mijde cock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "wouter",
+      "lastname": "van galle",
+      "role": "suppliant",
+      "function": "man"
+    },
+    {
+      "firstname": "willebort",
+      "lastname": "van aesdonk",
+      "role": "none",
+      "function": "none"
+    },
+    {
+      "firstname": "wouter",
+      "lastname": "van gallekaerle",
+      "role": "none",
+      "function": "none"
+    },
+    {
+      "firstname": "adriaen",
+      "lastname": "kanaerts",
+      "role": "deceased",
+      "function": "man"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "torrekens",
+      "role": "none",
+      "function": "innkeeper"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "moens",
+      "role": "trecker",
+      "function": "man"
+    },
+    {
+      "firstname": "claes",
+      "lastname": "kempe",
+      "role": "trecker",
+      "function": "man"
+    }
+  ],
+  "locations": [
+    {
+      "name": "croone",
+      "loctype": "inn"
+    }
+  ],
+  "summary": {
+    "en": "Remission for Wouter van galle, who got into a fight with Adriaen Kanaerts while trying to pull a ship. Wouter asked Adriaen to help pull the ship, but Adriaen refused. They got into a fight, and Wouter was injured. Adriaen was later killed in the fight, and Wouter had to flee the country in fear of justice.",
+    "fr": "Remise de peine pour Wouter van galle, qui a eu une bagarre avec Adriaen Kanaerts alors qu'il tentait de tirer un navire. Wouter a demandé à Adriaen de l'aider à tirer le navire, mais Adriaen a refusé. Ils se sont battus, et Wouter a été blessé. Adriaen est décédé plus tard dans la bagarre, et Wouter a dû fuir le pays par crainte de la justice.",
+    "nl": "Aflating voor Wouter van galle, die in gevecht is geraakt met Adriaen Kanaerts tijdens het trekken van een schip. Wouter vroeg Adriaen om hem te helpen met het trekken van het schip, maar Adriaen weigerde. Ze raakten aan de stok en Wouter werd gewond. Adriaen overleed later aan de vechtpartij en Wouter moest het land ontvluchten om aan de rechtshandhaving te ontkomen.",
+    "de": "Straferlass für Wouter van galle, der in einen Kampf mit Adriaen Kanaerts geriet, während er ein Schiff zog. Wouter bat Adriaen, ihm beim Ziehen des Schiffs zu helfen, aber Adriaen lehnte ab. Sie gerieten in einen Streit und Wouter wurde verletzt. Adriaen starb später im Kampf und Wouter musste das Land aus Furcht vor der Justiz verlassen."
+  }
+}
+```

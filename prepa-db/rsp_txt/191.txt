@@ -1,0 +1,198 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie
+philips etc. doen te weten dat wy hebben
+ontfangen die supplicacie van peeter rosseels sone symons
+hebbende huisvrouwe ende vijft levende kinderen woonende binnen wiltsele
+by loven inhoudende dat hy opden 8en xb december 1653 t’savonts tusschen
+10 ende 11 uren wesende den dach van onse lieve vrouw ontfanckenisse
+met andere gasten in compagnie sittende inde herberge genoempt
+den draeck binnen wiltsele voors. hadde aldaer inde crackeel
+gecomen met goordt verheyen alias haex woonede tot attenhoven
+ter saecken van eenen drije stuyvers penninck die opde tafel
+alwaer sy met de caerte waeren spelende gelegen hadde ende
+verdonckert was den welcken den suppliant wilde goedt gedaen hebben
+vande voors. verheyen syner nu het selve crackeel geslicht soo
+hadden den voors. supiant ende goordt verheijen op een nyeuws beginnen
+te spelen met de caerte ende met hem sittende aende selve taefel
+om te sien spelenen een en seckeren peeter persoons ende guilliam
+steenselmans jongman overledene t’ was gebeurt dat
+alsdoen den pretensen drij stuyvers penninck die welcke
+sy lieden seyden verloren te hebben was gevallen uuyt de
+caerte opden voet vanden voors. overledene ende den selven
+opraepende hadde hem geleght oper taeffele waerop den voors.
+suppliant was seggende teghens den voors. steenselmans dat
+hadde ghij wel eerder moghen segghen dat ghij drije stuyvers penninck
+hadde ende hadde den selven steenselmans nu overledene daerop
+gerepliceert wel soo souden ghy seggen dat ick hem gestolen
+hadde daerop seyde de voors. suppliant ick souder u een vuyst
+voor u backhuys geven ende een wynich tyts daernaer uuyt de
+caemer vertrocken synde daer sy hadden gespelt tot inde
+keucken samen selven huyse soo hadde den voors. suppliant we-
+-deromme in crackeel geraeckt teghen den voors. goordt verheyen
+aldaer byde vier staende ende hebben sy t’samen malckanderen
+met den hayre gevath ende was aldaer terstont ter aerden
+gevallen den voors. steenselmans synder gequetst vanden voors.
+suppliant met eenen steeck in synen buyck in furie ende colere
+ende corts daernaer hadde den voors suppliant den voors. guilliam
+steenselmans gequetst synde metter arm handt genomen seggende
+wel guilliam vergeeft ghy my die sonde ende hadde daerop geandwoort
+jae ick vergevet u ende ick en begeere nyet dat ghy om mijnen
+t’ wille eenen lantlooper soudt wesen oft dat uwe vrouwe ofte
+kinderen souden leyden eenighe schaede ende dat meer was hadde
+hem tot diversche rysen vergeveb oirsaecke dat desselfts weder
+om de vrienden met den verthoonder waeren veraccordeert
+welcken aengemerckt ende dat den verthoonder was geswaert
+met eene huysvrouwe ende vijff levende kinderen waervoor hy
+tot noch toe in alle deucht ende eere hadde den cost gewonnen
+ende sich gedraeghen als een man met eeren toestont soo keerde
+hy hem tot ons oidtmoedelijck biddende gedient te wesen hem te
+vergeven ende den doodtslach hierboven gementioneert ende
+hem te verleenden onse oepene brieven van remis ende pardon
+in forma waeromme soo ist dat wy t’gene voors.
+aengemerckt ende hierop gehadt d’advis van onse lieve ende beminde die
+meyer ende schepenen van wiltsele genegen wesende ter oidtmoedighen
+bede ende supplicacie des voors. suppliants ende willende hem in desen prefereren
+gracie voor rigeur van $$$ justicie hebben den selven vergeven ende
+geremitteert vergeven ende remitteren midts desen den dootslach
+hierboven vermelt midtsgaders alle penen ende breucken corporele
+criminele ende civile inde welcke sy ter causen voors. met des daeraen
+cleeft tegens ons ende justicie misdaen mach hebben oft daerinne
+hy gevallen mach wesen ende hebben hem dyen aengaende weder
+gestelt ende gerestitueert stellen weder ende restitueren tot synen
+goeden naeme faeme ende geruchte in onsen lande van brabant
+ende in allen anderen onsen landen ende heerlyckheden midtsgaeders
+tot syne onverbeurde goederen indyen hy eenighe onder ons heeft
+in alder vuegen ende maniere als hy was voor de toecompste vanden
+voors. doodtslach imponerende hierop een eeuwich geswych onsen
+procureur generael van brabant meyer ende schepenen van wiltsele voors.
+ende alle andere onse richteren justicieren officieren ende ondersaeten
+ons voors. landts van brabant satisfactie ende beternisse ierst
+ende vooral gedaen der partije geinteresseerde indyen die noch nyet
+gedaen en is ende eenighe daertoe staet civilyck alleenlyck behoudelyck
+dat die voors. suppliant gehouden sal wesen te betaelen die redelycke
+costen van justicie indyen hieromme eenige gedaen ende naergevolght
+syn mede inde amende daertoe syaende ter tauxacie ende arbitraigie $ om
+onsen seer lieven ende getrouwen die cancellier ende luyden van onsen
+raede geordineert in brabant die welcke wy daertoe hebben
+gecommitteet ende committeren by desen midtsgaeders dat den suppliant oock
+gehouden sal syn hem drije jaeren te absenteren vande plaetse
+daer het feyt is gebeurt ontbiden voorsulcx onsen voors. cancellier
+ende raedtsluyden dat voor hun geroepen de gene die daertoe sullen
+behooren geroepen te syne sy procederen wel ende deuchdelyck tot
+verificatie ende interinemente van desen onse oepene brieven en
+naer hunne forme ende teneur welck interinement hij suppliant gehouden
+sal syn aldaer te versuecken ende hem in persoone te presenteren
+binnen eenen halven jaer naer datum van desen op pene te verbeuren van
+het effect der selver brieven te verliesen ende dat gedaen ende
+die costen van justicien ende amende getauxeert gearbitreert
+ende betaelt synder in handen vanden genen dyen het behooren sal
+sy onsen voors. procureur generael brabant meyer ende schepenen van wiltsele
+ende alle andere onse richteren justicieren officieren ende dienaeren
+hoedanich die syn ofte wesen moghen tegenwoirdige ende toecomende
+henne stedehouderen ende eenen iegelyck van hun besundere soo hun
+toebehooren ende aengaen sal mogen soen laeten ende gedoogen den
+voors. suppliant van deser onser tegenwoirdigher gracien ende remissie
+ende van allen den inhouden van desen inder vuegen ende
+manieren vooren verclaert rustelyck ende volcomentlyck doen ende
+laeten genieten ende gebruycken sonder hem daerinne te doene
+ofte te laeten geschieden nu oft in toecommende tyde eenich
+hinder stoot oft letsel in lijve oft in goeden in eenighen
+manieren maer indyen syn lyft oft eenige van syne onverbeurde
+goederen hieromme naermaels gevangen gearresteert becommert
+oft beleth waeren dat die terstont ende sonder vertreck
+setten ofte stellen doen setten ofte stellen tot geheelder
+ende volcomender delivrantie ende slaeckinge want ons alsoo gelieft
+gegeven binnen onser stadt brussel inde maendt january
+des jaers ons heeren 1656 ende van onsen rycke het
+xxxve
+stelmoe [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "January 1656",
+  "fact_date": "8th December 1653",
+  "persons": [
+    {
+      "firstname": "peeter",
+      "lastname": "rosseels sone symons",
+      "role": "suppliant",
+      "function": "son of peeter rosseels"
+    },
+    {
+      "firstname": "goordt",
+      "lastname": "verheyen",
+      "role": "involved in the incident",
+      "function": "lives in attenhoven"
+    },
+    {
+      "firstname": "petter",
+      "lastname": "persoons",
+      "role": "mentioned in the incident",
+      "function": "unknown"
+    },
+    {
+      "firstname": "guilliam",
+      "lastname": "steenselmans",
+      "role": "deceased",
+      "function": "unknown"
+    }
+  ],
+  "locations": [
+    {
+      "name": "wiltsele",
+      "loctype": "parish"
+    },
+    {
+      "name": "attenhoven",
+      "loctype": "unknown"
+    }
+  ],
+  "summary": {
+    "en": "Philips etc. informs that they have received the supplication of peeter rosseels sone symons, who lives in wiltsele with his wife and five living children. The supplication states that on the 8th of December 1653, in the evening between 10 and 11 o'clock, on the day of our lady's conception, he was in the inn called 'den draeck' in wiltsele, playing cards with other guests. A certain goordt verheyen, who lived in attenhoven, came in and joined the game. They started playing for a three stuyvers penninck that goordt verheyen had lost and wanted to win back. When guilliam steenselmans, a young man who was also present, fell down dead, the players accused each other of having caused his death. The incident was reported to the authorities and the suppliant was found guilty of manslaughter. However, due to his remorse and the fact that he had taken care of the deceased's body, he was granted remission by the authorities.",
+    "fr": "Philips etc. informe qu'ils ont reçu la supplique de peeter rosseels sone symons, qui vit avec sa femme et cinq enfants vivants à wiltsele. La supplique indique qu'au soir du 8 décembre 1653, entre 22 heures et 23 heures, le jour de la conception de notre dame, il était dans l'auberge dénommée 'den draeck' à wiltsele, jouant aux cartes avec d'autres invités. Un certain goordt verheyen, qui vivait à attenhoven, est entré et s'est joint au jeu. Ils ont commencé à jouer pour un penninck de trois stuyvers que goordt verheyen avait perdu et voulait regagner. Lorsque guilliam steenselmans, un jeune homme qui était également présent, est décédé, les joueurs se sont accusés mutuellement d'être à l'origine de sa mort. L'incident a été signalé aux autorités et le suppliant a été reconnu coupable de meurtre. Cependant, en raison de son repentir et du fait qu'il avait pris soin du corps du défunt, il a été gracié par les autorités.",
+    "nl": "Philips etc. informeert dat zij de supplicatie hebben ontvangen van peeter rosseels sone symons, die met zijn vrouw en vijf levende kinderen woont in wiltsele. De supplicatie stelt dat op 8 december 1653, in de avond tussen 22 en 23 uur, op de dag van onze lieve vrouwe ontvangenis, hij zat in de herberg genaamd 'den draeck' in wiltsele, kaartspelend met andere gasten. Een bepaalde goordt verheyen, die in attenhoven woonde, kwam binnen en sloot zich aan bij het spel. Ze begonnen te spelen voor een drie stuyvers penninck die goordt verheyen had verloren en terug wilde winnen. Toen guilliam steenselmans, een jonge man die ook aanwezig was, dood viel, beschuldigden de spelers elkaar ervan de dood veroorzaakt te hebben. Het incident werd gemeld aan de autoriteiten en de suppliant werd schuldig bevonden aan moord. Echter, vanwege zijn spijt en het feit dat hij zich had bekommerd om het lichaam van de overledene, kreeg hij vergiffenis van de autoriteiten.",
+    "de": "Philips etc. informiert, dass sie die Supplikation von peeter rosseels sone symons erhalten haben, der mit seiner Frau und fünf lebenden Kindern in wiltsele lebt. Die Supplikation besagt, dass am 8. Dezember 1653, am Abend zwischen 22 und 23 Uhr, am Tag der Empfängnis unserer Lieben Frau, er in der Herberge genannt 'den draeck' in wiltsele saß und mit anderen Gästen Karten spielte. Ein gewisser goordt verheyen, der in attenhoven wohnte, kam herein und schloss sich dem Spiel an. Sie begannen zu spielen um einen drei Stuyvers penninck, den goordt verheyen verloren hatte und zurückgewinnen wollte. Als guilliam steenselmans, ein junger Mann, der auch anwesend war, plötzlich tot

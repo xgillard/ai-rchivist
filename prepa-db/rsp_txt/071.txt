@@ -1,0 +1,213 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te weten alle tegenwoirdige ende toecommende
+dat wy ontfangen hebben dye oitmoedige supplicatie van
+jaspar smets sone philips lantman van zyne styl inhoudende
+hoe dat opden xve dach van augusto nu geleden vijff jaeren hy supliant
+wezende ten huyse adriaens van ermighem gestaen tot kelffs
+onder dye jurisdictie van herent vergadert met vrolychelyck geselschap
+heeft hem daerby gevonden eenen hendrick verdonct zyn supliants
+halff broedere doen wezende den schiptreckere alwaer by een
+geseten hebbende tot des nachts ten elff uren thoe dat hy supliant
+ende allen dander geselschap bereet waeren om elck nae huys te
+gaene heeft dye voirn. verdonct hem supliant beroepene dat hy tegen
+hem wilde hutsele om vyff stuyvers eens waer inne hy supliant
+nae vele quellens ten lesten consenterende als denckende
+ingevalle van verliesen tselve aen hem verdonct te cortene want hy
+hem supliant schuldich was hebben tsamen gehutselt ende wordt het see$
+byden selven verdonct gewonnen ende tgelt wechgestreken dwelck
+aensiende hy supliant seyde totten selve verdonct geeft my toch nu
+myn ghelt dwelck ich u hebbe vuytmynde borse geleent doen
+ich sieckwas daerop de selve verdonct antwoorde ick en kenne u
+gheen schult ende hy supliant replicerende opde selve woorden
+heeft geseyt hoe soude my gheen schult kennen ick en hebbe
+noyt meer gehadt als eenen silveren real ghy hebt my altyt
+beloeft te betalen zoo wannee ghy een reyse oft twee getrocken
+soudt hebben ende nu hebt ghy diversche reysen gedaen ende noch
+en hebdy my nyet betaelt maer dye selve verdonct op alles tselve
+nyet achtende seydt tot hem supliant deze woorden op zyn vuylste
+wech gaet henen wech u moeder thoe daethoe vuegende noch
+andere vile ende onnutte woorden oick tot verachtinge ende
+versmadinge vande selve zyne moedere in zulcker vuegen dat nae
+vele arguatien ende iniurien dye zy deen den anderen seyden zy
+gelijckerhandt tegen malcanderen zyn opgestaen hebbende nochtans
+den selven verdonct eerst den voirs. supliant geaggresseet ende met
+zyn mes gesteken dewelcke hem vindende te dye oirsake zulcx
+gepresteert ende in zulcke perplexiteyt kennende dye furye
+ende dangereuse handt vanden selve verdonct roem draegende
+dat hy noch yemans lyff hebben soude oft in souden tzyne hebben
+te meer dat deur hun vursenen dye keersse gevallen ende vuytgegaen
+was waerdeure midts het nacht was de voirs. supliant nyet en coste
+gewycken dye slagen vanden voirs.verdonct en heeft nyet anders
+kunnen doen ter nootelycher defensienvan zynen lyve dan zyn
+mes inde handt te nemen daermede hy den voirs. overgelede heeft
+een steke gegeven op zyn slincke zyde boven omtrent zyn
+schouderen vande welcke hy corts daernae dese werelt is overlede
+allet dwelck dye schoonvader ende allen dandere vrienden partye
+geinteresseerde vanden afflyvigen verstaen hebbende zoo gebeurt
+te zyne ende besundere aensiende des supliants ionchheyt groot
+berouw ende leetwezen hebben hem tselve om goitswille gheerne
+vergheven ende hem te lieve laten versoenen ende contenteren in
+respecte van het onnaxaen richveerdich ende rukeloos leven
+dwelck dye voirs. verdonct wyens ziele godt genadich zy $ was
+leydende als daegelycx drinckende schinckende kyvende vechiend
+tuyschende ruyschende vloeckende godt de heere dicwils zyn
+heylich lyden verwytende selden der kercken frequenterende
+altyts met eenen woorde seggende ende swerende ick seke
+u deur u saken ende voirts het groot verdriet dwelck sy
+voirs. ouders als schoonvadere metten selven verdonct hadden
+ende dye slagen ende stooten dye zy van hem hebben verdragen
+zoo daeraff ende van meedyegelyche promptelych geblehe
+is ende naerder zal blychen indyen des noot zy biddende
+ons de voirs. supliant daeromme zeer oitmoedelyck dat gemerct
+tghene des voirs is ende dat hy is staende tot goede name
+ende fame ende van religie catholiche noyt yet anders
+missdaen hebbende ons believe wille hem daerop te verleenen
+onse gratie ende genade ende hem daerop doen depescheren
+onse behoirlycke opene brieven van remissie daerthoe dienend
+soe eest dat wy de sahen voirtchreve overgemerct ende
+hyerop gehadt dadvys vanden meyere ende schepene vande voirs.
+jurisdictie van herent den voirs. jaspar smets supliant genegen
+wezende tzynder voirs. bede ende begeerte ende hem willende in
+dit such gratie ende genade prefereren ooec rigeur ende
+stranckheyt van justicie hebben inden gevalle alsbove vergheven
+quytgeschouwen ende geremitteert vergheven schilden quyte ende
+remitteren vuyt onser sunderlinger gratie by dezen tfeyt ende
+manslach boven verclaert mitsgaders alle peyne ende boete
+corperele ende criminele daerinne hy ter cause van dye
+met diesser aencleeft tegens oics ende justicie misdaen ende
+misbruyct mach hebben hem als daeraff wederstellende ende
+restituerende tot zyne goede fame name ende geruchte in desen
+onsen lande van brabant limborch ende overmaze ende alle andere
+onse landen ende heerlicheden ende tot zyne ongeconfisqueerde
+goeden indyen hy eenige heeft alzoo hy was voer dye
+toecompste vanden manslach voirschreve imponerende hyerop een
+euwich swygen ende silencie onsen procureur generael ende andere
+onse rechteren justicieren ende officieren wye in zyn satisfactie
+ende beteringe ierst ende voeral byden supliant gedaen der geinteresseert
+partye zou verre dye noch nyet gedaen en is ende eenige daerthoe
+staet civilyck alleenlyck behoudelych dat de voirs. suppliant
+*
+gehouden wordt tvoirs. feyt ende manslach tegens ons oich
+civilyck te beteren naerde gelegentheyt vande misdaet ende
+faculteyt van zyne goede ende onse ordinancie daerop gemaect
+ende boven dyen te betalen dye redelyche costen van justicien indyen
+eenige ter causen voirchreven geschiet zyn alles ter arbitraigie
+ende taxatie van onsen lieven ende getrouwen cancellier ende luyden
+van onsen rade in brabant dye wy daethoe committeren denwelcke
+wy ontbieden ende bevelen dat voer hen geroepe deghene dyen
+vuer behoiren geroepe te zyne in procederen wel ende deuchdelyck
+ter verifficatie ende interinemente van dezen nae heure vorme ende
+inhouden ende ter arbitraigien ende taxatie vande amende civile ende
+costen van justicie voirschreven welch interinement de selve
+supliant sal gehouden zyn te vervolgen voer dye van onsen rade in brabant
+binnen zess maenden naescommende op pene te verliese deffect
+van deze ende dat gedaen ende de voirs. amende civile getaxeert
+ende betaelt zynde in handen van onsen ontfanger van den exploicten
+dyet behoiren zal dye gehouden wordt daeraff ontfanck te maken
+rekeninge bewys ene reliqua te doene tot onsen proffyte metten
+anderen penningen van zynen ontfange zy ende alle andere
+onse rechters ende officiers iegenwoirdige ende toecommende
+heure stedehouders ende eenyegelyck van hen besundere dye
+dit aengaen zal doen laten ende gedoogen den voirs. suppliant
+van des onse tegenwoirdige gratie remissie ende quytscheldinge
+ende van allen den inhouden van dese inder vuege s ende manieren
+voirschreven rustelyck vredelyck ende euwelyck genyeten ende
+gebruychen sonder hem te doene noch te laten geschieden nu
+noch in toecommenden tyde aen lyffve noch aen goede eenich hinder
+letsel oft moyennisse ter contrarien in eeniger manieren maer
+indyen zyn lyff oft eenige van zyne onverbeurde goeden daeromme
+gevangen becommert belet oft gearresteerd waeren dat zy dye
+stellen oft setten oft doen stellen tot terstont ende sonder vertreck tot
+volcommen slahinge ende delivrancie want ons alzo gelieft ende
+ten eynde dat dit goet vas ende gestadich blyve ten euwige daege
+zoo hebben dey onsen zegel hyeraen doen hangen behoudelyck in
+andere zaken ons recht ende eenyegelyck tzyne in allen
+gegeven in onser stadt van bruessele inde maent van meye
+int jaer onsheeren duysent vyffhondert vyffentzeventich van
+onsen rycken te weten van spaengnien sicillien etc. txx ende
+van napels txxy opde plyche stondt geschreve byden
+coninch in zynen rade geteeckent mesdach
+gecollacioneert tegens doriginale briefven
+bymy
+vanden houte
+*sy van dese civilelen
+beternisse mitwoent
+byden ontfangen v
+exploicten [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "INTENTIONALLY_LEFT_BLANK",
+  "fact_date": "1575-05-00",
+  "persons": [
+    {
+      "firstname": "Jaspar",
+      "lastname": "Smets",
+      "role": "suppliant",
+      "function": "son of Philips Lantman"
+    },
+    {
+      "firstname": "Hendrick",
+      "lastname": "Verdonct",
+      "role": "accused",
+      "function": "half-brother of the suppliant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Bruessele",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Jaspar Smets, son of Philips Lantman, requests a remission for Hendrick Verdonct, his half-brother. The incident took place in Bruessele, in May 1575. Hendrick accused Jaspar of owing him five stuyvers and, after a heated argument, Jaspar was forced to stab Hendrick in self-defense. Hendrick died shortly after. Jaspar now seeks pardon and forgiveness for his actions.",
+    "fr": "Jaspar Smets, fils de Philips Lantman, demande la rémission de Hendrick Verdonct, son demi-frère. L'incident s'est produit à Bruessele, en mai 1575. Hendrick a accusé Jaspar de lui devoir cinq stuyvers et, après une vive dispute, Jaspar a été contraint de poignarder Hendrick en légitime défense. Hendrick est décédé peu de temps après. Jaspar cherche maintenant le pardon et le pardon pour ses actes.",
+    "nl": "Jaspar Smets, zoon van Philips Lantman, vraagt vergeving voor Hendrick Verdonct, zijn halfbroer. Het incident vond plaats in Bruessele, in mei 1575. Hendrick beschuldigde Jaspar ervan hem vijf stuyvers te schulden en, na een hevige ruzie, was Jaspar gedwongen Hendrick in zelfverdediging te steek. Hendrick overleed kort daarna. Jaspar vraagt nu vergeving voor zijn daden.",
+    "de": "Jaspar Smets, Sohn von Philips Lantman, bittet um Vergebung für Hendrick Verdonct, seinen Halbbruder. Der Vorfall ereignete sich in Bruessele im Mai 1575. Hendrick beschuldigte Jaspar, ihm fünf Stuyvers schuldig zu sein, und nach einem heftigen Streit war Jaspar gezwungen, Hendrick in Notwehr zu verletzen. Hendrick starb kurz darauf. Jaspar sucht nun Vergebung für seine Taten."
+  }
+}
+```

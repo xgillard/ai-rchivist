@@ -1,0 +1,198 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+copie de la remission pour pierre etc
+et henry van eckele imte $$ etc
+philippe par la grace de dieu archiducbdaustriche duc de bourgoigne
+de lothier de brabant de stier de karente de cram de lembourg de luxembourg et
+de gheldres conte de flandres dartois de bourgoingne palatin de huynau
+de hollande de zeelande de namur et de zuytphen marquis
+du saint empire de romme et de borgau lantgrave delsace seigneur
+de frize de sur de windischenmarq de portenauw de salins et
+de malines a tous ceulx qui ces presentes lettres verront savoir faisons
+nous avoir recue lumble supplication de pierre filz bastard de henry
+bastard de beersele et henry van eckele serviteur de henry le scolastre
+contenant comment passe deux ans et plus lesdits suppliants estans a la hulpe
+en notre roman pays de brabant ung jour quilz passoient le temps a y
+prendre des petits oyseletz au filet et autrement en la grange dudit henry
+le scolatre aucuns duddit lieu de la hulpe pour ce que peu au par avant feu
+aerdt de huwelere notre sergant des bois avoit navre et afole
+ledit henry le scolastre cousin dudit pierre et maistre dudit henry
+supplians alerent de$ers icellui feu aerdt et lui dirent comment
+il y avoit aucuns des bastars de berssele cousin audit henry
+le scolastre et autres compaignons en la maison dicceluy henry
+le scolastre et quil fust sur sa garde car il faisoit a doubter
+que filz le trouvoient quilz luy feroient desplaisir a quoy ledit feu aerdt
+respondit il ne men chault qui a peur des feulles ne voise point au bois
+je nay point peur pour deux ce ne sont que garchons qui tendent aux
+oyseaulx ilz nont autre chose a mengier ou telles parolles en substance
+lesquelles parolles furent rapportees ausdits supplians pourquoy et ayans
+regret et hayne a icellui feu aerdt a cause de la bleschure et affoulure
+quil avoit faicte audit henry lescolastre comme dit est iceulx suppliants
+furent malcontens et de fait ledit henry suppliant qui cognoissoit ledit
+feu aerdt et ledit pierre $$$ voyant icellui aerdt aller luy
+deux $$$ de sa maison a la place dudit lieu de la hulpe non
+sachant silz leur vouloient mal ou non dist audit pierre suppliant
+veez la cestin qui a dit ces parolles et qui a affoule mon
+maistre qui ma tousiours noury et entretenu et votre cousin et
+incontinent icelluy henry vint courir suz audit feu aerdt lescriant
+deffens toy et a lautre quil sen allast arriere lequel senffuyt
+et ledit feu qui estoit arme se mist a deffendre neantmoins
+ledit henry suppliant dune denne picque quil avoit donne ung
+cop a icellui feu en la cuysse et ung aultre cop ou hastereau
+et lors ledit feu se tourna denvers ledit pierre suppliant lequel
+pierre meu de chaulde cole tant pour lesdits parolles que pour
+la batture et affoulure dudit henry lescolatre son cousin
+frappa dune hallebarde quil avoit sur icellui feu dont il labbatit
+a terre et fut tellement blesche que dedans trois ou quatre jours
+apres il termina vie par mort et combien que iceulx
+supplians soient tres deplaisans dudit cas et ayent contente
+partie neantmains craindans rigeur de justice ilz se sont
+abstentez de notre pays de brabant et ny oseroyent
+retourner mais leur en commendra tenir absens et vivre en
+autres pays en grant povrete et misere se notre grace
+et misericorde ne leur estoit sur ce impartie siccome
+ilz dicent pour laquelle ilz nous ont treshumblement
+fait supplier pour ce est il que nous ayans compassion
+desdits supplians voulans aidez grace et misericorde preferer a
+rigeur de justice mesmement a lhoneur et reverence de
+la sainte passion de notre saulveur jhesu christ quil souffroit
+en larbre de la sainte croix au jour de huy ausdits suppliants
+inclinans a leurdit supplication et requeste a nous de notre
+certaine science et de grace especial quicte remis et pardonne
+et par ces presentes quictons remectons et pardonnons le fait
+et cas dessusdit ensemble toute peine et amende corporelle
+criminelle et civile enquoy pour cause et occasion du fait
+et cas avantdit ilz ont eu $$$ avoir mesprins et
+estre enncor$$ envers nous et justice et lavons quant
+a ce restitue et restituons a leurs bonnes fames et
+renommees au pays et a leurss biens non confisquez sancuns
+en y ont en imposant sur ce silence a notre procureur et
+a tous noz autres justiciers et officiers quelsconcques
+cuy ce regarde satisfaction toutesfois faicte a partir
+se $$$ nest prealablement et avant tout $$$ si donnons en
+mandement a noz aimez et feaulx les chancelliers et gens de
+notre conseil ordonnez en notredit pays de brabant y ne appellez
+ceulx qui pour ce feront a appeller ilz procedent et facent
+proceder bien de$ement et diligamment a linternement et
+verifica tion de ces mesmes presentes et ce fait mandons en
+oultre a iceulx de brabant maire de louvain amman de
+bruxelles echouthetes danvers et de boisleduc bailly
+de nyvelle et de notre romant pays de brabant et a tous
+noz autres justiciers et officiers presens et avenir quelzconcques
+de notredit pays de brabant et a iceulx des vassaus segneurs
+noz vassaulx dicellui pays leurs lieutenants et a chacun deulx en droit soy
+et sicomme a luy appartiendra que de ceste presente grace remission
+quitace et pardon selon et par la maniere que dit est ilz facent
+seuffrent et laissent lesdits suppliants joyer et user plainement paisiblement
+et perpetuellement sans leur fere donner ne souffrir estre fait
+aucun arrest destombier ou empeschement au contraire mais $$ chois
+se leurs corps ou lun deulx ou aucuns de leur sesdits biens non confisquez
+estoient pour ce prins saisiz arrestez ou empeschez lles mectent ou facent
+mectre tantost et sans delay a plaine delivrance car ainsi nous plaist
+etc et affin que ce soit ferme et estable a tousiours nous avons
+fait mectre notre seel a ces presentes donne le vendredy saint
+lan de grace dix cincqcens et deux ainsi soubz escript
+et signe sur lla plicque par monseigneur larchiduc
+de thielt
+collonne a loriginal
+par moy [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1522-04-03",
+  "fact_date": "1520-00-00",
+  "persons": [
+    {
+      "firstname": "pierre",
+      "lastname": "filz bastard de henry",
+      "role": "suppliant",
+      "function": "bastard"
+    },
+    {
+      "firstname": "henry",
+      "lastname": "van eckele",
+      "role": "suppliant",
+      "function": "serviteur"
+    },
+    {
+      "firstname": "philippe",
+      "lastname": "archiducbdaustriche",
+      "role": "grantor",
+      "function": "archduke, duke, count, marquis, lantgrave, seigneur"
+    },
+    {
+      "firstname": "feu",
+      "lastname": "aerdt de huwelere",
+      "role": "victim",
+      "function": "sergant des bois"
+    }
+  ],
+  "locations": [
+    {
+      "name": "notre roman pays de brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "la hulpe",
+      "loctype": "location"
+    },
+    {
+      "name": "la maison dicelluy henry le scolastre",
+      "loctype": "building"
+    },
+    {
+      "name": "place dudit lieu de la hulpe",
+      "loctype": "location"
+    }
+  ],
+  "summary": {
+    "en": "Pierre, bastard son of Henry, and Henry van eckele, servant of Henry the scolastre, request remission for killing feu aerdt de huwelere, sergeant of the woods, two years prior. They were hunting birds when feu aerdt made disrespectful comments about their cousin, henry the scolastre. Henry van eckele, angered by the comments and previous attacks by feu aerdt on henry the scolastre, attacked and killed feu aerdt. Pierre and Henry van eckele fled the country out of fear of justice, but now request remission. Philippe, archduke of Austria, grants remission for the act, and pardons any criminal and civil penalties associated with it.",
+    "fr": "Pierre, bâtard de Henry, et Henry van eckele, serviteur de Henry le scolastre, demandent la rémission pour le meurtre de feu aerdt de huwelere, sergent des bois, deux ans plus tôt. Ils chassaient les oiseaux lorsque feu aerdt a fait des commentaires désobligeants à propos de leur cousin, Henry le scolastre. Henry van eckele, en colère contre les commentaires et les attaques précédentes de feu aerdt sur Henry le scolastre, a attaqué et tué feu aerdt. Pierre et Henry van eckele ont fui le pays par crainte de la justice, mais demandent maintenant la rémission. Philippe, archiduc d'Autriche, accorde la rémission pour l'acte et pardonne toutes les peines civiles et pénales associées à celui-ci.",
+    "nl": "Pierre, bastaardzoon van Henry, en Henry van eckele, dienaar van Henry de scholiast, vragen vergeving voor de moord op feu aerdt de huwelere, boswachter, twee jaar tevoren. Ze jagen op vogels als feu aerdt onbeleefde opmerkingen maakt over hun neef, Henry de scholiast. Henry van eckele, geïrriteerd door de opmerkingen en eerdere aanvallen van feu aerdt op Henry de scholiast, valt feu aerdt aan en doodt hem. Pierre en Henry van eckele vluchten het land uit door angst voor de rechtshandhaving, maar vragen nu vergeving. Filips, aartshertog van Oostenrijk, verleent vergeving voor het feit en vergeeft alle strafrechtelijke en burgerrechtelijke straffen die hieraan zijn verbonden.",
+    "de": "Pierre, Bastard Sohn von Henry, und Henry van eckele, Diener von Henry dem Scholastiker, bitten um Absolution für die Tötung von feu aerdt de huwelere, Forstmeister, vor zwei Jahren. Sie jagten Vögel, als feu aerdt beleidigende Bemerkungen über ihren Cousin, Henry den Scholastiker, machte. Henry van eckele, empört über die Bemerkungen und früheren Angriffe von feu aerdt auf Henry den Scholastiker, griff feu aerdt an und tötete ihn. Pierre und Henry van eckele flohen aus Furcht vor der Justiz aus dem Land, bitten nun jedoch um Absolution. Philipp, Erzherzog von Österreich, gewährt Absolution für die Tat und vergibt jede strafrechtliche und zivilrechtliche Strafe, die damit verbunden ist."
+  }
+}
+```

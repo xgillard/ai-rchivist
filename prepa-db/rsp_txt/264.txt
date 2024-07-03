@@ -1,0 +1,210 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle doen te wetene allen luyden teghewoirdich ende
+toecomende dat wy ontfangen hebben die oetmoedige supplicatie van
+cornelis vanden steene jonck ambachts gheselle inhoudende hoe dat
+hy suppliant opten eenentwintichsten dach septembris anno xxxii uuyt
+onser stadt van antwerpen gaende met henricke coomans oyck
+jonck ambachts gheselle wandelen tot doerne aldaer inden
+valck achter de kercke twee potten bier gedroncken hebbenen
+zyn voer die selve herberghe ghepasseert oyck twee jonge
+ghesellen te wetene jan bal ende daniel van aelst de selve
+by hen innegheroepen ende tsamen ghedroncken ende een gelach
+ghemaeckt ende gherekent hebbende van eenen stuver de man
+zoe quam daer nae noch eenen pot bier beloopenen zess myten de
+man daer om de suppliant ende jan bal een mommeranse gheworpen
+hebbende wye de zesse myten voer den anderen betalen soude
+ende ierst male deene canse van neghen ooghen uuytcomende zoe
+seyde de suppliant dats myn cansse ick hebt ghewonnen ende die
+voirs. jan bal ter contrarien seyde dat zyn cansse was zoe
+dat zy ter cansen van desen tot twee maken byde andere vanden
+gheselchape van desen differente vereenicht ende toeghedroncken
+hebbende heeft die voirs. jan bal wederomme verhaelt met
+eenen grammen moede dat hyt ghewonnen hadde ende alsoe de
+zess myten hebben woude oft hy soude dien avont des suppliants
+lyff hebben oft de suppliant tzyne daer op de suppliant seyde siet
+dat ghyt cryght midts dien zeyde de voirs. jan bal zyt ghy
+vroom van uws moeders lichaem volght my daer buyten waer
+op die suppliant seyde om tgeselscape ende thuysghesm nyt te
+turberen gaet voere ick sal u terstont volghen ende die voirs.
+jan bal voer opder straten oft plaetsen ende buyten den
+huyse wesende ende die suppliant hem volghende zoe hadde de
+voirs. jan bal eenen opstekere daer mede hy terstont naeden suppliant
+stack om den selven van zynen lyve te evelen twelck de suppliant
+ziende heeft oyck zynen opstekere genomen ende naden selven
+stekende heeft hem alleenlyck eenen steeck in zyn borste
+sonder meer gegeven nyet wetende dat hy zeer gequetst was
+is wederomme int huys by zyn voirs. geselscap gegaen ende
+een vanden selven geselscape naeden selven gaende sien is hem
+ierst die voirs. suppliant ende daer nae de voirs. jan bal te
+ghemoete gecomen tegen den welcken hy zeyde jan broer
+weest te vreden wat wildy ghy aldus veel woerden maken
+om zoe cleynen saecke ick wilt liever selver betaelen
+daer op dat jan bal voirs. antwoirde broer ick hebs genoech ende
+ghinck inde kuekene ende die voirs. daneel siende dat hem die
+beenen beghonsten te failleren greep den selven inden arm daer
+inne hy corts daern nae zynen gheest gaff dwelck den suppliant
+uuyt gronden syns herten leet is naden welcken de suppliant
+hem heeft altyt buyten lants gehouden tot nu inde vasten
+lestleden dat hy vanden zelven onghevalle metten vrienden van$
+selven afflyvighen is metter minnen overcommen ende zoude
+gheerne zyn broot binnen desen onsen landen mit zynen ambachte
+winnen dwelck hy nyet en soude moghen noch willen doen ten
+waere dat hem onse gracie ende ghenade hier op verleent wae$
+alzoe hy zeeght ons daerom zeer oetmoedelyck biddende
+besundere om onsen openen brieven van remissien in ghewoenlycker
+formen waeromme zoe eest dat wy die zaken voirscrev$
+overghemerct den voirn. cornelis vanden steene suppliant genegen
+wesende tzynder bede ende begherte ende hem willende in desen
+gracie ende ghenade prefereren voer rigeur ende strangheyt
+van justicien hebben inden ghevalle als boven vergheven
+quytghescolden ende gheremitteert vergheven schelden quyte ende
+remitteren uuyt onse sunderlinge gracie midts desen onsen brie$
+tfait ende manslach boven gheruert midtsgaders alle peyne$
+ende bruecke corporelle ende criminelle daer omme hy ter
+cause van dien met desser aencleest misdaen ende mesbruyckt
+mach hebben tegens ons ende justicie ende hebben hem
+als hier aff wederom ghestelt ende gherestitueert stellen
+weder ende restitueren tot zynen goeden naeme ende fame in
+onsen lande ende heerlicheyden besundere in onsen lande ende
+hertochdom van brabant mitsgaders tot zynen onverbuerden goed$
+indien hy eenighe heeft alsoe hy was voer de toecompste vanden
+voirscreven manslach imponerende hier op een eeuwich swig$
+ende silencie onsen procureur general ende allen anderen onsen
+rechteren justicieren ende officieren wyen zy zyn satisfactie
+ende beteringhe ierst ende alvoeren ghedaen der gheinteresseerd$
+partien indien die noch nyet ghedaen en is ende eenighe tot
+staet civilyck alleenlyck behoudelyck dat die voirn.
+suppiant gehouden wordt tselve feyt tegens ons te beteren oy$
+civilyck naer de ghelegentheyt vander mesdaet ende faculteyt
+van zynen goeden ende oyck te refonderen ende betaelen die
+redelycke costen van justicien indien hieromme eenighe ghedaen
+ende naeghevolght syn allet ter taxatie ende arbitraerscep$
+# sy hieraf verantwoirdt
+byden ontfanger vanden
+exployten
+van onsen lieven ende ghetruwen die cancellier ende luyden van onsen
+raede in brabant die wy daer toe committeren ontbieden daer om
+ende bevelen den selven van onsen raede in brabant dat voer hen geroepen
+die ghene die behoiren gheroepen te zyne zy procederen wel ende
+dueghdelyck tot verifficatie ende interinemente van desen onsen
+brieff ende tot taxatie ende arbitraerscepe vanden amende
+civile ende costen van justicie voirscreven welck interinement
+hy suppliant gehouden sal zyn aldaer te versuecken binnen eenen
+jaere naer datum van dese opde verbuerte van te verliesene
+deffect der selver ende dat ghedaen ende de voirs. amende civile
+ende costen van justicien ghetaxeert ghearbitreert ende betaelt
+zynde in handen vanden ghenen van onsen ontfanger ende officier
+dient behoiren zal de welcke gehouden werdt daer aff ontfanck
+te maken rekeninghe bewys ende reliqua te doene tot onsen
+proffyte met anderen penningen van zynen ontfange zy ende allen
+anderen onsen rechteren justicieren ende officieren tegewoirdich
+ende toecommende hueren stedehouderen ende eenen yeghelycken
+van hen besundere soe hem toebehoiren sal doen laeten ende
+ghedoogen den voirn. cornelis vander steene suppliant van dese
+onse gracie remissie quytscheldinghe ende pardoene ende
+van allen den inhouden van desen inder vueghen ende manieren
+voeren verhaelt rustelyck volcomelyck ende eeuwelyck
+ghenyeten ende ghebruycken sonder hem te doene noch te
+laten gheschien nu noch in toecomende tyden aen lyff noch aen
+goet eenich hinder letsel oft moyenisse ter contrarien maer
+by alsoe zyn lyff oft eenige van zynen goeden nyet gheconfisqueert
+zynde daeromme ghevangen ghearresteert becommert oft belet
+waeren dat zy die stelle ende doen stellen terstont ende sonder
+vertreck tot gheheelder delivrancie wanttet ons alsoe
+ghelieft ende ten eyne dat dit goed ende ghestadich
+blyve tot eeuwigen dagen zoe hebben wy onsen zeghel hier
+aen doen hangen behoudelyck in anderen zaken ons
+recht ende eenen ieghelycken tzyne in allen ghegeven
+inonser stadt van bruessele inde maent van julio int jaer
+onssheeren duysent vyffhondert zesse en dertich van onsen
+keyserycke txviie ende van onsen rycken van castillien
+naples ende andere txxie aldus stont ghescreven opde
+plycke byden keyser in zynen raede ende gheteekent
+de cock visa recepta
+ghecollacionneert tegens
+doriginale brieven by my
+de cock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "25th September, anno xxxii",
+  "persons": [
+    {
+      "firstname": "cornelis",
+      "lastname": "vanden steene",
+      "role": "suppliant",
+      "function": "ambachts gheselle"
+    },
+    {
+      "firstname": "henricke",
+      "lastname": "coomans",
+      "role": "accompanied",
+      "function": "ambachts gheselle"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "bal",
+      "role": "involved in altercation",
+      "function": "jonge gheselle"
+    },
+    {
+      "firstname": "daniel",
+      "lastname": "van aelst",
+      "role": "involved in altercation",
+      "function": "jonge gheselle"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Cornelis vanden steene, an ambachts gheselle, has supplicated for remission. He was involved in an altercation in a tavern where they drank two pots of beer and threw dice. A dispute arose over the payment of 6 stuivers for another pot of beer. The altercation became physical, and Cornelis was lightly injured. He has since been ill and unable to work, and requests remission to be able to earn a living in his trade.",
+    "fr": "Cornelis vanden steene, un ambachts gheselle, a supplié pour remise. Il a été impliqué dans une altercation dans une taverne où ils ont bu deux pots de bière et joué aux dés. Un différend est survenu concernant le paiement de 6 stuivers pour une autre pinte de bière. L'altercation est devenue physique et Cornelis a été légèrement blessé. Il est malade depuis et incapable de travailler, et demande la remise pour pouvoir gagner sa vie dans son métier.",
+    "nl": "Cornelis vanden steene, een ambachts gheselle, heeft om vergeving verzocht. Hij was betrokken bij een ruzie in een herberg waar ze twee potten bier dronken en dobbelden. Er ontstond een discussie over de betaling van 6 stuivers voor een ander bier. Het conflict werd fysiek en Cornelis werd licht gewond. Hij is sindsdien ziek en kan niet werken, en vraagt om vergeving om zijn brood te kunnen verdienen in zijn beroep.",
+    "de": "Cornelis vanden steene, ein ambachts gheselle, hat um Absolution gebeten. Er gab eine Auseinandersetzung in einer Taverne, wo sie zwei Krüge Bier tranken und würfelten. Es gab einen Streit über die Zahlung von 6 Stuivers für ein anderes Bier. Der Streit wurde physisch und Cornelis wurde leicht verletzt. Er ist seitdem krank und arbeitsunfähig und bittet um Absolution, um sein Brot in seinem Beruf verdienen zu können."
+  }
+}
+```

@@ -1,0 +1,387 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+abolicie van zekeren diversen mesusen ende commotien
+byden ingesetenen vande stadt vanden bossche gedaen
+kaerle etc. doen te wetene allen jegewoirdich en toecomene
+ontfangen te hebben die oitmoedige supplicatie vanden
+borgmeesters scepen gesworen raden rentmeesteren
+oft zessemannen vanden notabels oic vanden dekens
+gezworen ende den gemeenen mannen vanden
+ambachten van onser stadt van shertogenbossche zoe
+voir hen als voer allen anderen poorters ingesetene ende
+inwoenende der voirs. stadt inhoudende hoe dat zy hier
+te voeren ons ende onsen voirzaten hertoghen ende
+hertoghinnen van brabant in allen onsen ende hueren
+lasten ende affairen trouwelyck gedient ende by
+gestaen hebben zonder hueren persoene oft huere goeden
+daer inne te spaeren ende hoe wel zy goetwillich zyn
+ons voirtaen te dienen ende by te staene zoo getrouwe
+ondersaten huere heere ende prince behooren ende
+schuldich zyn te doen des nyet tegenstaende want
+zy zichten den xiiten dach der maent junij lestleden
+ombegrepen tot nu toe vuyt huere auctoriteyt ende
+zonder consent van ons oft van onsen officieren
+hemluyden gevoirdert hebben diversche onredelycke
+vergaderinghen by nachte als by dage te doene zekere
+bier excise die malghet ende andere imposicie dien
+welcken om de voirs. stadt tonderhouden ende
+die lasten van dien te draghen upgestelt waeren
+aff te stellen ende af te roupen die wapenen ende
+harnas aen te nemene den slotels van onsen
+stadt poorte te nemen vuuten handen vanden
+ghenen diese te bewaeren hadden de selve poorten
+by nacht als by dage up te doene ende int harnas
+mit bende vuut onsen stadt te treckene in diversche
+dorpen ende dien allerme clocken aldaer ende
+oic binnen onser voirs. stadt te slaen ende binnen ende buiten
+onser stadt diverschen geboden van hueren wegen te doen
+vuutroepen ende publiceren den poorten van diverschen
+cloesters ende goidshuysen zoo buiten als binnen
+der voirs. stadt mit molekarren mit hameren ende
+anderen instrumenten fortselinge te doen breken
+den provisien vanden voirs. godshuysen teten te
+drincken af te terren den religieusen vanden selven
+goidshuysen mitfortse ende gewalt bedwongen ende
+gesubmitteert tot contributie mit hemluyden zoo in
+excysen als in anderen onser voirs. stadt lasten ende
+daertoe den selven goidshuysen tot groote somme
+van penninghen gecomposteert ende anderen
+diverschen acten van rebellicheijt ende sedicie in
+diversche manieren ende tot diverschen stonden
+tegen onse hoocheyt heerlycheyt ende auctoriteyt
+ende contrarie hueren eedt ende dobediencie zy ons
+schuldich waeren als zy noch zyn geperpetreert
+hebben ende daer toe by onse zeere lieve ende zeere
+beminde vrouwe ende moye deertshertoginne van
+oistenricke hertoghinne ende gravinne van
+bourgoingnen etc. voere ons regente ende governante
+in onsen lande van herwertsover bescreven ende
+ontboden om van hemluyden den oirzake oft
+occasie van huere rebellicheyt te verstaene in wille
+ende meyninghe tot den selven te remedieren
+en hebben by haer nyet willen compareren ende hoe
+wel tselve hemhuyden heertelycke leet is zoo
+verstaen zy dat wy te dier cause diversche provisien
+teghens hemluyden gedecerneert hebben ende
+byden selven geordineert alle huere goeden in
+onsen handen te stellen hueren luyden staete
+van atterminatie van hueren schulden te cevoceren hemluyden
+emmers die culpabelste in hueren persoenen tegen onse procureur
+generael te doen dagen tot alsulcken fijnen als hy tegen
+hemluyden zoude willen nemen ende beduchten hen
+dat wy by anderen rigoureuser ende stranger wegen
+tegens hemluyden als ongehoirsamen ende rebellen
+souden willen oft mogen procederen hetwelcke huere
+verderffenisse ende van onser voirs. stadt wesen zoude
+ons oitmoedelic biddende dat wy aenziende huere
+voirgaende trouwe ende grooten diensten ende huere
+goetwillicheyt daer inne te contumeren in dien zy tot
+onsen gracie commen ende gerestitueert mogen wesen
+ende ter eeren vanden passie ons heeren jhesu christi dat
+ons believen wille eenighe van onsen raden te
+deputeren om van onsen wegen huere gedeputeerden
+te aenhooren ende met hem te communiceren vanden
+middel duer de welcke zy tot onser voirs. gracie
+comen mochten waer toe optempererende tot hueren
+supplicatien onse lieve ende getrouwen heere florys van
+egmondt grave van bueren onsen neve ridder van
+onser ordene ende capiteyn generael van onsen voirs.
+landen van herwaertsovers heeren josse laurens
+heere van terdeghem doctor president van onsen groo$n
+raide ende laurens du blioul heere vanden sart onse
+ierste secretaris audiencier ende greffier van onse
+voirs. orden$ gedeputeert hebben den welcken
+gehoort hebbende dien gedeputeerde van onser stadt
+van shertogenbossche ende huere p$$tacie van diverschen
+reparatien ten fyne als boven naer diverschen
+communicatien zekers artikels daer toe onder onse
+beliefte nochtans geconcipert hebben zoo hier nae volgh#
+die vanden bossche om tot genade te comen vanden keyser
+ende van myn genaedichste vrouwe inden name van
+zynder maiesteyt et tot abolicie vanden faulten ende
+mesusen by hem geperpetreert zichtent den xiien
+dach junij lestleden to nu toe geconsenteert hebben
+inde navolgende articlen inden iersten dat zoo
+wanner myn genadichte vrouwe die ertshertoghinne
+skeysers moye ende voere hem regente inden lande
+van herwertsover gelieven sal inder stadt te commen
+dat die wethouders die gezwoerenen die sesse mannen
+die raden ende anderen officieren ende goede mannen
+vanden voirs. stadt alsdan sullen haer f g tegens
+commen buuten der voirs. stadt aenden vuutersten
+boom ende aldaer vallende op hueren knyen blootsts
+hooffts ende ongeghordelt by eene huere gedeputeerden
+ende onge$ ongeghordelt by eenen huere gedeputeerde
+sullen zyn in alder oitmoedicheyt vergyfenisse ende
+om gratie biddende van allen $den mesusen ende
+misdaden de welcke zy teghens de k m ende
+zyne hoocheyt ende myn voirs. g v als regente
+gedaen oft geperpetreert mogen hebben zijnchten
+den voirs. dach xii dach der maent junij herwerts
+daertoe die dekens ende gezoeren ende andere
+gemeyne mannen vanden ambachten vanden
+bosch tot hondert ende vyftich persoonen toe in
+zwartte cleden blots hoofts hebbende elc inde
+handt een bernende wassen torssen wegende
+twee ponden oft daer omtrent zullen myn voirs.
+g v te gemoete gaen binnen der voirs. stadt aenden
+naesten boom vander poorte ende aldaer vallende
+op haer knyen by eene die zy daer toe ordonneren
+zullen in alder oitmoedicheyt ingelycx vergeffenisse
+ende om pardoen ende gracie bidden aenden keysere ende
+aen myn g v in zynen ma$ name van van alle tgene
+zy ende alle de gemeynten vanden voirs. stadt teghens
+zyn k m misdaen ende mesbruyct mogen
+hebben zinchtent den voirs. xiiten dach junij tot
+nu toe ende dat gedaen zynde zoo sulle die voirs.
+hondert ende viftich mannen met hueren bernende
+tourssen als boven voere myn g v in ordene gaen
+ende haer geleyen tot voere huere genade logiz
+ende van daer huere $$ torssen dragen in sint jans kercke
+ende aldaer op haer beyde knyen voere theylich sacrament
+god almechtich genade bidden van huere misdaden
+ende hueren torssen den voirs. heylich sacrament
+presenteren ende laten tot godsdienste dat alle nyeuwicheyden
+by dien vanden bossche gedaen ende gecommitteert
+zynchtent den voirs. xiiten dach junij hoedattet
+zy zullen ierst ende voere al gereparert ende
+alle zaken gestelt ende gerestitueert wesen in
+hueren staten ende zoo zy waeren voirden voirs. xiiten
+dach junij ende eer die zelve nyewicheden
+geschieden ende tselve gedaen zynde soo sullen
+die voirs. vanden bossche myn voirs. g v huere
+requesten mogen presenteren tot zulcken fyne als
+hen goetduncken sal die deken gezwoeren ende
+gemeynten vanden stadt vanden bosch en sullen
+voirdaen egheen vergaderingen mogen doen
+die zy kerchof heeten noch in kerckhoff noch
+in andere plaetsen inder manieren zoo zy onlancx
+gedaen hebben maer sullen die voirs. dekens
+ende gemeynte huere vergaderinghe aengaende hen voughen
+ende reguleren naer de ordonnantie die myn voirs. g v
+van wegen des keysers by goeden advys ende
+deliberacie maken zal die selve vanden boch bosch
+hebben williclyc geconsenteert te laten totten
+demeynen vanden keysere alzulcke pertyen daeraff
+als zy gecocht hebben zuchtent jaer xvc ende vive
+overmits huere rembourssement van huere verleyde
+penningen aengaende van een wachte vanden
+lant oft watertol van brabant te stellen binnen
+der stadt vanden bossch hebben die gedeputeerde geantwoirt
+dat die voirs. stadt hier aff in proces zy voirden raidt van
+brabant ende begeeren dat hemluyden justicie in desen
+geschien mach als vander bede den staten van brabant
+lestmael geheyst waer inne die prelaten ende
+edelen ende de drie steden te wetene loven bruessele
+ende andwerpen geconsenteert hebben die gedeputeerden
+vanden bossche hebben verclaert dat zoo wanneer
+myn g v den steden van brabant zal gelieven te
+doen vergaederen dat zy huere gedeputeerden aldaer
+seynden zullen mit volcomen macht last ende
+commissie hemluyden den voirs. beden aengaende
+te conformeren metten voirscreven drien steden den selven
+vanden bosch voir amende civile van des zy mesdaen
+moghen hebben als boven zullen gheven ende betalen
+tot keysers behoef ende proffyt die somme van twalf
+duysent rinsgulden van viertich vlaemschen grooten
+elc gulden ee$s te wetene een derden deel daer
+aff binnen drie wecken van huyden tandere derden
+deel binnen kessmisse ende de lesten derden deel
+binnen sinct jans baptiste dage naestcomende
+ende hier toe is ondersproken ende getracteert
+marge:
+no$ vercochte
+demeyne
+wachte
+sy geweten
+wy ontfant
+maict vanden
+voirs. xii ii $ $$$
+geweest dat mijn voirs. g v inder stadt vanden bossche
+sal moghen gaen tallen tyden als huere f g believen sal
+ende mede inne brenghen alzulcken getal van
+volcke te perde ende te voete als haer f g goetduncken
+sal dese voirs. articlen zyn getracteert ende geaccor-
+deert geweest te wetene van wegen den keysere ende
+myn g v byde gracie van hueren capiteyn generael
+heere josse laurens dochtor heere van terdeghen president
+vanden grooten raede ende laurens du blioul
+heere vander sarct audiencier vanden keyser onder
+de goede beliefte van zynen k m off van myn voirs.
+g v in zynen k m name ende van wegen
+der stadt van tsertoghenbossche by meester
+dierick die borchgrave jan de bever jan van
+vloderacken heere van gissen hennerick kruyft
+heyligeestmeester willem van achel goyaer van
+middegael dierick van wyck jan wouters jan
+van stryp wouter van liet zebert ygroms ende
+aert monicx daer toe gedeputeert byde geheele
+stad vande bosch inden dorpe vander vucht opten
+lesten dach julij anno xvc ende xxv orconden hueren
+handteycken hier onder gesedt onder geteekent
+florys j laurens l dublioul dierick die borchgreeff
+jan die bever j de vloderacken henderick kruyft$
+willem van achelen goyaert van middelgael jan
+wouters dierick van wyck jan strijp zebert
+ygroms wouter van liet aert monnick ende daertoe
+was gescreven ter ordonnantie ende sloote der
+drie leden der stadt van tshertoghenbossche zoo
+hebben dese gedeputeerde dese articlen geteekent
+$ct$ ii$ augusti in tegenwoirdicheyt van my jan
+lombaert secretaris der voirs. stadt ende geteekent lonbaert
+ons oitmoedelyc bidden als boven de selve supplianten
+dat wy ter eeren vander passie ons liefs heeren jhesu
+christi in faveur van huere voirnoemde diensten aensyende
+huere berouwenisse van hueren misdaden ende faulten
+ende huere goetwillicheyt tot onsen dienste voere den
+toecommenden tyt wy dien misdaden crimen delicten
+ende faulten by hemluyden tegens ons onse
+hoocheyt heerlicheyt ende auctoriteyt geperpetreert
+zynchtent den xiiten junij herwaerts souden willen
+remitteren ende aboleren mit allen peynen ende
+amenden ende hemluyden ende yegelycke van
+hen in onse gracie otfangen soe eest dat wy
+dese $$ zaken voirscreven gemerct ende besundere
+die berouwenisse vanden voirs. supplianten van hueren
+misdaden den trouwen diensten zy ons ende onsen
+voirzaten gedaen hebben ende huere goetwillicheyt voere
+den toecomenden tyt wy den selven supplianten ende
+yegelyck van hen genegen wesende tot huere
+supplicatie ende willende hemluyden in desen gracie
+prefereren tot strancheyt van justicien byde
+deliberatie van onse voirs. vrouwe ende moye regente
+ten advyse vanden heeren van onsen bloede vanden
+ridders van onse ordene ende van onsen rade
+neffens haer wesende vuut onser wetentheyt volcommen
+machtende auctoriteyt quytgescholden vegeven
+ende geaboleert hebben quytschelden ende vergeven
+ende aboleren by desen allen den crimen delicten
+misdaden faulten ende abusen hier boven verclaert
+ende andere welcken zy in generael ende yegelyck
+oft ymandt van hen in particulier tegen ons onse
+hoocheyt heerlycheyt ende auctoriteyt in des voirs.
+is ende des daeraen cleeft oft daeraff depedeert zichtent
+den voirs. xiiten junij tot nu toe gedaen ende geperpetreert
+moghen hebben ende daer toe alle peyne ende amende
+lyflycke criminelle oft civile inden welcken zy ende
+yegelycke oft ymant van hen ter causen voirs. van hueren
+$$ delicten ende misdaden ende hueren circonstancien ende
+dependentien teghens ons ende justicie misdaen
+ende mesbruyct mogen hebben in wat manieren dat
+het zy ende den selven supplianten ende yegelyck
+van hen desen aengaende gerestitueert hebben ende
+restitueren tot huere goede name ende fame tot allen
+onsen landen ende heerlicheyden ende tot hueren
+goeden soe verre dien ter causen van hueren voervhaelde
+misdaden in onser hand gestelt geweest zyn onse
+voirs. hand gelyct hebben al in alsulcken state als
+zy waeren voere die toecompste vanden misdaden
+ende faulten voirs. abolerende hier mede ende
+stellende te nyeuwte alle dagingen ad$$rnemente
+ende anderen proceduren deff$$ten sentencien ende
+condemnatien ter causen als boven teghens den voirs.
+supplianten oft ennighen van hen oft van hueren
+goeden begonnen geprovideert gedaen oft geschiet
+zoo verre ennige zy imponerende hier op onsen procureur
+generael van brabant ende allen anderen onsen officieren
+een eeuwich zwygen behoudelyck dat de voirs. supplianten
+tot reparacie ende amende van hueren voirs. misdaden
+dien p$$tacien by hen gedaen ende by onsen
+gedeputeerde van onsen wegen onder onse beliefte
+geaccepteert hier boven geinfereert in allen hueren
+articlen ende yegelyck van dien voldoen sullen en $ dat
+ons daer af hueren verbandt biefven onder onser vs.
+stadt segele inden welcken dese iegewoirdich
+marge: contrbrieve
+gemisereer sal wesen in goede vorme leveren sullen ontbieden
+daer omme ende bevelen onsen lieven ende getrouwen
+den hoofft vanden secreten raede ende luyden vanden
+secreten raede den president ende luyden van onsen grooten
+rade den cancellier ende luyden van onsen rade in brabant
+president ende luyden van onsen camere vanden rade
+in vlaenderen baillu ende luyden van onsen rade te
+bergen in henegouwe stadhouder den voirnoemde van
+tshertogen bossche supplianten ende yegelycken van
+hen van onse voirs. quitscheldinghe vergevenisse ende
+abolicie ende vanden inhoudt van desen inder
+manieren als boven doen laten ende gedooghen
+rustelyc ende volcommelyc genyeten endde gebruycken
+sonder hemluyden te doen laten oft gedooghen te
+laten oft gedod gedooghen gedaen te wesen nu
+oft naemaels ennich hinder stoot letsel oft moyenisse
+aen live noch aen goede ter contrarien in enniger
+manieren maer in die zy oft yemandt van hen
+oft hueren goeden hier omme gevangen gearresteert
+oft becommert waeren zy die stellen ende setten oft doen
+stellen ende setten terstont ende sonder vertreck tot
+geheele ende volcommen deliverantie want ons alsoo gelieft
+ende ten eynde dat dit goet vast ende gestadich
+blive tot eeuwighen daghen soe hebben wy onsen
+segel hier aen doen hangen behoudelycl in anderen
+saken ons rechts ende eenenyegelycke tsyne in
+allen ghegeven in onse stadt van huesden inde
+maent van julio int jaer ons heeren duysent
+vyfhondert ende viventwintich ende van onsen
+rycken te wetene vanden roomschen ende hongeren
+tsevenste ende van spaengnien ende anderen thiensten
+aldus stont gescreven boven opte plycke byden keysere
+den ersbysscop van palerme hooft vanden secreten raede
+den grave van bueren capetyn generael de grave van
+horne ende van hochstraten ridders vanden ordene
+den heere van aigny president vanden $$$ rade den
+heere van neufville ridder tresorier generael ende anderen
+jegewoirdich geteekent du blioul ende noch collatie is gedaen ende noch
+visa ende geteekent du blioul [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "08-08-1525",
+  "fact_date": "06-12-1524",
+  "persons": [
+    {
+      "firstname": "florys",
+      "lastname": "j laurens",
+      "role": "

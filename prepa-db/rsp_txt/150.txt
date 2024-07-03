@@ -1,0 +1,157 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. allen den ghenen die dese onse opene brieven
+sullen sien oft hoiren lesen saluijt. doen te wetene dat wij
+hebben ontfangen d’oijtmoedighe supplicatie van peeter
+van eijcken chirurgijn van sijnen ambachte ende ingesetenen
+van bergen bij campenhout belast met vrouwe ende drij kinderen
+inhoudende hoe dat hy suppliant hen altijt heeft gecomporteert
+als een persoon van eeren sonder aen ijemanden subiect gegeven
+te hebben om van hen teclaegen sijnde gebuert dat die voors.
+suppliant jn november 1640 heeft gedroncken met mr
+jacobs sijnde eenen vagabond metten welcken hij twistich
+geworden sijnde soo heeft die voorschreven jacops affgenomen
+den trathael vuijt de schouwe slaende daermede den
+suppliant op sijne schouderen ende soude noch argter gedaen
+hebben sooverre den selven hem nijet en hadden ter weere
+gestelt sijnde gebeurt dat die voorschreven suppliant naer
+eenige defensie den voorschreven jacops met den mes heeft
+gesteken dat hij daervan is afflijvich geworden naer
+breeder innehouden vande informatie hiermede overgegeven
+nu is soo dat die voorschreven suppliant met partije civile
+soude sijn veraccordeert diewelcke verclaert dat den
+afflijvigen het meeste gelyck nijet en heeft gehadt naer
+breeder innehouden vande accorde daervan sijnde welcken
+aengemerckt ende dat claerlyck blyckt dat den afflijvigen
+eerst hefts geslagen ende dat die suppliant hem heeft moeten
+ter weere stellen om voorder slaegen te verhoeden waer
+vuijt is veroorsaekt t’voorschreven ongeluck badt hij
+oversulx oijtmoedelick om onsen openen brieven van remis
+in sulcken cas dienende soo is dat wij die saeken
+voorschreven aengemerckt hierop eerst ende vooral gehadt
+d’advis van onse lieve ende beminde die schepenen van
+berghen ende bij campenhoudt ende gehoirt d officier fiscael
+van brabant geneyght wesende ter beden ende supplicatie
+des voorscreven suppliants ende willende hen in de stuck prefereren
+gratie ende genade voor rigeur ende stranicheijt van justitie
+hebben inde gevallle als boven vergeven geremitteert ende
+quijtgeschonden vergeven remitteren ende schelden quijte
+vuijt onser sonderlinger gratien bij desen onsen brieve t’feyt ende
+manslach boven vercleert mitsgaders alle pene ende amende
+corporele ende criminele inde welcke hij ter causen voorschreven
+met des daeraen cleeft jegens ons ende justitie misdaen ende
+misbruijckt mach hebben ende daerinne hij gevallen mach wese$
+ende hebben hem als van dijen wedergestelt ende gerestitue$
+stellen weder ende restitueren tot sijnen goeden naeme ende
+fame ende geruchte in onsen voorschreven lande van brabant
+ende in allen anderen onsen lande ende heerlyckheijden mit
+gaeders tot sijne onverbeurde goederen indijen hij
+eenighe onder ons heeft inder vuegen ende manieren als
+hij was voor de toecompste vande voorschreven feijte imponere$
+hierop silentie ende eeuwich swijgen onsen procureur generael
+in brabant drossaert van brabant meyer van loven
+amtsman van brussele ende $autehg van antwerpen ende al$
+anderen onsen ende onser vassallen oft der smaelre heeren
+richteren justicieren officieren ende dineren wie sy si$
+oft wesen mogen satisfactie ende beteringe yerts ende vo$
+al gedaen der partije geinteresseerde indijen die
+noch nyet gedaen en is ende eenighe daertoe steaet civilyck
+alleenelyck behoudelyck nochtans dat die voorschreven suppliant
+oock gehouden wordt t’voorschreven feijt jegens ons te bet$
+civilyck naer gelegenthijt vande misdaet ende faculteyt
+van sijne goeden ende oyck te refunderen ende betae$
+die redelycke costen van justitien indyen hieromme eenich
+gedaen ende naer gevolg is syn alles ter taxatien ende
+arbiterschappe van onser seer lieven ende getrouwen $
+cancellier ende luijden van onse voorschreven raede in brabant
+die wij daertoe hebben gecommitteert ende committeren bij
+desen ontbieden daeromme ende bevele densch onser raede
+van brabant dat voorschchreven geroepene diegene die
+behooren geroopen te syn sy procederen wel ende deugdelyck
+tot verificatie ende interinement van dese onse brieven
+van remissien naer heure forme ende innehouden ende ter
+taxatien arbiterschappe van amende civile ende van costen
+van justitie voorscreven welck interinement hij suppliant
+gehouden sal sijn al daertoe versuecken ende hem in persoone
+te presenteren binnen eenen halve jaere naer date
+van desen opde $eur van te verbeuren d’effect vandeser
+onse brieven ende dat gedaene ende de voorschreven amende
+civile ende costen getaxeert, gearbitreert ende betaelt
+sijnde in handen vande ghenen van onse ontfangers ende
+officiers dient behoiren sal diewelcke gehoiden werde
+daeraff ontfanck te maeckende reliqua ? reeckening
+bewijs ende reliqua $ doene tot onsen proffijte
+metten anderen penningen van synen ontfange sijn onsen
+procureur generael, drossaert van brabant , meyer van
+loven, amptman van brussel, schoutethen van antwerpen
+ende allen anderen onsen richteren, justicieren ende officieren
+ieghenwoordighe ende toecomende heuren stedehouderen
+ende eenen yeghelyck van hun besundere dezen laeten ende
+gedoogen den voorschreven peeter van eijcken suppliant
+van deser onser iegewoordigher gratien quijtschellende
+remissie ende pardoene ende van allen den inhouden vandesen
+inde vuegen ende manieren ende opde restriehlyck voore verhae$
+rustelyck peyselyck volcommelyck ende eeuwichlyck genieten ende
+gebruijken sonder hem te doene oft te laeten geschieden
+nu noch in toecommende tijde aen lijft noch aen goedt
+eenich hinder, stoot letsel oft moeijnisse ter contrarien
+maer indijen sijn lijft oft eenighe van sijne onverbeurden
+goederen daeromme gevangen gearresteert becommert oft
+beleth waeren dat sij die setten ende stellen oft doen setten ende
+stellen testont ende sonder ventreck tot geheelder ende
+volcomende delivrancie wints ons alsoo gelieft ende
+ten einde dat dit goet vast ende gestaudich sij blijve
+ende gehouden worde t’eeuwigen daege soo hebben wij onsen segele
+hieraen doen hangen behoudelyck in andere saecken onsen
+recht ende eenenijgelyck dessijns in allen gegeven onsen
+stadt brussele inden maent van mey 1642 opde plycke stont
+bij de coninck $$$$$$$$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1642-05",
+  "fact_date": "1640-11",
+

@@ -1,0 +1,129 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+maximiliaen en philips byder gracien gods ertshertogen van
+oistryck hertogen van bourgoingen van lothryck van brabant van lymborch van
+luxomburg ende van ghelre greven van vlaenderen van artois van
+bourgoingen palatynen van henegouwen van hollant van zeellant
+van namen ende van zuytphen mercgreven des heylichs
+rycs heren van vrieslant van salins ende van mechelen onsen
+meyere van loeven ende allen anderen onsen officieren justicieren ende
+dieneren dient aengaen mach ende hueren stedehouderen saluit
+alsoe als van wegen des die huysvrouwen meester jans lobbe voirtijts
+pensionaris onsen stat van loeven ons oitmoedelic zy te kennen
+gegeven geweest hoe dat overmids zekeren excessen diemen
+seeght gedaen ende gecommiteert te wesene byden voirs.
+meester janne allen den die goeden des selfen meester jans
+zy geweest genomen gesedt ende gestelt in onsen handen
+ende desgelycs oic die die goeden der voirs. thoenerssen
+gecomen van hueren wegen in alsulken vuegen dat zy
+tegenwordelic niet en heeft noch versien en is tot hueren
+ende hueren kinderen noetdorst oft sustentacien behoef ons
+dair om oitmoedelyc biddende gemerct dat zy vanden voirs.
+excessen nyet te spreken en weet noch culpable $$ is ende dat
+nae die privilegien vanden lande egheen man zyns wyfs
+goeden verbueren en mach alsoe zy seeght dat ons gelieven
+wille haer te consenteren ende accorderen hantlichtinge vanden
+voirs. hueren goeden ende van huerren wegen gecomen ende huer dair
+aff doen expederen onse oepenen brieve in behoirlyker formen
+doen te wetene dat wy desen aengesien geneycht wesenen
+ter beden der voirs. thoenerssen hebben onse voirs. hant
+ende alle andere beledt gedaen ende gestelt ende voirs. huere goiden
+van hueren wegen gecomen als voirscreven is ingevalle als
+boven tot hoere ende huere kinderen behouf gelicht ende affgedaen
+ende van zunderlingen gracien oft noet zy lichten ende affdoen
+mits desen onsen brieve willende ende consenterende
+dat zy voirtaen dair aff gebruyke achtervolgende den inhoudenen
+vanden voirs. privilegien ende gelyck zy doen souden moigen
+by alsoe die voirs. goeden in onsen handen nyet gestelt
+en waeren geweest ontbieden u dair om ende bevelen
+dat ghy ende eck van u soe verre het hem aengaet der voirs.
+thoenerssen ende hueren kinderen desen onsen tegewoirdiger
+gracien ende hantlichtinghen doet ende laet peysselyc ende vredelic
+useren ende gebruyken sonder hair dair inne te doen
+oft te laeten doen oft geschien ennighen commer hinder
+oft letsel in ennigher manieren want het ons alsoe
+gelieft ende gedaen willen hebben gegeven in onsen stat
+van bruessel opten negen ende twintichsten dach van
+januario int jaer ons heren duysent vierhondert vier
+ende tachtentich nae costume van stru$en in onsen hove
+aldus geteykent by mynen here den ertshertoghe
+ter relatien vanden raede $ meerbeke
+dese voirs. $ open is gecollocionnert $$$ originnalen
+bezsss brieve inde b$$den $$$$ by my
+$$ ieltisse [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "maximiliaen",
+      "lastname": "UNKNOWN",
+      "role": "petitioner",
+      "function": "ershtertoghen of Oistryck, duke of Bourgoingen, of Lothryck, of Brabant, of Limborch, of Luxomburg, and of Ghelre, count of Flanders, of Artois, of Bourgoingen palatynen, of Henegouwen, of Hollant, of Zeellant, of Namen, and of Zuytphen, margrave of the Holy Roman Empire, lord of Frisland, of Salins, and of Mechelen, our mayor of Loeven, and all other our officers, justiciers, and servants"
+    },
+    {
+      "firstname": "philips",
+      "lastname": "UNKNOWN",
+      "role": "petitioner",
+      "function": "same as maximiliaen"
+    },
+    {
+      "firstname": "meester",
+      "lastname": "jan",
+      "role": "accused",
+      "function": "pensionaris of our stat of Loeven"
+    },
+    {
+      "firstname": "meester",
+      "lastname": "jans lobbe",
+      "role": "witness",
+      "function": "former pensionaris of our stat of Loeven"
+    },
+    {
+      "firstname": "voirs.",
+      "lastname": "thoenerssen",
+

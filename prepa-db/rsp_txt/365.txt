@@ -1,0 +1,189 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie mertens de cleermaker
+kaerle etc. doe te wetene allen iegewoirdigen ende toecomende
+dat wy ontfangen hebben die oitmoedige supplicatie van merten
+de cleermaker jans zoene arm scamel man belast met huysvrouwe
+ende kinderen ingeseten der voigdien ende vryheyt van molle binnen
+onsen lande van brabant inhoudende hoe dat hy op zekeren dach
+inde maent van junio int jaer xv c ende xlii de voirs. suppliant ende
+wylen merten mertens met zeker ander geselscap hebben sitten
+drincken in zekere taverne gestaen tot desschele by de kercke
+aldair men gewoenlyck is bier te vercoopene ende aldair zynde
+zyn tusschen den suppliant ende den voirs. wylen merten mertens
+zekere twistige ende injurieuse woirden geresen ter causen
+van eenen gelage dwelck de selve merten aldaer verdroncken
+hadde ende schuldich was bleven gedragende twee blancken ende
+seyde die suppliant totten voirs. wylen merten dat hy zyn gelach
+opleggen ende betalen zoude oft dyer gelycke woirden ende
+hoewel die suppliant den voirs. merten hiermede nyet messoegt
+noch te cort gedaen en hadde soe ghaff nochtans de selve merten
+hieromme den suppliant groote injurieuse woirden hem supplint onder
+dandere heetende zyn moeder ende oude moeder hyen ende dat arger
+is trock met dien de selve wylen merten zyn mess wesende een
+pasmess slaende oft stekende dair mede in evelen ende fellen
+moede naeden suppliant dwelck ziende de suppliant ende beduchtende
+byden voirs. merten verrascht te wordden heeft in deffensie
+van zynen lyve oick zyn mes getrocken ende den selven
+merten dair mede geraeckt ende eenen steeck gegeven omtrent zyn slincker
+schouwer van welcken steeck oft quetsure de voirs. merten is
+binnen cortten dagen daernae des werelt overleden ende hoe
+wel tvoirs. feyt onnoselyck ende in deffensie van zynen lyve is
+gebeurt ende dat oick hy suppliant der partie geinterresseerde
+daeraff satisfactio ende beternisse heeft gedaen soe en soude
+nochtans hy suppliant die altyt gestaen heeft tot goeden name ende
+fame noeyt ennich ander quaet feyt oft delict geperpetreert
+hebbende binnen onse voirs. lande van brabant nyet derren comen
+hanteren noch converseren maer soude elders in vreempde landen
+moeten gaen doelen ende in grooter armoede ende miserie leven
+ten ware dat onse gratie ende genade hem hierop wordde
+geextendeert ende verleent ons dairom oidtmoedelyck biddende
+soe eest dat wy desen aengesien geneyght wesende ter
+beden des voirs. suppliants ende willende hem in dit stuck
+prefereren gtatie ende misericordie voir strangheyt ende
+rigeur van rechte besundere ter eeren ende contemplatie vander
+bitter passie ende lyden ons heren jesu christu dwelck hy
+opten goeden vrydach voir die salicheyt vanden menschelycke
+geslechte geleden heeft hebben den selven suppliant in gevalle
+als boven quytgeschouden ende vergeven schelden quyte ende
+vergeven vuyt sunderlinger gratien by desen onsen brieve tfeyt
+ende ongeval boven geruert mitsgaders alle offensie ende
+bruectie corporelle ende criminelle daer inne hy ter causen
+voirs. mits dat dair aen cleven mach tegens ons ende justicie
+mesdaen ende mesbruyct mach hebben ende hebben hem
+daeraff wedergestelt ende gerestitueert stellen weder
+ende restitueren tot zynen goeden naeme fame ende geruchte in
+onsen voirs. lande van brabant ende allen anderen onsen
+landen ende heerlicheden ende tot zynen onverbuerden goeden
+indien hy ennige onder ons heeft gelyck ende in alden manieren zoe hy
+was voer de toecompste vanden voirs.feyte imponerende
+hierop een eeuwich gezwijch onsen procureur generael in brabant
+ende allen anderen onsen justicieren ende officieren wie zy zyn
+satisfactie ende beternisse ierst ende voir al gedaen der
+partie geinteresseerde indien die noch nyet gedaen en zyn ende
+ennige daer toe staet civilyck alleenlyck behoudelyck dat de voirs.
+suppliant gehouden sal syn tvoirs. feyt tegens ons te beteren
+civilyck naer gelegentheyt vanden zaken ende faculteyt van zynen
+goeden met oick te betalene die redelycke costen van justicien
+hieromme alreede gedaen ende te doene allet ter taxatien
+ende moderatien van onsen lieven ende getrouwen die cancellier ende luyden van
+onsen raide in brabant die wy daer toe gecommitteert hebben ende
+committeren by desen ontbieden dairomme ende bevelen de selven
+onsen cancellier ende raidsluyden dat voer hen geroepen de ghene
+die dairom behoiren geroepen te zyne zy procederen wel ende
+deuchdelyck ter verificatie ende interinemente van desen ende totter
+taxatie ende moderatie vanden voirs. amende ende costen
+van justicien alsoe zy sullen bevinden behoirende welck -
+interinement de voirs. suppliant gehouden sal syn te versueckene
+ende hem in persoene te presenteren in onse voirs. raide binnen
+zess maenden naestcomende opte pene van te verbeuren
+deffect van desen ende dat gedaen ende de selve over boete
+ende costen van justicien getaxeert ende betaelt zynde
+in handen vanden genen dien dat behoiren sal zy onse voirs.
+procureur generael in brabant ende alle andere onse rechteren justicieren
+officieren ende ondersaten iegewoirdich ende toecomende dien dat
+aengaen sal mogen huere stedehouderen ende den yegelyck van hen
+besundere zoe hem toebehoiren sal doen laten ende gedoogen
+den voirs. suppliant van deser onser iegewoirdiger gratien
+ende remissien ende van alle dinhouden van deser inder
+vuegen ende manieren voer verhaelt rustelyck vredelyck
+volcomelyck ende eeuwelyck genyeten ende gebruycken sonder
+hem te doene oft te laten geschieden nv noch in toecomende
+tyden ennich hinder letsel oft moeyenisse aen lyve noch
+aen goeden ter contrarien maer indien zyn lyff oft ennige
+van zynen goeden dairom gearresteert gecommert oft belet
+waeren dat zy die zetten ende stellen terstont ende
+sonder vertreck tot geheelder ende volcomende delivrancien
+want ons alsoe gelieft ende ten eynde dat dit vast
+ende gestadich blyve tot eeuwigen dagen zoe hebben wy
+onsen zegele hier aen doen hangen behoudelyck in anderen
+dingen onsen rechte ene eenenyegelyck anderen dessyns
+gegeven in onser stadt van bruessele opten goeden vrijdach
+inde maent van aprille int jaer ons heeren duysent vyfhondert
+drye ende veertich van onsen keyserrycke txxiiiie ende
+van onsen rycken van castillien ende anderen txxviiie
+aldus gescreven opte plycke byden keyser in zynen
+rade ende onderteekent boudewyne visa
+$$$
+gecollationeert ende bevonden accorderende
+met zynen originaele by mij [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "April, 1543",
+  "fact_date": "June, 1542",
+  "persons": [
+    {
+      "firstname": "Merten",
+      "lastname": "de Cleermaker",
+      "role": "supplicant",
+      "function": "scamel man"
+    },
+    {
+      "firstname": "wylen",
+      "lastname": "Merten Mertens",
+      "role": "opponent",
+      "function": "geselscap member"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "taverne by de kercke aldair men gewoenlyck is bier te vercoopene",
+      "loctype": "location"
+    }
+  ],
+  "summary": {
+    "en": "Merten de Cleermaker, a scamel man, has supplicated for remission after a conflict with wylen Merten Mertens. The conflict arose in a tavern in Brabant, where both were drinking, and resulted in Merten Mertens' death a few days later. Merten de Cleermaker acted in self-defense after Merten Mertens attacked him with a knife during an argument.",
+    "fr": "Merten de Cleermaker, un homme scamel, a demandé la rémission après un conflit avec wylen Merten Mertens. Le conflit est né dans une taverne à Brabant, où les deux buvaient, et a entraîné la mort de Merten Mertens quelques jours plus tard. Merten de Cleermaker s'est défendu après que Merten Mertens l'ait attaqué avec un couteau lors d'une dispute.",
+    "nl": "Merten de Cleermaker, een scamel man, heeft verzoening aangevraagd na een conflict met wylen Merten Mertens. Het conflict ontstond in een taverne in Brabant, waar beide dranken, en resulteerde in de dood van Merten Mertens enkele dagen later. Merten de Cleermaker handelde in zelfverdediging nadat Merten Mertens hem aanviel met een mes tijdens een ruzie.",
+    "de": "Merten de Cleermaker, ein scamel Mann, hat um Vergebung gebeten nach einem Konflikt mit wylen Merten Mertens. Der Konflikt entstand in einer Taverne in Brabant, wo beide tranken, und resultierte in dem Tod von Merten Mertens einige Tage später. Merten de Cleermaker verteidigte sich, nachdem Merten Mertens ihn mit einem Messer während eines Streits angriff."
+  }
+}
+```

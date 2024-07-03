@@ -1,0 +1,237 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+copie van andere remissie van dootslage
+maximilien par la grace de dieu esleu empereur
+tousjours auguste roy de germanie de hungerie
+de dalmatie de croatie etc et charles par la
+mesme grace archiducz daustrice, prince
+d’espaigne, des deux cecilles de jherusalem, etc. ducz
+de bourgogne, de lothierr, de brabant, de stier, de carinte,
+de carniole, de lembourg, de luxembourg et de gheldres
+contes de flandres, de habsbourg, de tyrolle, de
+fierret, dartois, de bourgogne palatins et de haynau,
+lantgraves delsace, prince de zwaves souabe ?, marquis
+de burgauw et du saint empire, de hollande, de
+zeelande, de ferrette, de frybourg de namur et
+de zuytphen, contes, seigneurs de frise des marches,
+de d’esclavonye, de portenauw, de salins et de
+malines. savoir faisons a tous presens et
+avenir, nous avoir receu lumble supplication
+de philebert de montenac escuier, contenant
+que environ la my quaresme derreniert passe luy arrive
+en notrre ville danvers avec et ou service du seigeur
+de ravestain notre cousin son maistre a ung certain
+jour ainsi que ledit suppliant retournoit doyr la messe
+et quil estoit venu jusques devant le logis
+dudit seigeur son maistre se arresta illec a parler
+et deviser avec aucuns des officiers et autres
+serviteurs de sondit maistre durant lequel
+parler survint illec ung nomme lancelot natif
+du pays de normandie ou d’environ ayant pardevant
+este varlet et serviteur dudit suppliant et estoit
+lors serviteur au seigeur de croix chevalier estant monte
+sur la mule dudit seigeur de croix, lequel lancelot
+se vint aussy illec arrester et parler aususdit officiers
+quoy veant, le suppliant esmeu subitement
+acause d’aucunes choses passees, sadrescha audit lancelot
+luy demandant pourquoy il avoit desrobbe l’espee
+du mareschal denghien a quoi ledit lancelot
+respondit que ledit mareschal luy devoyt quatre
+solz et disant oultre ces mots vous avez dit
+que je vous ay desrobbe dist lors ledit suppliant
+ouy vrayement vous avez desrobbe sur quoy
+ledit lancelot redist incontinent audit suppliant
+vous avez menty ou selon aucuns vous ne
+dites point vray a laquelle parolle ledit suppliant
+tira son espee et en frappa du plat sur ledit
+lancelot lequel mist aussy tantost main a une
+sienne espee quil avoit chainte. parquoy ledit
+suppliant meu de chaudecolle plus que paravant
+ainsy que ledit lancelot avec la mule avoit le
+doz tourne, lui bailla de sadite espee au travers
+du corps tellement que dicellui cop en brief.
+jours apres, il termina vye par mort a loccasion
+du quel cas ledit suppliant doubtant riguer de
+justice s’est absente de noz pays esquelz il
+n’oseroit retourner ainsi lui en conviendroit
+demeurer absent a tousjours et aller user le
+demourant de ses jours en estrangnes marches
+et contrees se notre grace et misericorde
+ne luy estoit sur ce impartie pour laquelle
+actendu son jeune eage les services par ses
+predecesseurs parcidevant faiz a nous et aux
+notres que a lexemple deulx il a entier vouloir et
+desir nous fere aussi de sa part en temps advenir,
+et soy garder a jamais de rencherir plus
+en aucun acte vicieulx, il nous a treshumblement fait supplyer.
+pourquoi nous les choses dessusdites considerees
+mesmement a lonneur et reverence de la
+doloreuse mort et passion q uele filz de dieu
+notre benoit redempteur jhesus crist souffrit a
+tel jour quil est huy pour la redemption de
+lumain lignaige a icelui philebert de
+montenac suppliant inclinans a sadit supplicacion,
+et lui vueillans pour ceste foiz grace et misericorde
+estre preferee a rigueur de justice par ladvis
+de notre treschiere et tresamee fille de nous empereur
+dame et tante de nous charles dame marguerite
+daustrice et de bourgogne regente et gouvernante
+en l’absence de nous empereu avons quitte
+remis et pardonne et de notre certaine science
+et grace espcial par ces presentes quittons remettons
+et pardonnons, le fait et cas dhommicide devant
+mencionne ensemble toute paine amende et offence
+corporelle et criminelle enquoy pour cause
+et occasion dicellui les criconstances et deppendences
+il peut avoir mespris et estre encouru envers
+nous et justice et l’avons quant ad ce remis
+et restitue remectons et restituons en ses bonne
+fame et renommee a nosdit pays et a ses biens
+non consisgnez en la maniere comme il estoit auꝑravant
+ledit cas advenu, en imposant sur se ce silence
+perpetuel a notre procureur genearel et a tous autres
+noz officiers quelzconques satisfaction toutesvoyes
+faicte a partie se desja faicte nestoit civilement
+tant seulement et pourveu que avec amende
+civile que ledit suppliant sera aussy tenu den payer
+envers nousa l’arbitraige et tauxacion de
+noz amez et feaulx les chancelier et gens de notre
+conseil en brabant icelui suppliant durant le terme
+dung an entier a compter de la date de cesdites presentes
+ne pourra entrer venir ne soy trouver en notre pays
+et duche de brabant en ne en aucun lieu de noz
+autres pays la ou nous ou notredit fille et tante
+serons en noz personnes a paine destre priveedu
+fruit et benefice de notredit grace se nest de notre
+expres congie et licence se donnons en
+mandement ausdits chancelier et gens de notre
+conseil en brabant que icelui terme de lan expire
+et endedens les premiers trois mois apres
+ensuy ans appellez ceulx qui pour ce feront
+a appeler. ils procedent bien et deuement
+a linterinement de ces presentes et ce fait
+et ladit amende civile par eulx tauxee arbitree et
+payee es mains de cellui de noz officiers
+cui ce regardera lequel sera tenu den fere
+recepte et despense a notre profit ilz notre
+seneschal de brabant margrave danvers et
+tous autres noz justiciers et officiers quelz-
+conques leurs lieutenants et chacun deulx endroit
+soy et sicomme a lui appartiendra facent seuffrent
+et laissent ledit suppliant de notre presente grace remission
+quictance et pardon selon et par la maniere
+que dit est plainement paysiblement et
+perpetuellement joyr et user sans lui faire
+mettre ou donner ne souffrir estre fait mis
+ou donne ores ne ou temps advenir en corps
+ne en biens aucun arrest destourbier ou
+empeschement au contraire en ancune manieere
+ains se son corps ou aucune chose de sesdits biens non
+consisgnez estoient pour ce prins saisiz arrestez
+ou autrement empeschez le mectent ou facent
+mettre tantost et sans delay a plaine et entiere
+delivrance. car ainsi nous plaist il et
+afin que ce soit chose ferme et estable a tousjours
+nous avons fait mettre notre seel a ces presentes
+saulf en autres choses notre droit et lautruy
+en toutes donne en notre ville de malines
+le jour du vendredi saint ou mois davril
+lan de grace mil cinqcent et huit et
+des regnes de nous empereur assavoir de
+cellui de germanie le xxiiie et desdits
+de hongerie etc. le xixe ainsi signe soulz le reploy
+par imperatrice margarita et sur ledit reploy. par lempereeur et monseigneur
+larchiduc en leur conseil et signe heneton
+collationne a l’original
+par moy
+n. strate $$ [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "April, 23, 1508",
+  "fact_date": "around Easter of the previous year",
+  "persons": [
+    {
+      "firstname": "philebert",
+      "lastname": "de montenac",
+      "role": "supplicant",
+      "function": "esquire"
+    },
+    {
+      "firstname": "maximilien",
+      "lastname": "",
+      "role": "grantor of remission",
+      "function": "emperor"
+    },
+    {
+      "firstname": "charles",
+      "lastname": "",
+      "role": "grantor of remission",
+      "function": "archduke"
+    },
+    {
+      "firstname": "lancelot",
+      "lastname": "",
+      "role": "deceased",
+      "function": "former servant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "danvers",
+      "loctype": "city"
+    },
+    {
+      "name": "brabant",
+      "loctype": "duchy"
+    }
+  ],
+  "summary": {
+    "en": "Philebert de Montenac, esquire, has killed Lancelot, his former servant, in a fit of anger after an argument. Fearing justice, he has left the country and asked the emperor Maximilien and archduke Charles for remission of his crime. They have granted him this remission, but he is banned from their lands for a year and must pay a civil fine.",
+    "fr": "Philebert de Montenac, écuyer, a tué Lancelot, son ancien serviteur, dans un accès de colère après une dispute. Craignant la justice, il a quitté le pays et a demandé à l'empereur Maximilien et à l'archiduc Charles de lui remettre sa faute. Ils lui ont accordé cette remise, mais il est banni de leurs terres pendant un an et doit payer une amende civile.",
+    "nl": "Philebert de Montenac, schildknaap, heeft Lancelot, zijn voormalige bediende, gedood in een vlaag van woede na een ruzie. Bang voor de rechtspraak, heeft hij het land verlaten en heeft hij om vergeving van keizer Maximilien en aartshertog Karel gevraagd voor zijn misdaad. Zij hebben hem deze vergeving verleend, maar hij is voor een jaar verbannen van hun landen en moet een burgerlijke boete betalen.",
+    "de": "Philebert de Montenac, Knappe, hat Lancelot, seinen ehemaligen Diener, getötet in einem Anfall von Wut nach einem Streit. Aus Furcht vor der Gerechtigkeit hat er das Land verlassen und um Vergebung von Kaiser Maximilian und Erzherzog Karl für seine Straftat gebeten. Sie haben ihm diese Vergebung gewährt, aber er ist für ein Jahr aus ihren Ländern verbannt und muss eine bürgerliche Strafe zahlen."
+  }
+}

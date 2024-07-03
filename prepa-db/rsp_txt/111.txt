@@ -1,0 +1,253 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+albert ende isabel etc. , doen te wetene allen
+tegenwoirdige ende toecommenden dat wij
+ontfangen hebben d’oijtmoedige supplicatie van
+carel britseels inhoudende dat hij hem altijt
+seer eerlijck trouwelijck ende liefgetalich
+heeft gedragen met eenijegelijck blijckende
+bij attestatie soo van onse stadt loven als van
+sijnen pastoir beijde daervan sijnde sulcx dat
+die gemoneert geweest hem te surrogere
+inde plaetse van wijlen sijnen vader van in januario
+1617 om te wesen der selver onser stadt hal$
+tot wijens laste dat staet die toesichte
+ende bewaernisse derselver onser stadts kermis$
+wagens kermiskemels ende vande ornamenten
+daertoe dienende die al berusten in een publijcken$
+een der stadts gemeijn huys genoempt de halle staen$
+opde veemerckt aldaer tot welcke huijsinge behoirt
+oock eenen hoff vast daerbij ende aene liggende, beheijmpt
+rontsomme met levende hagen, thuijnen, ende anderssints
+welcke thuijnen ende hagen die voors. suppliant heeft
+vermaeckt tot diversche reijsen dan alsoo binnen loven
+regneert bijnaest eene gemeijne soulle ende oultragie
+in alle hoven, gelijck gespeurt can worden uuijt
+d’attestatie insgelijccx daeraff sijnde soo en heeft sulcx ook
+nijet ontbroken inden hoff vande voors. halle, alwaer
+hij suppliant is berooft geworden van als tot alles, den
+geheelen somer deur geduerende naer uuijtwijsen oock
+vande attestatie daervan sijnde, oock nijet sonder perijckel
+van berooft te worden te$$ inde voors. halle vande
+ornamenten aldaer berustende tot consernatie vanden
+welcken hij moest arbeijden ende hem te dijen eijnde
+aldaer vinden eens ofte twee maele ende meer tot
+elcken dage ende alsoo hij ter quader uren opden xven
+septembris lestleden ontrent die halft ure acht des
+avonts als het was geheel doncker is gecommen
+doorde halle inden hoff voors. om denselven ende die
+halle te bevrijen, soo heeft hij tot sijnen ongelijck aldaer
+bevonden eenen persoon soo hij naderhandt verstaen
+heeft genoempt de wesen ieron peeters vallende
+oft hem affworpende van boven ter aerdewaerts nijet
+wetende oft dijen persoon was jonck oft oudt, noch
+oock oft hij viele uuijter halle vensters oft $ij$ wel
+uuyten wijngaert schelft gehecht aenden muere
+tot aen dieselve vensters, wesende nijettemin wel
+versekert dat dijen persoone aldaer nijet en hadde te
+doene noch en was gecommen dan om eenige dieste
+te bedrijven, waerdoor ende door voirgaende
+overlasten gealtereert sijnde is gebeurt dat hij
+suppliant denselven persoone heeft ingeloopen met
+sijnen poignaert meijnende denselven tot exempel
+van andere te teeckenen ende alsoo naer eenige
+worstelinge den dieft hem heeft willen ontloopen
+op andere naestliggende erffven is gebuert dat
+hij naerden selven in sijn overvallen heeft gesteken metten
+selven poignaert, sonder nochtans te connen seggen oft
+hij hem geraerckt hadde oft nijet, ende d hebbende daerover
+dijen persoon verlaten heeft hem vertrocken naer huijs sonder
+achterdencken van swaericheijt meijnende gerustelijck
+sijnen aventmael te houden met sijne familie naer gewoonte$
+dan is geschiet dat cotrts daernaer hem sijn gevolght twee
+persoonen woonende inde gebuerte vande voors. halle
+hem waerschouwende dat den persoone voorgeroert waere
+overleden ende dat die same waere uuyt eenige circunstantien
+dat hij suppliant denselven soude hebben geevelt ende hoe
+wel het selve was geheel onseker noch oock eenichsints
+bij onsen officier off ijemanden anders soude gethoont connen
+worden dat hij suppliant sulcx souden hebben gedaen oft in
+wat manieren gelijcken men oock verstaet dat die getuygen
+van wegen denselven officier provisioneelijck verhoirt
+ende eensdeels bijde vrienden des suppliants oock geexamineert
+nijet en verclaeren sulcx wel te weten oft gesien te
+hebben, dan deponeren alleenlijck uuyt circumstantien
+sulpicien, ende conjecturen die in criminalibus egeensints
+genoechsaem en sijn soo ist nochtans dat onsen meijer
+van loven van officie wegen tegens den voors. suppliant
+absent sijnde heeft begonst te procederen met sulcher
+viericheyt ende rigeur al oft het voors. feijt waere
+geweest heel claer liquid ende toegecommen sonder
+eenige redenen ende nijet al oft hij vervolghde eenen
+borger van loven die tot daertoe altijt w was geweest
+sonder reproche, hem gedragen hebbende peijselijck
+gelijck een vroom borger betaempt maer al off hij
+vervolghde eenen vremdelinck, die bevonden waere
+met opsedt ende voorbedachten wille ijemanden geevelt
+te hebben des neen sonder oock de minste consideratie
+te nemen daerop dat genomen dat claerlijcken van het
+misdaet des voors. suppliants dat in allen gevalle
+het selve door den afflijnigen is gecauseert door dijen hij hem
+heeft vervoirdert te commen in sijne erffve rontsomme
+bevrijdt ende beheijmt, beclimmende sijn huijs ende dat metter
+nacht emmers metten doncker avent, ende hoe wel uuijt
+die voors. consideratien de saecke sulcx is gedisponeert
+dat den voors. suppliant hem soude mogen betrouwen
+hebben ter purge te stellen als anders nijet gedaen hebben
+dan tgene besundere bij ontijden tot bescherminge van
+sijne goeden is gepermitteert sonder perijckel van eenige
+straffve oft correctie nochtans die voors. suppliant en
+heeft t’selve nijet te raede gevonden mits hij de middelen
+nijet en heeft om in materie van purge die costen van
+procedure te vervallen jae qualijck die middelen om
+sijne familie die cost te geven, welcken aengemerckt
+ende dat sijne vrienden van sijnen overcommen sonder dat
+deselve vrienden als onderricht sijnde vande onnooselheyt
+van t’selve feijt over den suppliant begeren eenige
+vraecke, dan wel met hem te houden alle goede vrient
+schappe ende correspondentie blijckende bij twee accorden
+insgelijcx daervan sijnde soo soude te seer hert wesen
+voorden selven suppliant hem om het voors. feijt langer
+te moeten absenteren dwelcke soude causeren sijne
+totable ruijne ende van sijne familie badt over sulcx
+oijtmoedelijck dat ons gelieven soude door de verdienste
+ons salichmakers jesu christi daeraff op heden goeden
+vrijdach die memorie van sijne bitter passie werdt
+gecelebreert hem te verleenen opene brieven van
+remissie van het voors. delict oft feijt met alle
+penen corporele ende civile nijettegenstaende het
+delict nijet en is overjaert, soo eest dat wij desen
+aengesien gehadt hebbende het advijs vanden meyer
+onser stadt loven geneijght wesende ter beden des
+voors. suppliants ende willende hem in dit stuck prefereren
+gratie ende misericordie voor strangheyt ende rigeur van
+rechte, besundere ter eeren ende contemplatien vande bitter
+passie ende lijden ons heeren jesu christi d’welck hij op
+heden voorde salicheyt vanden menschelijken geslechte
+geleden heeft hebben denselven suppliant inden gevalle
+als boven geremitteert, quijtgeschouwen, ende vergeven
+remitteren, schelden quijt ende vergeven uuyt sunderlinger
+gratien bij desen onsen brieve tfeyt ende ongeval boven
+geruert mitsgaders alle offensie ende breucke corporele
+ende criminele daer inne hij hem overmits ende uuijt
+saken van t’gene voors. is, tegen ons ende justicie eenichsints
+mach hebben ontgaen ende misdragen ende hebben hem
+dijen aengaende weder gestelt ende gerestitueert
+stellen weder ende restitueren tot sijnen goeden name
+fame ende geruchte in onsen voors. lande van brabant
+ende allen anderen onsen landen ende heerlicheden ende tot
+sijne onverbeurde goeden, indijen hij eenige onder ons
+heeft, gelijck ende in alder manieren soo hij was voorde
+toecompste vanden voors. feijte, imponerende hierop
+een eeuwich geswijch onsen procureur generael
+in brabant, onsen meijer van loven ende allen anderen
+onsen justicieren ende officieren wie sij sijn satisfactie
+ende beternisse ierst ende vooral gedaen sijnde der
+partije geinteresseerde indijen die noch nijet gedaen
+en sij ende eenige daertoe staet, civilijck alleenlijck
+behoudelijck dat de voors. suppliant gehouden sal syn
+t’voors. feijt tegen ons te beteren civilijck naer
+gelegentheijt vander saken ende faculteijt van sijne
+goeden, met oock te betalen die redelijcke costen
+van justicien, hieromme alreede gedaen ende te
+doene, allet ter taxatien ende moderatien van onse
+seer lieven ende getrouwen die cancellier ende
+luijden van onsen raede in brabant die wij daertoe
+gecommitteert hebben ende committeren bij desen ontbieden
+daerom ende bevelen denselven onsen cancellier ende raidts
+lieden, dat voor hem geroepen diegene die daerom behoiren
+geroepen te sijne, sij procederen wel ende deuchdelijck
+ter verificatie ende interinement van desen ende totter
+taxatie ende moderatie vande voors. amende alsoo sij sullen
+bevinden te behoiren, welck interinement de voors.
+suppliant gehouden sal sijn te versuecken ende hem in
+persoone te presenteren in onsen voors. raede binnen
+sesse maenden naestcommende opde pene van te
+verbeuren deffect van desen ende dat gedaen, ende
+deselve civile boete ende costen van justitien
+getaxeert ende betaelt sijnde in handen vanden
+genen dijen dat behoiren sal, sij, onsen voors.
+procureur generael in brabant onsen meijer van
+loven ende alle andere onse rechteren justicieren
+officieren ende ondersaeten, iegenwoirdige ende
+toecommende dijen dat aengaen sal mogen heure
+stedehouderen ende eenijegelijck van hen besundere
+soo hem toebehoiren sal, doen laten ende gedoogen
+den voors. suppliant van deser onser iegenwoirdiger
+gratien ende remissien, ende van alle d’inhouden van
+desen inder vuegen ende manieren vore verhaelt,
+rustelijck, vredelijck, volcommelijck ende eeuwelijck
+genijeten ende gebruijcken, sonder hem te doen off
+te laten geschieden nu noch in toecommenden tijde
+eenich hinder, letsel, off moyenisse aen lyve noch aen
+goeden ter contrarien, maer indijen sijn lijff off
+eenige van sijne onverbeurde goeden daeromme
+gearresteert, becommert, oft beleth waeren dat
+sij die setten ende stellen terstont ende sonder vertreck
+tot geheelder ende volcommender delivrancie nijet
+tegenstaende dat tvoors. ongeval nijet en is
+over jaert noch anderssints onse ordinancie disponerende
+ter contrarien dewelcke wij den voors. suppliant nyet
+hinderen noch prejudicieren en willen, maer hebben hem
+daeraff mits der onnoselheijt vander saecken ende uuijt
+andere redenen hierboven verhaelt, uuijt onser sunderlinge
+gratien gereleveert ende releveren bij desen, want
+ons alsoo gelieft, ende ten eijnde dat dit vast ende
+gestadich blijve tot eeuwigen dage, soo hebben wij
+onsen segel hieraen doen hangen behoudelijck in
+anderen dingen onsen rechte ende eenijegelijcken
+anderen dessijns gegeven in onser stadt van brussele
+inde maent van aprili int jaer ons heeren duijsent
+ses hondert ende achthien onder opde plijcke stont
+als aldus byde iertshertogen onderteekent cools
+ende was gesegelt met eenen groenen segel
+uuijthangende in sijden snoeren [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+

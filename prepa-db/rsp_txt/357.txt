@@ -1,0 +1,214 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen te weten allen tegenwoirdich ende toecommende
+dat wy ontfaen hebben die oidtmoedige supplicatie van denys
+ouwers arm scamel man belast met wyf ende kinderen woenende
+ten huffele by onsen stadt van loeven inhoudende hoe op onsen liever
+vrouwen avont in decebri xvc eenenveertich hy suppliant wesende
+onse geswoeren loevoerster met eenen jacob oick loevoerster zyn
+medegeselle by weten ende oirloefve van onsen rentmeester int quaertier
+aldaer tot versoucke des pachtenaeren vanden moutmoelen te loeven
+voirs. gegaen es uuyter selver stadt ten dorpe van beerthem totten huyse
+van wylen doen levende augustin crabbe om hem te executeren oft oft
+ende af te panden van zekeren tachterheden die hy van moute schuldich
+was by den voirs. augustin gehaelt inden selven moutmoelen mits dat
+hy lanck te voeren gesommeert hadde geweest ende heeft hy suppliant
+met zyn voirn. geselle noch ter assisteren genomen eenen claes pickhoese
+dienaere desselfs dorps van beerthem ende ten huyse vanden voirn.
+augustin tsamen commende en hebben hem nyet thuys gevonden maer
+allenlyck zyn huysvrouwe ende kinderen die hy suppliant zynen last verclaerdt
+willende inder absencie vanden selven augustin voirts procederen totter
+voirs. executie welcke huysvrouwe dat hoorende maecte groot mesbaer
+hem biddende paciencie te willen hebben totten selven augustin hueren man
+thuys waere hoerende tzynder compste hem te voldoene dwelck hy
+suppliant ende assistenten gaerne deden drinckende onder tusschen
+totten avont omtrent vyf of zes potten biers zoe lange dat de voirs.
+wylen augustin thuys quam ende de voirs. augustin spaye
+thuys commende zeer by drancke ende vindende hem suppliant
+met zyn assistenten binnen den voirs. huyse heeft hy augustin
+hem uuyter maten ombaylyck gehadt zweerende groote eeden ende
+seggende dat hy haer lyff nemen soude off zy het zyne treckende
+uuyt zyn pasmes doende daermede opten suppliant ende assistenten
+langen tyt oploop zoe datmen den voirn. augustin egeenssins en coste
+gehouden maer perseverende altyt van quaet in argher hy suppliant
+dit siende heeft int leste ter defensie uuytgetrocken zyn rappiere
+ende de selve voere hem gehouden seggende ziet augustin denoterende
+ten overleden wy en willen u geen quaet maer moeten doen dat
+ons bevolen en ende en compt my nyet naerder dan myn mes
+lanck en es nochtans heeft de selve augustin gecontinueert in zyn
+quaet voerstel anderweerf tot hem suppliant seggende met eede ick
+sal u lyf hebben oft ghy het myne inder manieren dat hy augustine
+zyn voern. huysvrouwe ontwortselde ende es geloopen in desselfs
+suppliants mes als dat hy ontfanghen heeft een oepenen wonde in
+zynen buyck dat de pensen uuytliepen sonder de selve pensen gequetst
+te wesene van welck wonde de voirs. augustin by zynder schult
+alsoe gecregen tsanderdaechs snachs deser weerelt overleet tot
+groot leetscap vanden voirn. suppliant die welcke vreesende rigeur van
+justicie nyet vryelyck en soude derren hanteren noch converseren in onsen
+landen ende heerlicheden ten zy dat onsen gracie hem hierop verleent
+wordde ons omme de selve zeer oidmoedelyck biddende soe eest dat wy
+dese saeken overgemerct ende hierop gehadt tadvys van meyer ende
+scepenen van beerthem voirscreven den voirn. suppliant geneycht wesende
+tot zynder bede ende supplicatien hebben inden gevalle als boven
+geremitteert quytgescholden ende vergeven remitteren schelden
+quyte ende vergeven uuyt onsen zunderlinger gracien by desen
+tfeyt ende dootslach boven verclaert mitsgaders oick alle penen
+ende amende corporelle ende criminelle daer inne hy hem overmits
+ende uuyt saeken van tgeen des voirs. es tegens ons onse hoocheyt
+ende justicie eenichsins mach hebben ontgaen ende hebben hem
+dien aengaende gerestitueert ende gestelt restitueren ende stellen
+by desen tot zyn goede fame ende name in onsen voirs. lande ende
+hertochdomme van brabant ende allen anderen onsen landen ende heerlicheden
+ende tot zynen ongeconfisqueerden goeden indien hy eenige heeft gelyck als
+hy was voere de voirs. dootslach imponerende hierop een eeuwich
+zwyghen ende silencie onsen procureur generael ende allen anderen onsen
+rechteren justicieren ende officieren ons voirs. lants brabant wye
+zy zyn satisfactie nochtans yerts ende al voere gedaen der partyen
+geinteresseert zoe verre die noch nyet gedaen en waere civilyck
+alleenlyck behoudelyck nochtans dat de voern. suppliant gehouden zal
+zyn tzelve feyt tegens ons te beteren civilyck nae de gelegentheyt
+vander mesdaet ende faculteyt van zynen goeden ende onsen ordon$
+daerop gemaect ende oick te betaelen die redelycke costen van justicien
+ende arbiterscepe van onsen raide in brabant die wy dairtoe committeren
+ontbieden dairomme ende bevelen den selven van onsen raede in brabant
+dat voer hen geroupen die gene die dairomme behoiren zullen
+geroupen te zyne zy procederen wel ende deuchdelyck totter
+verificatie ende interinemente van desen tegenwoordige briefve
+welck interinement de selve suppliant schuldig zal zyn te versoucken in
+onsen voirs. raide binnen eenen jaeren nastcommende op de
+peyne te verbeuren deffect van desen ende dat gedaen ende de
+amende civile ende costen van justicien getaxeert ende betaelt
+zynde alst behoirt van welcker amende onsen ontfanger vanden
+exploicten van onsen voirs. raide of andere onse officier diene tbehoiren
+zal gehouden werdt ontfanck te maken metten anderen
+penningen van zynen ontfange zy onse drossaet van brabant meyer van
+loeven meyer van beerthem ende alle andere onse ende onser vassallen
+of smaelre heeren rechteren justicieren ende officieren ons voirs. lants
+van brabant ende van overmaze hoedanige die zyn oft wesen moegen
+tegenwoordich ende toecommende hueren stedehouderen ende elck van
+hen soe hem dat toebehoiren ende aengaen mach den voirs. suppliant
+van deser onsen tegenwoirdiger gracien remissien ende quytschelding
+inder manieren voirscreven payselyck volcomelyck ende tot
+eeuwigen dagen doen ende laten genyeten ende gebruycken
+sonder hem te doen noch te laten geschien nu noch in toecomende
+tyden in lyve noch in goede eenich hinder letsel oft moyenisse
+ter contrarien maer indien zyn lyf oft eenige van zynen gese$
+ongeconquesteerde goeden waeren dairomme gevangen
+becommert oft gearresteert dat zy die terstont stellen oft
+doen stellen tot volcommen slakinge ende delivrancie want
+ons alsoe gelieft ende ten eynde dat dit goet vast ende gestadich blive tot
+eeuwigen dage soe hebben wy onsen segel hier aen doen hangen behoudelyck
+in allen anderen saken ons recht ende yegelyck deszyns gegeven in onsen
+stadt van bruessele inde maent van julio int jaer onsheeren duysent vyfhondert
+ende dryenveertich van onsen keyser rycke txxiiiie ende van onsen rycken van
+castillien ende anderen txxviiie aldus gescreven op te plycke
+byden keyser in zynen raide ende geteekent
+zoete visa recepta
+gecollacioneert ende bevonden accorderende
+met zynen originale by mu
+jacuwez [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "December 1524",
+  "persons": [
+    {
+      "firstname": "denys",
+      "lastname": "ouwers arm scamel man",
+      "role": "suppliant",
+      "function": "commoner"
+    },
+    {
+      "firstname": "onse liever vrouwen",
+      "lastname": "avont",
+      "role": "involved in the facts",
+      "function": "queen"
+    },
+    {
+      "firstname": "jacob",
+      "lastname": "oick loevoerster",
+      "role": "involved in the facts",
+      "function": "lover"
+    },
+    {
+      "firstname": "onsen rentmeester",
+      "lastname": "int quaertier aldaer",
+      "role": "involved in the facts",
+      "function": "rentmaster"
+    },
+    {
+      "firstname": "claes pickhoese",
+      "lastname": "dienaere desselfs dorps",
+      "role": "assistant",
+      "function": "servant"
+    },
+    {
+      "firstname": "wylen",
+      "lastname": "augustin crabbe",
+      "role": "main protagonist",
+      "function": "monk"
+    }
+  ],
+  "locations": [
+    {
+      "name": "ten huffele by onsen stadt van loeven",
+      "loctype": "residence"
+    },
+    {
+      "name": "tot versoucke des pachtenaeren vanden moutmoelen te loeven voirs.",
+      "loctype": "mill"
+    },
+    {
+      "name": "ten dorpe van beerthem totten huyse van wylen doen levende",
+      "loctype": "residence"
+    }
+  ],
+  "summary": {
+    "en": "Denys, a poor man with a wife and children living near the city of Leuven, has received a supplication regarding the events that took place in December 1524. His sworn lover, a queen, had an affair with a monk named Augustin Crabbe. The rentmaster in the quarter, in agreement with Augustin's lover, asked Augustin to execute or seize the assets of Denys, who owed money to the mill. Augustin went to Denys' house in Beerthem, but he wasn't home. His wife and children, whom Denys supports, couldn't help him because they didn't know where Augustin was. Upon Augustin's return, Denys and his assistant were drinking in Augustin's house. Augustin became enraged, threatened Denys with a sword, and eventually killed him. Denys' heirs fear the wrath of justice and ask for remission of the punishment.",
+    "fr": "Denys, un homme pauvre avec une femme et des enfants vivant près de la ville de Louvain, a reçu une supplique concernant les événements survenus en décembre 1524. Sa maîtresse, une reine, a eu une liaison avec un moine nommé Augustin Crabbe. Le receveur dans le quartier, d'accord avec la maîtresse d'Augustin, lui a demandé d'exécuter ou de saisir les biens de Denys, qui lui devait de l'argent pour le moulin. Augustin s'est rendu à la maison de Denys à Beerthem, mais il n'était pas là. Sa femme et ses enfants, qu'il soutient, ne pouvaient pas l'aider parce qu'ils ne savaient pas où se trouvait Augustin. À son retour, Denys et son assistant étaient en train de boire dans la maison d'Augustin. Augustin est devenu enragé, a menacé Denys avec un épée et l'a finalement tué. Les héritiers de Denys craignent la colère de la justice et demandent la rémission de la peine.",
+    "nl": "Denys, een arme man met vrouw en kinderen wonende bij onze stad Leuven, heeft een supplicatie ontvangen over de feiten die plaatsvonden in december 1524. Zijn gezworene minnares, een koningin, had een affaire met een monnik genaamd Augustin Crabbe. De rentmeester in het kwartier, overeenstemmend met Augustijns minnares, vroeg Augustin om Denys uit te voeren of zijn bezittingen in beslag te nemen omdat Denys Augustijn geld schuldig was voor de molen. Augustin ging naar het huis van Denys in Beerthem, maar hij was niet thuis. Zijn vrouw en kinderen, die Denys ondersteunt, konden hem niet helpen omdat ze niet wisten waar Augustin was. Toen Augustin thuiskwam, dronk Denys met zijn assistent in Augustijns huis. Augustin werd razend, bedreigde Denys met een zwaard en doodde hem uiteindelijk. De erfgenamen van Denys vrezen de wraak van de rechtspraak en vragen om de strafvermindering.",
+    "de": "Denys, ein armer Mann mit Frau und Kindern, die na

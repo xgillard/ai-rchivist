@@ -1,0 +1,211 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. doen te weten allen jegewoirdigen ende toecommenden
+dat wy ontfangen hebben die oitmoedige supplicatie van gyelis rutgeersse
+inhoudende hoe dat hy suppliant altyt gestaen heeft tot goede fame
+ende name noyt eenich feyt gecommitteert hebbende waerdich va#
+punitien dan tgene des hiernae volgt dwelck gebuert is den
+xxen septembrius xvc lix alsoe hy suppliant was ten huyse
+van joosen mols gestaen aende merckt bynnen onser stadt vanden boscche
+met geerit zoon wylen jans wens adriaen loensse ende
+wylen jannen aelbrechtsse afflyvige ende meer andere goet
+geselschap ende aldaer geweest hebbende tot omtrent den
+zeven uren naeden middach is gebeurt dat de voirs. jan
+aelbrechtsse is gegaen op zekere privaet staende bynnen den
+vs. huyse om zyn gevoech te doene welck privaet de voirs.
+jan aelbrechtsse naer zyn oude gewoente boven op met zynen
+dreck ende vuylichheid zeer onreyn heeft gemaect want hy
+voir een gewoente ende maniere van doene hadde alomme
+die privaten met zynen dreck onreyn te makene ende hadde
+tzelve te voore wel tot vyfentwintich reysen tot in verscheyden
+geselschapen gedaen ende bedreven ende als hy tselve gedaen
+hadde zoe glorieerde hy daer inne ende ghecte ende lachte
+met den ghenen die in zyn vuylichheid geseten hadden oft die
+hy indyer manieren zoe onreyn hadde doen maken zoe eest
+gebuert dat die voirs. suppliant crygende oick noot om opt privaet
+te gaene ende nyet wetende vander onreynichheid die de
+voirs. jan aelbrechtsse die corts te vooren opt tselve privaet geweest
+ende tselve onreyn gemaect hadde is gaen sitten inde vuylicheid
+ende onreynicheid des voirs. jan aelbrechtsse ende heeft hem
+alsoe vuylgemaect ende was soe bescheten dat hy syn hebbe
+hempde achter tot zynen rugge toe af moeste snyden als zommige
+vander gelach genooten gesien hebben waerduere de
+suppliant soe zeere gestoort zynde ende vyndende hem
+selven soe onreyn als voere ende dat hy daerduer begect
+ende bespot wordde heeft vuyt ompatiencie ende verhitheyt
+van bloode genomen zyn eetmes ende denselven jannen
+aelbrechtsse daermede gegeven eenen steke boven syn borst#
+zeggende tot hem gaet beschiet nu die privaten noch eens
+ende naedyen de voirs. jan aelbrechtsse veerthien dagen
+de selve quetsure ontfangen ende hem laten cureren hadde by
+eenen genaempt meester anthonis een vander chyrurgyn$$
+meesters onser stadt vanden bossche die welcke de wonde
+zoe zeere verre gebracht hadde als dat deselve schoen begonst
+te dragen ende hoepte deselve meester anthonis de voirs. wonde
+metter gratien goidts wel te genesen nochtans vuytdyen de
+voirs. jan aelbrechtsoene den voirnoemde meester anthonis verclaeren
+ende hem int heymelyck by andere meesters hadde doen cureren
+zoe es deselve wonde versuympt geweest zoe dat midts
+zekere andere siekten die daer toe geslaegen zyn de voirs.
+jan aelbrechtsse daeraff ende anderssins deser werelt
+is overleden tot groot leetwesen des voirs. suppliants de
+welcke nyettegenstaende hy partye geinteresseerde
+gecontenteert heeft nyet vryelycken soude dorren
+hanteren noch converseren in onsen lande van brabant ten waere
+dat hem onse gratie ende genade ende vergeven brieven van
+remissien hierop verleent wordden omme de welcke
+den voirs. suppliant ons oitmoedelyck gebeden heeft
+wairom zoe eest dat wy desen aengesien
+geneycht wesende ter beden des voirs. suppliants ende
+willende hem in dit stuck prefereren gratie ende miser#
+voir strangheyt ende rigeur van rechte ter eeren ende contem#
+vander bitter passie ende lyden onsheeren jesu christi dwelck
+hy opten goeden vrydach voir die salicheyt vander menschely#
+geslechte geleden heeft oick regard nemende opde lanckheyt
+vanden tyde dat tvoirs. feyt geschiet is mitsgaders dat
+dafflyvige schynt hem versuempt te hebben metter veranderinge
+van chirurgiens hebben denselven suppliant indyen gevalle alsboven
+quytgeschouden ende vergeven schelden quyte ende vergeven
+vuyt zunderlinger gratien by desen onsen brieve tfeyt ende
+ongeval boven geruert mitsgaders alle offentien ende bruecke
+corporelle ende criminelle daerinne hy ter a$ser voirs. midts
+dat daeraen cleven mach tegens ons ende justicie mesdan
+ende mesbruyct mach hebben ende hebben hem dyen
+aengaende wedergestelt ende gerestitueert stellen
+weder ende restitueren tot zyne goede name fame ende geruchte
+in onsen voirs. landen van brabant ende allen andere onsen
+lande ende heerlichheden ende tot zyne onverbuerde
+goeden indyen hy eenige onder ons heeft gelyck ende in alder manieren
+zoe hy was voir die toecompste vanden voirs. feyt imponerende
+hierop een eeuwich geswych onsen procureur generael in brabant
+onsen schouteth vanden bossche ende allen anderen onsen
+justicieren ende officieren wye zy zyn satisfactie ierst ende
+voir al gedaen der partye geinteresseerde indyen die noch
+nyet gedaen en zyn ende eenige daertoe staet civillick
+alleenlyck behoudelyck dat de voirs. suppliant gehouden zal
+zyn tvoirs. feyt tegens ons te beteren civilyck naer gelegentheyt vander
+zaecken ende faculteyt van zynen goeden met oick te
+betaelen die redelycke costen van justicie hieromme alreede
+gedaen ende te doene allet ter taxatien ende moderatien
+marge: zy hier af verant
+woirt byden ontfanger
+vanden exploiten
+van onsen lieven ende getrouwen cancellier ende luyden
+van onsen raide in brabant die wy daertoe gecommitteert
+hebben ende committeren by desen ende toter taxatien ende
+moderatien vander voirs. amende ende costen van justicien
+ontbieden dairom ende bevelen denselven onsen cancellier
+ende raidtsluyden dat voir hen geroepen die ghene d#
+dairom behoiren geroepen te syne zy procederen wel
+ende dueghdelyck ter verificatie ende interinemente van desen #
+totter taxatien ende moderatien vander voirs. amende ende
+costen van justitien alzoe zy zullen bevynden behoirende
+dwelck interinement de voirs. supplianten gehouden sal
+wesen te versueckene ende hem in persoone te presenteren
+in onsen voirs. raide bynnen zesse maenden naestcommende
+opte pene van te verbueren deffect van desen ende dat
+gedaen ende deselve civile boete ende costen van justicien
+getaxeert ende betaelt zynde in handen vanden ghenen die
+dat behoiren zal zy onse voirs. procureur generael in brabant on#
+schouteth vanden bossche ende alle anderen onse rechteren
+justicieren ende officieren ende ondersaeten jegewoirdige
+ende toecommende dyen dat aengaen sal moegen huere
+stedehouderen ende eenenyegelycken van hen besundere zoe
+hem toebehoiren zal doen laeten ende gedoogen den vs.
+suppliant van deser onser jegewoirdigen gratien ende rem#
+ende van alle inhouden van desen inder vuegen ende manie#
+voeren verhaelt rustelyck vredelyck volcommelyck ende eeuwe#
+genyeten ende gebruycken zonder hem te doene oft te laeten
+geschieden nu oft in toecommenden tyden eenich hinder letsel
+oft moyenisse aen lyffve noch aen goeden ter contrarien
+maer indyen zyn lyff oft eenige van syne goeden daerom
+gearresteert becommert oft beleth waere dat sy die setten
+ende stellen terstont ende zonder vertreck tot geheelder ende
+volcommender delivrantie want ons alsoe gelieft ende
+ten eynde dat dit vast ende gestadich blyve ten eeuwigen
+daegen zoe w hebben wy onsen zegel hieraen doen
+hangen behoudelyck in anderen dingen onsen rechte ende
+eenenyegelycken dessyns gegeven in onser stadt
+van bruessele opden goeden vrydach inde maent
+van aprile int jaer onsheeren duysent
+vyffhondert lxii van onse rycke
+van spaengnen ende sicillien tviie ende van
+napels etc. txe opde plycke stondt gescreven
+byden coninck ende onderteeckent de zoete visa
+recepta
+gecollationeert ende bevonden concorderen
+met zynen originale by my
+$$ facuwez $$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "20th September 1562",
+  "persons": [
+    {
+      "firstname": "gyelis",
+      "lastname": "rutgeersse",
+      "role": "suppliant",
+      "function": "petitioner"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "aelbrechtsse",
+      "role": "offender",
+      "function": "accused person"
+    }
+  ],
+  "locations": [
+    {
+      "name": "onser stadt vanden boscche",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Gyelis Rutgeersse, a petitioner, has been waiting in good fame and name, without committing any deeds worthy of punishment, except for the one described hereafter. On the 20th of September 1562, while being at Jossemol's house, he entered the privy, which Jan Aelbrechtsse had used and left in a dirty state. Gyelis, unaware of the unsanitary conditions, sat down and got his clothes dirty. As a result, he was mocked by some people who witnessed the scene. In response, Gyelis hit Jan Aelbrechtsse with a stick, causing an injury that required medical treatment for 15 days. Jan Aelbrechtsse then went to another surgeon, against the advice of the first one, and the wound got worse. Jan Aelbrechtsse passed away due to this injury, causing grief to Gyelis. Gyelis, as an interested party, has not freely dealt, conversed or conducted business in the land of Brabant. Therefore, he requests grace, mercy and remission letters from the authorities, which have been granted.",
+    "fr": "Gyelis Rutgeersse, suppliant, a attendu dans une bonne renommée et sans commettre d'actes répréhensibles, si ce n'est ce qui est décrit ci-dessous. Le 20 septembre 1562, il se trouvait chez Jossemol lorsqu'il est entré dans une latrine que Jan Aelbrechtsse avait précédemment utilisée et laissée dans un état sale. Gyelis, ignorant des conditions insalubres, s'est assis et a taché ses vêtements. En conséquence, il a été moqué par certaines personnes qui ont assisté à la scène. En réponse, Gyelis a frappé Jan Aelbrechtsse avec une canne, lui causant une blessure qui a nécessité un traitement médical pendant 15 jours. Jan Aelbrechtsse s'est ensuite rendu chez un autre chirurgien, contre l'avis du premier, et la blessure s'est aggravée. Jan Aelbrechtsse est décédé des suites de cette blessure, causant un grand chagrin à Gyelis. Gyelis, partie intéressée, n'a pas librement commercé, conversé ou mené des affaires dans le pays de Brabant. Par conséquent, il demande la grâce, la miséricorde et les lettres de remise des autorités, ce qui lui a été accordé.",
+    "nl": "Gyelis Rutgeersse, een belager, heeft steeds een goede reputatie en naam gehandhaafd en geen daden begaan die bestraffing verdienen, tenzij het hierna volgende. Op 20 september 1562, terwijl hij bij Jossemol was, ging hij de privéterrein binnen dat Jan Aelbrechtsse had gebruikt en in een vies staat had achtergelaten. Gyelis, onwetend van de onhygiënische toestand, zat er en kreeg zijn kleren vuil. Als reactie werd Gyelis door sommige mensen belachelijk gemaakt die de scène hadden gezien. Als antwoord gaf Gyelis Jan Aelbrechtsse een steek, waardoor hij een verwonding opliep die behandeld moest worden gedurende 15 dagen. Jan Aelbrechtsse ging vervolgens naar een andere chirurg, ondanks de raad van de eerste, en de wond verslechterde. Jan Aelbrechtsse overleed aan de verwonding, waardoor Gyelis in rouw werd gestort. Gyelis, als belanghebbende, heeft niet vrij gev
+```

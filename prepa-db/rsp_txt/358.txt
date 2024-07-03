@@ -1,0 +1,215 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remis marien ottens
+kaerle etc. doen te wetene allen iegewoirdigen ende toecomende dat wy
+ontfangen hebben die oidtmoedige supplicatie van maria otten wettige
+dochter thomas otten inhoudende hoe dat op sinte peeters dach inden oighst
+anno xve tweenveertich als merten van rossem ende andere vianden waeren
+voere onse stadt van loevenen oft daeromtrent zyn tot neerlinthere opte
+plaitsse binnen desen onsen lande van brabant vergadert geweest
+de goede mannen ende het volck van neerlinthere voirs. in grooten getale
+ende onder dandere is aldaer gebeurt datter twee oft drye
+persoonen hebben aldaer zekeren ydelen wagen gestooten inden poel
+geheeten den plaetssepoel den welcken dameel velthaen hem
+heeft gevoirdert alleene te willen vuyttrecken dwelck siende de
+voirs. thomas otten vader vanden suppliante heeft vuyt gevuechte geworpen
+eenen stock oft roeye voer inden voirs. poel dwelck siende willem vanden
+velde heeft den voirs. thomas met eenen stock gesmeten tot twee
+reysen toe eens op zyn hoot ende eens op zyn handt ende die voirs. thomas
+hem stellende terdefensie heeft den voirs. willem wederom metter voirs.
+roeye die hy te voeren inden poel geworpen hadde gesmeten ende
+den voirs. willeme daermede eenen slach op zy hoot gegeven soe
+soe dat zy onderlinge strytvaer waeren dwelck siende zy suppliante
+die daerby woenachtich was ende besorgende dat de voirs. thomas huer
+vader by den voirs. willem vanden velde van zynen lyfve geevelt
+zoude mogen wordden is vuyt vaderlyck ende natuerlycke liefden derweerts
+geloopen om hueren voirs. vadere te secoureren = bijstaan hebbende zy suppliante alsdoen
+een stuck eetens ende een brootmesken in huer handt ende intloopen
+soe heeft een geheefen goert ingels huer suppliante willen houden
+dwelck siende zy suppliante heeft den selven goerde in zynen vinger
+gebeten op dat hy heur soude laten gaen by hueren vader alsoe hy
+oick dede ende wat voertsn gaende oft loopende wordde wederomme
+gehouden ende metten hoofde genomen by wylen fulgiaen van hoobroeck
+wel by dranck zynde natuerlyck soene bellens van hoobroeck seggende tot
+huer wat sal de sottinne maken ende alsoe zy suppliante geerne ontworstelt
+ende den voirs. fulgiaen ontweekenhadde soe heeft zy suppliante int
+worstelen ende turbelen den selven fulgiaen metten voirs. brootmesse
+onversiens geraect ende omtrent zynder borst gequetst daeraff hy
+corts daernae is afflivich gewordden dwelck der suppliante hertelyck leet
+is ende welck ongeval aleest alsoe dat tselve is gebeurt by quade
+fortune onversiens ende nyet vuyt voersienicheyt noch anderssins vuyt
+quaden propooste noch vermoegen gelyck oick zy suppliante noch die voirs.
+fulgiaen doer te voeren noyt differencieuse wordden noch twist en hadden
+ende om hueren vader by te staene dwelck de voirs. fulgiaen scheen te
+willen beletten ende dat oick zy suppliante de partye geinteresseerde
+gesoent ende tevreden gestelt heeft soe en soude zy suppliante die van
+hueren wettigen man heeft vier levende kinderen ende altyt tot goeden
+name ende fame gestaen heeft noyt eenich delict oft andere quaede
+feyten gecommitteert hebbende huer binnen onse voirs. lande van brabant
+nyet derren vinden vreesende rigeur van justicie ten waere dat heur
+hierop wordde versien van onse gratie ons daerom oidtmoedelyck
+biddende soe eest dat wy desen aengesien geneycht wesene ter beden
+der voirs. suppliante ende willende huer in dit stuck prefereren gratie ende
+misericordie voer strangheyt ende rigeur van rechte hebben der selver
+suppliante inden gevalle als boven geremitteert quytgeschonden ende
+vergeven remitteren quytschelden ende vergeven vuyt sunderlinger gracien
+by desen onsen brieve tfeyt ende ongeval boven geruert mitgaders
+alle offensie ende bruecke corporelle ende crimminelle daerinne zy ter
+ter causen voirscreven mit dat daeraen cleven mach tegen ons ende justicie
+mesdaen ende mesbruyt mach hebben ende hebben heur daeraff
+wedergestelt ende gererstitueert stellen weder ende restitueren tot
+hueren goeden name fame ende geruchte in onsen voirs. lande van
+brabant ende allen andere onsen landen ende heerlicheden ende tot
+hueren onverbeurden goeden indyen zy eenige onder ons heeft gelyck
+ende in alder manieren zoe zy was voer de toecompste vanden
+voirs. feyte imponerende hierop een eeuwich geswych ende silencie
+onsen procureur generael in brabant onsen meyer van thienen ende allen anderen
+onsen ende der smaelre heeren justicieren ende officieren wye zy
+zyn satisfactie ende beeternisse yerst ende voeral gedaen der
+partye geinteresseeerde indyen die noch nyet gedaen en zy ende
+eenige daertoe staet civilyck alleenlyck behoudelyck dat die voirs. suppliante
+#
+gehouden sal syn tvoirs. feyt tegen ons te beteren civiyck naer gelegentheyt
+vanden saken ende faculteyt van huere goeden ende oick te betalen de
+costen van justicien hieromme alsoe de gedaen ende te doene allet
+ter taxatien ende moderatien van onsen lieve ende getrouwes de cancelier
+ende luden van onsen rade in brabant die wy daertoe gecommiteert
+hebben ende commiteren by desen ontbieden daerom ende bevelen den
+selven onsen cancellier eende raedsluden dat voere hen geroepen deghene
+die daerom behoiren geroepen te zyne en procederen wel ende deuchdelyck
+ter verificatie ende interinnemente van desen ende totter taxatie ende moderatie
+vander voirs. amende ende costen van justicien alsoe zy sullen
+bevinden behoirende welck interinement de voirs. suppliante gehouden
+sal syn te versuekene ende heur in persoene te presenterene
+onsen voirs. rade binnen zesse maenden naestcommende
+opte pene van te verbeurene deffect van desen ende dat gedaen
+ende deselve civile boete ende costen van justicien getaxeert
+ende betaelt zynde in handen vanden genen dyen dat behoiren
+sal zy onse voirs procureur generale in brabant onse meyer van thienen
+ende alle andere onse rechteren justicieren officieren ende
+ondersaten iegewoirdige ende toecommende dyen dat aengaen sal
+moegen heure stedehouderen ende eenen yegelyck van hen besundere
+soehem toe behoiren sal doen laten ende gedooghen de voirs.
+suppliante van deser onser iegewoirdiger gratien ende remissie ende
+van alle dinhouden van desen inder vuegen ende manieren voere
+verhaelt rustelyck vredelyck volcomelyck ende eeuwelyck
+genyeten ende gebruycken sonder huer te doene oft te laten
+geschieden nu noch in toecomende tyden eenich hinder letsel oft
+moeynisse aen lyve noch aen goeden ter contrarien maer
+# zy hiervan verantwoord
+byden ontfanger
+van andere exploiten
+indyen huer lyff oft eenige van hueren goeden daerom gearresteert
+gecommert oft belet waeren dat zy die setten ende stellen terstont
+ende sonder vertreck tot geheelder ende volcomenden delivrancie
+want ons alsoe gelieft ende ten eynde dat dit vast ende
+gestadich blyve tot eeuwigen dagen soe hebben wy onsen
+zegel hieraen doen hangen gegeven in onser stadt van
+bruessele inde maens van novembry int jaer onsheeren duysent
+vyffhondert ende dryenveertich van onsen keyserrycke txxiiiie
+ende van onsen rycken van castillie ende anderen txxviiie
+aldus gescreven opte plycke byden keyser in zyne rade
+ende onderteekent boudewyns visa restrata
+gecollacineert ende bevonden accorderende
+met zyneoriginale by my
+daaiwez [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "novembry, fifteen hundred and thirty four",
+  "fact_date": "St. Peter's day in the year fifteen and twenty four",
+  "persons": [
+    {
+      "firstname": "Maria",
+      "lastname": "Otten",
+      "role": "suppliant",
+      "function": "daughter of Thomas Otten"
+    },
+    {
+      "firstname": "Thomas",
+      "lastname": "Otten",
+      "role": "father of the suppliant",
+      "function": "involved in a fight"
+    },
+    {
+      "firstname": "Willem",
+      "lastname": "van den Velde",
+      "role": "opponent",
+      "function": "involved in a fight"
+    },
+    {
+      "firstname": "Fulgiaen",
+      "lastname": "van Hoobroeck",
+      "role": "opponent",
+      "function": "physically restrained the suppliant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Loeven",
+      "loctype": "city"
+    },
+    {
+      "name": "Neerlinthere",
+      "loctype": "city"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "Bruessele",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Maria Otten, the suppliant, requests remission for her father, Thomas Otten, who was involved in a fight in Loeven. Two or three persons had provoked an idle quarrel at the place called den plaetssepoel. Thomas Otten defended himself and his daughter against Willem van den Velde. Fulgiaen van Hoobroeck physically restrained Maria Otten. The suppliant fears for her father's life. She tried to help him and was restrained by Fulgiaen van Hoobroeck, who she bit with a bread knife. The physical confrontation ended, and Maria Otten asks for remission of the offense and any criminal or corporal punishment related to it.",
+    "fr": "Maria Otten, la suppliante, demande la rémission pour son père, Thomas Otten, qui a été impliqué dans une bagarre à Loeven. Deux ou trois personnes ont provoqué une querelle oiseuse au lieu appelé den plaetssepoel. Thomas Otten s'est défendu et sa fille, Maria Otten, contre Willem van den Velde. Fulgiaen van Hoobroeck a retenu physiquement Maria Otten. La suppliante a peur pour la vie de son père. Elle a tenté de l'aider et a été retenue par Fulgiaen van Hoobroeck, qu'elle a mordu avec un couteau à pain. La confrontation physique a pris fin et Maria Otten demande la rémission de l'infraction et de toute peine corporelle ou criminelle qui y est liée.",
+    "nl": "Maria Otten, de suppliant, vraagt vergeving voor haar vader, Thomas Otten, die bij een gevecht in Loeven betrokken was. Twee of drie personen hadden een nutteloze ruzie veroorzaakt op de plaats die den plaetssepoel heet. Thomas Otten verdedigde zichzelf en zijn dochter, Maria Otten, tegen Willem van den Velde. Fulgiaen van Hoobroeck hield Maria Otten fysiek tegen. De suppliant vreest voor het leven van haar vader. Ze probeerde hem te helpen en werd tegengehouden door Fulgiaen van Hoobroeck, die ze bijt met een broodmes. Het fysieke gevecht is voorbij en Maria Otten vraagt om vergeving voor het delict en elke daaraan gerelateerde lichamelijke of criminele straf.",
+    "de": "Maria Otten, die Supplizierende, bittet um Absolution für ihren Vater, Thomas Otten, der in eine Schlägerei in Loeven verwickelt war. Zwei oder drei Personen hatten einen unnützen Streit am Ort den plaetssepoel ausgelöst. Thomas Otten verteidigte sich und seine Tochter, Maria Otten, gegen Willem van den Velde. Fulgiaen van Hoobroeck hielt Maria Otten physisch zurück. Die Supplizierende befürchtet um das Leben ihres Vaters. Sie versuchte ihm zu helfen und wurde von Fulgiaen van Hoobroeck festgehalten, die sie mit einem Brotmesser biss. Das physische Gefecht ist vorbei und Maria Otten bittet um Absolution für die Verfehlung und jede damit verbundene körperliche oder strafrechtliche Strafe."
+  }
+}
+```

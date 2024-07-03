@@ -1,0 +1,220 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philippe etc. allen den genen etc doen te wetene etc.
+dat wij ontvangen hebben die oitmoedige supplicatie
+van merten motkies ingesetenen van rumpsdorp inhoudende
+dat hoewel by suppliant nu eenigen jaeren herwaerts
+anders es heeft gedaen als met allen middelen van
+vrindtschappen ende beleeftheid getracht ende
+gearbeyt te verhueden dat wylen jaspar van diest
+synen swaegher naer eenigen extraordinarisie folie
+hem nyet en sonder vertrecke naerden dienst vande
+gerebelleerden provintien daer aft hy hem menichmael
+hadde vermeten dat die voors. suppliant nyettegenstaende
+alle de iniurien menacen ende affronten die hy
+van syne voors. swaeger hadde geleden evenwel
+soo goet is geweest van te contribueren ende
+eensdeels te voldoen ende den accorde byden voors.
+synen swaeger gemaeckt metten meyer vander
+gheten over syne insolentien ende moetwillicheden
+soo ist nochtans dat den voors. jaspar van diest
+nyet en heeft connen gelaten den suppliant in sulcker
+vueghen te menaceren iniurieren ende in syn
+eyghen huys te comen vuytroepen dat die voors.
+suppliant de patientie nyet en heeft connen
+hebben van tselve meer te verdraegen gelyck
+oyck nyemandt ter werelt sulcke insolentien
+en zoude hebben connen tollereren mits dat die
+voors. jaspar van diest met opgesetten wille
+ende intentie is opden eenentwintichsten novembris
+xvic sevenentwintich gecomen ter huyse des suppliants
+hebbende syn mes bloot in syn hand ende roepende
+met luyder kelen tegens hem suppliant dese oft dyergelycke
+woirden compt daer buyten ghy fielten luylack
+bedelaer ghy duyvel comt daer buyten ick sal
+u vermoorden ende alsdan sal ick naer hollandt
+gaen ende alhoewel dat diversche persoonen den
+voors. jasper van diest van syn quat voornemen
+meynder te diverteren soo is hebben sy tselve
+nyet connen gedaen want hy persevereerde in syne
+quaden intentie roepende continuelycke alsulcken
+ende dyergelycke woorden als hiervoren staen
+vuytgedruckt dewelcke ten vuytersten oirsaecke
+hebben geweest dat die voors. suppliant is vuyt
+synen stal gecome met eene rieck in syne
+handen om die voors. jaspar te doen retireren
+vuyt syn suppliants mesthofs aldaer alle de
+voors. insolentien gebeurden maer in plaetse
+dat hy de suppliant souden hebben ver$$$$ ontsien ende
+zynen huyse ende woninge soude hebben verlaten
+soo is hy den suppliant comen toegeloopen met den
+voors. messe bloot inde hand meynende des suppliant
+daermede om te brengen om welcke te vergeven is
+die suppliant genootsaeckt geweest hem met
+syner voors. rieck te behelpen ende te defenderen
+dwelck doende heeft hy aen syner voors. swaegher
+gegeven twee oft dry slaegen op oft ontrent het
+hooft waerdoor die voors. van diest een weenich
+worde gequetst doch nyet dootelyck gelyck alle
+experte doctoiren ende chirurgynen des noot synde
+souden moeten attesteren nyettegenstaende dat
+denselven van diest eenige thien oft elft daeghen
+naerden infectie vande voors. wonden is comen
+aftlyvich te worden tot groot leetwesen des suppliants
+die zich altijt heeft gedraegen als een man
+met eenen daer ter contrarie d’afflyvigen
+soo temerair ende oultrecuidant is geweest van hem
+suppliant ende andersints te menaceren sulcx dat met
+rechte sonder moghen geseght worden dat die jaspar
+van diest heeft ontfangen den loon naer syne wercken
+als hebbende soo te seggen selfst oirsake geweest
+van syne doot alwaert oyck alsoe dat hy
+door ontwetentheyt vanden meester hem gecureert
+hebbende nyet en hadde onder d’aerde gemeestert
+geweest desen aengemerckt ende dat die
+voors. suppliant noyt senne feyt en heeft
+gecommitteert waerover hy criminele oft civile
+byden geene oft syne officiers soude gestraft
+oft geactionneert hebben geweest soo badt hy
+suppliant seer oytmoedelyck om onse opene brieven
+van remis daertoe dienende soo eest dat wy
+desen aengesien ende hierop gehadt d’advis ander
+officier van rumpdorp geneyght wesende ter beden
+ende supplicatie des voors. suppliant ende willende hem
+in dit stuck prefererende gratie ende genaden voor
+strangheyt ende rigeur van rechte hebben denselven suppliant
+inden gevalle als boven quytgesconden ende vergeven
+schelden quyte ende vergeven vuyt sunderlinger gratien
+by dezen onser brieve tfeyt ende ongeval boven geruert
+midtgaeders allee offentie ende breucke corporele ende
+criminele daerjinne hy ter causen voors. ende tgene daeraen
+tleven mach teghen ons ende justitie misdaen ende misbruyckt
+mach hebben ende hebben hem dyenaengaende wedergestelt
+ende gerestitueert stellen weder ende restituerende tot
+syne goeden naeme faeme ende geruchte in onser
+voors. landen ende heerlyckheden ende tot zyne onverbeurde
+goeden indyen hy eenigen onder ons heeft gehadt ende
+in alder manieren soo hy was voorde toecomste
+vanden voors. feyte imponerende hierop ende eeuwich
+geswygh onsen procureur generael van
+brabant officieren van rumpsdorp ende allen
+anderen onse justicieren ende officieren wie
+sy syn saticsfactie ende beternisse ierst
+ende vooral gedaen der partyen geinteresseerde
+indyen die noch nyet gedaen en zy ende eenige
+daertoe staet civilyck alleenlyck behoudelyck
+dat die voors. suppliant gehouden sal syn
+te voorschreven feyt tegen onsen te beteren civilyck
+alleenlyck naer gelegentheyt vander saecken
+ende faculteyt van synen goeden met
+oyk te betaelen de redelycke costen van
+justiticie hieromme almeede gedaen ende
+alnoch te doene alles ter taxatien ende
+moderatie van onsen seer lieven ende getrouwe
+cancellier ende luyden van onsen raede in
+brabant die wij daertoe gecommitteert
+hebben ende committeren ende desen wetende
+ende bevele denselven onser cancellier ende
+raedtsluyde dat voor hun geroepen degenen
+die daeromme behoiren geroepen te syne sy
+procederen wel ende deughdelicke ter verificatie
+ende interinementen van desen ende ter
+taxatie ende moderatie vanden voors.
+amende ende costen van justitie alsoe sy
+sullen bevinden te behoire welcke interinement
+die voors. suppliant gehouden sal syn te versuecken
+ende hem in persoone te presenteren in onse
+voors. raede binnen dese letste maenden naestcomen
+opden pene van te verbeuren de essect van dyen
+ende dat gedaen ende deselve civile boete ende
+costen van justicie getaxeert ende betaelt
+synde in handen vander ghene dyen behoiren
+sal sy onsen voors. procureur generael van brabant
+ende allen anderen onse rechteren iusticieren
+officieren ende ondersaten tegenwoordige ende
+toecommende dyen dat aengaen sal mogen heuren
+stedehouderen ende eenen iegelijcken van hen
+bezundere soe hen tebehoiren sal doen laeten ende
+gedoogen den voors. suppliant van deser onser
+iegewoordiger gratien ende remissie ende van
+allen inhouden van desen inden vueghen ende
+manieren voore verhaelt rustelyck vredelyck
+volcomelyck ende eeuwelyck genyete ende
+gebruycken sonder hem te doen oft te laeten
+geschieden nu noch toecommende tyden in
+eenighe manieren eenich hinder letsel oft
+moyenissen aen lyve noch aen goeden ter contrarien
+manieren indyen syn lyff ofte enige van syne goeden
+daeromme gearresteert becommert oft beleth
+waer is dat sy die setten ende stellen terstont ende
+sonder vertreck tot geheelder ende volcomender
+delivrantie want ons alste gelieft gegeven
+ende ter eynde dat dit vast ende gestadich
+blyve tot eeuwigen daeghen soo hebben onsen seghel
+hieraen doen hangen behoudelyck in andere
+dingen onse rechten ende eenenyegelycken and eren
+dessyns gegeven binnen onse stadt van
+brussele seven daeghen inde maent van
+augusto int jaer ons heeren sesthienhondert
+negenentwintich van onse rycken het negenste
+opde plycke stont gescreven byder coninck
+onderteeckent $$ mastelyn [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "merten",
+      "lastname": "motkies",
+      "role": "suppliant",
+      "function": "inhabitant of rumpsdorp"
+    },
+    {
+      "firstname": "jaspar",
+      "lastname": "van diest",
+

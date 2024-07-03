@@ -1,0 +1,206 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+pardon belast met civile beteringhen
+kaerle etc. allen den ghenen die desen onsen brief sullen sien saluyt
+wy hebben ontfanghen die oetmoedige supplicatie van claus janss
+die men heet van zwolle ingesetenn onser stadt van antwerpen nu ter tyt
+gevangen binnen der selver stede inhoudende hoe dat hy suppliant sonder
+tactancie gesproken alle zyne leefdage lanck geweest es een man
+van eeren hebbende zyne neeringe altyt duechdelyck ende rechtveerdelyck
+gedaen ende doer zyn industrie ende zwaeren arbeyt heeft hy gecregen
+ende gewonnen al dat hy inde werrelt heeft sonder dat hy van zynen
+oft zynder huysvrouwen wegen eenich goet gehadt oft ontfangen
+heeft ende al eest dat hy een goet simpel slecht man es die noyt
+een letter en heeft cunnen lesen noch scryven heeft hy nochtans
+met alle de werelt altyt alsoe oprechtelyck gehandelt dat noyt
+mensche en heeft metter waereyt gesegt oft cunen geseggen dat hy
+yemand een $$$ ongelycx oft te cort gedaen heeft ende dat meer
+es aleest zake dat hy een oudt man es zoe heeft hy binnen cortten
+iaeren herwaerts vuyt puerder devocien versocht gehadt theylich
+landt ende stadt van ierusalem nu eest zoe dat de voirs. suppliant ende
+ylen else nedermans zyn wyf was die wel dertich iaeren oft daer
+omtrent in huwelycken staete geseten hebben egeene kinderen gecregen
+en hebben dwelck zy lieden siende ende considererende dat al tgene dat
+zy hadden hen van god almachtich gegundt was ende duer hueren sueren
+arbeyt gecregen waere soe hebbe deselve suppliant ende zyne voirs. huysvro
+huysvrouwe altyt gewilt ende malcanderen toegeseyt dat huerer
+beyder goeden nae de doot vanden lancxtlevende souden moeten toecommen
+bliven ende gedistribueert worden den armen menschen om goids wille
+gelyck silieden te meer stonden voere officieren notaris ende getuygen
+ende andere publicque persoenen alzoe verclert verleden ende geordineert
+hebben gehadt ende sunderlinge hebben zy lieden die generale diposicie
+van allen hueren goeden alsoe gelyck hy suppliant ende zyne huysvrouwe
+meynden ende altyt verstaen hadden bekent ende gepasseert gehadt
+voer scepenen van zwolle hoe wel dat den brief daer op gemaict
+ende beworpen zynen dat zoe oepelyck nyet inne en houdt oft en
+begrypt ende aleest zoe dat else nedermans syn wyff doer
+inductie ende perswasie van eenigen van hueren vrienden ende ter
+contemplacien vanden selven tegen hueren wille ende meyninge
+eens anderssins schynt verclaert te hebbene dyen nyet tegenstaende
+heeft zy daer nae ende ter doot toe wederom altyt de contrarie
+gewilt ende geordineert hebbende daer nae te meer stonden vercleert
+ende oyck in huere vuyterste dat de arme ende nyet huere pretense
+magen souden succederen in huere goeden in welck propost zy
+gestorven es ende heeft die disposicie met huerer doot geconfirmeert
+nietemin huere pretense erfgenaemen ab intestato daer op nyet
+willende letten arbeydende den armen miserabelen menschen
+huere gelegateerde goeden tonrechte aff te nemende ende de goeden
+selve te houdene vuyt crachte vanden voirs. pretensen testamente
+thuerer contemplacien eens als voer beyde byde voirs. else
+gemaect maer daer nae te meer stonden gerevoceert hebben de
+$$ aelmoeseniers onser stadt van antwerpen die waerachtige
+erfgenaemen a testato zyn te rechte betrocken voer die wethouders
+onser voirs. stadt van antwerpen aldaer de zaeke alnoch hangende
+es ongedecideert ende om de voirs. aelmoesenirs tot hueren goeden
+rechte te helpene heeft hy suppliant den voirs. aelmoesenirs
+gecommuniceert alle het bescheedt dwelck hy wiste van brieven testamenten
+ende anderen daer mede zy eenichsins mochten wesen geinstitueert
+ende onder andere want hy suppliant lesen noch scryven en l kan
+heeft hy hen gecommuniceert den voirs. scepenen brief van zwolle by
+hem ende der voirs. elsen zynen wyve aldaer voer scepenen
+gepasseert ende dien brief hoorende lesen heeft bevonden dat dien brief
+nyet gescreven en was gelyck hy suppliant ende zyn wyf dien meynden
+bekent ende verleden te hebbene want inden selven scepenen brieff
+stondt alleene geroert die goeden die zy hadden bynnen der stadt ende
+vryheyt van zwolle die als egeene en waeren gemerct dat huere
+goeden als coopmanscappen ende crediten waeren in andere plaetsen
+ende provincien ende vanden ghenen daer zy aff gedisponeert meynden
+te hebbene die en waeren oft en schenen inden selven brief
+nyet gescreven te zyne directelyck contrarie der intencien
+meyningen wille ende disposicie vanden voirs. suppliant ende zynder
+huysvrouwen die nyet van hueren goeden binnen swolle maer
+generalen van allen hueren goeden hadden gedisponeert doer welck
+de voirs. suppliant als een simpel man meynende dat de arme
+miserable mensschen souden hebben moegen wordden gefrustreert van
+hueren waerachtigen ende oprechten legaten ende om daerop ende inne
+te providerene alleene vuyt rechter caritaten meynende de suppliant
+god den heere almachtich eenen aengenamen diesten te doene ende de
+warachticheyt ende rechtverdicheyt te vorderene heeft eenen
+ionghen van zynder kennessen die by gevalle alsdoen tot zynen
+huyse was in eenen ouden geraseerden scepenen brief by h$$$
+voirtyden geraseert doen scryven vuyten copien vanden eersten scepene
+brieve tot zwolle gepasseert de malinge disposicie ende ordonnancie
+gelyck hy ende zyn wyff die inder waereyt meynden voer de scepene
+tot zwolle bekent ende verleden te hebbene hoewel dat dyen nyet
+zoe ample gestelt oft tselve daer inne alzoe expresselyck gescreven
+en stonde welcke brief alzoe byden voirs. iongen gescreven
+zynde hy gecommuniceert heeft den voirs. aelmoeseniers hen seggende
+dat den brief tot zwolle gepasseert inderwaerheyt alzoe geschiet
+ende hun meynninge ende wille was geweest waere gelyck hy hen daer
+overgaf ende want de voirs. aelmoeseniers met dyen geraseerden
+brieve sonder eenich quaet te denckene oft te vermoedene hen
+scijnen te hebben willen behelpene in rechte is de voirs. suppliant
+by onse schoutet van antwerpen aengetast geweest ende gevangen
+gestelt aldaer hy nochtertyt in stricter gevangenisse gehouden
+wordt ter zaeken voirscreven ende want de voirs. suppliant tgene
+des voirs. es nyet en heeft gedaen dan puerlyck om de minne goidts
+vordernisse vanden armen ende op dat de waerheyt zoude
+triumpheren ende egheenssins gedacht en heeft daer aene te
+meserene maer meynde wel gedaen te hebbene soe heeft hy
+ons zeer oetmoedelyck gebeden om de passie ons heeren dat
+ons gelieven wille hem te remitterene tghene dat hy tegens ons
+oft der iusticien in deser mesdaen mach hebben hem doende
+relaxeren vander hachten daer hy inne gehouden wordt ende
+abolerende tselve mes$ hem te rabiliterene ende stellende
+in zynen iersten staet goeden naem ende faem daer hy altyds
+inne geweest heeft ende hem hier op verleenen onse behoirlycke
+opene brieven daer toe dienende soe te wetene dat wy de
+zaeken voirscreven overgemerct ende hier op gehadt tadvys eerst
+van onsen schoutet van antwerpen ende marcgrave ons lants
+van ryen daer nae van onser advocat fiscael ende luyden van
+onsen cameren vanden reck$$ in brabant ende voirts. van onsen
+lieven ende getruwen de hoofden tresorier general ende gecommitteerde
+van onsen demeynen ende financie den voirs.suppliant genegen wesen
+tzynder voirs. supplicacie ende hem willen in dit stuck gracie
+ende genade prefereren voer stranheyt van iusticie hebben vuyt
+onse rechte wetenheyt ancturiteyt ende volcommen macht vergeven
+quytgeschonden ende geaboleert vergeven schellen quyte ende
+aboleren by desen tstuck ende mes$$ boven verclairt mitgae$$
+alle peyne ende amende corporelle ende criminelle daer
+inne hy ter cause van dien met dieser aencleest iegens ons
+ende iusticie mesdaen ende mesbruyct mach hebben ende hebben
+hem als hieraff wedergestelt ende gerestitueert tzynder goede
+fame ende naeme $$ onser voirs. stadt van antwerpen
+metgaedens $$$ tzynen onverbuerden goeden indien hy eenige
+heeft zoe ende inder manieren als hy was voer die toecompst
+van tvoirs. stuck ende mes$$ imponerende hier op een eewich zwygen
+onsen procureur general onsen schoutet van antwerpen ende allen anderen
+onsen iusticieren ende officieren behoudelyck dat de voirn. suppliant
+voor civile beteringe ende redemptie van zyne goeden gearresteert
+ende geinventorieert betalen sal de somme van twee duysent
+karolus guldens eens in handen van onse schoutet van antwerpen
+#
+die gehouden wordt daer aff ontfanck te maekene reekeninge
+bewys ende riliqua te doene tonsen proffyte metten anderen
+penningen van zynen ontfange ende voirste reffonderen ende betaelen
+de redelicke costen van iusticien hier omme gedaen ter taxacie
+vanden ghenen van onsen officieren dient behoiren zal ontbieden
+daeromme ende bevelen onsen lieven en getruwen die cancellier
+ende de luyden van onsen raede in brabant schoutet van antwerpen
+ende allen anderen onsen rechteren ende officieren dien dit aengaen sal
+dat zy den voirn. suppliant van dese onse gracie ende pardoene
+doen laeten ende gedoogen rustelyck ende vredelyck genyeten ende
+gebruycken sonder hem te doene noch te laeten geschien eenich
+hinder letsel oft moyennesse te contrarien maer zynen persoon
+iegenwoirdelyck gevangen soe voirs. es stellen oft doen stellen terstont
+ende zonder vertreck tot volcommen delivrancie want ons alzoe
+gelieft des toirconden hebben wy onsen segel hieraen doen hangen
+eeghenen in onser stadt van bruessele den xven dach van meye
+int iaer onsheeren duysent vyfhondert zevenendertich van
+onsen keyserycke txviiie ende van onsen rycken van castillien
+ende anderen txxiie aldus op de ploye stont gescreven
+byden keyser die grave van hoochstraten hooft heeren ian
+ruffault ridder heere van neufville tresorier general $$ $$$$$
+vincent corneliss gecommitteerde vander financien ende andere
+iegewoirdich ende geteeckent g isensart $$ $$
+ghecollacionneert tegens die
+originale brieven by my
+decock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+

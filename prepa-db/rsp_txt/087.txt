@@ -1,0 +1,172 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie
+albert et isabelle ry savoir faisons a tous
+presens et advenir nous avoir receu lhumble supplication
+gerard de buyct fils de jehan de nuyst josne homme
+a marier contenante que dans ?actan.. il s’est tousiours
+bien et honnestement et paisiblement comporte et
+mesmement soub obeissance de notre mere et ste
+eglise et en la foy catholicque apostoliqque er romaine
+sans avoir adhere aulcunne secte ny commis delicts
+meritant chaston et que touttefois il est advenu
+que le xi jour du mois de juin 1606 il estoit
+alle villaige de la chapelle st lambert pour jouer
+a la palme et ayant gaingne quelque cincquante
+patars il avecque ses compaignons en nombre de
+cincque ou six sen vont retourner a lane lieu de
+leur demeure ou ilz ont alle a la taverne ilz ont
+trouve ung nomme estienne smale et le cure
+dudict lieu et le cure dudict villaige de chapelle st
+lambert lequel estienne voyant ledict gerard
+disait a luy voila mon galand a quoi le mesme
+gerard respondit ouys et lui dfemandoit ledict estienne
+en ceste maniere ou avez este hier au soir
+surquoi ledict gerard luy repondit et bien navez
+vous jamais faict mal et apres ce ledict estienne
+luy appela laron de nuyct ad cause que les
+chevaulx d’iceluy gerard avoint mange par
+nuy lherbe dun pretz lequel thiry de haulfenne
+et pierre moitonnant tenayent par louaige disant
+le mesme estienne que ceulx qui mangeoyent
+les pretz de nuyct estoit larve a cause que lesdict
+gerard et estienne par ce propos comencharent a
+battre lung lautre a coups de poings sans armes
+qui par assistence de ceux qui y estoient presens
+ont este separez et eschartez arriere lunge de lautre
+et fut ledict estienne enferme en la chambre de
+ladicte taverne et peu apres ledict disoit a sa soeur
+marguerite et a sa femme qui restoient presens
+qui vouloit retourner a sa maison et allant avecq
+icelles et passant devant ledict gerard et godefroit
+de nuyct son frere lors y present le mesme estienne
+crioit iteratinement a haulte voix audit gerard
+et godefroit et leurent de nuyct ses freres avecq ung
+nomme jehan dindal ilz se commencharent de nouveau
+a combattre avecque ledict estienne avec des bastons
+quilz prindrent de la haye saulf que ledit dindal
+avoit une espee a laquelle bataille surment feu
+jehan smale frere dudict estienne qui print
+aussi un baston de la haye pour assister ledict
+estienne son frere et ledit gerard donnet ung
+coult de baston sur la teste diceluy feu jehan
+smale dont il tomboit a terre et mourut
+le lendemain au tresgrand regret diceluy gerard
+a raison de quoi il sest absente depuis se nosant
+retournet en cestuy notre pays craindant la
+rigeur de justice non obstant que sondict frere
+jan de nuyct a faict accorder et paix avecque
+la veuve dudit defunct et des pro...mes ???
+comme ledict suppliant dict , nous apartante icelluy
+suppliant treshumblement requis par la dolorense
+passion de notre sr jesuchrist laquelle il a
+souffert a larbre de la croix le jour du bon vendredi
+quil nous plaise lui accorder grace et pardon
+que causera quil pouldra continuer en bonne
+et obeissance de ladicte mere ste eglise et foy chatolicque
+apostolicque romaine qui aultrement sen doyant
+tousiours obstenter seroit en danger tomber en plus
+grand malheur et sa totale ruyne et desplaisir
+poura cest il que nous les choses a dessusdites
+considerees suppliant inclinans a sadicte
+requete en lui vueillans en ce presemerer
+grace et misericorde a rigeur de la justice avoit
+ou cas sudict quite remis et pardonne quitous en
+remetons et pardonnons de grace speciialle
+par cestes le cas et homicide dessudict avecq
+toute payne et amende corporalle et criminelle
+duquoy pour cause et occasion cas il a ou peult
+avoir mesprins ou estre encourru envers nous et justice
+et l’avons quand a ce restituee et restituons par cestes
+a sa bonne fame et renommee en notredict pays de brabant
+oultre mense par tous ailleurs et a ses biens non confisques
+saulcuns il y a ainsi quil estoit avant ladvenu dudict
+cas imposant surce silence perpetuel a notre cheir et feal
+procureur generael en brabant a notre drossaert de
+brabant et a tous aultres noz justiciers et
+officiers quelz conques et aussi a ceulx de noz
+vasseaulx satisfaction preallablement et avant
+toute oeuvre faicte a la parte interessee se faictenes
+et elle y chiet civillement tant seulement pour veu que
+ledict suppliant sera tenu de amender ledict cas envers nous
+civillement solon lexigence de cas et la faculte de sesdicts
+biens et aussi paier les fraictes et mises de la justice
+le tout a larbitraige et tauxation de nos aimes et feaulx les
+chancellier et gens de notre conseil en brabant
+que commectons a ce de notre conseil que appelez ceulx
+qui pour ce seront a appeller ilz procedent bien et
+deuement a la veriffication et intermement de ces presentes
+et a larbitraige et tauxation de ladicte amende fraicte et
+mises de justice ainsi quil appertiendra lequel intermemeent
+ledict suppliant sera tenu de requirer et soy presenter en personne
+en notredict conseil en six mois prochain venants et
+cefaict et ladicte amende fraictes et mises de justice
+tauxer moderes et payer la et ainsi quil appertiendra
+ils tous aultre nostres justiciers et officiers et laissent
+ledict suppliant de notre prensence grace remission et
+pardon selon et an la forme et maniere que dict
+est paisiblement
+plainement et perpetuellement joyer et
+user sans en ce luy faire mectre ou donner ne souffrir
+estre faict mis ou donne lores ne pour le temps
+advenir en corps ny en biens quelque destourbier
+ou empeschement au contraire ainssi son corps ou
+aulcuns de sesdicts biens non confisquez estoient ou
+sont pour ceprins arrestez ou empechez les
+mectent ou facent mestre incontient et sans
+dilay et plaine delivrance car ainsi nous plaist
+il et affin que ce soit chose ferme et estable a
+touiours avons faicte mettre notre seel a ces presentes
+saulff en aultres choses nostre droict et lantruy
+toutes donnees en nostre ville de bruxelles le vendredi
+sainct de lan de grace mil six cent et huit
+sur la ???cque estoit escript par les archicucq
+et soussigne de witte et seele avec un grand
+seau en cire verde pendant et cordes soyes. [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1

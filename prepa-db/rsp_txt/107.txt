@@ -1,0 +1,342 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie
+albert ende isabel clara eugenia etc.
+doen te wetene alle tegenwoerdige ende toecomende
+dat wy ontfangen hebben die supplicatie van gerart
+jans ingeseten der vrijheyt van arendonck gelegen
+inden lande van turnhoudt inhoudende dat alsoo den
+schouteth vande selven lande ende vryheyt van turnhoudt
+opden eenentwintichsten septembris vanden jaere sessthien-
+hondert ende vyffthien van sheeren weghen heeft vuytgeboden
+allen dingesetenen vanden selven lande om den wolff te
+jaegen soo ist dat hy suppliant int wederkeeren vande
+selve jachte inde herberge genoempt de clocke gelegen
+binnen deselve vryheyt van turnhoudt met jan hulselmans
+wouterssone ingesetene ende alsdoen onlancx gesworene
+der voorschreven vryheyt van arendonck syn geraeckt
+in ander geselschap om aldaer eenige potten biers te
+drincken ende synde daernaer tot dyen eynde inden selven
+gelaghe oyck gecomen wylen adriaen van neer inde wande-
+linghe genoempt pachteleer soe ist gebeurt dat aleer
+vuyt denselven gelaghe te scheyden densleven wylen
+jan neer alias pachteleer mette werdinne het gelach
+rekenende maer en is gerekent geweest voer syn
+contingent op den blancke ende den suppliant daer
+teghens op twee stuyvers ende alsoe daernaer den den
+selven suppliant metten voors. jan hulselmans
+wouterssone ende den voors. wijlen jan neer alias
+pachteleer tsamen vuytte selve herberge naerder sonnen
+onderganck hun hebben begeven om thuyswarts te gaen
+soe hebben den suppliant ende den voors. wylen van
+neer tusschen weghen eenigen twist gecregen ter
+causen vande inegaliteijt ende over betalinge vanden
+selven gelage ende gaende alsoo kijvende hebben
+malcanderen van weder syden soe geiniureert dat sy
+beyde hunne messen hebben vuytgetrocken ende tselve
+gewaer wordende eenen cornelis claessen heeft hem
+suppliant sijn mes vuyt syner handen genomen ende
+denselven daer mede deur gegaen synde tot ontrent de
+huijse van adriaen van dornen staende binnen oudt
+turnhoudt sijn dieselve partijen al kijvende gebleven
+waer doer den voors. jan hulselmans wouterssone heeft den voors. wijlen adriaen van neer
+segerssone alias pachteleer ondertusschen metten arm
+genomen ende denselven in vriendtschap gebeden dat
+hij toch vredelijck soude willen naer huijs gaen m#
+alsoo denselven wylen van neer denselven daer op
+seer grammelijck antwoirdde dat hy hem soude laeten
+gaen oft sij soude hem hulselmans het bloot mes dwelck
+hy in syn handt was hebbende in syn vleesch steecken
+soe heeft den voors. hulselmans den voors. wijlen
+van neer alsdoen verlaten vuijt vreese oft hij hem eenigen overlast soude
+hebben gedaen ende heeft daernaer den voirscreven wijlen adriaen
+van neer den suppliant met synen jachstocke
+die hy in handen was hebbende soe inne gevallen
+ende naer hem met alle crachte soo gesteecken dat
+hy ten iersten den suppliant metten selven jaeghstock
+eenen tandt vuijt sijnen hooffde gesteken hebbende
+heeft den suppliant metten tweeden steecke dweers
+doer synen slincken arme gesteken tot in sijn sijde
+waer doer den suppliant is genootsaeckt geweest
+hem daer tegens te defenderen ende affslaende den
+worp vande pijcke ofte jaeghstocke des voors.
+wijlen van neer heeft denselven met sijne pycke
+inde slincke schouder eenen steeck gegeven waer
+doer hy suppliant bemerckende dat den voors.
+wijlen van neer hem noch met sijn mes op sijn
+lijff vallende ende metten hooffde inden voors.
+gracht stootende sijne machte quam te verliesen
+soo heeft hij suppliant met worstelen soo wel
+gedaen dat hij verlaetende synen stock ende
+hoet vuijt d'armen van wijlen van neer is
+gecropen ende is alsoo vuijtten selven gracht springende
+hij suppliant gecomen byden voors. jan hulselmans
+wouterssone hem seggende compt jan laet ons
+gaen loopen ende sijn alsoo deur gegaen tot sekeren
+huijse vande gebuerte aldaer sij geclopt hebbende
+hebben den man vanden huyse gevraecht oft hy
+synen knecht nijet eens en soude willen senden tot
+aenden huyse van adriaen van deurne om aldaer
+syns suppliants hoet ende jaeghstock te haelen
+ende naer dijen denselven sijnen knecht tot dijen
+eynde aldaer was gegaen heeft bevonden dat den
+voors. wylen adriaen van neer alias pachteleer
+vanden voors. steke deser werelt was overleden
+ende t'selve gerefereert hebbende ten huijse van sijnen
+meester aldaer hij suppliant metten voorschreven
+hulselmans was wachtende soo is denselven
+hulselmans terstont daer naer ter selver
+plaetse gegaen van den voors. wijle afflijvigen
+te sien ende den hoet ende stock des suppliants
+te haelen ende alsoo hem worde ontraeden den
+selven stock ende hoet mede te draegen
+overmidts den voors. wijlen van neer wiens
+siele godt wille genadich sijn deser werelt was
+overleden tot seer grooten ende excessiven leet-
+wesen des suppliants soo is hij suppliant tselve
+sijn ongeval seer deerlyck met weenende oogen
+beclagenden van daer metten voors. hulselmans
+naer arendonck plaetse synder residentie gegaen
+ende naer dijen hij aldaer syne wonden heeft
+doen cureren soo is hy genootsaeckt geweest om
+t'ontgaen alle schandaelen van apprehensie ende
+rigeur van justitie van daer te trecken ende
+elders te latiteren ende hoe wel binnen denselven
+tyde die huijsvrouwe des suppliants mette
+achtergelaten weduwe desselffs wijlen afflyvigen
+by naeme adriana theeus ter presentie ende
+overstaen vande momboirs van desselffs naer
+gelaetene kinderen ende andere naeste vrienden
+ende bloet gewanten ter intercessie van
+schepenen der selver vryheyt van arendonck
+als goede mannen soe verre heeft getracteert
+dat sy nopende den selven ongevalle met hun opden
+tweeden aprilis lestleden heeft versoent ende
+metter minnen syn overcomen inder vuegen ende
+manieren breeder begrepen in d'acte onderteeckent
+j. vivarius daer aff zijnde $$ $$$ $$ ende ende d#
+daer by oyck promptelyck is blyckende dat hy
+suppliant van opden xviii en junij daer naer den
+soenpenningen ende allen tgene inden selven accorde
+tsijnen laste staet vermelt volcomentlyck
+heeft voldaen ende en dert nochtans hem nyet
+vrijelyck binnen die selve vryheyt van arendonck
+oft elders binnen desen hertochdomme ende landen
+van brabant begeven ten sy dat hem yerst ende voer
+al bij ons desen $$ in consideratie vande vargaende
+ongeregeltheden desselffs wylen adriaen van neer
+afflyvigen daer aff is blyckende by d'aenspraecke
+ende conclusie teghens hem van offitie wegen
+genomen by copye $$$ insgelycx hier
+neffens gevende ende ter contrarie van des
+suppliants voergaenden stillen eerlycken ende
+catholycken comportemente ende conversatie onder
+alle persoonen sonder oyut yemant int minste
+gehindert oft eenige ongeregeltheyt aengedaen te
+hebben prefererende gratie ende misericordie
+voer alle strangheyt ende rigeur van justitien
+te worden vergunt onse opene brieven van remis
+gratien ende in sulcken cas dienende om de
+welcke die suppliant ons seer oitmoedelyck was
+biddende soo eest dat wy de saecken voors.
+overgemerckt ende ierst hierop gehadt d'advys van
+onsen lieven ende wel beminden maximiliaen de
+mol schouteth der voorschreven vryheyt ende
+lande van turnhoudt geneycht wesende ter
+beden des voorschrevenen suppliants ende willende
+hem in dit stuck prefereren gratie ende miseri-
+cordie voer strangheyt ende rigeur van rechte
+hebben den selven suppliant inden gevalle als boven
+geremitteert quytgeschouden ende vergeven remitteren
+schelden quyte ende vergeven vuyt sunderlinger gratien
+by desen onsen brieve tfeyt ende ongeval boven gemerct
+midtsgaders alle offensie ende breucke corporele ende
+criminele daer inne hy hem overmidts ende vuyt saecken
+van tgene des voors. is tegen ons ende justitie eenich-
+sints mach hebben ontgaen ende mesdragen ende hebben
+hem dyen aengaende wedergestelt ende gerestitueert
+stellen weder ende restitueren tot synen goeden name
+fame ende geruchte in onsen voors. lande van brabant
+ende allen anderen onsen landen ende heerlickheden ende
+tot synen onverbuerden goeden indyen hy eenige onder
+ons heeft gelyck ende in alder manieren soe hy was voer de
+toecompste vanden voors. feyte imponerende hier op
+een eeuwich geswich onsen procureur generael in
+brabant ende alle anderen onsen justicieren ende
+officieren wye sy syn satisfactie ende beter-
+nisse ierst ende voor al gedaen der partye
+geinteresseerde indyen die noch nyet gedaen en sy
+ende eenige daertoe staet civilyck alleenlyck behoudelyck
+dat die voors. suppliant gehouden sal syn tvoors.
+feyt tegen ons ende beteren civilyck naer gelegentheyt
+vander saecken ende faculteyt van syne goeden met
+oyck te betalene de redelycke costen van justitien
+hieromme alreede gedaen ende te doene allet
+ter taxatien ende moderatien van onse zeer lieve ende
+getrouwe die cancellier ende lieden van onsen rade
+in brabant die wy daer toe gecommitteert hebben
+ende committeren by desen ontbieden daerom ende
+bevelen den selven onsen cancellier ende raetslieden
+dat voor hen geroepen die genen die daerom
+behooren geroepen te syne sy procederen wel ende
+deuchdelyck ter verificatie ende interinement
+van desen ende totter taxatie ende moderatie vande
+voors. emende ende costen van justitien alsoe sy sullen
+vinden te behoorene welck interinement die
+voors. suppliant gehouden sal syn te versueckene
+hem in persoone te presenteren in onsen voors. rade
+binnen sesse maenden naestcomende opte pene
+van te verbeuren deffect van desen ende dat
+gedaen ende deselve civile boete ende costen van
+justitien getaxeert ende betaelt synde in handen
+vanden genen dyen dat behooren sal sy onse voors.
+procureur generael in brabant ende alle andere
+onse rechteren justicieren officieren ende ondersaten
+jegenwoordige ende toecomende dyen dat aengaen sal
+mogen huere stedehouderen ende eenyegelyck van hen
+besundere soe hem toebehooren sal doen laten ende
+gedoogen den voors. suppliant van deser onser jegenwoordiger
+gratien ende remissien ende van allen inhouden
+van desen inder vuegen ende maniere voere verhaelt
+rustelyck vredelyck ende volcomelyck genyeten
+ende gebruijcken sonder hem te doene oft te laeten
+geschieden nu noch in toecommende tyden eenich
+hinder letsel oft moyenisse aen lyff noch aen
+goeden ter contrarien maer indyen syn lyff oft
+eenige van syne onverbeurde goeden daerom gearresteert
+becommert oft belet waeren dat sy die setten ende
+stellen terstont ende sonder vertreck tot geheelder ende
+volcommender delivrantie want ons alsoe gelieft
+ende ten eynde dat dit vast ende gestadich
+blyve tot eeuwigen dagen * behoudelyck in anderen dingen
+onsen rechte ende eenen yegelycken anderen dessyns
+gegeven in onser stadt van brussele inde maent van
+maio augusto int jaer duysent sesse hondert ende seventhien seventhien sesthien
+opde plicke stont byde eershertogen onderteeckent
+fourdin ende gesegelt met eenen groenen segel vuythangende
+in syde snoe$$ren
+*soe hebben wij onsen zeghel hier aen doen hanghen [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "16th September 1615",
+  "persons": [
+    {
+      "firstname": "gerart",
+      "lastname": "jans",
+      "role": "supplicant",
+      "function": "ingesetene"
+    },
+    {
+      "firstname": "albert",
+      "lastname": "UNDEFINED",
+      "role": "none",
+      "function": "none"
+    },
+    {
+      "firstname": "isabel",
+      "lastname": "clara eugenia etc.",
+      "role": "none",
+      "function": "none"
+    },
+    {
+      "firstname": "wylen",
+      "lastname": "adriaen van neer alias pachteleer",
+      "role": "opponent",
+      "function": "ingesetene"
+    },
+    {
+      "firstname": "den",
+      "lastname": "schouteth vande selven lande ende vryheyt van turnhoudt",
+      "role": "none",
+      "function": "schout"
+    },
+    {
+      "firstname": "den",
+      "lastname": "voors. jan hulselmans wouterssone",
+      "role": "witness",
+      "function": "ingesetene"
+    },
+    {
+      "firstname": "adriaen",
+      "lastname": "van dornen",
+      "role": "none",
+      "function": "none"
+    },
+    {
+      "firstname": "cornelis",
+      "lastname": "claessen",
+      "role": "witness",
+      "function": "none"
+    }
+  ],
+  "locations": [
+    {
+      "name": "arendonck",
+      "loctype": "vrijheyt"
+    },
+    {
+      "name": "turnhoudt",
+      "loctype": "lande"
+    },
+    {
+      "name": "de clocke",
+      "loctype": "herberge"
+    },
+    {
+      "name": "oudt turnhoudt",
+      "loctype": "place"
+    }
+  ],
+  "summary": {
+    "en": "Gerart Jans, an ingesetene of Arendonck, located in the land of Turnhoudt, has requested remission for a conflict with Adriaen van Neer, also an ingesetene. The conflict arose when Adriaen van Neer, after sharing a drink with Gerart Jans, demanded payment for the drink and threatened Gerart Jans when he refused. The conflict escalated, resulting in Adriaen van Neer attacking Gerart Jans with a jaeghstocke, causing serious injuries. Adriaen van Neer has since passed away, and Gerart Jans has left the area to avoid any legal repercussions. The widow of Gerart Jans has since appealed to the schepenen of Arendonck for intercession, and Gerart Jans has fulfilled all financial obligations related to the incident. As a result, Gerart Jans has been granted remission for the incident by the authorities.",
+    "fr": "Gerart Jans, ingésé de la friche d'Arendonck, située dans le pays de Turnhoudt, a demandé la rémission d'un conflit avec Adriaen van Neer, également un ingésé. Le conflit est né lorsqu'Adriaen van Neer, après avoir partagé une boisson avec Gerart Jans, a exigé le paiement de la boisson et a menacé Gerart Jans lorsqu'il a refusé. Le conflit a dégénéré, entraînant l'attaque d'Adriaen van Neer contre Gerart Jans avec une jaeghstocke, causant de graves blessures. Adriaen van Neer est décédé depuis, et Gerart Jans a quitté les lieux pour éviter toute conséquence juridique. La veuve de Gerart Jans a depuis intercédé auprès des échevins d'Arendonck, et Gerart Jans a rempli toutes les obligations financières liées à l'incident. En conséquence, Gerart Jans a été gracié pour l'incident par les autorités.",
+    "nl": "Gerart Jans, ingezetene van Arendonck, gelegen in het land van Turnhoudt, heeft vergiffenis aangevraagd voor een conflict met Adriaen van Neer, eveneens een ingezetene. Het conflict ontstond toen Adriaen van Neer, na een drankje gedeeld te hebben met Gerart Jans, betaling voor het drankje eiste en Gerart Jans bedreigde toen hij weigerde. Het conflict escaleerde, resulterend in Adriaen van Neer die Gerart Jans aanviel met een jaeghstocke, ernstige verwondingen veroorzakend. Adriaen van Neer is inmiddels overleden en Gerart Jans heeft het gebied verlaten om elke juridische gevolgen te voorkomen. De weduwe van Gerart Jans heeft zich sindsdien bij de schepenen van Arendonck gemeld voor tussenkomst en Gerart Jans heeft alle financiële verplichtingen in verband met het incident nagekomen. Als gevolg hiervan is Gerart Jans door de autoriteiten gratieverklaard voor het incident.",
+    "de": "Gerart Jans, ein Einwohner von Arendonck, gelegen im Land von Turnhoudt, hat um Vergebung für einen Konflikt mit Adriaen van Neer gebeten, auch ein Einwohner. Der Konflikt entstand, als Adriaen van Neer, nachdem er ein Getränk mit Gerart Jans geteilt hatte, Zahlung für das Getränk forderte und Gerart Jans bedrohte, als er ablehnte. Der Konflikt eskalierte, wobei Adriaen van Neer Gerart Jans mit einer jaeghstocke angriff und schwere Verletzungen verursachte. Adriaen van Neer ist inzwischen verstorben und Gerart Jans hat das Gebiet verlassen, um jede rechtliche Folge zu vermeiden. Die Witwe von Gerart Jans hat sich seitdem an die Schöffen von Arendonck gewandt, und Gerart Jans hat alle finanziellen Verpflichtungen im Zusammenhang mit dem Vorfall erfüllt. Als Ergebnis wurde Gerart Jans von den Behörden für den Vorfall begnadigt."
+  }
+}
+```

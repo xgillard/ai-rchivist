@@ -1,0 +1,152 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+abolicie voer janne de passano ende zyne dienere
+philips bider gracien godts eertshertoghe van oistrijke hertoge
+van bourgoignen van lotharingen van brabant van stier van karentien
+van crain van limburg van luxemburg ende van gelre greve
+van vlaenderen van habspurg van thirol van firette van kieburg
+van artois van bourgoignen palatyn van henegouwe
+van hollant van zeelant van namen ende van zuytphen
+mercgreve des heylichs roemschen rycs ende van borgauw
+lantgrave in elsaten heer van vrieslant van oxter
+windeschemq van portenauw van salins ende van mechelen
+allen den ghenen die dese onse letren selen sien saluyt
+alsoe ons van wegen jans de passano coopman vander
+natien van genues residerende tegewoirdelic in onser stad
+van brugge te kennen gegeven es geweest hoe dat
+inden jaere vyfthienhondert lestleden een geheeten
+jan ofte ten versuecke vanden voirs. suppliant ende
+van loys de ligno dienere desselfs hadde betalingen
+gedaen eenen geheeten jan adriaenss vander sommen
+van vierentwintich ponden grooten onser munten van vlaenderen
+die de selve suppliant hem schuldich was ter sacken van sekere
+comenscapen van meeden ende dat zekeren tyt daer
+nae geleden een geheeten gielles van roye executeeur
+te kennen gaf onsen procureur generael in brabant dat die
+voirs. betalinge vanden voirs. xxv ponden groten
+hadde gedaen geweest in ende met lichten gelde contrarie
+onser ordinancie op stuck vander munten gemaect by middele
+vanden welcken onse procureur hadde den voirs. suppliant te
+rechte betrocken voer onse lieve ende getrauwe die cancellier
+ende andere lude van onsen raide in brabant ende aldaer
+tegen den selven suppliant geconcludeert soe hem dat goetdochte
+ende werd aldaer tusschen partyen soe verre geprocedeert
+nae dien dat van wegen des voirs. suppliant te kennen gegeuen
+hadde geweest als dat hy nyet en wiste vander voirs.
+betalingen inder manieren die onse voirs. procureur die
+proponeerde ennichssins gedaen te syne ende oft die
+geschiet waere inder manieren voirs. dat zoude
+gedaen zyn sonder syne wete danck ende wille
+contenderende om die ende ander redenen ende middelen ten
+eynde van absolutien naden welcken die voors. partyen
+contrarie ende in enquesten om welcken appointementen te
+voldoene onse voirs. procureur hadde doen hoiren den voirs.
+giellis van roye denunciateur ende janne adriaenss. die welcke
+de voirs. suppliant om te bewyssene zyne onnoeselheyt ende
+ignorancie in desen hadde doen wederleggen ende hoewel
+die selve suppliant ende zyn voirs. dienere nyet en meynden
+hier inne tegen ons yet mesdaen oft gebruyct te hebbene
+desen nyet tegenstaende soe beducht hem nochtans de voirs.
+suppliant datmen hem opte depositie vanden voirs. getuygen oft
+anderssins soude willen straffen ende punieren als infracteur
+van onser voirs. ordinancien ende daer toe inde penen daer inne
+begrepen dwelc op dat soe gebuerde comen soude tot grooter
+schanden scaden ende ongenuchten vanden selven suppliant het en waere
+dat wy hem hier op onse gratie verleenen wilden soe hy seght
+daeromme gemerct de redenen voerscr. hy ons oitmoedelic heeft
+gebeden. doen te weten dat wy die saken voirscr.
+overgemerct ende gehadt davys van onsen stadhoudere generrael
+den greve van nassouw ende oic vanden luden van onsen
+grooten raede geneycht wesende ter oitmoediger beden
+vanden voirs. suppliant willende den selven in dit stuck gracie
+ende genade prefereren voer rigeur van rechte hebben in
+gevalle als boven. af ende te nyente doende tvoirs. proces
+mit des dair aen cleven mach quytgeschonden geremitteert
+vergheven ende geabolieert ende uuyt onser rechter
+scelden quyte remiteren vergeven ende abolieren by desen onsen
+jegewoordegen brieve allet ghene daer inne de voirs. suppliant
+ende loys zyn dienere biden voirs. processe belast ende geaccuseert
+hebben geweest oft souden moigen wordden mitgaders alle
+peynen ende boete criminele ende civile daer hy oft de selve
+loys uuyt saken van dien mit des daer aen cleeft tegen ons
+ende justicie mesdaen oft mesbruyct mogen hebben den selven
+suppliant ende zyne dienere stellende ende restitueren tot haerer
+goeder famen ende namen ende tot allen hueren goeden nyet
+verbuert noch geconfisqueert wesende in dien zy enige
+hebben in alle der formen ende normen als zy waeren
+aleer ende voerden beghinsel vanden voirs. processe
+imponerende onsen voirs. procureur in desen scilencie ende
+eewich geswych ontbieden daer omme ende
+bevelen onsen drossete van brabant meyer van loeven
+amman van bruessel schoutheten van antwerpen
+ende vanden bossche ende allen anderen onsen ende der
+smaelre heren dieneren officieren justicieren ende ondersaten
+ons voirs. lants van brabant dien dat enichssins aengaen
+mach dat zy ende een yegelic van hen den voirs.
+suppliant ende loys zynde dienere van desselve onser gracien
+quytsceldinghen remissie ende abolicie ende van al den
+inhouden van dien inder manieren als voirs. es rastelic
+ende vredelic doen ende laten genyeten useren ende gebruycken
+sonder hen te doene oft te laten geschieden ennigen
+hynder stoet oft belet ter contrarien het zy aen lyve
+oft goeden in enniger manieren. want onser beliefte
+sulcke es ende des torconden hebben wy onsen
+segel hier aen doen hangen gegeven in onser stad
+van bruessel den xxixen dach van meerte
+int jaer ons heer duysent vyfhondert ende twee
+voer paesschen aldus ondergescreven opt plycke
+by mynen heere den ertshertoge. ende geteykent
+crokaert
+die collatie van desen copien es gedaen
+ende bevonden concorderende metten originale
+bezegelden brieven bij mij
+n strate [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1502-05-29",
+  "fact_date": "1500-UNKNOWN",
+

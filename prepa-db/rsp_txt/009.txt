@@ -1,0 +1,176 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen te wetene allen jegewordigh ende toecommende dat wij ontfangen
+hebben die oitmoedige suplicatie van andries swaenen woenenden bynnen dese
+stadt van diest inhoudende hoe dat hem supliant noch ongehouwt wesende
+ende sonder fact? gesproken altijts eerlyck van leven geweest zynde als een
+jonck man toebehoirt ende met hem eenen thielman onbegrepen
+zyns toenaems alsdaen woenachtich binnen st jacops gasthuys bynnen
+der voirsegde stadt op heylichs cruysdach lestleden inde nacht te twelff
+uren te gemoete gecomen zijnde opder straeten der selver stadt wylen
+micheau bonnet vuyt bourgondien geboren geassocieert met eenen
+anderen den supliant onbekent zijn malcanderen opt lyff geloopen
+waer duer zyluden tselven ?yffelen woerden gecregen hebbende ende die
+supl iant hem huerluder ende besunderen vanden voirsegde micheau want
+hij een bloot rappier in zyn hant hadde beduchtende quader maete
+te meer want hy supliant egheen scerp over/nochaen hem en hadde
+om hem te verweren is den selven micheau inne gevaren ende
+hem in zyn middel grypende zyn tselven worstelende ter eerden gevallen
+alwaer zy luyden zoe tsamen liggende is den voirsegde micheau onder
+in zynen buycke met eenen steecke by eenen anderen sulckx gequetst
+geweest dat ontrent drye weken daer nae hy daer van is
+aflivich gewordden ende hoe wel de suppliant den voirsegdemicheau
+den voirsegde steecke nyet en heeft gegeven gehadt als voer over hem
+egheen mes gehadt hebbende zoe voirsegd is nae tselve is
+by eenen anderen gedaen geweest als die voirsegde micheau voir
+zijn afflivicheyt selve heeft bekendt gehadt dat oyck den selven
+steeck by rade vanden supliant nyet en is gegeven geweest noch
+oyck tot dyen eynde den selven micheau en heeft gesmadeert
+dat men hem van zynen lyfve soude evelen maer alleenlyck
+dat hy zyn lyff meynde te beschermen ende dien overmits
+en meyndt nyet inden dootslach eenichssins gehouden oft dies culpabel
+te zyne oft oyck yet misdaen te hebben onder td?egel nochtans
+dat hy daertoe soude behulpich geweest zyn pretendeert hem
+die drossaet officier van diest daer mede te belasten ende
+rechtelyck aen te spreken gelyck ter cause vandien hy tegen den selven
+officier alreede is in rechte maer want alle vonnisse zyn
+te beduchtene besunder in criminele saecken voer zoe vele
+die van meerderen prejudicie zyn dan civile ende boven dien dat sulcke
+vonnisse nyet en zyn appellabel dat oyck die suppliant hem beducht
+byden voirsegde drossaet geapprehendeert te wordden tegen hem
+in rechte commende en soude nyet derren personelycken
+compareren noch voer den voirsegden drossaet hem bloot geven immers
+den tyt van geleyde vuyt zynde maer waere gesca?pen hem
+vuyt vreesen van rigeur van justitien vuyt dese onse
+landen te moeten absenteren tot syns suppliants groot verdriet
+ende eeuwige verderffenisse ten zy dat onse gratie ende genade
+voir zoe vele als hy tegen ons ter saken voirschreven mesbruyckt
+mach hebben hem hierop verleent wordde om de welcke
+hy ons oitmoedelyck is biddende soe eest dat wy desen aengesien
+geneyght wesende ter beden ende suplicatien des voirsegden
+suppliants ende willende hem in dit stuck prefereren gratie ende genade
+voir rigeur van justicien hebben den selven suppliant inden
+gevalle als boven vergeven quytgescolden ende geremitteert
+vergeven scelden quyte ende verg remitteren den dootslach ende
+mesbruyck boven geruert mitsgaders alle boeten bruecken ende
+offensien corporele criminele ende civile daer inne hy
+hem overmits ende vuyt saken van tgene des voirsegde is tegen
+ons ende justitie eenichssins mach hebben ontgaen ende mesdragen
+ende hebben hem als van desen gerestitueert ende gestelt
+restitueren ende stellen tot zijnen goede fame ende name
+alomme binnen onsen voirsegden lande ende hertochdomme van brabant
+ende allen anderen onsen landen ende heerlicheyden ende tot zijnen goeden
+nyet verbuert indien hij eenige heeft gelyck ende in alder
+manieren als hy was aleer tvoirsegde mesval geschiede
+imponeerende hier van onsen procureur generael in brabant mitsgaders
+allen anderen onsen rechteren justicieren ende officieren inden
+selven onsen lande van brabant geseten een eeuwich zwygen
+satisfactie ende beternisse der partien geinteresseerde ierst
+ende voer al gelyck zynde indien die nyet geschiet en is ende enige daertoe
+staen civilyck alleenlyck behoudelyck dat hy suppliant gehouden sal zyn
+te betaelen die wettige costen van justitien indien ter saecken
+voirscreven eenige gebuert zyn ter taxatien van onsen zeer lieven
+ende getrouwen die cancellieren ende luden van onsen rade in brabant
+die wy daer toe committeren ende dat voir hen geroepen die ghene
+die daer toe behoeren geroepen te zijne zy procederen wel ende
+duechdelijck ter verificatie ende interinemente van desen nae huere
+vormen ende inhouden welck interinement de voirsegde suppliant zal
+schuldich syn te versuecken ende hem te presenteren in onsen voirsegde rade
+bynnen sesse maenden naestcommende op de pene te verbueren deffect
+van desen ende dat gedaen ende dieselve costen inden eenigevallen als voirsegd
+is betaelt sijnde in handen vanden ghenen dient behoiren zal zynmidtsgaders
+alle andere onse ende der smaelre heeren rechteren justicieren ende
+officieren dien dit aengaen mach doen laten ende gedoogen den
+voirsegde andries swaenen suppliant van dese onse jegenwordige gracie
+quytsceldinge vergiffenisse ende remissie naer ende inde
+manieren als voirscreven staet rustelyck vredelyck volcommelyck ende
+eeuwelyck gebruycken genieten ende useren sonder hem te doen laten
+noch gedoogen gedaen te zijne eenich hinder letsel oft ongebruyct
+ter contrarien in lyve noch in goede in egheenderwys maer
+hy alsoe dat zyn lyff oft goet ter saecken voerscreven gevangen
+oft becommert waeren dat zy dat stellen oft doen stellen terstont
+ende sonder vertreck tot geheelder ende volcommender slakinge
+ende delivrancie nyettegenstaende dat tvoirsegde feyt nyet en is
+overjaert ende ons ordonnantie dien aengaende gemaect ter
+contrarien dewelcke wy den voirsegde suppliant mits der
+onnoeselheyt vanden voirsegde feyte nyet willen te obsteren
+oft hinderlyck te wesen maer zoe verre des noot zy hebben
+dese voir zoe vele alst desen aengaet gederogeert ende
+derogeren by desen die anderssints blyven van machten ende in hueren
+volcomen rigeur want ons alsoe gelieft ende ten eynde
+dat dit vast ende gestadich blyve tot eeuwigen dagen zoe
+hebben wy onsen zegel hier aen doen hangen behoudelyck
+in anderen saken ons recht ende een yegelyck tzyne in allen
+gegeven in onser stadt van bruessele inde maent
+van november int jaer onses heeren duysent vyfhondert
+dryenvyftich van ons keyserryck txxxiiije ende van
+ons rycken van castillien cicillien txxxvije aldus
+stont gescreven op de plycke byden keyser ende
+geteeckent gillis visa recepta
+gecollationeert ende bevonden accorderende
+met zynen originalen by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "andries",
+      "lastname": "swaenen",
+      "role": "supplicant",
+      "function": "resident of the city of Diest"
+    },
+    {
+      "firstname": "micheau",
+      "lastname": "bonnet",
+      "role": "opponent",
+      "function": "associate from Bourgondie"
+    },
+    {
+      "firstname": "UNNAMED",
+      "lastname": "drossaet",
+

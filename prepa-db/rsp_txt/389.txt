@@ -1,0 +1,287 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remis voer janne de laet
+kaerle etc. doen te weeten allen ende eenen yegelycke iegewoirdich
+ende toecomenend dat wij ontfanghen hebben die oitmoedige
+supplicatie van janne de laet woenende te pulle oudt
+omtrent xxii oft xxiii jaeren staende tot goeden name ende
+fame inhoudende hoe dat hy opten xxviiiten dach van
+octobri anno xvc xlvii is gegaen tot voirselaer om aldaer
+te doen maken een pyckysere ende is nae dyen gegaen
+ten huyse van symon de coninck om aldaer eenen pot
+biers oft twee te drinckene ende van daer scheydende
+ende naer huys gaende heeft den suppliant byden kerck
+hove aldaer gevonden ende ontmoedt jacoppen dries
+diemen heet van ickele ende dries swinnen
+met zynder huy$$e hem luyden biedende goeden avont
+ende alsoe de suppliant voerby ghinck heeft hem
+gevraeght die voirscreven jacop zyden dat hans daerop die
+suppliant antwoordende seyde jae ick jacop waer nae
+die voirscreven jacop den suppliant heeft verladen ende
+beswaert met vele spytige leelycke ende quade
+woerden vervolgende ende duerende vanden voorscreven
+kerckhove tot aen tveltveken welcke woerden die
+suppliant al verdroech seggende jacop gaet henen
+thuyswaert ghy hebt eenen anderen voir dan ghy
+meyndt ghy en weet nyet wat ghy seght waerop
+deselve jacop den suppliant tonrechte belaste ende
+aen teech dat hy sekeren tyt te voren wel twee
+maenden te wetene smaendaighs oft sdyssendaighs
+voer st. laureys dach hem jacoppen duer zyn bloote
+ende naecke beenen soude getrocken hebben een
+groote breeme tot voirselaer voirscreven aldaer die voirscreven
+jacop zyn coussen voer zyn gelach hadde moeten
+vuyttrecken ten huyse van eenen adriaen de grone
+alsoe de suppliant naderhandt verstaen heeft ende daeraff
+de suppliant nyet en wiste te sprekene noch by oft ane
+en heeft geweest daer hoorene den voiscreven jacoppe soude
+gebeurt zyn geweest want de voirscreven suppliant binnen
+den selven dage tot voirselaer nyet en hadde geweest
+dese woerden aldus geschiet zynde zyn de voirscreven
+suppliant metten voirscreven jacoppe tsamen gecomen tot
+duer tvoirscreven veltveken ende de suppliant hem oick
+keerende ende ziende nae peeteren vaes ende
+gheerden willems wesende van zynen geselscape is
+gebeurt dat de voirgenoemde andries swinnen die met zyne
+huys$$$ voir was haestelyck omgekeert ende
+gecomen is meynende heymelyck met eenen opstekere
+in zyn hant hebbende den suppliant te steken dwelck
+die suppliant siende vloyet achterwaerts in eenen
+plasch met watere seggende ende vragende
+den voirscreven andriese warom soudy my steken ick
+en hebbe nyet een woirt messeeght oft mesdaen
+wat wildy u onderwinden van desen wratelere denotementen
+den voirscreven jacoppe daerop die voirscreven dries swinnen antwoirde
+tis my leet seggende totten voirscreven jacoppe van ickele
+jacop laet omgaen thuyswaert of ick smyte u
+selve op u lyff ende swyght ende dese voirscreven
+jacop nyet cesserende van den voirscreven suppliant al even
+zeer te quellene van dat hy hem als voirscreven is de
+brenne soude duer zyn beenen getrocken hebben
+ende hem zeere onverdraechelyck met leelycke schandelycke
+woerden overvallende zoe is gebuert dat deze
+suppliant verwermpt zynde van bloede ende tselve
+ongelyck nyet langere kunnende verdragen den
+voirscreven jacoppe heeft meynen te smytende metten
+platte van zynen messe maer is gevallen metten
+scerpe ende heeft geraict inden aerm omtrent
+den elleboghe daeraff de voirscreve jacop omtrent
+drye weken daer nae ten grooten leetwesen
+vanden suppliant is deser werelt overleden dwelcke
+meer by negligentie vanden chirurgyns oft incurye
+van hem selven toegecomen ende versuempt
+is dan duer de voirscreven quetsure gelyck tselve
+wel is te presumeren want de voirscreven wylen
+jacop by nachte ende ontyde is opgestaen ende
+heeft coudt bier gedroncken waer duere hy is vercoudt
+ende verstyft geweest ende gecregen heeft inwendige
+ende vuytwendige cortsen al tot grooter schande
+scade verdriete ende geheelder desolatie ende
+bederffenisse van desen suppliant die welcke inde
+voirscreven prochie wel is bemindt ende gehouden
+wordt voer een goet ende vredelyck geselle die
+noyt anderen man en sloech oft achterhaelt en
+is geweest van eenige quaden feyten oft delicten
+ende meesterlyck zijn broot ten besten dat
+hem is mogelyck geweest gewonnen heeft ende
+want de sake onnoesel is ende de suppliant daer
+duere soude gescapen zyn teeuwigen dagen
+ballinck ende een bedorven geselle te blyven
+tenwaere dat hem hierop by ons wordde versien
+met onser gratie ende remissie vanden voirscreven
+feyte soe heeft hy ons daerom oitmoedelyck
+gebeden waeromme zoe eest dat wy desen
+aengesien geneyght wesende ter beden des voirscreven jans
+de laet suppliant ende willende hem in dat stuck
+prefereren gratie ende misericordie voir strangicheyt
+ende rigeur van rechte hebben den selven suppliant
+inden gevalle als boven quytgeschonden ende
+vergeven scelden quyte ende vergeven vuyt
+sunderlinger gratien by desen onsen briefve tfeyt
+ende ongeval boven geruert mitsgaders alle
+offentien ende bruecken corporele ende criminele
+daer inne hy hem overmits ende vuyt saken van tghene
+des voirscreven is tegens ons onse hoocheyt ende iusticie
+eenichssins mach hebben ontgaen ende mesdragen
+ende hebben hem dyen aengaende wedergestelt ende
+gerestitueert stellen weder ende restitueren tot zynen
+goeden name ende fame in onsen voirscreven lande van
+brabant ende allen anderen onsen landen ende
+heerlicheyden ende tot zynen onverbeurden goeden indyen
+hy eenige onder ons heeft gelegen ende in alder manieren
+zoe hy was voer die toecomste vanden voirscreven feyte
+imponerende hier op een eeuwich swyghen onsen
+procureur generael in brabant ende allen anderen onsen
+iusticien ende officieren wye zy zyn satisfactie ierst
+ende voir al gedaen der partye geinteresseerde
+indyen die noch nyet gedaen en zy ende eenige
+daer toe staet civilyck alleenlyck behoudelyck
+dat de voirscreven suppliant gehouden sal zyn tvoirscreven feyt
+tegens ons t beteren civilyck nae gelegentheyt
+vander saken ende faculteyt van zynen goeden met
+oick te betalende die redelycke costen van iusticien
+ter taxatien ende moderatien van onse zeer lieve
+ende getruwe die cancellier ende luyden van onsen
+rade in brabant die wy daer toe gecommitteert
+hebben ende commmitteren by desen ontbieden
+daeromme ende bevelen den selven onsen cancellier
+ende raidsluyden dat voir hem geroepen diegene
+die daerom behooren geroepen te zyne zy
+procederen wel ende dueghdelyck ter verificatien
+ende intervieniente van desen ende totter taxatien ende
+moderatien vande voirsreven civile boete ende costen van
+iusticien alsoe zy sullen bevinden behoirende welck
+interviement de voirscreven suppliant gehouden sal syn
+in onsen voirscreven rade binnen zesse maenden naest
+comende opte pene van te verbeurne deffect
+van desen ende dat gedaen ende de selve
+civile boete ende costen van iusticien getaxeert
+ende betaelt zynde in handen vanden ghenen
+dyen dat behoiren sal sy onse voirsreven procureur
+generael in brabant ende alle andere onse
+richteren iusticieren officieren ende ondersaten
+iegenwoirdige ende toecomende dien dat aengaen
+sal mogen huere stedehouderen ende een yegelyck
+van hen besundere soe hem toebehoiren sal
+doen laten ende gedoogen den voirscreven suppliant
+van deser onser iegenwoirdiger gracien ende
+remissien ende van allen dinhouden van deser
+inder vuegen ende manieren boven verhaelt
+rustelyck vredelyck volcomelyck ende eeuwelyck
+genyeten ende gebruycken sonder hem te
+doene oft te laten geschieden nu noch in toecomenden
+tyde eenich hinder letsel oft moyenisse
+aen lyff noch aen goeden ter contrarien maer
+indyen zyn lyff ofte enige van zynen goeden
+daerom gearresteert becommert oft belet waren
+dat zy die setten ende stellen oft doen setten
+ende stellen ter stont ende sonder versoeck tot
+geheelder ende volcomender deliverantie want
+ons alsoe gelieft ende teneynde dat dit vast
+ende gestadich blyve ende gehouden
+wordde teeuwigen dage zoe hebben wy onsen
+zegel hier aen doen hangen behoudelyck
+in anderen dingen onsen rechte ende eenen
+yegelycke anderen dessyns in allen. gegeven
+in onser srtadt van bruessele inde maent
+van novembri int jaer ons heeren duysent
+vyffhondert acht ende veertich van onsen
+keyserycke txxx° ende van onsen coninck
+rycke van castillien etc. txxxiii° aldus
+gescreven op de plycke byden keyser ende
+geteeckent ymmersel visa rpta
+gecollationeert ende bevonden accorderende
+met zynen originale by my
+facuwez [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "27th of October, 1457",
+  "persons": [
+    {
+      "firstname": "Janne",
+      "lastname": "de Laet",
+      "role": "suppliant",
+      "function": "resident of Pulle"
+    },
+    {
+      "firstname": "Kaerle",
+      "lastname": "ETC.",
+      "role": "recipient",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "Symon",
+      "lastname": "de Coninck",
+      "role": "host",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "Jacop",
+      "lastname": "Dries",
+      "role": "opponent",
+      "function": "resident of Ickle"
+    },
+    {
+      "firstname": "Adriaen",
+      "lastname": "de Grone",
+      "role": "innkeeper",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "Andries",
+      "lastname": "Swinnen",
+      "role": "opponent",
+      "function": "UNKNOWN"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Pulle",
+      "loctype": "parish"
+    },
+    {
+      "name": "Ickle",
+      "loctype": "parish"
+    },
+    {
+      "name": "Tveltveken",
+      "loctype": "UNKNOWN"
+    },
+    {
+      "name": "Bruessele",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Janne de Laet from Pulle received a remission after being wounded by Jacop Dries from Ickle in 1457. The conflict arose when Jacop accused Janne of slandering him and threatened to drag him to the pillory. Janne fled and was followed by Jacop and his companions, who verbally abused him. Later, Andries Swinnen attempted to stab Janne, but he managed to escape. Janne was severely injured and Jacop died a few weeks later, presumably due to the wounds. Janne requested a remission, which was granted, restoring his good name and reputation.",
+    "fr": "Janne de Laet, résident de Pulle, a reçu une remise après avoir été blessé par Jacop Dries, originaire d'Ickle, en 1457. Le conflit est né lorsque Jacop a accusé Janne de calomnie et a menacé de l'emmener au pilori. Janne a pris la fuite et a été poursuivi par Jacop et ses compagnons, qui l'ont insulté verbalement. Plus tard, Andries Swinnen a tenté de poignarder Janne, mais il a réussi à s'échapper. Janne a été gravement blessé et Jacop est décédé quelques semaines plus tard, vraisemblablement des suites de ses blessures. Janne a demandé une remise, qui lui a été accordée, restaurant ainsi sa bonne réputation et son nom.",
+    "nl": "Janne de Laet uit Pulle ontving vergeving na gewond te zijn geraakt door Jacop Dries uit Ickle in 1457. Het conflict ontstond toen Jacop Janne beschuldigde van laster en hem bedreigde met het dragen naar de schandpaal. Janne vluchtte en werd achtervolgd door Jacop en zijn metgezellen, die hem schriftelijk beledigden. Later probeerde Andries Swinnen Janne te steek, maar hij slaagde erin te ontsnappen. Janne was ernstig gewond en Jacop stierf enkele weken later, waarschijnlijk door de verwondingen. Janne vroeg om vergeving, die hem werd verleend, waardoor zijn goede naam en reputatie werden hersteld.",
+    "de": "Janne de Laet aus Pulle erhielt eine Ab remission nach einer Verwundung durch Jacop Dries aus Ickle im Jahr 1457. Der Konflikt entstand, als Jacop Janne der Lästerung beschuldigte und ihn bedrohte, ihn an den Pranger zu bringen. Janne floh und wurde von Jacop und seinen Begleitern verfolgt, die ihn verbal beleidigten. Später versuchte Andries Swinnen, Janne zu erstechen, aber er entkam. Janne war schwer verletzt und Jacop starb einige Wochen später, wahrscheinlich an seinen Wunden. Janne bat um Vergebung, die ihm gewährt wurde, wodurch sein guter Ruf und seine Reputation wiederhergestellt wurden."
+  }
+}
+```

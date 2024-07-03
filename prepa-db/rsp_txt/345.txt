@@ -1,0 +1,167 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslage
+philips byder gracien gods ertshertoge van oistryck prince
+van castille van leon van arragon etcetera hertoge van bourgoingnen van
+lotharingen van brabant van stier van karinte van cram van lemborch van
+lucemborch ende van ghelre grave van habsborch van vlaenderen van
+tyrol van artois van bourgoingnen palsgrave ende van henegouwe
+lantgreve in elsaten marcgrave van bourgauw ende des heylyxs rycs
+van hollant van zeelant van phirt van kieburch van namen ende van
+zuytphen grave heere van vrieslant upter windismerck van portenauw
+van salins ende van mechelen doen te wetene allen den ghenen die
+nu zyn ende namaels wesen sullen dat wy ontfaen hebben die
+oitmoediger supplicacie van cornelis delyen scamel geselle voirtyden
+woennachtich tot duffelen inhoudende hoe dat de voirs. supliant eenen
+knape gehadt heeft geheeten henrick de vos de welcke gequest
+is geweest opte doot van olivier de coninck dwelc de voirs. supliant
+niet wel muegende verdragen den selven oploop gedaen heeft zonder
+te quetsen oft te wonden vanden welcke peys gemaect is geweest
+de welcke de voirs. olivier niet en heeft willen onderhouden maer
+heeft den voers. supliant alle weghen willen slaen ende smitten ende
+dit bemerckende de vrienden vanden voirs. supliant hebben in persoon geweest
+ande voirs. olivier met synder partien ende boven dien gesonden met
+goede mannen de welcke tselve op gehad hebben om partien te
+veraccorderen ende als de voirs. goede mannen als arbiteren gecommen
+syn om haer uutsprack te verclaerene zo en heeft de voors. olivier daer
+toe niet willen verstaen oft onderhouden ende daer tsegen gerebellert
+ende onder dander de voors. supliant comende met zynder moeder om te gaen
+sluyten thuys van synen brueder zo heeft de voirs. olivier belaeght
+den voirs. supliant ende heeft nae de selven met gewelt met eenen
+blooten zwaerde geslagen ende gesteken dwelc ziende ende
+aenhorrende den voirn. supliant hem alsdoe verweerde hem selven
+beschermende alsoe dat daer noch nyemant gequest noch gewont en
+wert by middelen van zynen moedere de welcke by bede ende
+anderssins de voors. olivier ewech leyde niet te min zo vermat hem
+de vors. olivier den selven cornelisen supliant ter doot te bringene gelyck
+hy hem te meer stonden vermeten hadde daer by seggende dat hy nyet
+te verbueren en hadde ende dat hy een persoon alleen was ende niet
+daeromme en gaf waer hy woende ende heeft alzo werderomme den
+voirn. supliant met sinder moeder thuyswaert gaende strangelyck ende
+fellycken ingecommen met eenen blooten sweerde ende de voirn. supliant
+zeer injurierende nochtant dat hem de voors. thoonder om godswille
+bat om verdrach seggende dat hy niet syns en begheerde ende
+den voirs. olivier altyts aencommende zo heeft de voors. supliant
+syn picke genommen om het te bescuddene ende met eender quetsuren
+soes de voors. olivier van levende live ter doot gecommen ter causen vanden
+welcken de voors. supliant duchtende rigoir ende strangheyt van justicien
+hem geabsentert heeft uut onsen landen ende heerlicheden daer hy
+nyet en soude durren wederkeeren maer hem altyt absent houden ten waere
+overmits onse gracie omme de welcke hy ons zeer oetmoedelyck gebeden
+heeft soe eyst dat wy de saeken voors. overgemerct genegen
+wesende ter oetmoediger bede vanden voors. supliant ende hem willende in
+dit stuck prefereren ende voorderen gracie voor strangheyt van justicien
+ende byzunder ter eere ende werdicheyt vanden heilige passie onsheeren
+die hy leet up zulcken eenen dach als heden voor de redemptie vanden
+menschelycken geslachte hebben den selven cornelis supliant inden
+gevalle als boven quytgescolden vergeven ende geremitteert ende uuyt
+onsen sunderlinger gracie mits desen vergeven scelden quytte ende remitteren
+die fayt ende dootslach boven verclaert mitsgaders alle offencien ende
+brueken corporelle criminelle ende civille inden welcken hy vervallen
+mach zyn tegens ons ende justicien ter cause voors. ende hebben
+hem als van desen gerestitueert ende gestelt restitueren ende stellen
+tot zynder goede fame ende name in onsen landen ende heerlicheden
+ende tot zynen onverbuerden goeden in dien hy eenighen heeft gelyck
+ende inder manieren als hy was eer de voirs. dootslach gebuerde
+lastende ende imponerende onsen procureur ende alle anderen onsen justicieren
+rechteren ende officieren eenen yewich zwighen satisfactie der
+bescadiger partien gedaen indien die nyet geschiet en is civilyck alleenlyck
+ontbieden daerome ende bevelen onsen lieven ende getrouwen die
+cancelier ende luyden van onsen raede in brabant dat voor hemlieden
+geroupen die ghenen die daertoe behooren geroupen te zyne zy procederen
+wel ende duechdelyck ter verifficacie ende interinemente van desen
+jegewoirdighen ende dat gedaen zy onsen drossaet van brabant
+ende allen anderen onsen rechteren justicieren ende officieren dien dit
+aengaen mach doen laeten ende gedooghen den voirs. suppliant van
+desen onsen gracie quitsceldinghe ende remissie inder manieren voors.
+volcommelyck vredelyck ende eeuwelyck genyeten ende gebruycken zonder
+hem te doene oft gedooghen gedaen te zyne nu noch in toecomende
+tyde eenich hinder letsel oft moeynisse ter contrare maer by alzo dat
+zyn lyf oft goet gevangen oft becommert waere ter cause voirs. zy
+die stellen oft doen stellen terstont ende sonder eenich vertreck
+tot geheelder delivrancie ende slaekinghe want ons alsoe belieft
+ende ten eynde dat dit vast ende gestadich blive tot eewighen
+dagen wy hebben onsen zeggel hieran doen hangen
+behouden in anderen saken ons ende eenen yegelyck syns rechts in allen
+gegeven in onser stadt van ghendt upden heylegen vrydach inden maent
+van aprille int jaer onss heeren duysent vyfhondert ende drie aldus
+ondergescreven opte plycke by mynen heere den ertshertoge ter
+relacie vanden raide ende geteykent haneton
+die collatie van desen copie es gedaen ende
+bevonden acorderende metten originale by
+my [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "cornelis",
+      "lastname": "delyen",
+      "role": "suppliant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "henrick",
+      "lastname": "de vos",
+      "role": "deceased",
+      "function": "knape"
+    },
+    {
+      "firstname": "olivier",
+      "lastname": "de coninck",
+      "role": "opponent",
+      "function": "citizen"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Cornelis Delyen, the suppliant, has killed Henrick de Vos, his knabe, after a dispute. Olivier de Coninck, the opponent, wanted to attack Cornelis, but he defended himself and absented himself from the land due to fear of justice. The Duke of Brabant grants remission to Cornelis.",
+    "fr": "Cornelis Delyen, le suppliant, a tué Henrick de Vos, son valet, après un différend. Olivier de Coninck, l'opposant, a voulu attaquer Cornelis, mais il s'est défendu et s'est absenté de la terre par crainte de la justice. Le duc de Brabant accorde la rémission à Cornelis.",
+    "nl": "Cornelis Delyen, de suppliant, heeft Henrick de Vos, zijn knecht, gedood na een meningsverschil. Olivier de Coninck, de opponent, wilde Cornelis aanvallen, maar hij heeft zich verdedigd en heeft zich door vrees voor de rechtspraak van het land verwijderd. De hertog van Brabant verleent remissie aan Cornelis.",
+    "de": "Cornelis Delyen, der Bittsteller, hat Henrick de Vos, seinen Knappen, getötet, nachdem es zu einem Streit gekommen war. Olivier de Coninck, der Gegner, wollte Cornelis angreifen, aber er hat sich verteidigt und sich aus Furcht vor der Justiz von dem Land entfernt. Der Herzog von Brabant gewährt Cornelis die Erlassung."
+  }
+}

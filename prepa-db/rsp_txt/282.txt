@@ -1,0 +1,206 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te wetene allen iegewoirdighen ende toecommende
+dat wy ontfangen hebben die oetmoedighe supplicatie van jan oeyen
+arm schamel man belast met vi cleyn kinderen woenende in onsen vryheyt
+van turnhout inhoudende hoe dat opten iersten dach van meye anno
+xxxvi omtrent vii uren tsavonts de voirs. suppliant is gegaen opte camere
+vanden gulden vanden hantboghe onser voirs. vryheyt van turnhout
+aldaer hy metten geselcsap daer wesende is bliven sitten drinckenen
+ende een geheeten henryck bruesselers oft ghevaerts die welcke
+tegen den suppliant oversat sonder dat de voirs. suppliant hem yet
+messeyde seyde totten suppliant met grammen moede ghy cauwe ghy
+verraedere ick soude u uwen hals aff vringen daer op de voirs.
+suppliant gravelyck antwoirdende seyde dese oft gelycke woirden
+in substancien dienen souden men den hals affvvringhen ghy en hebt
+nyet hoiren seggen dat ick yemanden yet ontweegt ontmeten
+ontrekent oft gestolen hebbe waerop de voirs. henrick perseverende
+ende continuerende in zyn quaet propoest ende voirnemen ende sueckende
+oirsake om debat ende geschil tegen den suppliant seyde dat tselve
+nyet waer en was ende zeer corts daer nae stont de voirs.
+henrick recht op ende greep met beyde hzyn handen nae die kele
+vanden suppliant om die touwe te douwene ende dwelck siende
+pieter van heyst een vanden geselscape seyde totten voirs. henrick
+wat wildy maken hy en seyde u nyet een erch woirdt denoterende
+den suppliant ende greep de voirs. pieter beyde de handen vanden voirs.
+henrycken naeden welcken de voirs. suppliant daermede geprovoceert
+synde seyde met hitten van bloede totten voirs. henryck compt daer
+beneden ic sal u loenen ende daerop bracht de voirs. suppliant den
+voirs. henrycken een dronck biers den welcken de voirs. henryck
+wachte ende tselve gedaen leyde oft gaf de voirs. suppliant van
+stonden aen een stuver voer zyn gelach ende es vanden camere
+gegaen ende es gaen sitten ierst opte vysbanck ende daer nae op die
+boterbanck tegen den voirs. hantboge camere over verwachtende
+den voirs. henrycken ende corts daer nae is de voirs. henrick zyn
+derder vander voirs. camere gecommen ende riep den voirs. suppliant
+aen seggende jan die compt aen endetselve hoirende is de voirs. suppliant
+van stonden aen opgestaen ende es naeden voirs. henrycken gegaen
+ende track zyn broet mes uuyt ende daermede gaf de voirs. suppliant
+hem eenen steke in zyn borst van welcken steke ende quetsuere
+de voirs. henrick is binnen en half ure afflivich gewoirden
+dwelck den voirs. suppliant zeer hertelyck ende uuyt gronden zyns
+herten leet es ende heeft de voirs. suppliant zindert aen de vrieden
+vanden afflivigen zyn uuyterste diligencie gedaen om tot zoeninge
+te gerakene maer en willen hem tot egheenen gevuege geven ende
+beduchtende de suppliant rigeur van justicien heeft hem moeten
+absenteren buyten onsen landen daer inne hy nyet en soude dorren
+oft moegen commen oft converseren ten waere dat hy onse gracie
+ende genaede geimpetreert hadde alzoe hy seeght ons om de
+selve zeer oetmoedlyck biddende waerom zoe eest dat
+wy desen aengesien geneycht wesende ter beden ende supplicatie des
+voirs. suppliant ende willende hem in dit stuck perfereren gracie
+ende genaede misericorde voer rigeur ende stranheyt van rechte
+den selven jan oeyen suppliant hebben inden gevalle als
+boven geremitteert vergheven ende quytgeschonden remitteren
+vergheven ende quytschelden uuyt sunderlinger gracie by dese
+onsen brieve tfayt ende manslach boven verclaert mitgaders
+alle peyne boete ende amende corporelle ende criminelle inde
+welcke hy ter causen voirs. met des daer aen cleest tegen ons
+ende justicie mesdaen mesbruyct ende gevallen mach wesen hem als
+van desen wederom stellende ende restituerende tot zynen goeden naeme
+fame ende geruchte in onsen landen ende heerlycheyden en besundere
+in onsen voirs. lande van brabant ende tot zynen onverbuerten
+goeden indien hy eenighe heeft in alder manieren als hy was
+voer de toecompste vanden voirs. feyte ende dootslage imponerende
+hier op silencie ende eeuwich zwygen onsen procureur generael in
+brabant ende allen anderen onsen ende onser vassallen oft der
+smaelre heeren rechteren justicieren ende officieren wye die zyn
+satisfactie ierst ende voer al doende der partien geinteresseerde
+civilyck alleenlyck behoudelyck dat de voirs. suppliant gehouden
+zal syn tvoirs. feyt ons civilyck te beteren naer gelegentheyt
+vander saeken ende faculteyt van zynen persoone en goede met
+oyck te betaelen de costen van justicie hieromme gedaen ende te
+doene allet ter taxacien ende moderacien van onsen lieven ende
+getruwen den cancellier ende luyden van onsen raede in brabant
+die wy daer toe hebben gecommitteert ende committeren by desen ontbieden
+daerom ende bevelen onsen voirs. cancellier ende raedsluyden dat
+voer hen geroepen de ghene die daerom sullen behoiren geroepen
+te zyne zy procederen wel ende duegdelyck ter verificatie ende
+interinemente van desen onsen brieven ende ter taxacien ende moderacien
+vander voirs. amende civile ende costen van justicien naer huere
+forme ende inhouden ende welck interinement de voirs. suppliant
+gehouden sal zyn in onsen voirs. raede te versueckene binnen eenen
+jaere naer daten van desen op de pene van te verbuerene deffect
+van desen ende dat gedaen de selve onse cancellier ende
+raedsluyden onse drossaet van brabant ende alle andere onse
+ende onser vassallen oft der voirs. smaelre heeren richteren
+justicieren officieren ende ondersaten iegewoirdighe ende toecommende
+dyen dat aengaen oft aencleven sal mogen heure stadthouderen
+#sy hieraf verantwordt
+by ontfanger vanden
+exploiten
+ende eene iegelycke van hen besundere zoe hem toebehoiren zal
+doen laeten ende gedoigen den voirs. jan suppliant van deser onsen
+iegewoirdiger gracien quytsceldinge ende remissie ende van allen
+dihouden van dese in vuegen ende manieren boven verhaelt
+rustelyck vredelyck ende ee eeuwelyck genyten ende gebruycken sonder
+hem te doene oft te laeten geschieden nu noch in toecommende tyden
+eenich hinder stoot oft letsel in lyve oft in goede ter contrarien
+in eenger manieren maer indien zyn lyf oft eenige van
+zynen onverbuerden goeden daerom zyn oft naemaels waeren
+gevangen gearresteert belet oft becommert dat zy die setten
+ende stellen oft doen stellen ende setten terstont ende sonder vertreck
+tot geheelder ende volcommender delivrancie want ons alzoe
+gelieft ende ten eynde dat dit goet vast ende gestantich zy ende
+blyve tot eeuwigen dagen zoe hebben wy onsen zegel hier aen
+doen hangen behoudelyck in anderen zaken onsen rechte ende
+eenen iegelycken des zyns in allen gegheven in onser stadt
+van bruessele inde maent van junio int jaer onssenheeren
+duysent vyfhondert ende sevenendertich van onsen keyseryke
+dachthienste ende van onsen rycken van castillien ende anderen
+tweentwintichste aldus onder opte plycke stont gescreven
+byden keyser ter relen$ vanden raede ende geteekent facuwez
+visa recepta
+ghecollacionneert tegens die
+originale brieven by my
+decock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "1st of May, ANNO XXXVI",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "oeyen",
+      "role": "suppliant",
+      "function": "poor man"
+    },
+    {
+      "firstname": "henryck",
+      "lastname": "bruesselers or ghevaerts",
+      "role": "opponent",
+      "function": "unknown"
+    },
+    {
+      "firstname": "pieter",
+      "lastname": "van heyst",
+      "role": "intervener",
+      "function": "officer"
+    }
+  ],
+  "locations": [
+    {
+      "name": "turnhout",
+      "loctype": "parish"
+    },
+    {
+      "name": "onsen vryheyt van turnhout",
+      "loctype": "unknown"
+    },
+    {
+      "name": "camere vanden gulden vanden hantboghe",
+      "loctype": "unknown"
+    }
+  ],
+  "summary": {
+    "en": "Poor man named Jan Oeyen, father of five, living in Turnhout, received a remission for an event that took place on the 1st of May, ANNO XXXVI. He was sitting in the Chamber of the Golden Hand of Turnhout's freedom when Henryck Bruesselers or Ghevaerts insulted him. Pieter van Heyst, an officer, intervened. Jan Oeyen was later struck in the chest by Henryck Bruesselers or Ghevaerts and had to leave the country for fear of justice.",
+    "fr": "Jan Oeyen, père de cinq enfants et habitant de Turnhout, a reçu une remise pour un événement survenu le 1er mai, ANNO XXXVI. Il était assis dans la Chambre de la Main d'Or de la liberté de Turnhout lorsque Henryck Bruesselers ou Ghevaerts l'a insulté. Pieter van Heyst, un officier, est intervenu. Jan Oeyen a ensuite été frappé au thorax par Henryck Bruesselers ou Ghevaerts et a dû quitter le pays par crainte de la justice.",
+    "nl": "Jan Oeyen, vader van vijf kinderen en wonende in Turnhout, ontving een remissie voor een feit dat plaatsvond op 1 mei, ANNO XXXVI. Hij zat in de Kamer van de Gouden Hand van de vrijheid van Turnhout toen Henryck Bruesselers of Ghevaerts hem beledigde. Pieter van Heyst, een officier, intervenieerde. Jan Oeyen werd later in de borst geslagen door Henryck Bruesselers of Ghevaerts en moest het land verlaten vanwege de vrees voor de rechtspraak.",
+    "de": "Jan Oeyen, Vater von fünf Kindern und Einwohner von Turnhout, erhielt eine Remission für ein Ereignis, das am 1. Mai, ANNO XXXVI, stattgefunden hat. Er saß in der Kammer der Goldenen Hand der Freiheit von Turnhout, als ihn Henryck Bruesselers oder Ghevaerts beleidigte. Pieter van Heyst, ein Beamter, intervenierte. Jan Oeyen wurde später von Henryck Bruesselers oder Ghevaerts in die Brust gestochen und musste das Land aus Furcht vor der Justiz verlassen."
+  }
+}
+```

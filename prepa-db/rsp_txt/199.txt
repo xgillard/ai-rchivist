@@ -1,0 +1,261 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. ad longum, doen te weten dat wy
+hebben ontfangen die supplicatie van huybrecht
+vanden c$rny$e hoeven ingesetene van cumptich
+quartier van thienen inhoudende hoe dat hij : sonder
+jactantie gess gesproken : altyts seer eerlyck ende sonder
+peijsibelyck hade gedraeghen, ende altyt sijn
+besten gedaen om syne quote in allen overcomende
+lasten, soo van beden als andere te helpen
+winnen ende betaelen beneffens andere
+goede gemeyntenaeren, sonder oynt
+yet gecommitteert te hebben meriter ende
+straffe, behoudelyck dat hij in maij 1657 : wesende
+opden maelteijt van syne gebueren aswaer
+men die schaepen hadde helpen wassen: was in
+dispuijt geraeckt met sekeren huybrecht
+schoutet hantwercker van synen stijl, diewelcke
+tegens hem supliant hadde beginnen te murmureren
+ende hem te drijgen onder t pretext dat hij suppliant
+soude geseyt hebben dat denselven
+huybrecht schoutet, werckende t sijnen
+huijse yet soude ontdraeghen hebben, daerop
+den suppliant hem antwoorde dat hij noyt
+sulcx en hadde geseijt hadde aleueuwel
+den voorss. huybrecht schoutet in syne murmuratien
+ende drijgementen gecontunieert seggende
+ende hem beroemende onder andere, ghij sult
+mijn lijff hebben oft ich duwe, daerop den
+suppliant hem seyde, het recht is daer, spreeckt
+my met recht aen, welck disput ten langhen
+lesten, daer doortusschen spreken van t’geselschap
+aisdoen wierde geappaiseert, verhopende
+den suppliant dat den voorss. h.schoutet hem
+daermede soude gerust ende te vreden houd$
+maer ter contrarien soo is t gebeurt dat hij
+suppliant s’avonts thuijs gaende, heeft vervolg$
+hem naer roepende vele ende diversch$
+iniurieuse ende onverdraegelycke woorden
+onder andere jeanfoutre, coignon, ghy s$
+my betaelen, ende dijer gelyck blyckende b$
+attestatien daer van synde, daer over sy al
+aen malcanderen waeren geraeckt beyde
+metten dranck bevangen wesende, ende $
+boven hij suppliant geterght ende gepro$
+tot groote cholere door die voorme$
+iniurien, sulcx dat den voornoemde huijbrecht$
+schoutet int selve gevecht hadde
+gecregen eenen steeck in sijnen buijck daer
+hij sanderendaegs daernaer is commen af$
+te worden, tot des suppliants seer groot
+leetwesen, sonder dat hij suppliant noch
+wiste dat hij desselven steeck soude
+gegeven hebben, midts die voormelde dron$
+schap ende cholere, ende alsoo den voor$
+afflijvigen was oorsaecke ende causa move$
+van t’voorss. ongeluck ende overslulcx aend$
+suppliant tselve oock seer geerne hadd$
+vergeven blyckende by d’attestatien met
+voorss. supplicatie overgegeven, ende wa$
+den suppliant hem altijts seer eerlyck ende peys$
+hadde gecomporteert sonder oijt eenich
+crackeel oft gevecht met iemanden te
+hebben gemoveert, soo ten tyde als hij jongman
+synde noch by syne ouders was woonende, als
+daer naer in dienst geweest sijnde vande hoochmey$
+van thienen, als bleecke by de attestatie soo vande
+schepenen van cortenaecken plaetse synder
+geboorte, als vande voornoemde hoochmeijer daer van
+sijnde, ende dat hij : als nu wesende een huyshou
+dende man met vrouw ende kinderen ende
+met sijns huijsvrouwen moedere wesende eene
+oude vrouwe die hij insgelyck den costende onder
+hout moet besorgen : geerne metter eeren
+soude door geraecken ende beneffens andere
+blyven synen cost winnen ende tselve
+nyet en derffde bestaen noch thuijs blijven,
+maer ter contrarien hier ende daer
+moeste latiteren midts t voorss. ongeluck,
+ende alles moeste laeten te nyettegaen door
+vreese van byden officier geapprehendeert ende
+in strickte gevanckenisse gestelt te
+worden tot syne totale ruine, mede van
+sijne huysvrouwe kinderkens ende van syne oude
+moedere, oirsaecke dat hij geraeden hadde
+gevonden hem te keeren tot ons, ende
+oitmoedelyck te bidden teneynde ons soude
+gelieven te prefereren gratie voor rigeur
+van justitie, ende dyenvolgends hem over tvoorschreven
+misdaet te vergunnen ende laten depescheren
+brieven van remis in behoorlycke formen, waerover
+soo ist dat wy desen aengemerckt ende tot
+dyen gesiend informatien byden officier van cumptich
+over t’gene voorss. is genomen, midtsgs
+sijn schriftelyck advijs genege wesende ter bede
+des voorss. suppliants willende hem in dit
+stuck prefereren gratie ende misericordie
+voor strangheyt ende rigeur van rechte, heb
+den selven suppliants inden gevalle als boven quyt$
+schonden, ende vergeven, schellen quijte, ende
+vergeven vuyt onse sunderlinge gratie byde$
+onsen brieve, tfeyt ende ongeval boven ger$
+midtsgaders alle breucken corporelle ende
+criminele daerinne hij ter causen voorss.
+midtsgaders dat daer aene cleven mach,
+tegens ons ende justitie misdaen ende
+misbruyckt mach hebben, welcken aengae$
+hebben hem wedergestelt ende geresti$
+stellen weder ende restitueren tot sijns
+goeden naeme faeme ende geruchte in
+voorss. lande van brabant ende in alle
+anderen onsen landen ende heerlijckheden,
+midtsgs tot syne onverbeurde goeden : in$
+hij eenige onder ons heeft : gelyck ende
+alder manieren soo hij was voorde toeco$
+vanden voorss. feijte, imponerende hierop
+een eeuwich geswijch onsen lieven ende
+getrouwen die cancellier procureur general
+van brabant ende allen anderen onsen$
+onsen vassalen oft der smalre heeren richt$
+justicieren ende officieren wij sij sijn, sattisfac$
+ende beternissse ierst ende vooral ged$
+de partye geinteresseerde, voor soo vele
+die noch nyet gedaen en sij, ende eenighe$
+daertoe staet, civilyck alleenelyck, ende b$
+saecke sulcx is verheijsschende, behoude$
+dat de voorsschreven suppliant gehouden sal sijn t voorschreven feyt $
+ons te beteren ende voor amende civil$
+te betaelen aen onsen rentmeester van dexploi$
+de somme van lxxiik, midtsgaders te be$
+de redelycke costen van justitien hieromme alreede
+gedaen, en dese doene, alles ter taxatien ende
+moderatien van onsen seer lieven getrouwe
+cancellier ende luyden van onse rade
+in brabant die wij daertoe gecommitteert hebben
+ende commmitteren by desen, ontbieden daeromme ende
+bevelen denselven onsen cancellier ende luyden
+van onsen voorss raede dat voor hun
+geroepen, die daeromme behooren geroepen
+te zijne, sij procederen wel ende
+deuchdelyck tot verificatie ende interinement
+van dese onse brieven van remis naer hunne forme
+ende inhouden ende ter taxatie ende moderatie
+van de costen van justitie voorss. alsoo
+sy sullen vinden te behooren, welck interinement
+de voorss. suppliant gehouden sal sijn te versuecken,
+ende hem in persoone te presenteren in
+onsen voorss. raede, binnen sesse maenden
+naestcommende op de pene van te
+verbeuren deffect vandien, ende dat gedaen ende
+deselve civile boete, ende costen van justitie
+getaxeert ende betaelt sijnde in handen
+van den genen dyen dat behooren sal, in onsen
+voorss. procureur generael in brabant,
+den meyer van cumptich voorss. ende allen
+anderen onse rechteren, justicieren ende
+officieren ende ondersaeten tegenwoordige
+ende toecommende, dyen dat aengaen sal
+mogen heure, stedehouderen, ende een iegelycke
+van hun besundere soo hun toebehooren zal,
+laeten ende gedoogen den voorss. suppliant
+van deser onser tegenwoordiger gratien ende
+remissien, ende van allen d’inhouden
+deser inder vuegen ende manieren voor$
+verhaelt, paisibelyck, rustelyck, vredelyck, ende
+volcommelyck ten eeuwigen daeghe genyete$
+ende gebruyijcken, sonder hem daerinne te$
+oft te laeten doen ende geschieden m$
+oft in toecommenden tijde eenich hinder
+letsel oft moijenisse ter contrarie maer
+in dijen sijn lijff oft oft eenighe van syn$
+goeden daertoe gearresteert, becomme$
+oft belet waere dat sy die setten ende
+stellen, doen setten ende stellen tersto$
+ende sonder vertreck tot geheelder end$
+volcommender delivrancie, want ons
+gelieft ende teneynde dat dit vast end$
+gestadich blijve ter eeuwgihen daeghe
+soo hebben wy onsen segel hieraen doen ha$
+behoudelyck in andere dinghen onsen recht$
+ende eenen iegelyck anders dessijns
+gegeven in onse stadt van brussel
+inde maendt van january int jaer ons heeren
+ende van onse reycke get pppix sub
+loijens [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "May 1657",
+  "persons": [
+    {
+      "firstname": "huybrecht",
+      "lastname": "vanden c$rny$e",
+      "role": "suppliant",
+      "function": "inhabitant of Cumptich quarter"
+    },
+    {
+      "firstname": "sekeren",
+      "lastname": "huybrecht",
+      "role": "opponent",
+      "function": "schoutet hantwercker"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Cumptich",
+      "loctype": "quarter"
+    }
+  ],
+  "summary": {
+    "en": "Huybrecht vanden c$rny$e, an inhabitant of the Cumptich quarter, has received a remission for a dispute with a huybrecht schoutet hantwercker. In May 1657, the suppliant was accused of not helping to wash sheep, but he claims he never said that the schoutet should carry the sheep to his house. After exchanging insults, the schoutet struck the suppliant, who was innocent. The suppliant asks for grace and for letters of remission to avoid punishment and further legal proceedings.",
+    "fr": "Huybrecht vanden c$rny$e, un habitant du quartier de Cumptich, a reçu une remise pour un différend avec un huybrecht schoutet hantwercker. En mai 1657, le suppliant a été accusé de ne pas avoir aidé à laver les moutons, mais il prétend ne jamais avoir dit que le schoutet devrait transporter les moutons chez lui. Après s'être injuriés, le schoutet a frappé le suppliant, qui était innocent. Le suppliant demande la grâce et des lettres de remise pour éviter les poursuites et d'autres procédures judiciaires.",
+    "nl": "Huybrecht vanden c$rny$e, een inwoner van de wijk Cumptich, heeft vergunning gekregen voor een conflict met een huybrecht schoutet hantwercker. In mei 1657 werd de suppliant beschuldigd vanwege het weigeren om schapen te helpen wassen, maar hij beweert nooit gezegd te hebben dat de schoutet de schapen naar zijn huis zou dragen. Na elkaar beledigd te hebben, sloeg de schoutet de suppliant, die onschuldig was. De suppliant vraagt om genade en om een vergunning om brieven van remissie te krijgen om straf en verdere rechtszaken te voorkomen.",
+    "de": "Huybrecht vanden c$rny$e, ein Bewohner des Viertels Cumptich, hat eine Begnadigung für einen Streit mit einem huybrecht schoutet hantwercker erhalten. Im Mai 1657 wurde der Bittsteller beschuldigt, Schafe nicht waschen zu helfen, aber er behauptet, nie gesagt zu haben, dass der Schoutet die Schafe zu seinem Haus tragen sollte. Nach Beleidigungen schlug der Schoutet den Bittsteller, der unschuldig war. Der Bittsteller bittet um Gnade und um Erlaubnis, Briefe der Begnadigung zu erhalten, um Strafe und weitere Rechtsschritte zu vermeiden."
+  }
+}
+```

@@ -1,0 +1,138 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc doen te wetene alle jegenwoirdige
+ende toecommende dat wy ontfangen hebben die oitmoedige suplicatie
+van ghelein verpoort inhoudende hoe dat hy supliant in september xvc
+eenentzeventich wesende in een eerlycke bruiloft onder de juridictie van
+wynendale bynnen onsen landen van vlaendren eenen joos vander pitte
+die hem supliant zekere dagen daer te voeren vercocht hadde zekere stoxken
+voor een halven stuvere sie hy hem betaelt hadde heeft wederomme betaelinge
+van tvoirn. stocxken versocht zeggende tusschen andere woirden ghy sult my
+betaelen oft ick salt u vanden velle slaen hebbende inde handt eenen poingnaert
+zulcx dat hy supliant tzynder deffence een brootmes heeft moeten trekken
+maer zijn gesepareert geweest zonder grief welcken nyetjegenstaende
+de voirs. van pitte heeft hen daernaer gevanteert dat hy den supliant noch
+wel hebben soude al soude hy noch drye hueren vertoenen gaende alsoe
+aen eenen hoyschelf aldaer met zynen poingnaert hauwende van zeker
+perse eenen stock daermede hy opt hoff daer de bruiloft was den
+supliant verwacht heeft ende hy supliant gheen quaet $$oedende zekeren
+tyt daernaer gecommen zynde op tselve hof den voirs. van pitte zyn
+dreeghement effecuerende heeft diversche slaeghen heidelinge
+zynen voirs. stock in sticken geslegen ende gebroken upden arm vanden
+supliant die hem vindende swaer sycken gerocht ende mitzdien in extreme
+necessiteyt heeft vande aerde op geraept het affgebroken stick
+daermede hy omme zyn lyff te salveren hem ter waere stellende
+elcanderen soe geroecht hebben dat zy beide ter aerden gevallen zyn
+ende de voirs. vande pitte van zekeren slach die hy ontrent den
+hooffde ontfangen hadde es inden nacht overleden ende hoewel
+tselve feyt gebuert es in noodelycke deffencie van zynen lyfve ende
+dat hy peis gemaect heeft met partie geinteresseerde nochtans en
+soude hy supliant nyet vryelyck durfven converseren in zyn affairen
+zonder onse gratie alsoe hy seght, omme de welcke hy ons zeer
+oitmoedelyck gebeden heeft.soe eist dat wy de
+zaken voirs. overgemerct ende hierop gehadt t advis van bailliu burchmeesters
+ende schepenen slants van wynendale, den voirs. gheleyn verpoort
+suppliant genegen wesende tzynder voirs bede ende supplicatie
+ende hem willende in dit stuck gracie ende genade prefereren voir
+rigeur van justicie, hebben inden gevalle als boven vergeven
+quytgeschelden ende geremitteert, vergeven schelden quyte ende remitteren
+uuyt onse zonderlinge gratie by desen tfeyt ende manslach boven
+verclaert mitsgaders alle peyne,ende boete corporelle ende criminelle
+daerinne hy ter cause van dien uut diesser aencleeft tegens ons ende
+justicie misdaen ende misbruyckt mach hebben , hen als daeraff
+wederstellende ende restituerende tot zyne goede fame ende naeme
+in onsen voirs lande ende graefscepe van vlaendren ende allen anderen
+onse landen ende heerlicheden, ende tot zyne
+ongeconfisqueerde goeden indien
+hy eenige heeft alsoe hy was voerde toecompste vanden manslach voirs.
+imponerende hierop een eeuwich zwygen ende silencie onser procureur
+general ende allen anderen onse rechteren ende officieren wie zy zyn
+satisfactie ende beteringe eerst ende alvoiren byden voirs. supliant gedaen
+der geinteresseerde partie zoe verre die noch nyet gedaen en es ende
+eenige daertoe staet civilick alleenlyck behoudelyck dat de voirs
+supliant gehouden wort tvoirs feyt ende manslach jegens ons oick
+civilyck te beteren naer de gelegentheyt vander misdaet die faculteyt
+van zyne goeden ende onse ordinancien daerop gemaect ende boven
+dien te betaelen die redelycke costen van justicie. indien eenige ter
+causen voirs. geschiet zyn alter arbitraige ende taxatie van
+onsen lieven ende getrouwen den president ende luyden van onsen rade
+in vlaendren die wy daertoe committeren, ontbiedende daeromme
+ende bevelen den voirn. van onsen rade in vlaendren dat voir hen geroepen
+de ghene dier over behoiren geroepen te zyne zy procederen wel ende
+duechdelyck ter verifficatie ende interimemente van desen naer huere
+vorme ende inhouden, ende ter arbitraige ende tauxatie vander
+amende civile ende costen van justicie voirs. welcke interinement
+de selve supliant sal gehouden zyn te vervolgen voer de voirs. van onsen
+rade binnen zesse maenden naestcommendeop peyne te verliesen
+deffect van desen ende dat gedaen ende de voirs. amende civile
+getaxeert ende betaelt zynde in handen vande ghene van onse
+ontfangers diet behoiren zal, die gehouden wort daeraf ontfanck te
+maken rekeninge bewys ende relicqua te doene tonsen proffyte
+metten andere pennyngen van synen ontfanghe zy onse souvereyn
+bailliu van vlaendren, ende allen anderen onsen rechters ende officiers
+jegewoirdige ende toecommende ende haere stedehouders ende
+eenyegelyck van hen dien dit aengaen sal, doen laeten ende
+gedoogen den voirs supliant van onse jegewoirdige gratie
+remissie quytscheldinge ende pardoene inder vuegen ende manieren voirs.
+rustelyck vredelyck ende eeuwelyck genyeten ende gebruycken sonder
+hem te doene noch laten geschien nu noch in toecommende tyde in lyfve
+noch in goeden eenich hinder letsel oft moyenisse ter contrarien maer
+indien zyn lyff oft eenige van zyne ongeconfisqueerde goeden daeromme
+gevangen becommert belet oft gearresteert waeren dat zy die
+stellen oft doen stellen terstont ende zonder vertreck tot volcommen slakinge
+ende delivrancie want ons alsoe gelieft, ende ten eynde dat
+dit goet vaste ende gestadich blyve ter eeuwichen daghe zoe hebben
+wy onsen zegel hiernaer doen hangen behoudelyck in andere zaken
+ons recht ende eenyegelyck tzyne in allen gegeven in onser stadt
+van bruessele inde maent van octobre int jaer ons heeren duysent
+vyfhondert tweentzeventich van onsen rycken etc. opden
+ply stont gescreven byden coninck in zynen rade ende
+geteeckent j dela torre [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+

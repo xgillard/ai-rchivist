@@ -1,0 +1,192 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips bijder gratien goidts coninck van castillien
+van arragon , van leon etc allen den ghenen die dese onse brieven
+sullen sien oft hooren lesen saluyt, doen te wetene dat wij
+ontfangen hebben de oijtmoedige supplicatie van govaert de muyser
+sone henricx geboren van holsbeke, inhoudende dat hij
+in aprili sesthienhondert twintich sijnde noch
+ongehoudt int vrijen van sekere jonge dochtere tot
+herent bij ende aen is geweest alwaer den persoon van
+lambrecht nijs weduwer
+is doot gesteken geweest, hebbende hij suppliant gedreven
+sijnde tsy door jalousie oft anderssints door vehementie daermede
+doende geweest, ende den dootsteeck soo hij hem des is vermoijende
+selver gegeven, hem deshalven gedraegende totte informatien
+preparatoir op tselve feijt bijde justitie van herent
+genomen ende hoe wel dat volgens de selve informatien
+nijet sekerlijck en blijckt wie den doot steeck heeft gegeven
+tsij hij suppliant oft wel eenen franchois leemans soo ist
+nochtans dat hij hem ter quaeder maeten
+beduchtende heeft ruchtich gemaeckt ende ondertusschen
+door toedoen van sijne ouders vrede gemaeckt mette vrienden
+vanden afflijvighen, ende de selve in alles gegeven vol-
+commen satisfactie volgens den recorde ende quictantien
+daeraff zijnde, hebbende tot dijen oijck metten officier
+van holsbeke door toedoen alsvore gecomposeert ende de
+selve sijne compositie volbracht soo dat hij
+hem in alles hem mogelijck wesende heeft gequeten behalvens
+dat tot sijnder versekerheijt hem is gebrekende onse gratie van van remis, ende
+want hij nu gehoudt sijnde hem geerne soude
+gaen stellen om gerustelijck mette vrouwe ende kinderen
+door de werelt te mogen geraecken, ende dat hij hem des-
+halven nijet en dert getroosten om den voors. neerslach
+hem toegecommen door sijne jonge dwaesheijt
+ende herste lieffde. soo was hij daeromme ende
+op dat hij ons eene dusdaenige domme acte allen sijn leven
+lanck nijet en soude blijven dolen genootsaeckt hem te keeren
+tot ons oijtmoedelijck gebeden hebbende om onse opene brieven
+van remis hiertoe dienende. soo eest dat wij die saecken
+voors. aengesien ende hierop gehadt d'advijs vanden overmeijer
+voors. plaetse van herent geneijcht wesende ter bede des voors. supliants
+ende willende hem in dit stuck prefereren gratie ende genade
+voor strangheijt ende rigeur van rechte den selven suppliant
+inden gevalle als boven hebben quijtgeschouwen ende ver-
+geven, schelden quijte ende vergeven vuyt sunderlinge gratie
+by desen onsen brieve tfeijt ende ongeval boven geruert
+mitsgaederss alle offencie ende bruecke corporele ende
+criminele, daer inne hij ter causen voors. ende ... dat daer
+aen cleven mach tegens ons ende justitie misdaen ende
+misbruijckt mach hebben ende hebben hem dijen aengaende
+wedergestelt ende gerestitueert, stellen weder ende resti
+tueren tot sijnen goeden naeme, faeme ende geruchte in
+onsen voors. lande van brabant ende alle andere onse
+landen ende heerlijckheijden, ende tot sijnen onverbeurden
+goeden indijen hij eenige onder ons heeft gelijck ende in
+alder manieren als hij was voor de toecompste van
+voors. feijte, imponerende hier op een eeuwich geswijch
+onsen procureur generael van brabant, drossaert van
+brabant overmeyer van herent ende allen anderen onsen
+justicieren ende officieren wie sij sijn satisfactie ende
+beternisse ierst ende voor al gedaen sijnde der partije geinteresseerde
+indijen die noch nijet gedaen en sij ende eenige daertoe staet
+civilijck alleenlijck behoudelijck dat die voors. suppliant
+gehouden sal syn t'voors. feijt tegens ons te beteren ende
+dat doende tonsen behoeve te betaelen die somme van 100
+guldens eens met oijck die redelijcke costen van justitien
+hieromme alreede gedaen ende noch te doene, ter taxatien ende
+moderatien van onsen seer lieven ende getrouwen can-
+cellier ende andere lieden van onsen raede in brabant
+die wij daertoe gecommitteert hebben ende committeren
+bij desen ende daerenboven te doen eenen voetwech
+tot onser liever vrouwen van scherpenheuvel ende
+eenen anderen tot onser liever vrouwen
+van halle ende aldaer respective te doen eenige almoessen
+tot solagement vande siele van overledene
+ontbieden daeromme ende bevelen den selven onsen cancellier
+ende raidtslieden dat voor hen geroepen de ghene die
+daeromme behoiren geroepen te sijne, sij procederen wel
+ende deuchdelijck ter verificatie ende interinemente
+van desen ende totter taxatie ende moderatie vande
+voors. costen van justitien alsoo sij sullen vinden te behooren
+welck interinement die voors. suppliant gehouden sal sijn te
+versuecken ende hem in persoone te presenteren in onsen
+voors. raede binnen sesse maenden naestcommende
+opte pene van te verbeuren d'effect van dijen ende
+dat gedaen ende t'gene voors. is volbracht, getaxeert ende
+betaelt sijnde in handen vanden ghenen dijen dat behoiren
+sal, sij onsen voors. procureur generael drossaert van
+brabant overmeijer van herent ende alle andere onse
+rechteren, justicieren, officieren ende ondersaeten tegen-
+woirdige ende toecommende dijen dat aengaen sal mogen
+heuren stedehouderen ende eenenijegelijcken van hen
+besundere soo hem toebehoiren sal doen laeten ende gedoogen
+den voors suppliant van deser onser tegenwoirdiger gracien
+ende remissien van alle d'inhouden van desen indervuegen
+ende manieren vore verhaelt, rustelijck vredelijck, volco-
+melijck ende eeuwelijck genieten ende gebruijcken, sonder hem
+te doene off te laeten geschieden nu off in toecommende tijden
+eenich hinder, letsel oft moijenisse aen lijve noch aen
+goeden ter contrarien maer indijen sijn lijff off eenige
+van sijne goeden daeromme gearresteert, becommert oft
+belet waeren, dat sy die setten ende stellen terstont ende
+sonder vertreck tot geheelder ende volcommender de-
+livrantien want ons alsoo gelieft ende ten eijnde
+dat dit vast ende gestaedich blijve tot eeuwigen daegen,
+soo hebben wij onsen zegel hier aen doen hangen behoudelijck
+in anderen dingen onsen rechte ende eenenijegelijcken
+anderen dessyns gegeven binnen onse stadt van brussele
+twelff daegen inde maent van november int
+jaer ons heeren duijsent ses hondert vierentwintich van
+onse rijcken tvierde. onder op de plijcke stondt geschreven
+bijden coninck onderteekent p mastelijn, ende was ge-
+zegelt met eenen groenen wasschen zegele vuijthangende
+in groene zyde snoeren [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "November 12, 1624",
+  "fact_date": "April 1620",
+  "persons": [
+    {
+      "firstname": "Govaert",
+      "lastname": "de Muyser",
+      "role": "suppliant",
+      "function": "son of Henricx de Muyser"
+    },
+    {
+      "firstname": "Lambrecht",
+      "lastname": "Nijs",
+      "role": "deceased",
+      "function": "widower"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Holsbeke",
+      "loctype": "parish"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Philip, Duke of Brabant, remits a punishment to Govaert de Muyser, who had killed Lambrecht Nijs in April 1620 in Holsbeke. Govaert had reconciled with the friends of the deceased and had given them satisfaction according to the record and the quittance. However, he was still lacking the duke's grace of remission to feel secure. Therefore, Govaert had turned to the duke with humble prayers for open letters of remission. The duke, after consulting the overmaster of Herent, has granted remission to Govaert and has quitted and forgiven him for the offense and the corporal, criminal act that could be held against him, and has restored him to his good name, fame, and reputation in the duchy of Brabant and all other lands and lordships. The duke has also imposed an eternal silence on his prosecutor general, etc.",
+    "fr": "Philippe, duc de Brabant, remet une peine à Govaert de Muyser, qui avait tué Lambrecht Nijs en avril 1620 à Holsbeke. Govaert s'était réconcilié avec les amis du défunt et leur avait donné satisfaction conformément au registre et à la quittance. Cependant, il lui manquait toujours la grâce du duc de rémission pour se sentir en sécurité. Par conséquent, Govaert s'était tourné vers le duc avec des prières humbles pour des lettres ouvertes de rémission. Le duc, après avoir consulté le surmaître de Herent, a accordé la rémission à Govaert et l'a quitté et pardonné pour l'offense et l'acte corporel et criminel qui pouvait lui être reproché, et l'a restauré dans son nom, sa renommée et sa réputation dans le duché de Brabant et dans toutes les autres terres et seigneuries. Le duc lui a également imposé un silence éternel sur son procureur général, etc.",
+    "nl": "Filips, hertog van Brabant, schenkt vergeving aan Govaert de Muyser, die Lambrecht Nijs in april 1620 in Holsbeke had vermoord. Govaert had vrede gesloten met de vrienden van de overledene en had hen volgens het register en de quittantie tevreden gesteld. Echter, hij ontbeerde nog steeds de genade van de hertog van vergeving om zich zeker te voelen. Daarom had Govaert zich tot de hertog gewend met bede voor openbare vergevingsbrieven. De hertog, na advies van de overmeester van Herent, heeft Govaert gratie verleend en hem vrijgesproken en vergeven van het misdrijf en het lichamelijke en criminele feit dat tegen hem kon worden aangevoerd, en heeft hem zijn goede naam, faam en reputatie teruggegeven in het hertogdom Brabant en alle andere landen en heerlijkheden. De hertog heeft hem ook een eeuwige stilte opgelegd aan zijn procureur-generaal, etc.",
+    "de": "Philip, Herzog von Brabant, gewährt Govaert de Muyser Absolution, der Lambrecht Nijs im April 1620 in Holsbeke getötet hatte. Govaert hatte Frieden mit den Freunden des Verstorbenen geschlossen und
+```

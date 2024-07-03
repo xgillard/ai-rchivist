@@ -1,0 +1,182 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van jacoppe coppens van eenen dootslage
+karele etc. doen condt allen luden nu ende naemaels wesende dat wij
+hebben ontfangen die oitmoedige suppleatie van jacop mertens alias
+coppens huysman geseten ende woenechtich tot ghierle onder
+onse lant van turnhout/ inhoudende hoe dat hij in jannuario
+lestleden ten versuecke van synen knape die tot hem suppliant
+seyde meester ic sien daer een duve schiet nae die duve/
+gescoten heeft nae een bos duve met eender bussen oft colvenerijne
+die saet op eens zyns gebuermans coolen dijen hij nyet
+geraect en heeft/ maer een cloct is gevlogen oft
+gesprongen omversielic doer desselfs syne gebuermans dore
+die gesloten was/ ende heeft een jonck kindeken geraect
+achter op zynen rugge boven syn eyndeken d'welc kindeken
+ontrrent zesse oft zeven jaren oudt was geheeten peterken
+proest symoenss ende als hij wiste dat het kindeken gequetst
+ende geraect was es hij ter stont gereden met eenen
+peerde tot herentals om eenen surgijn /ende meester gevonden
+te crijgen den welcken hij nyet en vont bynnen der stat
+mits den welcken hij van daer gereden is soe nerstelyc
+als hij conste nae turnhout daer hij eenen surgyn ende
+meester gevonden heeft geheeten meester reynier/ dien
+hij met hem gebracht heeft die t'selve kindeken begonst
+te meesteren. nyet te min is binnen cortten daigen
+daernae van levenden live ter doot gecomen/ ende hoe wel
+den suppliant tvoers ongeval zeere herttelyc leet is/ ende
+onnoeselycken bijcomen is/ daeraf een $rienden ende partijen
+voldaen hebbende/ ende dat hij anderssins tot goeten name
+staet ende altyt gestaen heeft/ daerenboven partijen teenemale
+voldaen ende te vreden heeft gestelt/ nyet te min en
+soude de voorschreven suppliant binnen desen ons lande nyet
+dorven blyven ende frequenteren/ ten waere dat hem
+vanden voers ongevalle ende dootslage onse gracie verleent
+ende gedaen wordde ons om die zelve gracie ende onse
+oepene brieven daerop zeere oitmoedelijk biddende/ soo eest dat
+wij desen aengesien geneycht wesende ter beden vander
+suppliant ende hem genaede voor rigeure van rechte willende
+prefereren den voors jacoppe inden gevalle als boven
+hebben geremitteert vergheven ende quijt gesconden/ remitteren
+vergeven ende schelden quyte $uijt sunderlinger gracien
+mits desen onsen brieve dongeval ende den dootslach boven
+verclairt ende alle offense criminele ende corporele
+daerinne hij ter causen van dien mach zijn gevallen oft tegens
+ons ende der justiecien mach hebben mesbruyct ende mesdaen
+ende hebben hem gerestitueert tot zynen goeden name ende
+fame ende allen zynen goeden onverbuert zynde
+inder vuegen ende gelijc hij was vore die toecompst vanden
+selven dootslage imponererende hyer op een eeuwich
+geswich ende $$$ende onsen procureur generael drosset
+van brabant schouteth van turnhoudt ende allen anderen
+onse ende smaelre heeren officieren dieneren ende richteren
+satisfactie nochtans gedaen der partijen geinteresseerde
+soo verre die nyet gedaen en zij/ ende enige daer
+soe stae cunlyc alleenlyc/ behoudelyc dat die suppliant
+tvoers ongeval ende dootslach sal gehouden zyn tegen
+ons te beteren ende daer voer te betaelene amende civile
+nae gelegentheyt vanden stuck ende faculteyt van
+*{rand}:endehieraf $$$
+zijnen goeden/ ende tot dien ene redelycke costen van
+iustitien soo verre enige daerom gedaen zijn oft wordden
+al ter arbitraigen ende taxatien van onsen lieven ende
+getrouwe cancelieren ende luden van onsen rade in brabant die
+wij daer toe commiteren bij dese/ ontbieden daerom
+ende bevelen den selven onsen cancelier ende luden van
+onsen rade/ dat voor hen geroepen die ghene die daer
+bij behoren geroepen te zyne zy procederen wel
+ende deughdelyck ter verificatien ende inter$$men
+van desen onsen brieve ende totter arbitragen ende
+ende taxacien vanden voersc amende civile ende costen/ ende
+dat gedaen ende die voers amende civile ende costen betaelt
+in handen vanden ghenen dijen dat behoort/sy onsen procureur
+generael drosset van brabant schoutet van turnhout/ ende
+alle andere onse ende der smaelre heeren richteren iusticien
+officieren ende ondersaten van onsen voers lande van brabant
+tegenwoirdige ende toecomende dyen dat aengaen sal moegen
+ofte henne stedehoudende/ ende een iegelijck van hen besundere soe
+hem toebehooren sal/ doen laten ende gedoegen den voers
+suppliant van dese onser tegewoordiger gracie quytscheldinge
+ende remissie ende van alle den inhouden van desen inder
+vuegen ende manieren voor verclaert rustelyc vredelyc
+volcomelyck ende eeuwelyc genyeten ende gebruycken
+sonder hem te doemen oft te laten geschieden nu noch in
+toecomende tijden eenich stoot hynder oft letsel in lyve
+noch in goede ter contrarien in eeniger manieren
+mair in dien zijn lijf oft enighe van zijnen onverbeurden
+goeden daerom zyn oft naemaels waren gevangen, gearresteert
+belet oft becommert dat zij die stellen ende setten oft doen
+stellen ende setten testont ende sonder vertreck tot geheele
+ende volcomender del$$vanden/ want ons alsoo gelieft
+ende ten teynde dat dit vast goet ende gestadich, blyve
+tot eeuwigen dagen/ soe hebben wij hyer aen doen hangen
+ons zegel vanden welcken die keijser ons heere ende
+grootvader ende wij gebruyckt hebben duerende onser
+minoriteyt/ behoudelyc onsen rechte in anderen
+dingen ende anderen hueren rechte in allen/ gegeven
+in onser stat van brussel inde maent van meye
+int jair onse heeren duysent vyfhondert ende zeventhien
+ende van ons rycken tweeste/ aldus stont gescreven
+boven opte plycke byden coninck ende geteekent
+hoe haive ende noch visa
+gecollommeert ende bevonden
+$$ doende metten originale
+bij mijn
+$ turtel $$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "January, UNKNOWN year",
+  "persons": [
+    {
+      "firstname": "jacop",
+      "lastname": "mertens alias coppens huysman",
+      "role": "suppliant",
+      "function": "regular person"
+    },
+    {
+      "firstname": "peeterken",
+      "lastname": "proest symoenss",
+      "role": "child who got hurt",
+      "function": "regular person"
+    },
+    {
+      "firstname": "meester reynier",
+      "lastname": "UNSPECIFIED",
+      "role": "surgeon who treated the child",
+      "function": "professional"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Jacop Mertens alias Coppens Huysman, the suppliant, asks for remission after his servant shot a bolt from a crossbow that hit a child named Peeterken Proest Symoenss. The child was not the intended target and was hurt on his neighbour's door. Jacop went to Herentals to find a surgeon but couldn't, so he went back to Turnhout and found Master Reyneir who treated the child. The child eventually died from the injury and Jacop was forbidden to stay in the land unless he gets a grace from the king. This remission was granted in Brussels, May, year 1517.",
+    "fr": "Jacop Mertens alias Coppens Huysman, suppliant, demande la rémission après que son serviteur ait tiré une flèche de carreau qui a frappé un enfant nommé Peeterken Proest Symoenss. L'enfant n'était pas la cible prévue et a été blessé à la porte de son voisin. Jacop s'est rendu à Herentals pour trouver un chirurgien mais n'en a pas trouvé, il est donc retourné à Turnhout et a trouvé Maître Reyneir qui a soigné l'enfant. L'enfant est finalement décédé de sa blessure et Jacop a été interdit de rester dans le pays à moins qu'il n'obtienne une grâce du roi. Cette rémission a été accordée à Bruxelles, en mai, an 1517.",
+    "nl": "Jacob Mertens alias Coppens Huysman, de verzoeker, vraagt om vergeving na een ongeluk waarbij zijn knecht een pijl van een kruisboog schoot die een kind trof genaamd Peeterken Proest Symoenss. Het kind was niet het bedoelde doelwit en werd gewond op de deur van zijn buren. Jacop ging naar Herentals om een chirurg te vinden, maar vond er geen, dus reisde hij terug naar Turnhout en vond Meester Reyneir die het kind behandelde. Het kind overleed later aan zijn verwondingen en Jacop werd verboden in het land te blijven tenzij hij genade van de koning krijgt. Deze vergeving werd verleend in Brussel, mei, jaar 1517.",
+    "de": "Jacob Mertens alias Coppens Huyssman, der Bittsteller, bittet um Vergebung nach einem Unfall, bei dem sein Diener einen Pfeil von einem Langbogen schoss, der ein Kind traf mit dem Namen Peeterken Proest Symoenss. Das Kind war nicht das beabsichtigte Ziel und wurde auf der Tür seines Nachbarn verwundet. Jacop fuhr nach Herentals, um einen Chirurgen zu finden, aber er fand keinen, also fuhr er zurück nach Turnhout und fand Meister Reyneir, der das Kind behandelte. Das Kind starb später an seiner Verwundung und Jacop wurde verboten, in dem Land zu bleiben, es sei denn, er erhält Gnade vom König. Diese Vergebung wurde in Brüssel im Mai des Jahres 1517 gewährt."
+  }
+}
+```

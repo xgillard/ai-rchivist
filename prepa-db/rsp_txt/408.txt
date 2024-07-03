@@ -1,0 +1,185 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te wetene allen jegewoirdigen ende toecommenden
+dat wy ontfanghen hebben de oitmoedighe supplicatie van andries
+de verwere inhoudende dat hoewel hy suppliant heeft altyt geweest
+van goeden levenen ende conversatien noyt van ennige quade feyten
+achterhaelt oft befaempt nochtans is geschiet in septembry int
+jaer xvc xlv dat hy suppliant is geweest inde vryheyt van molle
+ten huyse van adriaen lumelen met zekere andere persoenen daer
+onder was wylen jan delien diemen gemeynlyck plach te noemen
+delyman met zyn huysvrouwe soe is onder dandere geschiet dat
+de suppliant sonder arch heeft genomen een gelas staende aldaer
+opte tafele half vol biers ende hevet gegoten in eenen grooten pot
+seggende totten voirs. janne delien dat hy hem eens woude
+schenken daerom die voirs. delien sonder ennighe redenen hem
+heeft gestoort ende den suppliant qualyck toegesproken nyettemin
+de huysvrouwe des voirs. jans daer present zynde heeft
+tvoirs. gelas genomen ende den suppliant willen te drincken schincken
+op dat alle questie zoude doot blyven hoewel nochtans de
+suppliant anders nyet dan vrede en sochte maer de voirs.
+jan seyde tot synder huysvrouwe in grammen moede ghy
+hoere dat ghy soe cloeck zyt dat ghy schenct ick steke u thert
+aff ende met dien de voirs. jan haestelyck opstaende heeft
+zyn eetmes getrocken houdende tselve aens inde hant ende staende
+voer den suppliant heeft hem ghedreycht te willen steken om dwelck te
+eviteren de suppliant is achterweerts ghedeyst ende besorgende dat de
+voirs. jan hem soude innaderen ende steken heeft hy suppliant om
+syn lyf te salveren naeden voirs. janne ghesteken ende hem in syn hooft
+gequest ende twee wonden ende een scraemken gegeven zoe dat hy
+sekeren tyt daernae van levende lyve ter doot is gecommen tot
+grooten leet wesen vanden suppliant die daerom vreesende rigeur van
+justicien nyet en zoude in desen onsen lande van brabant derren
+hanteren noch converseren maer zoude elders in vreempde landen
+in groote miserie moeten leven ten waere dat onse gratie ende
+genade hem hierop worde geextendeert ende verleent ons daerom
+oitmoedelyck biddende soe eest dat wy desen aengesien geneycht
+wesende ter beden des voirs. suppliants willende hem in dit stuck prefereren
+gratie ende misericordie voer strangheyt ende rigeur van rechte hebben
+denselven suppliant inden gevalle als boven quytgescouden ende
+vergeven, schelden quyte ende vergeven vuyt sunderlinger gratien by
+desen onsen brieve tfeyt ende ongeval boven geruert mitsgaders alle
+offensie ende bruecke corporelle ende criminelle daer inne hy hem
+overmits ende vuyt saken van tghene des voirs. is tegen ons onse
+hoecheyt ende justicie ennichssins mach hebben ontgaen ende mesdragen
+ende hebben hem dien aengaende wedergestelt ende gerestitueert stellen
+weder ende restitueren tot zynen goeden name fame ende gheruchte
+in onsen voirs. lande van brabant ede allen anderen onsen landen
+ende heerlicheyden ende tot synen onverbeurden goeden indyen hy
+eenyghe onder ons heeft gelyck ende in alder manieren zoe hy was
+voer die toecompste vanden voirs. feyte imponerende hier op
+een eeuwich gheswych onsen procureur generael in brabant ende allen
+anderen onsen justicieren ende officieren wy zy zyn satisfactie
+ende beternisse ierst ende voer al gedaen der partie geinteresseerde
+indien die noch nyet gedaen en zy ende ennighe daer toe stae
+civilyck alleenlyck behoudelyck alleenlyck dat de voirs.
+suppliant gehouden sal syn tvoirs. feyt tegen ons te beteren civilick
+naer gelegentheyt vanden saken ende faculteyt van synen goeden met
+oick te betaelene de redelycke costen van justicien hieromme alreede
+gedaen ende te doene allet ter taxatien ende moderatien van onsen
+lieve ende getrouwe de cancellier ende luden van onsen rade
+in brabant die wy daer toe gecommitteert hebben ende committeren
+by desen ontbieden daeromme ende bevelen denselven onsen
+cancellier ende raedsluyden dat voer hen geroepen deghene die
+daerom behoiren geroepen te syne zy procederen wel ende dueghdelyck
+ter verificatie ende interinement van desen ende totter taxatien
+ende moderatien vanden voirs. amende ende costen van justitien alzoe
+sy sullen bevinden behoirende welck interinement de voirs. suppliant
+ghehouden sal syn te versueckene ende hem in persoone te presenteren
+in onsen voirs. rade binnen sesse maenden naestcommende opte
+pene van te verbeurene deffect van desen ende dat gedaen ende
+deselve civile boete ende costen van justitien getaxeert ende betaelt
+zynde in handen vanden ghenen dien dat behoiren sal zy onse voirs.
+procureur generael in brabant ende alle andere onse rechteren justicieren
+officieren ende ondersaten jegewoirdeige ende toecomende dien dat
+aengaen sal mogen huere stedehouderen ende een yegelyck van hen
+besundere zoe hem toebehoiren sal doen laten ende gedoogen den
+voirs. suppliant van deser onser jegewoirdiger gratien ende remissien ende
+van alle inhouden van desen inder vuegen ende manieren voere
+verhaelt rustelyck vredelyck volcomelyck ende eeuwelyck ghenyeten
+ende ghebruycken sonder hem te doene oft te laten geschieden nu
+noch in toecomende tyden ennich hinder letsel oft moeyenisse aen
+lyve noch aen goeden ter contrarien maer indien zyn lyf oft
+ennighe van zynen goeden daerom gearresteert becommert oft belet
+waeren dat zy die setten ende stellen tersont ende sonder vertreck
+tot gheheelder ende volcommender delivrantie want ons alzoe gelieft
+ende ten eynde dat dit vast ende ghestadich blyve tot eeuwigen
+dagen soe hebben wy onsen zegel hier aen doen hangen gegeven
+in onser stadt van bruessele inde maent van apprille int
+jaer onsheeren duysent vyffhondert ende eenenvyftich van onsen
+keyserycke txxxvie aldus gescreven opde plycke byden
+keyser in zynen rade ende geteeckent j. boudewyns
+gecollationeert ende bevonden accorderende
+metten originalen b$$ by my
+$$ facuwez $$
+marge: en hier af verantwordt
+byden ontfanger vanden
+exploiten [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "September 1545",
+  "persons": [
+    {
+      "firstname": "Andries",
+      "lastname": "de Verwere",
+      "role": "suppliant",
+      "function": "petitioner"
+    },
+    {
+      "firstname": "Adriaen",
+      "lastname": "Lumelen",
+      "role": "host",
+      "function": "innkeeper"
+    },
+    {
+      "firstname": "Jan",
+      "lastname": "Delien",
+      "role": "innkeeper's wife's acquaintance",
+      "function": "commoner"
+    },
+    {
+      "firstname": "Jan",
+      "lastname": "Delien's wife",
+      "role": "witness",
+      "function": "commoner"
+    }
+  ],
+  "locations": [
+    {
+      "name": "molle ten huyse van adriaen lumelen",
+      "loctype": "inn"
+    }
+  ],
+  "summary": {
+    "en": "Andries de Verwere, petitioner, pleads remission after a brawl at Adriaen Lumelen's inn in September 1545. Jan Delien and his wife were present, with Jan Delien interrupting Andries as he was pouring a drink. A scuffle ensued, resulting in Andries being wounded. Fearing retribution, Andries requests grace and favor to avoid punishment and live peacefully in the land of Brabant and other territories.",
+    "fr": "Andries de Verwere, suppliant, demande la rémission après une bagarre à l'auberge d'Adriaen Lumelen en septembre 1545. Jan Delien et sa femme étaient présents, Jan Delien interrompant Andries alors qu'il versait une boisson. Une bagarre s'ensuivit, ce qui entraîna des blessures pour Andries. Craignant des représailles, Andries demande la grâce et la faveur pour éviter les poursuites et vivre paisiblement dans les terres de Brabant et d'autres territoires.",
+    "nl": "Andries de Verwere, belanghebbende, vraagt om vergeving na een gevecht in de herberg van Adriaen Lumelen in september 1545. Jan Delien en zijn vrouw waren aanwezig, waarbij Jan Delien Andries onderbrak toen hij een drankje uitschenpde. Een gevecht ontstond, waarbij Andries gewond raakte. Bang voor vergelding vraagt Andries om genade en gunst om te voorkomen dat hij gestraft wordt en vreedzaam kan leven in het land van Brabant en andere gebieden.",
+    "de": "Andries de Verwere, Bittsteller, bittet um Absolution nach einer Schlägerei in der Herberge von Adriaen Lumelen im September 1545. Jan Delien und seine Frau waren anwesend, wobei Jan Delien Andries unterbrach, als er ein Getränk eingoss. Ein Handgemenge entstand, bei dem Andries verletzt wurde. Aus Furcht vor Vergeltung bittet Andries um Gnade und Gunst, um Strafen zu vermeiden und friedlich in den Ländern von Brabant und anderen Territorien leben zu können."
+  }
+}
+```

@@ -1,0 +1,239 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips byder gracien goidts coninck van
+castillien, van arragon, van leon etc. doen te wetene
+allen iegenwoordige ende toecommende dat wij ontfangen
+hebben de supplicatie van sebastiaen keldermans een
+jongen sone wijlen peeters inhoudende hoe dat hij suppliant
+over enigen tijt binnen onse stadt van vilvoorden de wacht heeft
+gehadt met andere ingesetenen der selver stadt ende naementlijck
+met bernaert buelens, metten welcken den suppliant
+commende vuijtte wachte vande mechelsche poorte naer
+de herberge genoempt de hoochpoorte snachts ontrent thien
+uren ende aldaer met noch ander geselschap gespeelt hebbende
+hebben den suppliant ende den voorz. bernaert buelens
+t’saemen gaen spelen mette caerte voor elcx anders gelach
+tot ontrent den twee uren oft drije ure inden nacht, in welck
+spel sij onderlunge questie ende hooge woorden gecregen hebben,
+ende zeyde den voorz. bernaert buelens ierst tegen den suppliant
+met grammen moede onder correctie ghij liecht daer aene,
+hebdyt hert compt hier buijten, daer toe noch vuegende
+ghij sijt daer maer een hondtfot om ende meer diergelijcke
+atroce injurieuse propoosten, ende treckende sijn rappier vuijt
+heeft den suppliant gedwongen geweest syn rappier oijck
+vuijt te trecken, het welcke siende sommige van henne com=
+paignie hebben partijen van malckanderen gehouden, als=
+wanneer den voernoempden bernaert bulens seijde tegen=
+den ghenen die hem vast hielde, laet mij gaen oft ick sal u door=
+steken ende tastende naer sijnen sack, soo wirde hij van andere
+door vreese van gesteken te wordden los gelaeten, waer naer
+den voorseyden bernaert bulens terstonts eenen kareel steen
+op namp, sonder te weten waer hij dien gehaelt hadde, midts
+dat hij vuijt de kamer nijet en hadde geweest, metten
+welcken hij naer den suppliant seer furieuselijck was wor=
+pende meijnende hem alsoe inne te loopen ende bij naer
+op het lijff des suppliants wesende is den suppliant we=
+deromme genootsaeckt geweest hem te defenderen
+cum moderanine inculpate tutele, soe seer als hij coste
+midts dat hij suppliant alnoch van eenige vanden compaing=
+nie in sijn middelste seer vast gehouden wirdde, ende
+heeft alsoo den voorz. bernaert bulens van hem geweert
+met sijn rappier daerdore hij hem in sijn hooft heeft
+gegeven eene cleijne quetsure daermede den suppliant is
+los geraeckt ende den voorz. bernaert bulens gequetst
+sijnde naer den berbier gegaen, alles gelijck ons is ge=
+bleken bijde informatie dijen aengaende op den xxviiien 28en
+ianuarij vanden voorleden jaere xvic ende xxiii 1623
+genomen bij schepenen onser voorz. stadt van vilvoor=
+den ten versuecke van sebastiaen keldermans des
+suppliants grootvaeder: welcken barbier den ge=
+quetsten wel heeft gecureert, soo dat de wonde
+haer altijds seer schoon heeft gedraegen tot opden ixen 9en
+dach alswanneer door groote beroerte ende stoornisse
+die den selven gequetsten hem sonder oirsaecke des suppliants
+was aendoende, al willens ende wetens in sijn doot
+heeft geloopen, hebbende tot dien gaen sitten smilten
+sekere quantiteijt van loot wesende geheel dangereux
+voor de gequetste, soe door den vuijlen stanck als het
+quaet fenijn daer vuijt commende, dwelck heeft gecauseert
+abundantie van bloet loopende vuijt d’arterie open ge=
+borsten sijnde inde quetsure des voorz. buelens soe dat
+meer is heeft t‘smilten van voorz. loot den gequetsten
+soo vehementelijck gealtereert dat hij opden elffsten
+dach heeft gecregen eene swaere cortse ende groote
+pijne in sijne zijde gelijck pleuris welcke cortse ende
+pleuris tot zijnen sterffdaege toe heeft gecontinueert
+nijettegenstaende dat hij tweemael vanden chirurgijn
+hadde gelaeten geweest claegende meer sijne pijne
+inde zijde totte leste ure sijns levens als de wonde vanden
+suppliant defensievelijck ontfangen, alles naer vuijtwijsen
+vande voorz. informatie ende gemerckt dat den voorz.
+overleden ierst questie heeft gemoneert tegen den suppliant
+die hem voorsulcx nootsaeckelijck heeft moeten defenderen
+als anderssints in evident perijckel geweest sijnde van
+op de plaetse te blijven ende dat den selven overleden int
+smilten van tvoorz. loot hem willens ende wetens heeft
+versuempt aengesien oijck dat den suppliant met sijne
+weduwe ende andere vrienden in presentie van onsen voorz.
+schepenen van vilvoorden ende andere geestelijcke heeren
+opden derthiensten martij sesthienhondert drijentwintich
+is gereconsilieert volgende het accoort daer aff gemaeckt
+ende dat den suppliant hem altoos eerlijck ende deuchdelijck
+heeft gecomporteert ende dat hij ter saecken van dit
+$$$ ongeluck hem tot noch toe heeft moeten absenteren
+tot sijne groote ende irreparable schaede ende interest
+daeromme hij hem keerende tot ons seer oijtmoedelijck badt
+dat ons geliefde hem t’voorschreven feijt ende ongeval
+te vergeven ende hem daer over te doen depescheren onse
+opene brieven van remissie in behoorlijcke forme daer
+toe dienende, soo eest dat wij de saecken voorz. overgemerckt
+ende gesien d’informatie bij de wethouderen onser stadt van
+vilvoorden hier op genomen den achtentwintichsten januarij
+sesthienhondert drijentwintich gelijck voorz., is genegen
+wesende ter beden des suppliants ende willende hem in dit
+stuck prefereren gratie ende misericordie voor strangheijt
+ende rigeur van rechte, hebben den selven suppliant inden
+gevalle als boven quijt geschouwen ende vergeven, schelden
+quijte ende vergeven vuijt sunderlinger gratien bij desen
+onsen brieve, t’feijt ende ongeval boven geruert
+mitsgaeders alle offensie corporele ende criminele daerinne
+hij hem overmidts ende vuijt saecken van t’selve feijt ende
+ongeval, tegens ons ende justitie eenichssints mach
+hebben ontgaen, ende hebben hem dien aengaende weder
+gestelt ende gerestitueert stellen weder ende restitueren
+tot sijnen goeden naeme, faeme ende geruchte in onsen
+voorschreven lande ende hertochdomme van brabant
+ende alle andere onse landen ende heerlijckheyden ende
+tot zijne onverbeurde goeden indijen hij eenige onder ons
+heeft gelijck ende in alder manieren soo hij was voor
+de toecompste vanden voorz. feijte, imponerende hier
+op een eewich geswijch onsen procureur generael in
+brabant onsen meijer van vilvoorden ende alle andere
+onse justicieren ende officieren wie sij sijn satisfactie
+ende beternisse ierst ende voor al gedaen sijnde, der
+partije geinteresseerde indijen die noch nijet gedaen
+en sij, ende eenige daertoe staet civilijck, alleenlijck,
+behoudelijck dat de voorz. suppliant gehouden sal sijn
+tvoorz. feijt tegens ons te beteren civilijck naer de
+gelegentheijt vander saecken ende faculteijt van sijnen
+middele met oock te betaelen de redelijcke costen van
+justitie hier omme alreede gedaen ende te doene,
+aller ter taxatie ende moderatie van onsen seer lieven
+ende getrouwen die cancellier ende luijden van onsen
+raede geordineert in brabant die wij daer toe gecom=
+mitteert hebben ende committeren bij desen, ontbieden
+daeromme ende bevelen den selven onsen cancellier ende
+raitslieden dat voor hun geroepen de ghene die daeromme
+behooren geroepen te sijne sij procederen wel ende deuchdelijck
+tot verificatie ende interinement van desen ende tot
+taxatie ende moderatie vande voorz. amenden ende
+costen van justitie alsoo sij sullen vinden te behooren welck
+interinement den suppliant gehouden sal sijn te versuecken
+ende hem in persoone te presenteren in onsen voorz. raede
+binnen sesse maenden naestcommende opde pene van
+te verbeuren d’effect van desen, ende dat gedaen ende
+de selve civile boete ende costen van justitie getaxeert
+ende betaelt zijnde in handen vanden ghenen dien dat behooren
+sal, sy onsen voorz. procureur generael in brabant onsen
+justicieren, officieren ende ondersaeten tegewoordige ende
+toecommende dijen dat aengaen sal mogen hunne stede=
+houderen ende een ijegelijck van hen besundere soo hem toebe=
+hooren sal, doen laeten ende gedoogen den voorz. suppliant
+van deser onser tegenwoordiger gratien ende remissien
+ende van allen den inhouden van desen inder vuegen ende
+manieren boven verhaelt rustelijck, vredelijck, volcomelijck
+ende eewelijck genieten ende gebruijcken, sonder hem te
+doen oft te laeten geschieden nu oft in toecommende
+tijden eenich hinder, letsel oft moijenisse aen lijff noch aen
+goeden ter contrarien maer in dijen sijn lijff oft
+eenige van zijne onverbeurde goederen daeromme
+gearresteert, becommert oft beleth waeren, dat sij
+die setten ende stellen terstont ende sonder vertreck
+tot geheelder ende volcommender delivrantien want
+ons alsoo gelieft ende ten eijnde dat dit vast ende
+gestaedich blijve tot eewigen daegen, soo hebben wij
+onsen zegel hier aen doen hangen, behoudelijck in andere
+dingen onsen rechte ende eenenijegelijcken anderen dessijns
+gegeven binnen onser stadt van brussele vierthien
+daegen inde maent van februarie int jaer ons heeren
+duijsent ses hondert vierentwintich ende van onse rycken
+het derde, onder op de plicque stondt geschreven aldus
+byden coninck, onderteekent, i. $$ourden ende was
+gesegelt met eenen groenen wassen segele vuijt hangende
+in groene syde snoeren. [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "13th March 1625",
+  "fact_date": "27th January 1624",
+  "persons": [
+    {
+      "firstname": "Sebastiaen",
+      "lastname": "Keldermans",
+      "role": "suppliant",
+      "function": "son of the suppliant's grandfather"
+    },
+    {
+      "firstname": "Bernaert",
+      "lastname": "Buelens",
+      "role": "opponent",
+      "function": "citizen of Vilvoorde"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Vilvoorde",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Sebastiaen Keldermans, grandson of the suppliant, received a remission for defending himself against Bernaert Buelens in Vilvoorde. The conflict arose after a game of cards and escalated with insults and threats. Keldermans was wounded and the barber who treated him testified in his favor.",
+    "fr": "Sebastiaen Keldermans, petit-fils du suppliant, a reçu une remise pour s'être défendu contre Bernaert Buelens à Vilvorde. Le conflit est né après une partie de cartes et a escaladé avec des insultes et des menaces. Keldermans a été blessé et le barbier qui l'a soigné a témoigné en sa faveur.",
+    "nl": "Sebastiaen Keldermans, kleinzoon van de suppliant, ontving een remissie voor het verdedigen van zichzelf tegen Bernaert Buelens in Vilvoorde. Het conflict ontstond na een kaartspel en escaleerde met beledigingen en bedreigingen. Keldermans werd gewond en de barbier die hem behandelde, getuigde in zijn voordeel.",
+    "de": "Sebastiaen Keldermans, Enkelkind des Bittstellers, erhielt eine Remission für die Verteidigung von sich selbst gegen Bernaert Buelens in Vilvoorde. Der Konflikt entstand nach einem Kartenspiel und eskalierte mit Beleidigungen und Drohungen. Keldermans wurde verletzt und der Barbier, der ihn behandelte, sagte als Zeuge zu seinen Gunsten aus."
+  }
+}
+```

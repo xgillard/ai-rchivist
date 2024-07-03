@@ -1,0 +1,246 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remission d un homicide perpetre par remy
+mesquerams
+charles etc. savoir faisons a tous presents et avenir nous
+avoir receu lumble supplication de remy mesquerams dit
+le carpentier povre homme marie charge de femme et six
+petitz enffans entre lesquelz nen ya que une seulle fille
+qui est pure iniorante et remy mesquerams son filz de
+leage de xij ou xiij ans, contenant comme environ xv jours
+devant le jour saint gille dernier passe ainsiz que ledit remy
+le pere lun desdits supplians estoit alle de lonchamp en notre ville
+de namur pour aucuns ses affaires, et qu il yssoit hors de
+notredite ville de namur avec ung nomme willemet le
+moulnier dudit lieu de lonchamp pour eulx en retourner a
+lostel, advint que ledit willemet qui estoit alle devant
+en une taverne de cervoyse nommee la maison blancque
+devant la porte de notredite ville demanda a loste de ladite
+taverne ung pot de biere a boire, ce qu il fist priant audit
+remy le pere lui vouloir tenir compaignie aboire seulement
+ledit pot de bierre avec ledit hoste et pluiseurs autres.
+et apres que icellui remy le pere avoit beut deux ou
+trois cops dist audit willement le moulnier lacquey
+vous mavez dernierement mal moulu se me vouldriez mieulx
+mouldre vous seriez bien mieulx mon amy. surquoy
+il respondi audit remy le pere quil luy avoit mieulx
+moulu que a lui ne appartenoit, et icellui remy
+le pere dit audit moulnier se ne me voulez doresenavant
+mieulx mouldre je donneray au seigneur de lonchamp votre
+maistre ung pot de vin de xviij florins affin quil me
+baille mesmes son moulin a ferme, que lors ledit remy
+le pere paya son escot et se parti dillec pour retourner
+a sa maison audit lonchamp et ledit moulnier brief apres
+courut bien radement pour retaindre icellui remy
+le pere et icellui rattaint sen allerent environ demy heure
+entre eulx deux en devisant de plusieurs choses sans dire
+aucunes parolles injurieuses lun a lautre que lors il
+appella ledit remy le pere mounier disant voulez
+vous donner xviij florins au seigneur et me hancher le moulin
+et icelluy remy le pere respondit oyl se ne me voulez
+mieulx mouldre, et ce disant ledit moulnier le print par les bras
+et le rua par terre dessoubz luy disant il me fault assayer
+se vous estes si mauvailx que vous faictes semblant en
+tyrant une longue daghe que ledit remy le pere avoit
+chavite hors de sa gayne pour luy couper la gorge comme il
+disoit et icelluy remy le pere qui couchoit ainsi a terre
+dessoubz luy crya ayde et ce oyant par ung quidam qui
+venoit illec et alloit audit namur crya a haulte voix
+hola hola que voulez vous faire il y vient cy derriere beaucop
+de gens se vous te tuez vous neschapperez ja et lors
+laissa lever et aller ledit remy le pere et pource que ledit
+moulnier luy avoit ainsi prins sadite daghe ledit remy le
+pere craindant quil ne le tuast dicelle cuida retourner
+avec ledit quidam quil ne congnoissoit en ladite ville dont
+il estoit venu, et ce venant icellui moulnier dit veez la
+une daghe et le jecta par terre disant venez avec moy
+et si allons ensemble alostel que tantost apres
+il tyra ung grant baston hors dune suye et le monstra
+audit remy le pere disant veez la ta mort que lors icelluy remy
+le pere dist je ne vous demande riens laissiez moy en
+paix et icelluy moulnier qui alloit devant se retournoit
+et levoit ledit grant baston pour en frapper ledit remy
+le pere et icelluy remy qui ne chercoit point de debat
+disoit de rechief quil ne luy en demandoit riens et quil
+le laissast en paix reculant tousiours et pour estre
+quicte de luy print son chemin vers ung bois au plus
+pres de la pour aller veoir aucuns chesnes pour en faire
+le carpentaige dune chapelle que le seigneur dudit lieu
+vouloit faire faire et dont il avoit marchande et si devoit
+ce propre pour illec trouver mais veant icelluy
+remy le pere que ledit moulnier le suyoit oudit bois il wyda
+dicellui craindant quil le deusist illec grever de son
+corps et si allerent arriere ensemble jusques a deux
+ou trois trais darcbalestre pres dudit lonchamp en
+parlant tousiours injurieuses parolles que lors
+ledit remy le pere dit veez la votre droit chemin pour aller
+a votre maison et veez cy le mien, et ledit moulnier qui ne chercoit
+que noise suyt tousiours icelluy remy le pere jusques audit
+villaige de lonchamp alant tousiours devant et venant
+droitement a lentree dicelluy villaige ledit moulnier ala
+ramentevoir a icelluy remy le pere et luy disoit par maniere
+de desrision et reproche et pour irriter de plus en plus comment
+il lui avoit fait auparavant dommaige de xl florins
+et eust encoires bien volu quil levist fait si povre jusques a sa
+chemise que lors icelui remy le pere qui avoit eu si
+longuement la pacience et quil navoit peu estre quicte de
+luy par tous les moyens dessusdits, tempte de lennemy et de
+chaulde cole luy escria disant traitre je vous je vous tueray
+en tyrant sa daghe de laquelle il donna tant seulement
+ung cop de taille en la cuise ou jeron et ce fait ledit
+moulnier se saulva et sailly oultre ung passaige et dist
+audit remy le pere filz de ribaulde se je vous avoye icy je vous
+estrangleroye me fauldrez vous maintenant de ne vous
+fauldray point, et en ce mesme instant y survint un homme
+mainouvrir ayant en sa main une fa dont lon abat lavoine
+lequel cria hola ho et ledit remy le pere luy dist reculez ou je
+vous bateray aussi et ledit remy le pere passa oultre le fosse et
+sen ala vers ledit moulnier et ledit moulnier le ahardi et le rua par
+terre dessoubz luy le cuydant illec estrangler comme il eult
+fait se ledit remy le pere neust prins le paulce ou le doy dudit
+moulnier en sa bouche, dont il le tenoit si fort par la main quil
+ne se savoit bouger et ce veant ledit remy le filz aussi luy
+des supplians qui gardoit illec les vaches dun censier crya
+sur son pere qui couchoit illec a terre dessoubz ledit moulnier
+doulx pere doulx pere et ce oyant ledit remy le pere cryoit a
+luy en thiois hoeresoene hoeresoenesuldy my niet hulpen
+et ledit remy son filz dist de quoy il le ayderoit et ledit remy
+le pere lui demandoit sil navoit point de couteau et il dit
+que oyl et remy le pere dist donne lui encoires cent cops
+de couteau et cedist ledit remy le filz y venoit tout courant
+et donna dudit couteau a icellui moulnier cincq ou six cops en son doz
+qui lors crya confession confession pour lamour de dieu et crya
+laisse moy aller aussi feray je dist remy le pere se meme
+voulez plus riens faire je vous laisseray aller et il dist que
+nennil et lors ledit remy le pere le laissa aller et lever et si
+envoya incontinent querre ung prebtre dudit vilaige lequel
+lala confesser desquelz cops de couteau taillepain il fut
+dedens dix jours apres guery comme remy le pere la oy
+dire mais du cop de taille en la cuisse ou jeron desseure
+le genoul ledit moulnier termina dedens lesdits dix jours ou
+environ vie par mort et combien que lesdits povres
+supplians sont tresdoulants de ladvenue dudit cas et quilz
+aveut fait satisfaction a partie interesee neantmoins
+doubtant rigeur de justice ilz se sont absentez de notre
+pays et duchie de brabant ou ilz noseroient retourner
+hanter ne converser ains leur conviendroit tenir absents et
+finer leurs jours en estraignes marches et contrees se
+notre grace ne leur estoit sur ce impartie pour laquelle
+actendu ce que dit est et que en autres choses ilz ont este
+bien famez et renommez ilz nous ont treshumblement
+supplie et requis pour ce est il que nous les choses
+dessusdites considerees ausdits remy mesquerams le pere
+et remy mesquerams son filz supplians inclinans
+favorablement a leurdite supplication et requeste et leur vueillant
+en ceste partie preferer grace et misericorde a rigeur de
+justice mesmement en lhonneur et reverence de la mort
+et passion que notre salveur et redempteur jhesus crist souffrit
+pour nous tous en larbre de la croix a tel jour que huy avons
+ou cas dessupplians quicte remis et pardonne quictons remectons
+et pardonnons de grace especial par ces presentes le cas et
+hommicide dessus declare ensemble toute paine et amende
+corporele et criminele enquoy pour raison et a loccasion
+dicellui cas ses circonstances et despendences ilz peulvent avoir
+offense et mesprins envers nous et justice et les avons
+quant a ce remis et restitue remectons et restituons par
+cesdites presentes en leur bonne fame et renommee en notredit pays et
+duchie de brabant et tous noz autres pays et seigneuries et a leurs
+biens non confisquez sancuns en ont tout ainsi et par la
+maniere quilz estoient auparavant ledit cas et hommicide
+advenu imposant sur ce scilence perpetuel a notre procureur
+general de brabant et tous autres noz justiciers et officiers
+satisfaction toutesvoyes faicte a partie instressee
+prealablement et avant tout ouvre se faicte nest et elle y
+chiet civillement tant seullement et moyennant
+aussi quilz seront tenuz de lamender envers nous civilement
+selon lexigence du cas et la faculte de leurs biens et avec
+ce quilz seront tenuz de payer et reffondre les despens
+raisonnables de justice sancuns en ya a larbitraige et
+taxation de noz amez et feaulz les chancellier et gens
+de notre conseil en brabant que commectons a etc. sy donnons
+en mandement ausdits de notre conseil en brabant que appellez
+pardevant eulx ceulx qui pource seront a appellez ilz
+procedent bien et deuement a la veriffication et interinement
+de cesdites presentes selon leur forme et teneur et a la taxation
+et arbitraige de ladite amende civile et despens et ce fait
+et icelle amende civile tauxee arbitree et payee es mains
+diceluy de noz officiers quil appartiendra qui sera tenu en faire
+recepte et rendre compte et reliqua a notre prouffit avec les
+autres denvers de son entremise ilz notre drossat de brabant
+maire de louvain amman de bruxelles escoutetes danvers
+et de boisleduc maire de lonchamp et tous autres nous
+noz et noz vassaulx justiciers officiers et subgectz presents
+et avenir cui ce puet et pourra toucher et regarder
+leurs lieutenants et chacun deulx endroit soy et sicomme a lui
+appartiendra fachent seuffrent et laissent lesdits remy
+mesquerasmc le pere et ramy mesquerams le filz
+supplians de notre presente grace remission et pardon selon
+et par la maniere que dit est plainement paisiblement et
+perpetuellement joyr et user sans leur faire mectre ou
+donner ne souffrir estre fait mis ou donne aucun
+arrest destourbier ou empeschement au contraire en aucune
+maniere ains se leur corps et leurs biens non confisquez
+comme dit est estoient pource prins saisiz arrestez ou
+empeschiez les mectent ou facent mectre incontinent
+et sans delay a plaine et entiere delivrance car ainsi
+nous plaist il. et affin que ce soit chose ferme et estable
+a tousiours nous avons fait mectre seel dont lempereur
+monseigneur et grant pere et nous avons use durant le
+temps de notre minorite a ces presentes. saulf en autres
+choses notre droit et lautrui en toutes donne en notre
+ville de bruxelles le venredy saint ou mois davril
+lan de grace mil cincqcens et seize et de notre
+regne le second. ainssy signe sur le reploy pour
+le roy en son conbseil. et du secretaire c vokrert. et encores
+visa
+collationne a loriginal
+par moy
+$$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1516-04-ven",
+

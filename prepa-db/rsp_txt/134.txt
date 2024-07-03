@@ -1,0 +1,260 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+een remissie van schake voer wouter van cockelberghe
+met vier zijne complicien
+kaerle etc, doen te wetene allen iegenwoirdighe ende
+toecomende dat wij ontfangen hebben die oitmoedige supplicatie
+van wouter van cockelberghe, woenende te leest binnen der
+vrijheyt onser stede van mechelen, hennen steelman dierick
+eertbrugge, jacob camerlinck, jan van breedonck ende
+jacop van oistenrijck, inhoudende hoe dat de voirschreven wouter
+van cockelberghe suppliant in alle duecht ende eerbaerheyt
+genuyt ende gevolght heeft eene eerbaere jonge dochtere
+oudt xvij jaeren oft daeromtrent woenende tot hombeke
+genaempt peeternelle van wueluwe vadere noch moedere
+hebbende, zulcx dat zij malcanderen lief gehadt hebben
+zoe dat om malcanderen te troowene ende de voirschreven wouter
+suppliant verstaen hebbende dat die vrienden vanden selver
+peeternelle genegen waeren haer te gheven eenen
+anderen man, heeft tselve haer te kennen gegheven
+haer vragende oft tselve wel haer meyninge was
+waer op zij zeyde dat neen ende dat zij souden
+nimmermeer nemen en zoude, ende mits dien ende dier
+gelijcke woerden die zij onderlingen hadden, de voirschreven
+wouter suppliant bemerckende dat de voirschreven peeternelle
+goede jonst tot hem droegh, heeft haer geseyt indien
+ick wiste dat uwen wille zulck waere ick soude
+u nemen ende met mij leyden, waer mede zij als doen
+werdt lachende ende colacierende daer inne genoech
+consent ghevende, zoe hem dochte ende ten eynde
+zoe zette zij hem dach te commen tot hueren huyse
+op den lesten heyligen paeschdach lestleden, ende
+achtervolgende dien de voirschreven wouter suppliant sorge
+draegende te voldoende ten segghen vanden voirschreven peeternelle
+is ten selven daghe binnen zonneschijne gecommen metten
+anderen supplianten ten huyse daer de selve peeternelle
+met huere moeye woenende was ende de selve
+wouter suppliant commende binnen den huyse heeft
+aldaer gevonden de selve peeternelle hebbende een jonck
+kint op haeren schoot, haer vraegende met zoeten
+woerden oft haer beliefte woud met hem te gaen
+drincken, waer op die moeye vanden voirschreven peeternelle
+daer tegenwoordich zijnde zeyde dat zij vuyt den
+huyse niet gaen en soude mit dien zou zijn de
+andere supplianten oic binnen den huyse gecommen des
+onder anderen de voirschreven jan van breedonck suppliant
+nam zoetelijck de voirschreven peeternelle metten arme
+haer zegghende staet op ghij moet mede waer op zij
+antwordde ziende huere voirschreven moeye ick en sal niet
+mede gaen, zoe dat de voirschreven jacop camerlinck oock
+suppliant nam haer kint vanden schoye ende settet neder
+op den vloer, ende nam se metten anderen arme ende
+ley dese zoe buyten den huyse, dwelck merckende de
+selve peeternelle zeyde waer zulde mij leyden en
+hebbe ick hier gheen vrienden ende mits desen zoe
+hebben zommige vrouwen de voirschreven peeternelle willen
+houden, maer een vanden voirschreven supplianten ontrack haer die hant
+ende commende alsoe buyten den huyse zoe es gecommen
+die oom vanden selven peeternelle zegghende gesellen ziet
+wat ghij doet ende zijn alsoe voorts wech gegaen, belettende
+de sommighe van henlieden dat men hen niet en volghde
+ende zunderlinge de voirschreven jacop van oostenrijck de
+welcke hadde eenen gespannen boghe op zijn schouwere
+ziende dat die oom vanden voirschreven peeternelle henlieden volghde
+heeft den selven boghe genomen in deen handt ende eenen
+pijl in dandere, zegghende blijft achtere ick raidt u voir
+tbeste oft ick doen u achter blijven ende oock alzoe
+die moeye van den selven peeternelle ende andere vrouwen
+altijts volghen wilden, zoe zeyde oick een vanden voirschreven
+supplianten tot henlieden blijft achtere oft ick sal u smijten ende
+mits desen mach wesen dat eenen vanden voirschreven vrauwen
+metten platten van eender pijcken geslegen was , heedft oick
+een vanden selven supplianten metten stocke vander pijcken geslegen
+omtrent den rugghe van eenen geselle die hen volghde
+ende zijn ten lesten zoe voort gegaen zonder yemandt
+te grieven enen tot den huyse van willem van wueluwe
+des voirschreven peeternelle oom, aldaer zij twee oft drie
+potten biers gedroncken hebben, ende alsoe een vanden
+supplianten eenen pot nam ende eenen dronck brochte der
+selve peeternelle, zoe heeft zij dat gewacht
+ende den pot nemende heeft voirts den voirschreven wouter
+suppliant hueren vryer gebrocht ende alsoe zij hoerden
+dat sommige vrienden haer volghden zoe zijn zijt samen
+gewillichlijck vuyten huyse gegaen ende de selve peeternelle
+zonder in huer voirschreven ooms huys eenich mesbaer te maken,
+heeft vuyten huyse wesende ende hoorende dat huere
+vrienden riepen waer zijden nelle geseyt totten voirschreven
+wouter hue®en vryer gaende gesamender handt zonder
+te antwoirdden op t roepen van bueren vrienden, laet ons
+gaen dat zij ons niet en vinden ende liepen alsoe malcanderen
+bijder handt houdende voirbij gielis bessems in de straete gelijck
+oft zij man ende wijf geweest hadden ende sijn alzoe
+tsamen gegaen eerst nae raemdonck ten huyse van eenen
+goeden eerbaren man genaempt willem zellekens, aldaer
+zij ontboden hebben den prochiaen in meyningen malcanderen
+te ondertrouwende maer hij en was niet thuys ende
+naedien betaelt hebbende der weerdinnen zijn tsamen
+voortgegaen tot inde prochie van maldere aldaer zij
+oock ontboden hebben den prochiaen maer alzoe hij
+nyet thuys en was is daer gecommen een capellaen de
+welcke dat nyet en dorste doen overmits dat zij
+van dier prochien nyet en waere ende mits dien nae
+goede chiere aldaer gedaen hebbende tot zanderdaechs
+zoe zijn zij tsamen voorts gegaen tot in de prochie
+van purs dair die voirschreven peeternelle bij huewen wille
+ende daer toe oock ontboden den prochiaen die hem
+excuseerde te commen zegghende dat hij tsanderdaechs
+gaerne commen soude, waer van de voirschreven wouter
+ende peeternelle des droeve wesende braken
+tsamen eenen penninck ende elck van hen beyden
+nemende een stuck hebben malcanderen huere
+kerstelijcke trouwe gegheven ende daer op zijn
+zij gewillich tsamen gaen slapen ende in teeken
+van dien zoe heeft de selve peeternelle daer
+af verleden een instrument ende hoewel dat
+mits desen die voirschreven supplianten nyet en meenden
+yet mesdaen te hebbene ende dat de voirschreven
+peeternelle tot menigen stonden ende in personen van goede
+mannen geseyt ende verclaert heeft dat zij den voirschreven
+wouter voor hueren man houdt ende huer nyet leet
+en is van tghene dat zij gedaen heeft maer waert
+dat zij dat te doen hadde zij zoudt noch doen nietmin
+beduchtende strangheyt van justicien en souden hen niet
+dorren houden noch converseren in onsen landen ende
+heerlicheden maer hen daer van moeten absent houden
+tot henne geheele verderffenisse ten zij dat onse gracie
+ende genade henlieden hier op verleent wordde, alsoe zij
+zegghen, ons omme de selve zeere oitmoedelijck
+biddende soe eest dat wij de saecken voerschreven
+overgemerckt den voirnoemden wouter van cockelberghe
+hennen steelman, dierick eertbrugge, jacop camerlink,
+jan van breedonck ende jacop van ostenrijck supplianaten
+genegen wesende tot huere voirschreven bede ende supplicatie
+ende willende hen in dit stuck gracie ende genade
+vorderen voor strangheyt van justicien zunderlinge
+in faveure van onser blijder wedercompst in desen
+onsen landen van harwaertsover ende besondere in
+onser stede van brugghe, hebben inden gevalle als
+boven vergheven quytgescholden ende geremitteert
+vergheven schelden quyte ende remitteren vuyt onser
+zunderlinghe gracie mits desen onsen brieve
+tfait ende mesuzen boven verclaert mitgaders alle peynen
+ende bruecken corporelle ende criminelle daer inne
+zij ter causen van dien mit datter aencleeft tegens ende
+justicien mesdaen ende mesbruyct moegen hebben
+henlieden als ten desen wederstellende ende restituerende
+tot huere goede fame ende name in onsen voirschreven landen
+ende heerlicheden ende tot hueren onverbuerden goeden
+indien zij daer eenighe hebben gelijck ende in alder
+manieren als zij waeren voor die toecompste vanden
+feyte ende mesuse voirscreven imponerende huer op
+eeuwich zwijgen ende scilentie onsen procureur generael
+van brabant ende allen anderen onsen richteren justicieren
+ende officieren wye zij zijn satisfactie ende beteringe
+eerst ende alvooren gedaen der geintersseerde partie
+indien die noch nietgedaen en zij ende eenighe dair toe
+dient civielijck alleenlijck behoudelijck dat de voirnoemde
+suplianten gehouden zullen wesen tvoirnoemde fayt ende mesusen
+tegen ons civielijck te beteren nair die gelegentheyt
+vanden saken ende faculteyt van hueren goeden ende
+oock te betalen ende refonderen die redelijcke costen
+van justicien hier op gedaen ende naegevolght ter
+taxacien ende arbiterscepe van onsen lieven ende
+getrouwen die cancellier ende luyden van onsen rade
+geordonneert in brabant, die wij daer toe commtteren
+ontbieden daeromme ende bevelen den selven van ons
+raede in brabant dat voor henlieden geroupen die ghene
+diere behoren geroupen te zijne zij procederen wel
+ende duechdelijck ter verificvatie ende interveniente
+van desen onsen iegenwoirdighe brieve nair huere
+vorme ende inhouden ende ter taxacien ende arbiterscepe
+vanden voirnoemde civyle boete ende costen voirschreven ende
+dat gedaen ende de voirschreven civyle boete getaxeert ende
+bij den voirschreven supplianten betaelt zijnde in handen vanden
+ghenen van onsen ontfangers dient behoiren sal
+die gehouden wert daer van ontfanck te maken
+rekeninge bewijs ende reliqua te doene tot onsen
+proffijte metten anderen penningen van zijnen ontfange
+zij. onse drossaert van brabant ende alle andere
+onsen richteren justicieren ende officieren mitsgaders
+vanden smaelre heeren onsen lande van brabant wyen
+dit aengaen oft aenhoeren sal moegen huere
+stedehouderen ende eenyegelijck van hen besondere
+zoe hem toebehoren sal doen, laten ende gedoogen
+den voirnoemde suplianten ende eenyegelijcken vanhen van
+deser onser gracie quijtscheldinghe remissie ende
+pardoene ende vanalden inhouden vandesen inder
+voegen ende manieren voeren verhaelt rustelijck
+vredelijck ende eeuwelijck genyeten ende gebruycken
+zonder henlieden te doene ofte laten geschien nu noch in
+toecommende tijden eenich hinder stoot letsel oft
+moeyenisse aen lijve noch aen goede ter contrarien
+in eenigher manieren maer indien huere lijven oft
+eenige van hunne voirschreven onverbuerde goeden dairomme
+zijn oft naermaels waeren gevangen gearresteert
+belet oft becommert dat zij die stellen ende setten oft
+doen stellen ende setten terstont ende sonder vertreck
+tot geheele ende volcommender slakinghe ende delm***
+want ons alsoe gelieft, ende ten eynde dat dit
+goet, vast ende gestadich blijve tot eeuwigen dagen
+zoe hebben wij onsen zeghel hier aen doen hangen
+behoudelijck in anderen zaecken ons recht ende
+eenyegelijck tzijne in allen, gegheven in onser
+stede van brugge inde maent van jullio int
+jaer ons heeren duysent vijfhondert ende twintich
+ende van onsen rijcken, te wetene vandien vanden
+roomsche tweeste ende van castillien etc, tvijfste.
+aldus stont gescreven onder op te plijcke bij den
+coninck, ende geteekent du blioul ende noch visa
+gecollationeert ende bevonden taccorderen
+metten originale bij mij
+n strate [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+

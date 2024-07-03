@@ -1,0 +1,242 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie
+albert ende isabel etc. doen te wetene allen
+jegenwoirdigen ende toecommenden, dat wij ontfangen
+hebben doytmoedige supplicatie van henrich feijtens
+gevangene, inhoudende dat hoe wel hij hem alteijt
+modestelick sonder vantise heeft gedragen, sonder ijemanden
+ter werelt met woerden oft met wercken geoffenseert
+te hebben, gelijck des oock nijemandt hem oijt en heeft
+beclaeght nochtans is waerachtich, dat hij in octobris
+lestleden tongeluckiger ure hem heeft gevonden
+in sulcken parquet ende benautheijt, dat hij om sijn
+leven te salveren veroirsaecht is geweest eenen
+jan verhoeven te quetsen inder vuegen dat hij daer
+nae is comen t’overlijden, waervan onsen raede
+van brabant volcommentlijck mach geinformeert
+wesen bij het belijden vanden processe tegens hem
+geintenteert bijden drossaert van grimbergen
+nomine offitij inden selven onsen raede overgebracht,
+ende alsoo dongeluck gewilt heeft datter nijemandt
+present en is geweest daer die voors. disgratie
+den verthoonder is overgecommen, soo ist dat hij
+soo preciselijck ende naer requisitien van rechten
+sijne onschuldige defensien tot noch toe nijet en
+heeft connen verifieeren, gelijck hij bedught
+dat hij oock nijet naerder en sal cunnen inden
+processe die onsen lieven ende getrouwen procureur
+generael van brabant van officie wegen tegen den $$
+verthoonder criminelijck pretendeert t’intenteren,
+evenwel is waerachtich ende heeft denselven verthoonder
+der sufficientelick geprobeert dat den voors. afflijgen
+afflijvigen hem tot diversche stonden die doot heeft
+gesworen iae vuijtgeroepen in volle compaignie
+om te vechten, den verthoonder daertoe grootelijcx
+tergende met het mes inde handt, seggende dat
+waert saecken hij wier een man met eeren hij hem
+tegens hem soude ter defensien stellen ende dijerge-
+lijcke, sonder dat evenwel den verthoonder hem
+daeromme int minste oijt heeft messeght oft
+misdaen dan al stillekens geweken ende hem de
+cracheelen onttrocken, boven dijen dat oock is
+bethoont ende bewesen dat den voors. afflijvigen
+seijne saecke lichtelijck in geschille quamp getreden
+welcke ende dusdaeninge poincten breeder inden
+voors. processe vermelt ende gededuceert genereren
+eene notable presumptie dat ten waere den
+verthoonder hem in extremiteijt ende dootsnoot
+hadden gevonden en hij hem soo verre nijet en soude hebben
+vergeten van te committeren tgene welck tot
+sijnen grooten leetwesen ende rouwe is geschiet
+welcken aengemerckt ende dat den verthoonder
+soo lanck ende verre in erreur is gehouden dat
+hem oock bij rechtsgeleerde geraeden is geweest
+hem ter purgie criminele stellen, ter oirsaecke
+vande welcke hij seven continuele maenden –
+gevangen heeft geseten, waerdoor hij oock in
+een swaer laborinth is gevallen, boven die
+ontallige costen die hij ten regarde vanden voors.
+processe heeft gedaen ende geleden wel tot
+concurrentie van over de vijffventwintich -
+hondert rinsguldenen waermede den suppliant
+nijet alleen en is vuytgemergelt van sijne
+sobre middelen, maer heeft oock op crediet
+moeten lichten notable somme van penningen, daarbij
+geconsidereert dat den verthoonder is belast nijet alleen
+met sesse kinderen die op sijn labeur ende hantwerck
+moeten leven, maer ook met eene siecke vrouwe die ten
+tijde vande apprehencie des suppliants soo is bestaen geweest
+dat tusschen deselve ende de doot seer weijnich verschilden,
+diewelcke alnoch tegenwoirdich is in stervens noot,
+sonder dat tsijnen achterdeel onder oijtmoedige correctie
+behoirt te dienen dat naedemael hij bij schepenen van
+grimbergen van tvoors. ongeval is ontslagen geweest
+mits d’amende van hondert rinsguldens ende eventwel daer-
+nae van onsen t’wegen is belast inden gevanchenisse
+waervan hem die relaxatie is affgeslagen, hij evenwel
+vuijten gevanchenisse is gegaen sonder onsen consentie,
+want is waerachtich dat hem daertoe permissie is
+gegeven bijde meijers aldaer onder eedt de respresentando
+totus quoties, wes hij oock gemaent sijnde nijet en
+heeft gefailleert, welck hem is gepersuadeert te
+mogen geschieden bijde drossaerden ende andere aldaer
+iae dat wij dusdanige belastingen in prejuditie vande
+heeren vander plaetse nijet en souden mogen te doen, waer
+inne den verthoonder des te lichter is verabuseert
+geweest als sijnde een huijsman tfeijt van jurisdictie
+ende des daervan dependeert nijet verstaende ende tot
+het voors. vuijtgaen te meer geinclineert is geweest
+vuyt dijen hij aldaer soo lanck inden gevanchenisse
+hadde geseten dess desnijettemin bij soo verre hij dijen
+aengaende oock soude mogen verstaen worden misdaen
+oft gep$$$ te hebben, heeft ons seer oytmoedelijck
+gebeden dat ons gelieven wilde hem tvoors. ongeval
+te vergeven ende daerover te doen depescheren onse
+opene brieven van remis in sulcken $$$ dienende
+met clausule van abolitie nopende het vuijtgaen van
+gevanchenisse, soo eest dat wij desen aengesien –
+ende ierst hierop gehoirt d’officie fiscael van onsen
+voors. rade, genegen wesende ter oijtmoediger
+beden ende supplicatien des voors. suppliants ende
+willende hem in desen prefereren gratie ende genade
+voor rigeur ende strangheijt van iustitie, hebben desselven
+inden gevalle als boven vergeven geremitteert ende
+quijtgeschouwen, vergeven, remitteren ende schelden quijt
+vuijt onser princelijcker machtsouveraine ende absolute
+authoriteijt ende sunderlinge gratien bij desen onsen brieve
+t’feijt ende mansl manslach boven verclaert, mitsgaders
+van het gaen vuijtten gevanchenissen tegen onse ordre,
+eensamentlijck alle penen ende amenden corporele ende
+criminele inde welcke hij ter causen voors. met des
+daeraen cleeft iegens ons ende der iusticie misdaen
+ende misbruijckt mach hbeben ende daer inne hij gevallen
+mach wesen ende hebben hem als van dijen weder gestelt
+ende gerestitueert stellen weder ende restitueren tot sijnen
+goeden name, fame ende geruchte in onsen lande van
+brabant ende in allen anderen onsen landen ende
+heerlichheijden mitsgaders tot sijne onverbeurde goederen
+indijen hij eenige onder ons heeft in alder vuegen ende
+manieren als hij was voor data van dijen, abolerende
+ende te $$$ doende alle alsulcke procedure als onsen
+voors. procureur generael tegens hem alreede begonst
+mach hebben met alle tgene datter vuijt ende nae
+gevolght is, imponerende hierop stilencie ende een
+eeuwich geswijch, onsen voors. procureur generael
+in brabant, drossaerden van grimbergen ende allen
+anderen onsen justicieren ende officieren wie sij sijn
+satisfactie ende beternisse ierst ende vooral de partijen
+geinteresseerde indijen die noch nijet gedaen en sijn -
+ende eenige daertoe staet civilijck alleenlijck behoudelick
+dat de voors. suppliant gehouden sal sijn tvoors. feijt
+tegen ons te beteren civilijck naer gelegentheyt
+vander saecken ende faculteijt van sijne goeden met
+oock te betalen die redelijcke costen van iusticien
+hieromme alreede gedaen, ende te doene, allen ter
+taxacien ende moderatien van onsen seer lieven ende
+getrouwen die cancellier ende luijden van onsen
+rade geordineert in brabant, die wij daertoe
+gecommitteert hebben ende committeren bij desen, ontbieden
+daerom ende bevelen den selven onsen cancellier ende
+landtsluijden dat voor hen geroepen die daerom
+behoiren geroepen te sijne, sij procederen wel
+ende deuchdelijck ter verificatie ende interinement
+van desen ende totter taxatie ende moderatie vander
+voors. amende alsoo sij sullen bevinden te behoren
+welck interinement die voors. suppliant gehouden sal
+sijn te versuecken ende hem in persoonte te presenteren in
+onsen voors. raede binnen sesse maenden naestcommende
+op pene van te verbeuren d’affect van desen,
+$$$ ende dat gedaen ende deselve
+boete ende costen van iusticien getaxeert ende betaelt
+sijnde in handen vanden genen dien dat behoiren sal,
+sij, onsen voors. procureur generael in brabant, drossaerden
+van grimbergen ende alle andere onse rechteren iusticieren
+officieren ende ondersaeten jegenwoirdige ende toecommenden
+dijen dat aengaen sal mogen, heure stedehouderen ende
+eenijegelijck van hen besundere soo hem toebehoiren sal
+doen laten ende gedoogen den voors. suppliant van desen
+onser jegenwoirdigen gratien ende remissien ende
+van allen d’inhouden van desen inder vuegen ende manieren
+vore verhaelt, rustelijck, vredelijck, volcomentlijck ende
+eeuwelijck genijeten ende gebruijcken, sonder hem te
+doen oft te laten geschieden nu noch in toecomenden
+tijden eenich hinder, stoot oft letsel aen lijve noch aen
+goeden ter contrarien, maer indijen sijn lijff oft
+eenige van sijne onverbeurde goeden daerom gearresteert
+becommert oft beleth waeren, dat sij die setten ende
+stellen terstont ende sonder vertreck tot geheelder
+ende volcommender delivrantien, want ons alsoo
+gelieft, ende ten eijnde dat dit vast ende gestadich
+blijve tot eeuwigen dagen, soo hebben wij onse segel
+hieraen doen hangen. behoudelijck in anderen dingen
+onsen rechte ende eenijegelijcken anderen dessijns -
+gegeven in onser stadt van brussele inde maent
+van junio int jaer ons heeren duijsent ses hondert
+ende seventhien onder opde plijcke stont aldus bijde
+ertshertogen, onderteekent wouwere ? ende was
+gesegelt met eenen groenen segel vuijthangende
+in sijde snoeren. [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "JUNE 1617",
+  "fact_date": "OCTOBER (UNKNOWN)",
+  "persons": [
+    {
+      "firstname": "heinrich",
+      "lastname": "feijtens",
+      "role": "suppliant",
+      "function": "prisoner"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "verhoeven",
+      "role": "injured",
+      "function": "deceased"
+    },
+    {
+      "firstname": "

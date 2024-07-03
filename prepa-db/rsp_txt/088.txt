@@ -1,0 +1,176 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+pardoen voer $$$ ghuens
+kaerle etc. allen den genen die dese onse brieven zullen zien
+oft hoiren lesen saluyt doen te wetene dat wy
+ontfaen hebben die oetmoedige supplicatie van janne
+gheuens de jonge inhoudende hoe dat een genaemt
+cornelis moens gepacht heeft gehadt onsen molen
+tot oude turnhout ende ten ocsuyne van zeker
+pandinghe die de voers. cornelis op janne gheuens
+vader vanden voirs. suppliant hadde doen doen is de
+selve vader vanden suppliant gevallen in grooten last
+cost ende schade tegens onsen procureur generael van brabant
+mits den welcken de voers. cornelis moens beduchtendt
+dat die vader met zynen kinderen hem mochten ontgaen
+aen hem cornelis heeft veworven tegens den selven
+vader ende zyne kinderen onse brieven van sauvegardien
+dat nyet zeer lange daer nae hy suppliant drinckende
+in zeker geselscap inde spille tot oysthoven by turnhout
+quam daer over int geselscap vanden voirn. suppliant
+de voirs. cornelis moens aldaer gebracht by eenen
+geheeten joos corels den welcken de selve suppliant
+ziende heeft in effecte tot hem geseit wat zuect
+ghy hier ghy boeve ghy molepandere in myn gelach
+ghy zyt een boeve ghy en zult myn bier niet drincken
+ghy hebt uwen vader doot ende zyt een coren dief
+ghy hebt mynen vader zyn coren gestolen ende hem
+bedorven ende aen gemaent daer op de voirs. cornelis
+antworde in effecte ic gedraecht my totter goeden
+marge: moens
+$$$
+luyden ick beclaechs my dat ghy my vuyt uwen
+gelage doet gaen boven sauvegardie ende gaende
+vuyter cameren zeide insgelycx totten suppliant ghy
+zyt oock eenen boeve ghy hebt uwen vader
+oick te cort gedaen zoe wel als ick oft dier
+gelyck woerden ende de voirs. cornelis vuter
+cameren zynde heeft die voers. suppliant die doer
+vander cameren naer den voers. cornelis toegesloten
+nu eest zoe dat de voers. onse procureur generael
+van brabant ter zaken van dien den voirs. suppliant
+heeft doen dagen om te compareren in persoene in
+onsen onsen rade van brabant ende hebbende
+tegens den voirscr.suppliant geobtineert deerste
+deffault heeft den selven doen herdaigen totten
+tweesten genechte naer paesschen lestleden
+aldaer hy suppliant beduchtende rigeur van justitien
+ende als geinfringeert hebbende onse voers. brieven
+van sauvegardien hem niet en getrooste te compareren
+mits welcke non comparicie hy suppliant gescepen
+waere gecondempneert tzyne inden heysch ende
+concensien iegens hem by onsen procureur voirs.
+genomen dat hem suppliant commen zoude tot zynder
+heelder verderffenisse ende desolacie en wordde hem
+by ons hier op versien van onser behoirlicker
+gracie ende provisie verzouckende daeromme dat ons
+believe hem hier op te gonnen ende verleenen onse brieven
+van pardoene in behoirlycker formen
+soe eest dat wy de saken voirscr. overgemerct
+hier op eerst gehadt tadvis van onsen lieven ende
+getrouwen die cancellier ende luyden van onsen
+rade in brabant genegen wesende ter oetmoediger
+bede vanden voirscr. suppliant ende hem willende in
+dit stuck gracie ende genade prefereren voer riguer
+ende strangicheyt van justicien hebben den selven
+suppliant inden gevalle als boven quytgescholden geremitteert
+ende vergeven ende by onser specialer gracie met desen
+onsen briven schelden quyte remitteren ende vergeven
+tmes$$ ende delict voirscr. mitgaders alle bruecken
+peynen ende amenden corporelle criminelle ende civille
+daer inne hy ter causen van dien ende datter aen cleven
+mach iegens ons ende justicien gebruect ende gevallen
+mach zyn stellende hem als daeraf te zynder goeder
+fame ende name in alre manieren als hy was voere
+dinfractie van onsen voers. brieven van sauvegardien
+doende te nie$ten alle de procedurien te deser zaken
+tegens den voers. suppliant begonnen houdende nietmin
+de voers. onse brieven van sauvegardien in hoer viguer
+ende van weerden als die te voren waren imponerende
+hier op een eewich gezwijch onsen voers. procureur
+generael van brabant ende allen anderen onsen justiciers
+ende officiers diet behoiren sal satisfactie aller
+eerst gedaen der geinteresseerder partie indien die
+nyet gedaen en is ende daer eenige toedient civillick
+alleenlick ende ooc dat hy ons ende justicien daeraf
+eerlick beteringe doen sal ende dat hy oic
+gehouden werdt op te leggen ende te refonderen die
+behoirlycke costen van justicien te deser causen
+gedaen by onsen voers. procueur ter arbitraigie ende
+tauxatie van onsen voers. cancellier ende luyden van
+onsen rade in brabant die wy daer toe gecommitteert
+hebben ende committeren met desen onsen brieven soe eest
+dat wy ontbieden ende bevelen den selven onsen
+cancellier ende luyden van onsen rade in brabant
+dat voer hemluyden geroepen die ghene die daer toe
+behoeren geroepen te zyne zy procederen wel ende
+getrouwelick ter verifficatie ende interinemente
+van onsen brieven arbitraigie vander voirs.
+reparacie van justicien ende tauxatie vanden
+voirs. costen gedaen by onsen voers. procureur
+alsoot behoiren sal ende dat gedaen ende de voers.
+reparacie van justicien vulcommen zynde ende costen
+betaelt alzoot behoirt zy onse voers. procureur
+generael drossaet van brabant scoudt van turnhout
+ende alle andere onse justicieren officieren ende ondersaten
+wient aengaen mach doen laten ende gedoogen den
+selven suppliant van deser onser iegenwoirdiger gracie
+pardoene ende quytscheldinge rustelick vredelick
+ende volcommelick gebruycken ende genyeten sonder
+hem te doene oft te laten geschiene in lyve noch
+in goede eenigen hinder letsel oft moienisse ter
+contrarien maer waere zyn lyf oft eenige van
+zynen voers. goeden daerom eenichsins belet
+gearresteert ofte becommert stellen die oft doen
+stellen terstont ende sonder eenich vertreck tot
+geheelder ende vulcommender deliverancie want
+het ons alsoe belieft in oirconden van desen wy
+hebben onsen zegel hier aen doen hangen gegeven
+in onse stede van mechelen onder den zegel daer van
+die keyser myn heer ende grootvader ende wy
+ge$seert hebben geduerende den tyde van onser
+onbejaerthede den xxen dach van aprille int
+jaer ons heeren duyst vyfhondert ende achthiene nae
+paesschen ende van onsen rycken tderde aldus
+stont gescreven boven opte plycke byden coninck in
+zynen rade ende geteekent d cock
+gecollationneert ende bevonden $coderende
+metten originale by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+

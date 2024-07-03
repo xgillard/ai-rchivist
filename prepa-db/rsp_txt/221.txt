@@ -1,0 +1,164 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslage voer gheerde cooreman
+kaerle etc. doen te weten eenen iegelycken tegewoerdich
+ende toecomende dat wy ontfangen hebben die oitmoedige
+supplicatie van gheerde coreman scrynmackere ingesetene
+poirter onser stadt van loevenen inhoudende hoe dat hy suppliant
+opten viten dach van oochst lestleden gecomen is gaende met
+meer geselscaps vuyten dorpe van berthen aldaer hy metten
+selven goede chiere gemaict hadde ende soe van dair
+comende tot omtrent onsen goidshuyse vander banck heeft
+hy suppliant woerden gecregen tegen eenen genaempt steven
+vuyter helicht in sulcker vuegen dat overmits dien
+overlaste desselfs stevens hy suppliant in zynder defensien
+zijn hantbusse die geladen was voer hem hiel meynende
+zoe dair mede den voirs. steven van hem te weerene ende
+zynder tontwerckene die nochtans den voirs. suppliant
+altyt oppresseerde doende zyn beste om hem te evelen
+van zynen lyve dwelc siende een goet man geheeten
+gommair van haren die aldair zyns weechs qnam lydenen
+is hen die strytbarich waeren aengegaen meynende hen met
+goeden woerden ende manieren te verlycke$ne ende tappaiserene
+in welcke tusschen beyden gaen hebben altyt de voirs.
+suppliant by redenen voirs. de voirs. hantbusse voer
+hem wair aff die panne geopent was is die selve
+busse onversienlyc soe te presumeren is dat tvier vanden
+lompen die hy in zyn handt hadde by toedoene vanden
+winde ende andere crancke fortunen daer inne is gecommen
+ende nyet by wille wetende oft innestekende vanden viere
+desselfs suppliant afgegaen ende heeft den voirs. gommaren
+metten schuete geraect gehadt van welcker quetsuren
+hy ten selven tyde van levenden lyve ter doot gecomen is
+ende hoe wel tvoirs. feyt onnoeselycken toecomen is
+sonder dat hy suppliant oyt eenich woerdt oft woerden tegen den
+voirs. gommair gehadt heeft oft egheene wille de busse op hem
+te vierene oft oic gedacht te schietene nietmin?$ beduchtende
+ende ontsiende trigeur van justicien en soude hij hem bynnen
+desen onsen lande van brabant nyet dorven houden ten waere dat
+hem hier op gracie ende genade werdde gedeylt als hij seet
+om de welcke hij ons oitmoedilyck heeft gebeden waer om
+soe eest dat wij desen aengesien compassie ende medelyden
+hebbene metten voirs. suppliant ende willende hem in dese gracie
+ende genade prefereren ende voirtkeeren voer rigeurvan justicien
+hebben den selven suppliant in gevalle als boven geremitteert
+quytgesconden ende vergheven remitteren quytscelden ende
+vergeven vuyt onser zunderlinge gracien by desen die mesdaet
+ende ongeval ende feyt voirscreven mitgaders alle penen
+ende amenden corporele ende criminele daer inne hy
+hem overmits ende vuyt saken van tgene des voirs. is ende
+daer aen cleven mach tegen ons onse hoocheyt ende justicie
+ennichsins mach hebben ontgaen ende hebben hem als
+van dien gerestitueert ende gestelt restitueren ende stellen
+bij desen tot zynder goede fame ende name tot onsen
+voirs. lande van brabant ende tot zynen goeden
+uyt geconfisqueert zynde soe verre daer ennige zijn imponerende
+hier op een eewich geswych onsen procureur generael ende allen
+anderen onsen richteren iusticieren ende officieren ons voirs. lants
+van brabant hoe danigedie zyn oft wesen moegen
+satisfactie nochtans ierst ende voer al den geinteresseerden
+partyen gedaen soe verre die noch nyet gedaen en zy
+civilic alleenelyc behoudelyc dat de voirs. suppliant
+ter causen vander voirs. mesdaet gehouden syn zal
+ons sekere amende civile te betalenen nae gelegentheyt
+der voirs. mesdaet ende faculteyt van zynen persoene
+ende goeden ende boven dien te betalen die redelycke costen
+van iusticien soe verre datter ennige geschiet oft gedaen
+zyn allet ter arbitraigien taxacien ende goetduncken van
+onsen zeerlieven ende getruwen ridder ende cancellier heeren
+jeronimus vande noot ende lieden van onsen raide in brabant
+de welcke wij daer toe gecommiteert hebben ende
+committeren by desen ontbieden dair om ende bevelen
+den selven onsen cancellier ende lieden van onsen raide
+dat voer hen geroepen de ghene die behoiren selen
+daer om geroepen te zyne sy procederen ende doen
+procederen wil ende behoirlyc totter verificatie ende interinemente
+van desen ende ter arbitragien taxacien ende moderatien
+van voirs. amende civile ende costen van iusticien
+ende dat gedaen ende de voirs. amende civile
+ende costen getaxeert ende betaelt zynde welcke
+amende civile die ghene van onsen ontfangeren oft rentmeesteren
+dien dat behoeren sal gehouden zyn sal ontfanck dair af tot
+onsen behoef te makene zy onse drossaet van brabant
+meyeren van loevenen ende van thienen amman
+van bruesselen schouteten van antwerpen ende vanden
+bossche ende voirts alle anderen onse ende onser
+vassallen ende smalen heeren richteren iusticieren ende
+officieren tegewoerdich ende toecomende huere stedehouderen
+ende elc van hen soe hen dat toebehoirt ende aengaen
+mach den voirs. suppliant van deser onsertegewoirdiger gracien remissien ende quytsceldingen
+vorscreven tot eewigen dagen peyselyc$ vredelyc ende
+volcomelyc doen ende laten genyeten ende gebruycken
+sonder hem daer inne te doene oft laten geschieden
+nu noch sy toecomenden tyden ennigen hinder stoot oft
+letsel ter contrarien aen zynen lyve leden oft goeden
+nyet geconfisqueert zynde in enniger manieren maer
+soe verre zynen persoen oft enige van zynen ongeconfisqueerden
+goeden der causen van desen eenichsins aengetast
+gearresteert becommeert oft gemolesteert waeren sy
+ende elck van hen de selve terstont ende zonder vertreck
+ontslaen setten ende stellen oft doen ontslaen setten ende
+stellen tot geheelder ende volcomender delivrancie want
+ons alsoe gelieft ende ten eynde dat dit vast
+ende gestadich zy ende blyve tot ewigen dagen
+soe hebben wy onsen zegel hier aen doen hangen
+behouden ons in alle saken ons recht ende
+eenen iegelycken des syns gegeven in onser stat
+van bruessel inde maent van iuno int jair onser
+heren duysent vyfhondert zesse ende twintich
+ende van onsen rycken te wetene vande roomsche
+ende hongerien het achste ende van spaignen
+ende andere het elfste aldus stont gescreven
+boven opte plycke byden keyser in zyne rade
+ende geteekent rysele ende noch visa
+sy hieraf verantwordt
+byden ontfangere vanden
+exployten [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "152

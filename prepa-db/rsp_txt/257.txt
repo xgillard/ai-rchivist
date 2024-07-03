@@ -1,0 +1,234 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te wetenen allen iegewoirdigen ende toecomende dat
+wij ontfanghen hebben die oetmoedige supplicacie van andries van campen
+weert int silveren zoutvat in onser stadt van antwerpen inhoudende
+hoe dat inde oeghstmaent lestleden oft daer omtrent soe is hy suppliant
+in zekere geselschap geweest binnen onser voirs. stadt van antwerpen
+int huys geheeten oistryck gestaen opte meerbrugge daer mede
+was jan deweert inde fortune oyck inder voirs. stadt woenende
+noch een man van tshertogenbossche ende jan hermer oyck woende
+tantwerpen metten welcken aldaer gecomen waren een geheeten
+joos wesende een cousmakere adriaen int schuerbroot oyck
+tantwerpen woenende ende wylen jaspyn oft jaspar wesende van
+dornicke ende voirs. persoonen tsamen ten voirs. huyse inde
+achtercamere goede chiere gemaect hebbende soe is gebuert
+dat de voirs. jan hermer ende die voirs.jan de weert inde fortune
+syn tsamen worden spelende met terlingen ende die voirs. jan hermer
+drye oft vier cansen ghewonnen hebbende soe is den steen gevallen
+den voirs. janne inde fortune ende deselve jan der steen opte tafele
+worpende soe zeyde de voirs. jan hermer totten voirs. janne weerdt
+inde fortuyne dese oft ghelycke woerden ghy wisselt my daer eenen
+steen ende deselve jan hermaer nam den steen op ende stack den selven in
+zyn tessche midts den welcken die voirs. weerdt inde fortune nam terstont
+den voirs. hermaer metten boesem ende vuyt hebbende zynen poignart
+seyde totten voirs. hermaer dese oft gelycke woirden leght den steen d$
+neder oft ick steke u terstont alhier doot dwelck ziende de voirs.
+adriaen int schuerbroot ende dese suppliant hebbende oyck huere geweer
+vuytgetrocken gehadt seggende in effecte die suppliant dese oft gelycke
+woerden totten voirs. hermaer is den steen valsch leghten opte tafel
+ende slaten in stucken waerop de voirs. hermaer zeyde in effecte
+ick belove u dat ick u dien morghen wedergheven sal maer ta$
+nyet ende soe zyn alle die persoonen die aldaer tsamen gheten
+hadden vuyter voirs. cameren gescheyden ende zyn gecommen voer
+opten vloer int voirs. huys aldaer die voirs. hermaer dede mete$
+eenen pot wyns ende syn de voirs. adriaen int schuerbroot ende de
+weerdt inde fortune vuyten voirs. huyse gegaen ende zittende
+dese suppliant ende de voirs. jan hermaer achter dbert opten voirs.
+vloer om den voirs. pot wyns te drinckene soe is de voirs. wylen
+jaspyn van dornick gecomen aende tafele achter dbert aldaer
+staende ende nam den pot wyns maniere makende oft hy den
+suppliant metten selve pot wyns hadden willen worpen met den
+welcken track die suppliant zynen poignart oft dagghe vuyt
+ende die voirs. jaspar zette den pot wyns neder ende ende soe
+heeft die voirs. hermaer den suppliant wat gehouden ghehadt om twist te
+schouwene mits den welcken heeft hy suppliant totten voirs. hermaer
+geseeght gehadt dat hy den voirs. jaspyn van hem suppliant houden
+soude besorgende oft deselve jaspyn hem suppliant arch hadde willen
+doen waer op de voirs. hermaer zeyde in effecte ick gelove u
+dat hy u nyet doen en sal ende coerts daer nae is de voirs. jaspyn
+gecomen hebbende in zyn handt zynen opstekere vuytgetrocken
+maniere makende oft hy den suppliant hadde willen steken mits
+denwelcken heeft die suppliant zynen poignart vuytgetrocken
+ende gheworpen gehadt naeden voirs. jaspyn den welcken hy suppliant
+raecten het zy metten scherpen oft anderssins aen zyn hoot
+soedat de selve jaspyn daer aff creegh een gheswil oft buyle
+ende wordt wat bloyende ende terstont is de voirs. jaspyn
+weder aende tafele gecomen daer die voirs. suppliant byden voirs.
+hermaer zat ende want by desen eeinighe lude woirden
+van roepenen gebuert syn soe is de voirs. adriaen int schuerbroot
+die welcke als voirs. is corts te voeren vuyten voirs. huyse
+gegaen was wederom int voirs. huys gecomen ende track
+syn rappiere vuyt ende deselve adriaen egeen messen vuyt siende
+stack zyn rappiere terstont wederom in syn scheede ende
+terstont daernae soe is die voirs. jaspyn gecomen ende wilde
+den voirs. adriaenen oppe ende den selven invaderen dwelcke ziende
+de voirs. adriaen heeft met zynen opstekere den voirs. jaspyn
+gesteken in zynen boesem welcken opstekene de voirs. adriaen
+liet steken sonder dien vuyt te treckene daer aff de voirs.
+jaspyn terstont gestorven is ende hoe wel tvoirs.
+ongeluck den voirs. suppliant zeer leet is ende hy tvoirs.
+feyt van de doode wonde nyet gedaen en heeft noch oyck
+daer aff oirsake en is geweest soe heeft nochtans de suppliant
+beduchtende rigeur van justicien hem yezindert opt gewyde
+gehouden ende geabsenteert gehadt ende en svude hem nyet
+zekerlyck binnen onser voirs. stadt van antwerpen derren
+houden ten waere dat onse gracie hem hier op worde
+geextendeert ende verleent aloe hy suppliant sceght seeght? ons
+daerom oitmoedelyck biddende waerom zoe eest dat
+wy desen aenghesien geneyght wesende ter beden des voirs. andries van
+campen suppliant ende willende hem in dit stuck prefereren gracie
+ende misericordie voer strangheyt ende rigeur van justicien hebben
+den selven suppliant inden gevalle als boven quytgeschonden geremitteert
+ende vergheven schelden quyte remitteren ende vergheven vuyt
+sunderlingen gracien by desen onsen brieve tfeyt ende dootslach
+boven geruert mitgaders alle offensie ende bruecke corporelle
+ende criminelle daer inne hy ter causen voirscreven mits dat daer aen
+cleven mach tegen ons ende justicie mesdaen ende mesbruyct mach
+hebben ende hebben hem daer aff wedergestelt ende gerestitueert
+stellen weder ende restitueren tot zynen goeden name fame ende
+geruchte in onsen voirs. lande ende hertoeghdomme van brabant ende
+allen anderen onsen landen ende heerlycheyden ende tot zynen onverbueren
+goeden indien hy eenighe onder ons heeft gelyckende in alder
+manieren zoe hy was voer de toecompste vanden voirs. feyte imponerende
+hier op een eeuwich geswych onsen procureur generael in brabant ende
+allen anderen onsen justicieren ende officieren wie zy zyn
+satisfactie ende beternisse ierst ende voer al gedaen der
+partie geinteresseerde indien die noch nyet gedaen en zy ende
+eenighe daer toe stae behoudelyck dat de voirs. suppliant
+gehouden zal zyn tvoirs. feyt tegen ons te beteren civilyck naer
+gelegentheyt vander zaken ende faculteyt van zyn goeden met
+oyck te betalen de costen van justicien hieromme alreede gedaen
+ende te doene allet ter taxatien ende moderatien van onsen lieven ende
+ghetruwen de cancellier ende luden van onsen raede in brabant die
+wy daer toe gecommitteert hebben ende committeren by desen ontbieden
+daerom ende bevelen den selven onsen cancellier ende raedsluden dat voer
+hen geroepen deghene die daerom behoiren gheroepen te zyne zy
+procederen wel ende dueghdelyck ter verificatie ende interinement$
+van desen ende totter taxatie ende ende moderatie vanden voirs. amende$
+ende costen alsoe zy zullen bevinden behoirende welck interinement$
+de voirs. suppliant gehouden zal zyn te verzuecken ende hem in pers$
+te presenteren in onsen voirs. raede binnen eenen jare naestcomende
+op de pene van te verbuerene deffect van deser ende dat ged$
+ende deselve civile boete ende costen van justicien getaxeert ende
+betaelt zynde in handen vanden ghene dien dat behoiren zal zy
+onsen voirs. procureur generael in brabant onse schoutet ende
+marcgrave van antwerpen ende alle andere onse richteren
+justicieren officieren ende ondersaten iegewoirdighe ende toecomm$
+dien dat aengaen sal mogen huere stedehouderen ende een yegelyck
+van hen besundere soe hem toebehoiren zal doen laten ende gedoog$
+den voirs. suppliant van deser onser iegewoirdigen gracien remissien ende
+pardoenen ende van allen den inhouden van desen inder vuegen e$
+manieren voeren verhaelt rustelyck vredelyck volcomelyck
+ende eeuwelyck genyeten ende gebruycken sonder hem te
+doene noch te laten geschieden nu noch in toecomende tyden een$
+hinder letsel oft moeyenisse aen lyve noch aen goeden ter
+contrarien maer indien zyn lyff oft eenighe van zyner goe$
+daerom gearresteert becommert oft belet waren dat zy die
+setten ende stellen oft doen setten ende stellen terstont ende
+sonder vertreck tot geheelder ende volcomender delivrancie wan$
+ons alsoe ghelieft ende ten eynde dat dit vast ende gestadich
+blyve tot eeuwighen daghen soe hebben wy onsen zeghel hier aen
+doen hanghen behoudelyck in anderen dinghen onsen rechten
+ende eenen ieghelycken anderen dessyns ghegeven in onser
+stadt van bruessele inde maent van januario int jaer onserhe$
+duysent vyffhondert ende virendertich nae costume onser hoe$
+van brabant ende van onsen keyserycke txvie ende van
+castillien $$$ txxe aldus stont ghescreven opte plycke
+byden keyser in zynen raede ende ghetekent boote
+visa recepta
+ghecollacionneert tegens
+doriginale brieven by my
+decock
+# sy hieraf verantwordt
+byden ontfanger
+vanden exploiten [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "andries",
+      "lastname": "van campen",
+      "role": "suppliant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "hermaer",
+      "role": "involved in the incident",
+      "function": "citizen"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "de weert",
+      "role": "involved in the incident",
+      "function": "citizen"
+    },
+    {
+      "firstname": "adriaen",
+      "lastname": "int schuerbroot",
+      "role": "involved in the incident",
+      "function": "citizen"
+    },
+    {
+      "firstname": "jaspyn",
+      "lastname": "van dornicke",
+      "role": "involved in the incident",
+      "function": "citizen"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Andries van Campen requests remission for an incident in Antwerp involving Jan Hermaer, Jan de Weert, Adriaen int Schuerbroot, and Jaspyn van Dornicke.",
+    "fr": "Andries van Campen demande la rémission d'un incident à Anvers mettant en cause Jan Hermaer, Jan de Weert, Adriaen int Schuerbroot et Jaspyn van Dornicke.",
+    "nl": "Andries van Campen vraagt vergeving voor een incident in Antwerpen, waarbij Jan Hermaer, Jan de Weert, Adriaen int Schuerbroot en Jaspyn van Dornicke betrokken zijn.",
+    "de": "Andries van Campen bittet um Absolution für einen Vorfall in Antwerpen, an dem Jan Hermaer, Jan de Weert, Adriaen int Schuerbroot und Jaspyn van Dornicke beteiligt waren."
+  }
+}
+```

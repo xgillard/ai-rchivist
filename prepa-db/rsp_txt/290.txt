@@ -1,0 +1,239 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te weten allen ieghenwoirdich ende toecomende
+dat wy ontfaen hebben die oetmoedighe supplicatie van michiel
+vanden kerkhove brouwere inhoudende hoe hy opten eersten
+sondach inden vasten anno xvc xxxv gegaen is tsavonts omtrent
+vijff uren met jacob inden beer ten huyse van jacob de pelere procureur
+postulerende voer de tolcamere ende elders binnen onse stadt van
+bruessele om aldaer voerden voirs. jacob te vercrigen zekere onse
+brieven van respijte ende van daer commende omtrent den zeven uren zijn
+tsamen gegaen ten huyse van cornelis de voeraer tegens over tschildeken
+opte coelmerct binnen onse voirs. stede van bruessel om gracelyck
+te bancketeren dwelck zy deden ende als die suppliant thuys waert
+wilde gaen dwelck was omtrint thien ende een halff uren vanden
+avont es gecomen met een lanteerne in zyn handt tot zijnen woenhuyse
+staende inde nyewstraete achter den choor vanden vrouwen brueders
+ende aldaer voer zijn deure staende ende eens geclopt hebbende om
+ingelaten te zijne zyn gecommen twee gesellen deene geheeten jennin
+de flandres goutsmit ende dandere philips vander borch de welcke
+twee gesellen wel by drancke zynde tegens den voirs. suppliant seyden
+vrient laet ons een keersse ontsteken dwelck die suppliant geerne
+dede ende hy meynde de keersse te ontsteken soe heeft die voirs.
+jennijn hem suppliant de selve lanteerne fortselyck genomen dat
+ziende de suppliant heeft dese lanteerne wederom genomen ende
+dit doende zoe heeft die voirs. jennijn den voirs. suppliant mit eenen
+mutsaert stocke die hy in zyn handt hadde gegheven twee oft drie
+groote slagen op zijn hooft mitswelcken de voirs. suppliant als
+verweerende zyn lyff heeft uuyt getrocken een steeck mes dwelck
+hy in zyn hant hadde ende is daermede den voirs. jennijn naegeloepen
+ende heeft hem gegheven eenen slach op zijn hooft ende gequest in
+sulcken vuegen dat hy ter eerden viel ende dit siende die voirs.
+philips heeft den voirn. suppliant geworpen met steenen ende op zyn duere
+ende de voirn. suppliant hem oyck werende heeft den selven philips
+naegelopen tot voer ingelborch maer en heeft den selven nyet mesdaen
+ende wederom commende tot voor die vrouwe vanden meere heeft die selve
+suppliant ontmoet eenen geheeten lauwereys wesende een schildere
+ende zynder huysvrouwen ende seyde totten selven lauwereys vriendt
+dit clage ic god ende allen zijnen heylighen dat ic staende voer myn
+duere geslagen ben ende dat ic my aldus moet verweeren ende is alzoe
+geghaen van daer tot des voirs. cornelis huys aldaer hy lestwernen
+uuytgecommen was blyvenen daer slapen ende de voirs philips is gegaen byden
+voirs. jennijn ende heeft hem opgeheven om te leyden tot int gasthuys
+ende opheffende soe heeft hy hem wederom achterwaerts overlaetten
+vallen in sulcker vuegen dat zeer grotelyck te presumeren is dat hem
+den val meer gelet heeft dan den slach ofte quetsuere want die selve
+philips ende jennin wel by drancke waeren ende hadden int bordeel
+sitten drincken ende die voirs. philipes heeft den selven jennin wederom
+opgehouden ende gedragen by hulpe van eenen vrouwen brueder geheeten
+broeder heyndrick van rousse metten stock daer de voirs. $$$$ suppliant
+mede geslagen was ende met eenen andere stocke int gasthuys binnen
+der voirs. onse stede aldaer hy eenen tyt lanck was ende was
+van daer gedraghen ten huyse van pieter reynier cousmakers aldaer hy
+gestorven is ende die geschiedt zijnde zoe heeft de voirs. broeder
+heyndrick tegen den selven philips geseyt philips ghy condt walsch spreken
+vraecht jennyn wie hem desen slach gegheven heeft maer deselve
+philips en wilde nyet spreken ende hoewel tselve feyt geschiet is
+grootelycx opt verweeren vanden lijve des voirs. suppliants nietmin
+vreesende rigueur van justicie heeft hem geabsenteert uuyt deser selver
+stadt van bruessele ende en zoude aldaer noch in onsen lande van brabant
+nyet dorren wederkeeren ende converseren ten waere dat hem hierop
+verleent worde onse gracie ons daeromme oetmoedelyck biddende
+waeromme wy desen aengesien ende hierop gehadt tadvis van
+onsen welbeminden onderamptman burchmeesteren scepenen ende raede
+onser voirs. stede van bruessel willende den voirs. suppliant in desen
+gracie ende genade prefereren voer righeur ende strancheyt van justicie
+hebben den selven suppliant inden gevalle alsboven quytgescholden
+ende vergeven scelden quijte ende vergeven uuyt onser zunderlingher
+gracien by desen den dootslach voeren verclaert mitgaders oyck alle pene ende
+amende corporelle ende criminele daer inne hy hem overmits ende
+uuyt saecken van tgene des voirs. is iegens ons onse hoocheyt ende justicie
+enichsins mach hebben ontgaen ende hebben hem dien aengaende
+gerestitueert ende gestelt restitueren ende stellen by desen tot zyne goede
+faeme ende name in onsen voirs. lande ende hertoochdom van brabant
+mitsgaders in onse stede van bruessel ende allen anderen onsen landen
+ende heerlicheden ende tot zynen goeden noch ter tyt nyet geconfisqueert zynde
+zoe verre daer eenighe waeren imponerende hier op een eeuwich
+zwijgen ende silencie onsen procureur generael ende allen anderen onsen
+richteren justicieren ende officieren onsen voirs. lants van brabant hoedanige
+die zyn oft wesen moghen satisfactie nochtans eerst ende alvoeren
+gedaen der geinteresseerde partie zoe verre die noch nyet gedaen en waere
+civilyck alleenlyck behoudelyck nochtans dat hy den voirs. dootslach
+iegens ons civilyck beteren sal naer de gelegentheyt vander misdaet
+ende faculteyt van zynen goeden ende oyck dat hy gehouden wordt te
+betaelen de redelicke costen van justicien daeromme gedaen ende
+naegevolcht indien datter eenighe geschiet zyn ter taxatie ende
+arbiterscepe van onsen lieven ende getrouwen die cancelier ende luyden
+van onsen raede in brabant die wy daertoe committeren ontbieden
+dairomme ende bevelen den voirs. onsen cancellier ende luijden van onsen raede
+van brabant dat voer hemlyden geroupen die ghene die daeromme
+behoiren sullen geroupen te zyne zy procederen ende doen procederen
+wel ende duechdelyck totter verifficatie ende interinemente van desen onsen
+# sy hier af vrantwordt
+byden ontfanger vnden
+exploiten
+iegewoirdigen brieve naer huer vorme ende inhouden ende welck
+interinement de voirs. suppliant gehouden sal zyn in onsen voirs. raede
+te versuecken binnen eenen jaere naer date van desen opte peyne van te
+verbueren deffect der selver ende dat gedaen ende de voirs. civile boete ende
+costen vaan justicie indien datter eenighe zyn getaxeert gearbitreert ende
+betaelt alst behoiren sal van welcke civile boete die gene van onsen
+rentmeesters dient angaet gehouden wert ontfanck te maken rekeningen
+bewys ende relicqua te doen tot onsen prouffyte metten anderen penningen van
+zynen ontfange zy onsen drossaet van brabant amptman van bruessele
+ende alle andere onse enden onsen vassallen oft smaelre heeren
+richteren justicieren ende officieren onsen voirs. lants van brabant
+ende van overmaze hoedanige die zyn oft wesen mogen tegewoirdighe ende
+toecommende ende angaen mach den voirs. suppliant van dese onse gracie ende
+remissie inder manieren voirscreven rustelyck ende peyselyck doen ende laeten
+genyeten ende gebruycken sonder hem te doen noch te laeten geschien in
+lijve noch in goede eenich hynder letsel oft moyenisse ter contrarien
+maer indien zyn lyff oft zyn overbuerde goeden daeromme gevangen
+becommert oft gearresteert waeren dat zy die terstont stellen oft
+doen stellen tot vulcommen delivrancie ende slakinghe want ons alsoe
+belieft ende ten eynde dat dit goet vast ende gestadich blyve tot
+eeuwighen dagen zoe hebben wy onsen zegel hier an doen hanghen
+behoudelyck in anderen saeken ons recht ende een yegelyck tzyne in
+allen gegheven in onse sede van bruessel inde maent van septembre
+int jaer onsheeren duysent vyffhondert ebde zevenendertich van onsen
+keyserycke txxiiie ende van onsen rycken van castillien ende
+andere txxiie aldus stont gescreven op te plycke byden keyser
+in zynen raede ende geteekent l de zoete ende noch stont gescreven
+opte selve plycke visa recepta
+ghecollacioneert tegens
+doriginale brieven
+decock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "September, 1537",
+  "fact_date": "Sunday during Lent, 1535",
+  "persons": [
+    {
+      "firstname": "Michiel",
+      "lastname": "vanden Kerkhove",
+      "role": "suppliant",
+      "function": "brewer"
+    },
+    {
+      "firstname": "Jacob",
+      "lastname": "Inden Beer",
+      "role": "accompanied",
+      "function": "unknown"
+    },
+    {
+      "firstname": "Jennin",
+      "lastname": "de Flandres",
+      "role": "perpetrator",
+      "function": "goldsmith"
+    },
+    {
+      "firstname": "Philips",
+      "lastname": "Vander Borch",
+      "role": "perpetrator",
+      "function": "unknown"
+    },
+    {
+      "firstname": "Cornelis",
+      "lastname": "De Voeraer",
+      "role": "host",
+      "function": "procureur"
+    },
+    {
+      "firstname": "Lauwereys",
+      "lastname": "unknown",
+      "role": "witness",
+      "function": "painter"
+    },
+    {
+      "firstname": "Broeder Heyndrick",
+      "lastname": "van Rousse",
+      "role": "witness",
+      "function": "brother of a religious order"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Bruessele",
+      "loctype": "city"
+    },
+    {
+      "name": "Nyewstraete",
+      "loctype": "street"
+    },
+    {
+      "name": "Pieter Reynier cousmakers",
+      "loctype": "house"
+    }
+  ],
+  "summary": {
+    "en": "Brewer Michiel vanden Kerkhove requests remission for a fight that occurred on a Sunday during Lent, 1535. He was accompanied by Jacob Inden Beer and they went to the house of Jacob de Pelere, procureur, to discuss certain letters from the authorities. Later, they went to Cornelis de Voeraer's house, where they met Jennin de Flandres and Philips Vander Borch. An argument ensued, and Jennin struck Michiel on the head with a mutsaert stocke. Michiel defended himself and Jennin fell to the ground. Philips threw stones at Michiel, who then pursued Philips. They were later joined by Lauwereys, a painter, and Broeder Heyndrick van Rousse. The incident occurred in Bruessele, specifically on Nyewstraete and at Pieter Reynier cousmakers' house.",
+    "fr": "Le brasseur Michiel vanden Kerkhove demande la rémission d'une bagarre qui s'est produite un dimanche pendant le carême, en 1535. Il était accompagné de Jacob Inden Beer et ils se sont rendus à la maison de Jacob de Pelere, procureur, pour discuter de certaines lettres des autorités. Plus tard, ils se sont rendus à la maison de Cornelis de Voeraer, où ils ont rencontré Jennin de Flandres et Philips Vander Borch. Une dispute a éclaté et Jennin a frappé Michiel à la tête avec un mutsaert stocke. Michiel s'est défendu et Jennin est tombé à terre. Philips a lancé des pierres sur Michiel, qui l'a ensuite poursuivi. Ils ont ensuite été rejoints par Lauwereys, un peintre, et Broeder Heyndrick van Rousse. L'incident s'est produit à Bruessele, plus précisément sur Nyewstraete et à la maison de Pieter Reynier cousmakers.",
+    "nl": "Brouwer Michiel vanden Kerkhove vraagt vergeving voor een gevecht dat plaatsvond op een zondag tijdens de vasten, 1535. Hij werd begeleid door Jacob Inden Beer en zij gingen naar het huis van Jacob de Pelere, procureur, om over bepaalde brieven van de autoriteiten te discussiëren. Later gingen zij naar het huis van Cornelis de Voeraer, waar zij Jennin de Flandres en Philips Vander Borch ontmoetten. Er ontstond een ruzie en Jennin sloeg Michiel op het hoofd met een mutsaert stocke. Michiel verdedigde zichzelf en Jennin viel op de grond. Philips gooide stenen naar Michiel, die hem vervolgde. Ze werden later vergezeld door Lauwereys, een schilder, en Broeder Heyndrick van Rousse. Het incident vond plaats in Bruessele, specifiek op Nyewstraete en bij het huis van Pieter Reynier cousmakers.",
+    "de": "Brauer Michiel vanden Kerkhove bittet um Erlass für einen Kampf, der an einem Sonntag während der Fastenzeit, 1535, stattfand. Er wurde von Jacob Inden Beer begleitet und sie gingen zum Haus von Jacob de Pelere, Prokurator, um über bestimmte Briefe der Behörden zu diskutieren. Später gingen sie zum Haus von Cornelis de Voeraer, wo sie Jennin de Flandres und Philips Vander Borch trafen. Ein Streit brach aus und Jennin schlug Michiel auf den Kopf mit einem mutsaert stocke. Michiel verteidigte sich und Jennin fiel zu Boden. Philips warf Steine ​​nach Michiel, der ihn verfolgte. Später stießen sie auf Lauwereys, einen Maler, und Broeder Heyndrick van Rousse. Das Ereignis fand in Bruessele statt, speziell auf Nyewstraete und beim Haus von Pieter Reynier cousmakers."
+  }
+}
+```

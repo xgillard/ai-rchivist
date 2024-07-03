@@ -1,0 +1,202 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+albert ende isabel clara eugenia
+infante van spaingnien etc., doen te wetene
+allen jegenwoordighe ende toecomende, dat wij ontfanghen
+hebben de oytmoedighe supplicatie van gabriel van boven
+alias $competter anthonis zoene, oudt ontrent de zeventhien jaeren,
+arm schippersgast deser onser stadt van bruessele, inhoudende
+hoe dat ontrent vijff maenden alsdoen gheleden, den remonstrant
+commende uuijt zeker herberghe opde vaert gheleghen ende naer
+huijs ghaende heeft aldaer fortuitelijck gerencontreert sekere
+jonckmans van zijnder kennisse, daer onder andere een was genoempt
+jooris den dansser, welcke jonckmans hadden recht te voorens
+geresolveert onder malckanderen eenighen vissch te haelen uuijt
+de schuijt toebehoorende nicolaes cornelis, schipper van zirickzee,
+welcke resolutie verstaen hebbende sekeren jonghen daer ontrent
+zijnde, heeft t’selve gerapporteert aenden voorschreven nicolaes
+cornelis, die bij drancke wesende, alsoe die voorschreven jonckmans
+hunne entreprise meijnden t’executeren, den remonstrant nieuwers
+affwetende met eenen haeck heeft geagresseert ende
+gequetst inden rugge, meijnende te wesen een vande ghene
+die hem van zijnen vissche wilde berooven, ende alsoo de suppliant
+de quetsure was voelende, heeft den voorschreven cornelis
+gevraecht bij dese woorden in substantie, sijn wij nijet vrij
+op sheeren straete, ick sal u dat moghen wel wijs maecken
+met rechte, dat ghij mij gequetst hebt in mijnen rugghe,
+ondertusschen alsoo die voorschreven suppliant metten selven
+cornelis voordere woerden was crijghende heeft die voornoempde
+cornelis eene wonde ontfanghen van een der voorschreven
+compaingnie, met naeme jooris den danser voorsijt, die oock
+met assistentie van zijne medegesellen uuijt spijt, soomen
+vorstaet, eenighen drij oft vier visschen uuijt de voors.
+schuijt heeft genomen ende die ghedraegen in zekere herberge,
+alwaer die voorschreven jonckmans den remonstrant hebben medegeleijt
+om een voorschreven visch te helpen op eten, sonder dat hij eenich
+ander quaet heeft ghedaen, dan alleenelijck dat hij hem inde
+voorschreven compaingnie daer t’gene voorschreven is geschiedt
+heeft gevonden, als blijckt bij drije consonante attestatien
+daer aff zijnde, allen i welck hoe wel den suppliant
+eenichssints behoorde t’excuseren, des te neer naerdemael
+hij wel int infligeren vande woirde aenden voors.
+cornelis, helpen eten vanden vissche, ende anderssints
+is innocent geweest, soe en soude hij evenwel hem
+nijet derren betrouwen vrijelijck dese onse stadt te frequen
+teren, maer is door vreese van justitie ten regarde
+van t’gene hij dijen aenghaende mach hebben gedelinqueert
+tegenwoordelijck genootsaeckt te latiteren ende hem t’absenteren
+tot zijnen grooten verdriete, midtsdijen hij egeenen middel
+ter weerelt en weet, om den cost te winnen, als met zijn
+sueren aerbijt, welcken aengemerckt, ende besundere
+geconsidereert dat zijn delict is gecauseert door onverstandicheijt
+ende groote jonckheijt nijet bedacht hebbende oft meijnende
+dat de ghene in wiens presentie sulcx geschiet, hun mede
+plichtich maecken van het delict, d’welck bij hunne compaignons
+wordt gecommitteert, soe heeft hij ons seer ootmoedelijck
+ghebeden om onse oepene brieven van abolitie in sulcken cas dienende,
+soo eest dat wij de saecken voorschreven overgemerckt ende
+hier op gehadt hebbende het advis van onsen lieven ende wel
+beminde, den amman deser onser voors. stadt van bruessele,
+geneijcht wesende ter ootmoedigher beden ende supplicatien des
+voorschreven suppliants ende willende hem in dit stuck prefereren
+gratie ende ghenaede voor rigeur ende strangicheijt van
+rechte, hebben den voorschreven suppliant, inden gevalle als boven,
+vergeven, geremitteert ende quijt geschoulden, vergeven, remitteren
+ende schelden quijcte uuijt onser sunderlinghe gratie ende
+princelijcken macht ende zunderlinghe gratien bij desen alle t’gene
+des hij inder manieren boven vercleert teghens ons ende justitie
+misdaen ende misbruijckt mach hebben ende hebben hem
+als vandijen wederomme gestelt ende gerestitueert
+stellen weder ende restitueren in sulcken stadt alse
+was voor de toecompste van dijen, imponerende hier
+van onsen procureur generael in brabandt, amman onser
+stadt van bruessele ende alle onse andere onser
+vassaelen oft der smalre heeren rechteren, justicieren
+ende officieren een eewich geswijch, behoudelijck
+nochtans dat die voorschreven suppliant schuldich ende
+gehouden wort te betaelen tonsen behoeffve voor amende
+$$$minde de somme van vijfftich guldens ende, tot dijen
+prorate die costen vanden chirurgijn ende vanden visch
+int schip bij hem ende zijne compaignons genomen ende
+gheten, mitsgaeders die redelijcke costen van justitie
+indien hieromme eenighe ghedaen ende naergevolcht
+zijn, ter taxatie ende moderatie van onse seer lieve
+ende getrouwe die cancellier ende luijden van onsen
+voorschreven raede, dije wij daer toe hebben gecommitteert
+ende commiteren bij desen, ontbieden daeromme ende bevelen onsen
+cancellier ende raetsluijden onsen procureur generael van
+brabandt, amman onser voorschreven stadt van bruessele
+ende allen anderen ende onser vassaelen oft der smaelre heeren
+richteren, justicieren ende officieren nu $$$ zijnde ende naemaels
+wesende, dat zij den voorschreven suppliant van deser onser jegen-
+woordighe gratien, pardoene ende abolitie doen, laeten ende
+ghedooghen inder vueghen ende opde restrictien boven verhaelt
+gheheelijck ende volcomelijck genijeten ende ghebruijcken, sonder
+hem daerinne te doene oft te laeten gheschieden eenich hinder,
+stoot oft letsel ter contrarien, maer indijen zijn lijff oft
+eenighe van zijne ghoeden ter causen voorschreven in eenigher
+manieren beleth, ghevanghen oft gecondemneert waeren, sij deselve
+terstont ende zonder vertreck setten ende stellen doen tot gheheelder
+ende volcommender delivrantien, ende slaeckinghen, want
+ons alsoo ghelieft, ende des toirconden etc. hebben wij onsen zeghel
+hier aen doen hanghen, gegeven in onser stadt van
+bruessele zeventhien daeghen inde maendt van october
+int jaer ons heeren duijsent zesse hondert achthien, onder
+op de plique stondt bijde eertshertoghen etc. ende
+was onderteeckent de wauwere ende was
+ghesegelt met eenen wassen zeghele i [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "17 October 1618",
+  "fact_date": "Recently, around five months ago",
+  "persons": [
+    {
+      "firstname": "albert",
+      "lastname": "Ende",
+      "role": "petitioner",
+      "function": "suppliant"
+    },
+    {
+      "firstname": "isabel",
+      "lastname": "Clara Eugenia",
+      "role": "none",
+      "function": "infante of Spain"
+    },
+    {
+      "firstname": "gabriel",
+      "lastname": "van Boven",
+      "role": "none",
+      "function": "alias $competter anthonis zoene, 70-year-old ex-sailor of the city of Brussels"
+    },
+    {
+      "firstname": "nicolaes",
+      "lastname": "Cornelis",
+      "role": "none",
+      "function": "schipper of Zierikzee"
+    },
+    {
+      "firstname": "jooris",
+      "lastname": "den Dansser",
+      "role": "none",
+      "function": "one of the junkmans"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Brussels",
+      "loctype": "city"
+    },
+    {
+      "name": "Zierikzee",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Albert Ende, a suppliant, has informed everyone present and future that he has received the humble supplication of Gabriel van Boven, alias $competter anthonis zoene, a 70-year-old ex-sailor of the city of Brussels. Around five months ago, while the remonstrant was coming out of a certain inn on the way, he fortuitously met some junkmen, one of whom was named Jooris den Dansser. These junkmen had agreed among themselves to fish from the boat belonging to Nicolaes Cornelis, a schipper from Zierikzee. When Nicolaes Cornelis heard of their plan, he was drunk and, thinking that the junkmen were going to execute their plan, he attacked the remonstrant from behind, believing him to be one of those who wanted to rob him of his fish. The remonstrant, feeling the injury, asked Cornelis if he was not free on the public street, and told him that he had injured him in the back. Meanwhile, Cornelis received a wound from one of the companions of the remonstrant, Jooris den Dansser. These companions took a few or four fish from the aforementioned boat and brought them to a certain inn, where the remonstrant and his companions joined them to help eat the fish, without doing any other harm than finding what had happened among the companions. The remonstrant, who had helped eat the fish and was otherwise innocent, should not trust that he can freely frequent this city, but is currently hiding and absenting himself due to fear of justice for what he has done unintentionally and without forethought, not considering that those present at the scene would also be held accountable for the offense committed by their companions. The suppliant has therefore humbly prayed for our letters of remission in this case. We have considered the matter and, having taken the advice of our beloved and dear, the amman of our aforementioned city of Brussels, and wishing to prefer grace and mercy to rigor and severity of justice, have forgiven, remitted, and quitclaimed the aforementioned suppliant for all the offenses and misdeeds he has committed against us and justice, and have restored him to his previous state, imposing silence on our procureur general in Brabant, the amman of our aforementioned city of Brussels, and all our other vassals or small lords, judges, justiciars, and officers, in perpetuity, except that the aforementioned suppliant is obliged to pay ten pounds in amends, to be divided equally among the surgeons and fishermen on the ship and their reasonable costs, as well as the reasonable costs of justice, if any have been incurred, to be taxed and moderated by our very dear and faithful chancellor and lords of our aforementioned council, to whom we have committed and commit this matter. We order our chancellor and councilors, our procureur general in Brabant, the amman of our aforementioned city of Brussels, and all our other vassals or small lords, judges, justiciars, and officers, present and future, to allow the aforementioned suppliant to fully enjoy and use this grace, pardon, and abolition without hindrance, and not to do or allow anything to happen that may hinder, disturb, or harm him in any way, but to protect his person and goods in connection with the aforementioned matter, and to release and deliver him and his goods immediately and without delay if he or any of his goods are arrested or condemned in connection with the aforementioned matter. Given in our city of Brussels, the seventeenth day of the month of October in the year of our Lord sixteen hundred and eighteen, under the seal of the early hertogs etc., and sealed with a wax seal.",
+    "fr": "Albert Ende, suppliant, a informé toutes les personnes présentes et futures qu'il a reçu la supplique humble de Gabriel van Boven, alias $competter anthonis zoene, un marinier septuagénaire de la ville de Bruxelles. Il y a environ cinq mois, alors que le remonstrant sortait d'une certaine auberge sur le chemin, il a rencontré fortuitement certains marchands de junks, l'un desquels s'appelait Jooris den Dansser. Ces marchands de junks avaient décidé entre eux de pêcher dans le bateau appartenant à Nicolaes Cornelis, un schipper de Zierikzee. Lorsque Nicolaes Cornelis a entendu leur plan, il était ivre et, pensant que les marchands de junks allaient exécuter leur plan, il a attaqué le remonstrant par derrière, le croyant être l'un de ceux qui voulaient lui voler son poisson. Le remonstrant, ressentant la blessure, a demandé à Cornelis s'il n'était pas libre dans la rue publique, et lui a dit qu'il l'avait blessé dans le dos. Pendant ce temps, Cornelis a reçu une blessure d'un des compagnons du remonstrant, Jooris den Dansser. Ces compagnons ont pris quelques ou quatre poissons du navire mentionné ci-dessus et les ont emmenés dans une certaine auberge, où le remonstrant et ses compagnons se sont joints à eux pour aider à manger le poisson, sans faire aucun autre mal que de trouver ce qui s'était passé parmi les compagnons. Le remonstrant, qui avait aidé à manger le poisson et était innocent autrement, ne devrait pas faire confiance pour fréquenter librement cette ville, mais est actuellement caché et absent par crainte de la justice pour ce qu'il a fait involontairement et sans réflexion, ne considérant pas que ceux qui étaient présents à la scène seraient également tenus responsables de l'infraction commise par leurs compagnons. Le suppliant a donc supplié humblement nos lettres de rémission dans ce cas. Nous avons considéré la question et, ayant pris l'avis de notre bien-aimé et cher, l'amman de notre ville susmentionnée de Bruxelles, et souhaitant préférer la grâce et la miséricorde à la rigueur et à la sévérité de la justice, avons remis, remis et acquitté le susdit suppliant de tous les délits et méfaits qu'il a commis contre nous et la justice, et l'avons rétabli dans son état précédent, imposant silence à notre procureur général en Brabant, l'amman de notre ville susmentionnée de Bruxelles et tous nos autres vassaux ou petits seigneurs, juges, justiciers et officiers, en perpetuité, à l'exception que le susdit suppliant est tenu de payer dix livres en amendes, à diviser également entre les chirurgiens et les pêcheurs sur le navire et leurs coûts raisonnables, ainsi que les coûts raisonnables de la justice, s'il y en a eu quelque chose encouru, à être imposés et modérés par notre très cher et fidèle chancelier et seigneurs de notre susdit conseil, à qui nous avons confié et confions cette affaire. Nous ordonnons à notre chancelier et conseillers, notre procureur général en Brabant, l'amman de notre ville susmentionnée de Bruxelles et tous nos autres vassaux ou petits seigneurs, juges, justiciers et officiers, présents et futurs, de permettre au susdit suppliant de jouir pleinement de cette grâce, du pardon et de l'abolition sans entrave, et de ne rien faire ou permettre quoi que ce soit qui puisse entraver, déranger ou nuire à celui-ci de quelque manière que ce soit, mais de protéger sa personne et ses biens en rapport avec l'affaire susmentionnée, et de libérer et livrer immédiatement lui et ses biens s'il ou l'un de ses biens sont arrêtés ou condamnés en rapport avec l'affaire susmentionnée. Donné dans notre ville de Bruxelles, le dix-septième jour du mois d'octobre dans l'année de notre Seigneur seize cent dix-huit, sous le sceau des early hertogs etc., et scellé avec un sceau de cire.",
+    "nl": "Albert Ende, suppliant, heeft iedereen aanwezig en komende op de hoogte gesteld dat hij de nederige supplicatie van Gabriel van Boven, alias $competter anthonis zoene, een 70-jarige voormalige zeeman van de stad Brussel, heeft ontvangen. Ongeveer vijf maanden geleden, toen de remonstrant van een bepaalde herberg op weg was, ontmoette hij toevallig een aantal junkhandelaars, waarvan er één Jooris den Dansser heette. Deze junkhandelaars hadden onder elkaar afgesproken om van het schip van Nicolaes Cornelis, een schipper uit Zierikzee, te vissen. Toen Nicolaes Cornelis van hun plan hoorde, was hij dronken en, aannemend dat de junkhandelaars hun plan wilden uitvoeren, viel hij de remonstrant van achteren aan, aannemend dat hij een van degenen was die hem van zijn vis wilde beroven. De remonstrant, voelend de verwonding, vroeg Cornelis of hij niet vrij was op de openbare straat, en vertelde hem dat hij hem in zijn rug had verwond. Ondertussen ontving Cornelis een wond van een van de metgezellen van de remonstrant, Jooris den Dansser. Deze metgezellen namen een paar of vier vis van het bovengenoemde schip en brachten ze naar een bepaalde herberg, waar de remonstrant en zijn metgezellen zich bij hen aansloten om de vis te helpen eten, zonder iets anders te hebben gedaan dan wat er was gebeurd onder de metgezellen te vinden. De remonstrant, die had geholpen om de vis te eten en verder onschuldig was, zou niet moeten vertrouwen dat hij vrij kan rondlopen in deze stad, maar is momenteel ondergedoken en afwezig door angst voor rechtshandhaving vanwege wat hij onbedoeld en zonder overleg heeft gedaan, niet beseffend dat hen die bij de scène aanwezig waren, ook verantwoordelijk zouden zijn voor het delict dat door hun metgezellen was begaan. De suppliant heeft daarom nederig verzocht om onze brieven van remissie in deze zaak. We hebben de kwestie overwogen en, na raad te hebben gevraagd aan onze geliefde en dierbare, de amman van onze bovengenoemde stad Brussel, en omdat we genade en genade willen verlenen boven strenge rechtshandhaving, hebben wij de bovengenoemde suppliant, voor zover van toepassing, vergeven, verleend en ontslagen, vergeven, verleend en ontslagen van alle misdrijven en misbruiken die hij tegen ons en de rechtshandhaving heeft begaan, en hebben hem in zijn vorige staat hersteld, imposant stilte op onze procureur-generaal in Brabant, de amman van onze bovengenoemde stad Brussel en alle onze andere vazallen of kleine heren, rechters, justitiële ambtenaren en functionarissen, in eeuwigheid, behalve dat de bovengenoemde suppliant verplicht is om tien ponden schadevergoeding te betalen, gelijk verdeeld tussen de chirurgen en vissers op het schip en hun redelijke kosten, alsmede de redelijke kosten van de rechtshandhaving, indien hieraan iets is gekost, tot taxatie en matiging door onze zeer geliefde en trouwe kanselier en heren van onze bovengenoemde raad, aan wie wij deze kwestie hebben toevertrouwd en zullen toevertrouwen bij deze. Wij bevelen onze kanselier en raadsheren, onze procureur-generaal in Brabant, de amman van onze bovengenoemde stad Brussel en alle onze andere vazallen of kleine heren, rechters, justitiële ambtenaren en functionarissen, aanwezig en toekomstig, de bovengenoemde suppliant toe te laten volledig genieten en gebruiken van deze gratie, genade en abolitie zonder belemmering, en niets te doen of te laten gebeuren dat hem of zijn persoon of goederen in verband met de bovengenoemde kwestie kan hinderen, storen of schaden, maar zijn persoon en goederen in verband met de bovengenoemde kwestie te beschermen en onmiddellijk en zonder vertraging vrij te laten en te leveren als hij of enige van zijn goederen zijn gevangengenomen of veroordeeld in verband met de bovengenoemde kwestie. Gegeven in onze stad Brussel, de zeventiende dag van de maand oktober in het jaar onzes Heeren zestienhonderd achttien, onder de handtekening van de vroege hertogen etc., en gesegeld met een wassen zegel.",
+    "de": "Albert Ende, Bittsteller, hat allen gegenwärtigen und zukünftigen bekannt, dass er die demütige Bitte von Gabriel van Boven, alias $competter anthonis zoene, einem 70-jährigen ehemaligen Seemann der Stadt Brüssel, erhalten hat. Vor ungefähr fünf Monaten, als der Kläger gerade eine bestimmte Herberge verließ und zufällig einige Junkhändler traf, darunter einen namens Jooris den Dansser, beschlossen diese untereinander, aus dem Boot von Nicolaes Cornelis, einem Schiffer aus Zierikzee, zu fischen. Als Nicolaes Cornelis von ihrem Plan hörte, war er betrunken und, da er glaubte, dass die Junkhändler ihren Plan ausführen wollten, griff er den Kläger von hinten an und verletzte ihn in der Annahme, er sei einer derjenigen, die ihm seinen Fisch stehlen wollten. Der Kläger, der die Verletzung spürte, fragte Cornelis, ob er nicht auf der öffentlichen Straße frei sei, und sagte ihm, dass er ihn in den Rücken gestochen habe. In der Zwischenzeit erhielt Cornelis eine Wunde von einem der Begleiter des Klägers, Jooris den Dansser. Diese Begleiter nahmen ein paar oder vier Fische vom oben genannten Schiff und brachten sie in eine bestimmte Herberge, wo sich der Kläger und seine Begleiter ihnen anschlossen, um zu helfen, den Fisch zu essen, ohne etwas anderes getan zu haben, als das, was unter den Begleitern geschehen war, zu finden. Der Kläger, der geholfen hatte, den Fisch zu essen, und sonst unschuldig war, sollte nicht erwarten, diese Stadt frei besuchen zu können, sondern ist derzeit auf der Flucht und abwesend aus Furcht vor der Justiz wegen etwas, das er unbeabsichtigt und ohne Überlegung getan hat, nicht bedenkend, dass diejenigen, die bei der Szene anwesend waren, ebenfalls für das Vergehen ihrer Begleiter haftbar gemacht werden könnten. Der Bittsteller hat daher demütig um unseren Erlass in diesem Fall gebeten. Wir haben die Angelegenheit geprüft und, nachdem wir den Rat unseres geliebten und teuren, des Ammans unserer oben genannten Stadt Brüssel, eingeholt hatten und Gnade und Gnade der Strenge und Härte des Rechts vorziehen wollten, haben wir dem oben genannten Bittsteller, soweit zutreffend, vergeben, gewährt und entbunden, vergeben, gewährt und entbunden von allen Verbrechen und Missbräuchen, die er gegen uns und die Justiz begangen hat, und haben ihn in seinen vorherigen Zustand zurückversetzt, indem wir Stillschweigen über unseren Prokurator General in Brabant, den Amman unserer oben genannten Stadt Brüssel und alle unsere anderen Vasallen oder kleinen Herren, Richter, Justitiarbeamten und Beamten auferlegten, in Ewigkeit, mit Ausnahme, dass der oben genannte Bittsteller verpflichtet ist, zehn Pfund Schadensersatz zu zahlen, die gleichermaßen zwischen den Chirurgen und den Fischern auf dem Schiff und ihren angemessenen Kosten, sowie den angemessenen Kosten der Justiz, falls hierdurch etwas angefallen ist, zu verteilen, zu bewerten und zu mäßigen durch unser sehr geliebte und getreue Kanzler und Herren unseres oben genannten Rates, denen wir diese Angelegenheit anvertraut und anvertrauen haben bei dieser. Wir ordnen unsere Kanzler und Räte, unseren Prokurator General in Brabant, den Amman unserer oben genannten Stadt Brüssel und alle unsere anderen Vasallen oder kleinen Herren, Richter, Justitiarbeamte und Beamte, gegenwärtig und zukünftig, an, den oben genannten Bittsteller vollständig genießen und nutzen zu lassen diese Gnade, Gnade und Absolution ohne Behinderung und nichts zu tun oder zuzulassen, was ihn oder seine Person oder Güter in Bezug auf die oben genannte Angelegenheit behindern, stören oder schädigen kann, sondern seine Person und Güter in Bezug auf die oben genannte Angelegenheit zu schützen und ihn sofort und ohne Verzögerung freizulassen und zu liefern, wenn er oder einer seiner Güter aufgrund der oben genannten Angelegenheit festgenommen oder verurteilt wird. Gegeben in unserer Stadt Brüssel, den siebzehnten Tag des Monats Oktober im Jahr unseres Herrn sechzehnhundertachtzehn, unter der Unterschrift der frühen Hertogs

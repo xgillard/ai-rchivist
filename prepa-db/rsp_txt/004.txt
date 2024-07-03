@@ -1,0 +1,283 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. ic doen te wetene allen iegenwoirdich ende
+toecommende dat wy ontfaen hebben de oitmoedige supplicatie
+van symon de witte, arm scamel jonckgeselle scipper knecht
+dienende den scippers byden reysen om loon, poorter onser stadt van
+bruessel inhoudende hoe dat up sinte mertens dach xvc xlix lestleden
+saten ende droncken een gelach biers teppegem aen die brugge
+in onse lande van brabant ten huyse van jan verbeelen, jan
+ghestels metten suppliant synen knecht philips de kempenen$$$
+ende wylen jan remaes alsaer in tgelach de voirs. jan
+ghestels veylde philippen de kempenen$$$ een pleytscip te coope
+ende specificeerde de selve kempenen$$ allet tgene des hy
+metten selver scepe begeerde te hebben te wetene fock
+ende topseyl daertoe deselve jan seyde ic salt u alsoe
+vercoopen ende ten eynde dat ghy seeght dat ic u
+bedriegen wille soe ben ic te vreden dat die gene dien de coop=
+manscap beront$$ met eenen scellinc eens dat int tgelach te geven sal mnge$$$
+u lieden ende vanden selver coopmanscap verlaten zyn ende naer dien die voirs. jan
+gestels den voirs. kempenen$$$ op ten voirs. conditien scip hadde geloeft zyn zy
+die coopmanscap eens geworden ende gaff die voirs. philips alsoe int
+gelach eenen scellinc ende begonste de voirs. suppliant die voerweerde oft
+contract vander coopmanscap tot hueren versoucke te scrivene ende die
+onder handen hebbende aenmerckende dat deselve jan gestels wilde daer vuyt
+sommige dingen reserveren meer dan daer ondersproken was inden coop ende
+hy suppliant met synen scryven begeerde elcken te voldoene om namaels daer
+van gheen verwijt te hebbene want hij suppliant deselven dach den eenen scipper
+diende ende des anderen daeghs den anderen om gelt murmureerde onder
+tgeselschap seggende ter goeder meyninge daer is noch al meer in tscip
+dan de voirs. philips geheyscht heeft noemende die gereetscap die hij
+vergheten hadde te heysschene seggende daeromme dat die selve jan
+gestels den voirs. philips ongelijk doen wilde dwelck hij philips nyet
+en conste gelyden dwelck bij den voirs. philips gehoort zijnde seyde
+wat eyst dan ick ben te vreden met dat ick gecocht hebbe wat
+heeft er yemant mede te doene daerop jan gestels antwoirde al en
+hebbe ick hem tgene des hij nyet geeischt of begeert en heeft
+toegeseyt indyen hijt begeert ic salt hem geven ende die voirs.
+jan verbeelen oyck daerinne sprekende seyde totten voirs. suppliant
+als zij beyde te vreden zijn wat hebben wij ons dys te moeyen
+ick houts mij aenden lyffcoop oft ic peyse dat ghy tscip zelve
+gerne coopen sout waerop hij suppliant antwoirde ick en hebbe
+geen goet om tselve te coopene en ick ben noch veele te jonck
+ende deselve jan verbeelen presenteerde den suppliant waertoe te leenen
+een oft twee ponden groot vlaams ende naerdien deselve woerden aldaer
+waeren geresen is die voirs. jan gestels achter vuyt gegaen om
+sijn water te rysene aldaer hij marien vermeren de weerdinne
+vont die tot hem soude geseyt hebben moonken de witte denoterende
+den suppliant seyt soe vele tegens die coopmanscap ick peysse dat
+hij tscip tselve wilt coopen want hij heeft die voirweerde die hij
+begonst hadde te scriven int vuer geworpen dwelck hij nyet gedaen$$$
+en soude hebben alsoe mij dunckt indien ghij hem tscip nyet toe
+geseyt of te coope geveylt en hadt dwelck die voirs. jan
+gestels hoorende ende verwermpt van bloede heeft hij van buyten
+innecommende den suppliant gevraecht dese oft gelycke woerden in
+gramscape ghij plat luysken wat hebt ghij daermede te doene wat
+ick vercoope waerom hebdij die voerweerde int vier geworpen
+daerop hij suppliant oyck hem stoorende seyde ghy moeght u moeder doen
+ghij sijt een platluys wat heb ick met u te doene ghij doet
+den man ongelijk ende met dyen taste die voirs. jan gestels
+naer synen opstekere om den suppliant te grieven soe dat die suppliant
+sijns lijfs besorgende om hem te defenderende namp eenen scakelhael
+vande lighate$$$ ende de voirs. jan verbeelen tselve gewaer
+wordene is hij ende met hem die huysvrouwe des voirs. gestels met
+haer kindeken op haeren arm tusschen beyde geloopen om den voirs.
+gestels te houdene ende de voorgenoemde jan verbeelen ende jan gestels int
+houden al worstelende op malcanderen gevallen sijn waerover de voirs.
+jan remaes die vuyten gelage gegaen was is in huys gecommen
+meynende oyck tusschen beyden te gane soe heeft de voirs. suppliant
+metten voirs. hale over die schoudere vander huysvrouwe desselfs jans
+gestels gesmeten ende metten slage onverhoets onwetens ende onwillens
+ten ongelucke den voirs. jan remaes int beschreet gaende op
+thoeft geraect ende gequetst gerakende oyck mette selven slage den
+selven jan gestels op sijn hooft dat den selven hael ontstucken spranck$$$
+ende den voirs. jan remaes duer den selven slach int vier viel ende
+werde die suppliant vuyter keukenen gestooten ende deselve jan
+remaes vuyten vier gehaven zijnde ende tot hem selve commende
+soude geseyde hebben jae moonken denoterende den suppliant ic gelove
+u het sal noch gewroken worden van mij oft mijnen kinderen
+ende hij suppliant alsoe vuyten huyse gestooten zijnde is int scip
+vanden voirs. gestels geloopen halende sijn rappiere daermede
+weder in huys meynende te commen maer die duere werde toe
+gehouden van welcker quetsueren de voirs. jan remaes omtrent
+drye weken daernaer deser werelt overleden is ten grooten
+leet wesen vanden suppliant die welcke doer oitmoedige bede
+ende bij middele van goeden brieven is gecommen tot eenen
+minnelycken payse vanden vrienden des voirs. jan remaes
+ende anders noynt bevonden en heeft dan dese suppliant en
+is van goeden naem ende fame staende ten goeden geruchte ende
+dat meer is nemmer meer bevonden sal wesen dat
+hij suppliant metten selven wijlen jan remaes noynt eenigen
+questien van gescillen tegens malcanderen gehadt hebben
+dan altijts goede vrienden geweest zijn nochtans vreesende
+riguer van justicien en soude de voirs. suppliant nyet dorren
+oft willen hanteren oft frequenteren in ons landen ende
+heerlicheden om sijn broot te winnen welck feyt de
+voirnoemde suppliant inde maent van februario xvc l ons int
+lange te kennen gegeven heeft gehadt ende daerop gehadt
+hebbende tadvis van onsen amman van bruessele heeft ons
+belieft gehadt den suppliant te vergeven tfeyt ende dootslach
+boven geroert ende waerop doen expedieren onse oepene brieven
+van remissie belast met amende civile ende interinemente
+tert arbitrage ende luden van onsen rade in brabant gelyk
+byden voirs. brieven breeder blycke mach dewelcke hy
+vuyt versuemenisse negligerende ende mits dien dat hij buyten
+slants geweest heeft binnen behoitlycken tyt nyet
+gepresenteert noch versocht en heeft tvoirs. interinemente
+anders nyet wetende dan hebbende sijnen brieven gelicht hij
+en hadde geheelen voldaen sonder van eenigh interinemente
+oft presentatie derselver brieven gehoort te hebben soe dat den tijt van van
+interineren over langen tijt geexpireert is ende vreest de suppliant dat de voirs. brieven hem van egheender weerden sijn souden ende waeromme
+en soude nyet dorren hanteren ende frequenteren in onse lande van
+brabant ten zij dat onse meerder gracie hem verleent worde ons omme
+deselve zeer oitmoedelijk biddende soe eyst dat wy dese saken over=
+gemerct den voirs. suppliant geneycht wesende tsynder voirs. beden ende
+suplicatien hebben inden gevalle als boven geremitteert quyte
+gescholden ende vergeven, remitteren schelden quyte ende vergeven
+vuyt onse sunderlinge gracien bij desen tfeyt ende dootslach boven
+verclaert mitsgaders allen penen ende amende corporelle ende
+criminelle daer inne hij hem overmits ende vuyt saken van
+tgene des voirs. is tegens ons onse hoocheyt ende
+justicie eenichsints mach hebben ontgaen ende hebben hem
+dien aengaendde gerestitueert ende gestelt restituerende ende stellen
+tot sijne goede fame ende name in onsen lande ende hertoch=
+domme van brabant ende van overmaze ende oyck in onse voirs.
+stadt van bruessele ende ammamme derselver ende anderen onser
+landen ende heerlicheden ende tot sijnen ongeconfisqueerden goederen
+indien hy eenige heeft gelyc als hij was voirden voirs. dootslach
+imponerende hierop een eeuwich zwijgen ende silencie onsen procureur
+generael ende allen anderen onsen rechteren justicieren ende officieren
+onsen voirs. lants van brabant ende van overmaze wye zy zyn
+satisfactie nochtans yerst ende alvoeren geen der partijen
+geinteresseert indien die noch nyet gedaen en is civilijk
+alleenlijk behoudende nochtans dat de voirn. suppliant gehouden
+sal sijn tselve feyt ende dootslach tegens ons te beteren
+civilyck naer die gelegentheyt vande mesdaed faculteyt
+van sijnen goeden ende onse ordonnantie daerop gemaect ende
+oick te betalen die redelijke costen van justicien indien
+eenige daeromme geheven$$ naer gevolght $$ sijn ter taxatie
+ende atbiterscepe van onsen lieven ende getrouwen den
+cancellier ende luden van onsen rade in brabant die wij
+daertoe committeren ontbieden daeromme ende bevelen den
+voirn. van onsen rade in brabant dat voir hen geroepen die
+ghene die daeromme behoiren sullen geroepen te zijne
+sij procederen wel ende duechtelijk totter verificatie ende
+interinemente van desen onsen iegenwoirdigen brieve naer
+hinlieden vorme ende inhouden welck interinement deselve
+suppliant schuldich sal sijn te versueken ende desen onsen brieff
+henlieden presenteren binnen eenen halfven jaer naestcommende
+naer date van desen op peyne te verliepen deffect van
+dien ende dat geen ende de voirs. amende civile
+ende costen van justicie getaxeert ende betaelt synde alst
+behoort van welcker amende onsen ontfanger vanden
+exploicken van ons voirs. rade off andere onse officier dient
+behoeren sal gehouden werdt ontfanck te maken rekeninge bewys
+ende reliqua te doene tot onsen prouffyte metten anderen penningen van
+synen ontfange sy ons drossaet van brabant amptman van bruessele ende
+alle anderen onse ende ondervassallen oft smaelre heeren, rechteren
+justicieren ende officieren onsen voirs. lants van brabant ende van overmaze
+hoedanige die sijn oft wesen mogen tegenwoirdich ende toecommende
+hueren stedehouderen ende elck van hen soe hem dat toebehoeren
+ende aengaen mach den voirs. suppliant van desen onsen tegenwoirdiger
+gratien remissen ende quytsceldinge inder manieren voirscreven
+peyselyck volcommelyck ende tot eeuwigen dagen doen ende laten
+genyeten ende gebruyken sonder hem te doen noch te laten
+geschien nu noch in toecommende tyde in lyfve noch in goeden
+eenich hinder letsel oft moeyenisse ter contrarien maer indien
+sijn lijff oft eenige van sijnen ongeconfisqueerden goeden
+waren daeromme gevangelyk becommert oft gearresteert dat zij
+die terstont stellen oft doen stellen tot volcommen slakinge
+ende delivrancie want ons alsoe belieft ende ten eynde
+dat dit goet vast ende gestadich blyven tot eeuwigen
+dagen soe hebben wy ons zegel hier aen doen hangen
+behoudelyk in andere saken ons recht ende eenyegelyk
+tzijne in allen gegeven in onse stadt van bruessel
+inde maent van januario int jaer ons heere duysent
+vyfhondert ende tweenvyftich van ons keyserycke
+txxxiije ende van onsen rycken van castille
+ende andere txxxvije aldus gescreven op de plycke beyden
+keyser in sijnen rade ende onderteekent l. de zoete
+visa $$$
+gecollationaert ende bevonden accorderende
+met zijn originale by my
+n. grauwe $$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "January, 1525",
+  "fact_date": "November, 1524",
+  "persons": [
+    {
+      "firstname": "symon",
+      "lastname": "de witte",
+      "role": "applicant",
+      "function": "poorter of the city of Brussels"
+    },
+    {
+      "firstname": "philips",
+      "lastname": "de kempenen",
+      "role": "crew member",
+      "function": "scipper knecht"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "remaes",
+      "role": "crew member",
+      "function": "scipper knecht"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "verbeelen",
+      "role": "innkeeper",
+      "function": "innkeeper"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Bruessel",
+      "loctype": "city"
+    },
+    {
+      "name": "Tgeleach",
+      "loctype": "location"
+    },
+    {
+      "name": "Pegem",
+      "loctype": "location"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "duchy"
+    }
+  ],
+  "summary": {
+    "en": "Symon de Witte, a poorter of the city of Brussels, has applied for remission for a fight that took place in November 1524. The fight involved two crew members, Philips de Kempenen and Jan Remaes, and an innkeeper named Jan Verbeelen. The fight took place at the inn of Jan Verbeelen in Brabant. Symon de Witte was asked to loan money to Philips de Kempenen, but when he refused, a fight broke out.",
+    "fr": "Simon de Witte, bourgeois de la ville de Bruxelles, a demandé la rémission d'une bagarre qui a eu lieu en novembre 1524. La bagarre a impliqué deux membres d'équipage, Philips de Kempenen et Jan Remaes, et un aubergiste nommé Jan Verbeelen. La bagarre a eu lieu à l'auberge de Jan Verbeelen dans le duché de Brabant. Simon de Witte a été invité à prêter de l'argent à Philips de Kempenen, mais lorsqu'il a refusé, une bagarre a éclaté.",
+    "nl": "Simon de Witte, burger van de stad Brussel, heeft vergiffenis aangevraagd voor een gevecht dat plaatsvond in november 1524. Het gevecht betrof twee bemanningsleden, Philips de Kempenen en Jan Remaes, en een herbergier genaamd Jan Verbeelen. Het gevecht vond plaats in de herberg van Jan Verbeelen in het hertogdom Brabant. Simon de Witte werd gevraagd om geld te lenen aan Philips de Kempenen, maar toen weigerde hij, brak er een gevecht uit.",
+    "de": "Simon de Witte, Bürger der Stadt Brüssel, hat Vergebung für einen Kampf beantragt, der im November 1524 stattgefunden hat. Der Kampf involved zwei Besatzungsmitglieder, Philips de Kempenen und Jan Remaes, und einen Wirt namens Jan Verbeelen. Der Kampf fand in der Herberge von Jan Verbeelen im Herzogtum Brabant statt. Simon de Witte wurde gebeten, Geld an Philips de Kempenen zu verleihen, aber als er ablehnte, brach ein Kampf aus."
+  }
+}
+```

@@ -1,0 +1,198 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te wetene allen luden nu ende naemaels wesende
+dat wy hebben ontfangen die oitmoidige supplicatie van
+gielis van ermeghem arm scamel ambachts geselle woenende
+binnen onser stadt van loevenen inhoudende hoe dat hy suppliant met
+francken vanden kerkove zyn aengebracht ende geaccuseert
+geweest aen onsen procureur general van onsen rade in brabant dat
+zy ten tyde doen te vrouwen inder voers. onser stad van loevenen
+rumoir maicten die omtrent onderhalf jaer geleden is om
+den dieren tyt ende duytbueren vanden coren souden geworpen
+hebben met steenen tegen die dieneren oft vorscreven der
+voers. onser stadt die die voerscreven vrouwen wilden beletten
+tvoers. rumoir te makene ende dat zy oyc souden geseeght
+oft geroepen hebben iniurieuse woirden tegen die voers.
+dieneren mits den welcken die suppliant ende die voers. francken
+zyn gedaight geweest ten versuecke vanden voirs. procureur
+te compareren in persoenen inden voers. onsen rade ende want
+zy nyet en zyn gecompareert soe zyn zy by onsen voers.
+rade gebannen uuyt onsen $ landen van brabant ende van overmaze
+ende tot dien alle huere goeden geconfisqueert tot behoef van
+ons lude hoewel die suppliant hem van tgene des hy aenden
+voers. onsen procureur gna mach geaccuseert zyn wel soude
+verantwerdt hebben ende onschuldicht nochtans en heeft
+hy nyet dorren compareren uuyt vreesen dat hy soude
+terstont in gevanckenisse gestelt geweest hebben dwelck
+indien tselve gebuert hadde hy inden voers. gevanckenisse
+hadde mogen bliven sitten gemerct dat hy egheenen vrinden
+en heeft die hem hadde moegen mede behulpen oft doen
+verantwoirden dan hy dagelycx met zynen ambacht van
+cleermakere in knaepscape gewynnen can dwelck soe
+luttel ende sober is dat hy nu nauwe den cost daermede
+en can gecrigen en can mits welcken consideratien die suppliant
+nyet en heeft dorren compareren op hope oyc dat hy
+soude gracie gehadt hebben soe de voers. francken zyn
+medegeselle die gracie van allet ghene dat hem die
+procureur soude mogen heysschen ter causen als voere heeft
+vercregen ende meynde die suppliant dat hy mede inde
+voers. gracie hadde begrepen geweest mits dat zy beide
+van eenen delict ende stucke geaccuseert waren ende
+aengesien dat die suppliant hem daer mede benyndt
+gefrustreet ende alsoe mits den voers. banne soude
+moeten onse landen habandonneren ende gaen dolen
+in vreemden landen in grooter miserien ende armoede
+ten ware dat hem onse gracie hier op verleent worde
+den voers banne weder roepen ende tvoers. delict hem vergeven
+omwelcke gracie hy ons oitmoedelyck heeft gebeden waer soe
+eest dat wy desen aengesien geneycht wesende ter
+beden vanden suppliant willende hem in desen prefereren gracie
+voere rigeur van rechte by advuyse van onsen lieven ende
+getrouwen cancellier ende luden van onsen rade in brabant
+hebben inden gevalle als boven geremitteert ende weder roepen
+remitteren ende weder roepen uuyt zunderlinger gracien
+mids desen onsen brieve den voers. ban die tegen die
+persoen vanden voers. suppliant in onsen voers. rade is gedaen
+ende gepronuncieert geweest ende van onser meerder gracien
+hebben wy hem oyc vergeven ende quytgesconden vergeven ende
+scelden quyte uuyt zunderlinger gracien mits desen onsen
+brieve tstuck ende delict boven geruert ter causen
+vanden welcken die suppiant in onsen voers. rade gedaight
+was met allen amende corporele ende criminele daer
+inne hy by redenen vanden voers. delicte tegen ons ende
+der justicien mach hebben misbruyct ende vervallen wesen
+ende hebben hem desen aengaende gerestitueert ende gestelt
+restitueren ende stellen tot zynene goeden name fame
+ende tot zynen goeden soe verre hy eenige hadde inder
+vuegen soe hy was voere tvoers. delict ende pronunciatie
+vanden voers. banne imponerende hier op een eeuwich
+geswych ende silencie onsen voers procureur generael ende allen
+anderen onsen ende der smaelre heeren officieren ende
+dieneren dien dat ennichssins aengaen sal mogen
+satisfactie nochtans gedaen der partyen geinteresseerd
+soe verre die nyet gedaen en syn zy ende ennige
+daer toe staet civilyck alleenlyc behoudelick
+oyc dat hy gehouden sal zyn tvoers. delict aen ons
+te beteren ende daer voere te betalen amende civile nae $
+gelegentheyt vanden voers. delicte ende faculteyte
+van zynen goeden ende oyc mids die redelycke
+costen van justicien ter arbitragien ende taxacien van
+onsen voers. cancellier ende luden van onsen voers. rade
+die wy daer toe committeren by desen ontbieden dairom
+ende bevelen dien selven cancellier ende luden van onsen
+rade dat geroepen voere hen die daerom sullen behoeren
+geroepen te zyne zy procederen wel ende dueghdelyc getrouwelyck
+totten interinemente van desen ende tot ter taxacien
+ende moderatien vander voers. civilder beternissen ende
+costen van justicien ende dat gedaen ende die voers.
+civile beternisse betaelt den ghenen van onsen
+ontfangeren dien dat behoiren sal ende die welcke
+sal sculdich zyn daer af ontfanck te makene tot onsen
+proffite zy ende voerts alle andere onse richteren ende die
+officieren van onsen smaelen heeren van desen onsen lande van
+brabant dien dat aengaen sal mogen den suppliant van deser
+onsen voers. gracien rapelle van banne ende quytscheldinge
+ende remissien doen laten ende gedoogen peysselyc vredelyc
+daer inne te doene oft te laten gescieden ennigen hinder
+stoot oft letsel ter contrarien maer by alsoe hy
+oft zyne goeden ter saken van desen nu oft in toecomende
+tyden gecommert oft gearresteert worden die ter
+stont stellen ende stellen doen tot geheelder ende
+volcomender delivrancie ende ten eynde dat dit
+vaste ende gestadich zy ende blive tot eeuwigen dagen
+hebben wy onsen zegel hieraen doen hangen behoudelyck
+ons in anderen dingen onsen rechte ende anderen den
+hueren in allen gegeven in onser stadt van bruessel
+inde maent van julio int jaer onsen heeren duysent
+vyfhondert ende tweentwintich ende van onsen rycken
+te wetene vanden roomschen van hongarien etc tvierde
+ende van spaengnen etc. ende andere tzevenste aldus stont
+onder op te plycke byden keyser in zynen rade
+ende geteekent h de hane ende noch visa
+gecollacionneert metten
+originalen brieve by my
+$ijsele $$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "approximately half a year ago from the document date",
+  "persons": [
+    {
+      "firstname": "gielis",
+      "lastname": "van ermeghem",
+      "role": "suppliant",
+      "function": "arm scamel ambachts geselle"
+    },
+    {
+      "firstname": "francken",
+      "lastname": "vanden kerkove",
+      "role": "accused",
+      "function": "geselle"
+    },
+    {
+      "firstname": "onsen procureur general",
+      "lastname": "van onsen rade in brabant",
+      "role": "prosecutor",
+      "function": "procureur general"
+    }
+  ],
+  "locations": [
+    {
+      "name": "onser stadt van loevenen",
+      "loctype": "city"
+    },
+    {
+      "name": "onsen $ landen van brabant ende van overmaze",
+      "loctype": "provinces"
+    }
+  ],
+  "summary": {
+    "en": "Gielis van ermeghem, a scamel ambachts geselle living in the city of Leuven, has received a remission from the court. He was accused by Francken vanden kerkove, also a geselle, of creating a disturbance in the city. The incident happened approximately half a year ago. The prosecutor was the procureur general from the Brabant council. Gielis did not appear in court out of fear of immediate imprisonment. He was banned from the lands of Brabant and Overmaze, and all his goods were confiscated. Gielis claims he is innocent and asks for grace, which was granted, allowing him to avoid the ban and the accusations. The remission was granted after consideration and advice from the chancellor and luden of the Brabant council.",
+    "fr": "Gielis van ermeghem, un scamel ambachts geselle résidant dans la ville de Louvain, a reçu une remise du tribunal. Il a été accusé par Francken vanden kerkove, également un geselle, de troubler la ville. L'incident s'est produit il y a environ six mois. Le procureur était le procureur général du conseil de Brabant. Gielis n'est pas apparu au tribunal par crainte d'une emprisonnement immédiat. Il a été banni des provinces de Brabant et Overmaze, et tous ses biens ont été confisqués. Gielis prétend être innocent et demande grâce, ce qui a été accordé, lui permettant d'éviter l'interdiction et les accusations. La remise a été accordée après considération et conseil du chancelier et des luden du conseil de Brabant.",
+    "nl": "Gielis van ermeghem, een scamel ambachts geselle die in de stad Leuven woont, heeft een remissie van de rechtbank ontvangen. Hij werd door Francken vanden kerkove, eveneens een geselle, beschuldigd van het verstoren van de stad. Het incident vond ongeveer een half jaar geleden plaats. De procureur was de procureur-generaal van de Raad van Brabant. Gielis verscheen niet voor de rechtbank uit vrees voor onmiddellijke gevangenschap. Hij werd verbannen uit de provincies Brabant en Overmaze en al zijn goederen werden geconfisqueerd. Gielis beweert onschuldig te zijn en vraagt om genade, die werd verleend, waardoor hij de ban en de beschuldigingen kon vermijden. De remissie werd verleend na overweging en advies van de kanselier en luden van de Raad van Brabant.",
+    "de": "Gielis van ermeghem, ein scamel ambachts geselle, der in der Stadt Löwen wohnt, hat eine Remission vom Gericht erhalten. Er wurde von Francken vanden kerkove, einem weiteren geselle, beschuldigt, die Stadt zu stören. Der Vorfall ereignete sich etwa ein halbes Jahr zuvor. Der Ankläger war der procureur general von
+```

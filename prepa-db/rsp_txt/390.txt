@@ -1,0 +1,261 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen te weetene allen ende eenen yegelycken
+tegenwoirdich ende toecomende dat wy ontfangen hebben
+die oetmoedige supplicatie van augustinus
+gabius jonck geselle geboren in vrieslandt inhoudende
+hoe dat hy omtrent anderhalff jaer geleden woenende
+ende studerende binnen onser stadt van loeven is eens
+des achternoens met eenen syne medegeselle geheeten
+albertus knoppers gegaen wandelen buyten onser voirscreven
+stadt tot wilsele ende aldair gaen drincken een
+canne biers in een taverne ten huyse mercx
+van gele ende te wyle in daer sittende
+waren zyn by hem gecomen drye andere studenten
+van hunnen lantsluyden te weeten johannes suckens
+peetrus melama ende albertus dewelcke
+met hem suppliant ende zyne voirscreven medegeselle
+begheerden te drincken dwelck hen byden suppliant ende
+zyne geselle wordde geaccordeert ende als sy
+tsamen een luttel tyts gedroncken hadden heeft
+de voirscreven johannes suckens questie gesocht opten
+suppliant sonder dat den suppliant heeft geweeten eenige
+oirsake in sulcker vuegen dat deselve johannes
+suckens eenen pingnaert daer mede
+syn beste doende om den suppliant te euvelen van
+synen lyve gelyck hy soude gedaen hebben en
+hadde hy suppliant den steeck ende poingnaert nyet
+geschudt ende ontfangen in syn handt dwelck
+siende de suppliant seyde totten selven johannes
+ghy $onck boeve soudy my dat doen die u noyt
+quaet gedaen heeft ghy en behoort nyet te vechten
+dwelck siende ende hoorende de voirscreven petrus melama
+medegeselle vanden voirscreven johannes heeft hem gevuecht
+metten voirscreven johannes ende hebben alsoe tselve questie
+ende gevecht gesocht op den voirscreven suppliant
+dwelck siende hy suppliant heeft alle middelen
+gesocht om met schoone woerden hen te contenteren
+gelyck oick deede hen derde geselle albertus
+geheeten soe dat zy hen johannes ende petrus nae
+hen beste te vreden stelden ende als sy gerekent
+ende betaelt hadden heeft hy suppliant om twist
+te schouwene den voirscreven petrus ende johannes
+laten voirgaen by hem behoudende albertus voirs
+ende als een lutsel tyts ewech waren is
+hy suppliant ende albertus oic gevolcht nae
+huys ende commende opten steenwech by onsen voirs
+stadt van loeven wesende inden avont
+is hen aldair staen verbeyden die voirscreven petrus
+met een bloote rappiere inde hant daermede
+slaende ende stekende naeden suppliant alsoe
+dat hy den suppliant soude hebben hersteken
+en hadde albertus voirscreven nyet tusschen beyden
+geschoten ende hem suppliant beschudt dwelck
+hy petrus siende dat hy syn voirnemen nyet
+en volbringhen conste is anderwerff voir
+geloopen nae syn geselscap soet scheen
+ende heeft anderwerffven op een hoecxken
+van een cleyn straetken aenden wyngaerde
+hem suppliant staen verbeyden metter blooter
+rappiere ende hy suppliant ende syn geselle
+daer comende ende meynende voer by te
+gane is hem aengecomen de voirscreven petrus
+slaende ende stekende naden suppliant dwelck
+siende hy suppliant ende dat hy egheen verdrach
+en conste gekrygen ende want soe duyster
+was dat hy die steke oft houwen nyet en
+conste gekeeren is vuyt vreesen ende vuyte
+defenderen hem petren hinne geloopen
+metten met een bloot brootmes ende
+metten inne loopen heeft hem petrus
+geraect ende gewondt in syn borst daer
+aff die selve bynnen vyff oft sesse dagen
+daernae is aflivich gewordden wyens
+siele god wille genadich syn dwelck
+hem suppliant vuyt gronde syns herte leet
+is daeraff oick de voirscreven suppliant der partye
+geinteresseerde satisfactie gedaen heft
+ende hoe wel tvoirscreven feyt toegecomen
+is soe voirscreven staet gelyck de voirscreven petrus
+tselve in zyn doot bedde bekendt heeft
+gehadt ende ende hem suppliant vergeven alle
+tgene des hy mochte mesdaen hebben
+zoeen soude nochtans hy suppliant bevreesen
+rigeur van iusticie hem nyet sekerlyck
+dorren vinden binnen dese onse landen te
+ware dat hem hierop wordde versien met
+onse behoirlycke $$ van gracie ende
+remissie soe hy seeght ons daarom
+seer oitmoedelyck biddende waerom zoe eest
+dat wy desen aengesien geneyght wesende de
+beden des voirscreven augustinus gabius suppliant ende
+willende hem in dit stuck prefereren gracie
+ende misericorde over strangcheyt ende rigeur
+van rechte hebben deselve suppliant innegevalle
+als boven quitgeschonden ende vergheven
+schelden quite ende vergeven vuyt onser sunderlinge
+gracien by desen onsen brieve tfeyte ende manslach
+boven geruert mitsgaders alle $$ ende
+bruecken corporelle ende criminelle daerinne
+hy hem vermits ende vuyt saken? van tgene
+des voirscreven is tegens ons onse hoogheyt ende
+iusticie eenichssins mach hebben ontgaen
+ende mesdraegen ende hebben hem dyen
+aengaende weder gestelt ende gerestitueert
+stellen weder ende restitueren tot zyne god goeden
+name ende fame in onsen voirscreven lande van
+brabant ende allen anderen onsen landen ende heerlicheyden
+ende tot zynen onverbuerde goeden goeden indyen
+hy eenige onder ons gelyck ende alder
+manieren soe hy was voir die toecompste vanden voirs
+feyte imponerende hier op een eeuwich swygen onsen
+procureur generael in brabant onsen meyere van
+loeven ende allen anderen onsen iusticien ende officieren
+wye sy syn satisfactie ende beternisse ierst
+ende voir al gedaen der partye geinteresseerde
+indyen die noch nyet gedaen en sy ende eenige
+daertoe staet? civile alleene behoudelyck
+dat de voirscreven suppliant gehouden sal syn tvoirscreven feyt
+tegens ons te beteren cunlyck naer de gelegentheyt
+vander materie ende faculteyt van zyne goeden met
+oick te betalen de redelycke costen van iusticie
+hieromme alreede gedaen ende te doene allet
+ter taxsa taxatie ende moderatie van onse
+zeer kieve ende getrouwen cancellier ende luyden
+van onsen rade in brabant die wy daertoe
+gecmmitteert hebben ende comitteren by desen ontbieden
+daerom ende bevelen denselven onsen cancellier
+ende raedsluyden dat voir hen geroepen deghenen
+die daer om sullen behoiren geroepen te syne
+zy procederen wel ende deudeughdelyc ter verificatien
+ende interinnemente van desen ende totter
+taxatien ende moderatie vanden voirscreven civile
+boete ende costen van iusticie alsoe sy sullen
+bevinden behoiren dwelck interinnement
+de voirscreven suppliant gehouden sal syn te versuecken
+ende hem in persoone te presenteren in
+onsen voirscreven rade binnen sesse maenden
+na date van desen opte peine van te
+verbeuren deffect van desen ende dat
+gedaen ende de voirscreven civile boete ende costen van
+iusticie getaxeert ende betaelt zynde in handen
+vanden ghene dyen dat behoiren sal ende onsen
+voirscreven procureur generael in brabant onsen voirs
+meyer van loeven ende alle andere onse
+richteren iusticieren officieren ende ondersaeten
+ieghenwoirdich ende toecomende dien dat
+aengaen sal moegen huere stedehouderen ende
+een yegelyck van hen besundere soe hem toe
+behoiren sal doen laten ende gedoogen de
+voirscreven suppliant van deser onser iegenwoirdiger
+gracien ende remissie ende van alle dinhouden
+van desen inder vuegen ende manieren boven
+verhaelt rustelyck vredelyck volcomelyck ende eeuwelyck
+genyeten ende gebruycken sonder hem te doene
+oft te laten gescieden nu noch in toecomende
+tyden eenich hinder letsel ofte moeyenisse aen
+lyff noch aen goeden ter contrarien maer
+indyen syn lyff opt ofte enige van syne voirs.
+goeden daerome eenichssins gearresteert
+becommmert oft belet waren dat sy die setten
+ende stellen terstont ende sonder vertreck tot
+geheelder ende volcommender delivrancie
+want ons alsoe gelieft ende ten eynde
+dat dit vast ende gestadich blyve ende
+gehouden wordde teewigen dage soe
+hebben wy onsen segel hier aen doen hangen
+behoudelyc in anderen saken onsen rechte
+ende eenen yegelycken dessyns in allen
+gegeven in onser stadt van bruessele
+inde maent van decembri int jaer ons
+heeren duysent vyfhondert achtenveertich
+van onsen keyserrycke txxx ende van onsen
+coninckrycke van castillien ende anderen txxxiij
+aldus gescreven opde plycke byden keyser
+in zynen rade ende geteekent eype
+visa rxnr
+gecollationneert ende bevonden accorderen
+met zyne originalen by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "approximately 1.5 years ago from the document date",
+  "persons": [
+    {
+      "firstname": "augustinus",
+      "lastname": "gabius",
+      "role": "supplicant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "johannes",
+      "lastname": "suckens",
+      "role": "involved in the incident",
+      "function": "student"
+    },
+    {
+      "firstname": "petrus",
+      "lastname": "melama",
+      "role": "involved in the incident",
+      "function": "student"
+    },
+    {
+      "firstname": "albertus",
+      "lastname": "dewelcke",
+      "role": "witness",
+      "function": "student"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Augustinus Gabius, a citizen, supplicates for remission for a fight he was involved in with other students while studying in Leuven. He was unarmed and tried to make peace, but was eventually wounded by one of the students, Peter Melama, with a bare sword. The supplicant is afraid of the rigor of justice and asks for grace and mercy.",
+    "fr": "Augustinus Gabius, citoyen, supplie d'être remis d'une rixe à laquelle il a été impliqué avec d'autres étudiants alors qu'il étudiait à Louvain. Il était désarmé et a tenté de faire la paix, mais a finalement été blessé par l'un des étudiants, Pierre Melama, avec un épée nue. Le suppliant a peur de la rigueur de la justice et demande grâce et miséricorde.",
+    "nl": "Augustinus Gabius, burger, vraagt om vergeving voor een gevecht waar hij bij betrokken was met andere studenten tijdens zijn studie in Leuven. Hij was onbewapend en probeerde vrede te stichten, maar werd uiteindelijk door een van de studenten, Peter Melama, gewond met een blote zwaard. De suppliant is bang voor de strenge rechtspraak en vraagt om genade en mededogen.",
+    "de": "Augustinus Gabius, Bürger, bittet um Absolution für einen Kampf, an dem er mit anderen Studenten beteiligt war, während er in Löwen studierte. Er war unbewaffnet und suchte Frieden, wurde aber schließlich von einem der Studenten, Peter Melama, mit einem bloßen Schwert verwundet. Der Bittsteller hat Angst vor der Strenge der Justiz und bittet um Gnade und Barmherzigkeit."
+  }
+}
+```

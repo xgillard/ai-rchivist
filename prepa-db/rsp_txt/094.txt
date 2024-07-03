@@ -1,0 +1,132 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remisie
+albert ende isabel etc. doen te wetene alle
+tegenwoirdige ende toecommende dat wy ontfangen hebben die ootmoedige
+supplicatie van adriaen van mechelen jonckman noch minderjaerich woonende
+binnen onser stadt van herentals inhoudende hoe dat hy suppliant hem altyt seer
+eerlyck, vromelyck ende buyten reproche heeft gedraegen, noyt yet geperpetreert hebbende weerdich
+punitie criminelle, behoudelyck dat meer dan een jaer geleden hy suppliant sittende op syn werch
+ten huyse van merlen eynde binnen herentals voorscreven ende crygende eenige woirden met hans
+gastweerdere synen medegeselle, is gebeurt dat middelen tyde aldaer gecommen is
+christiaen van mechelen des suppliants broeder de welcke hoorende de affdraegende
+woirden tusschen eenen ende den anderen, heeft hun willen onderrichten, seggende schande
+ende quaelyck gedaen te wesen t’gene zy opden winckel voorstelden ende bedreven ende die
+suppliant tselve cleyn oft luttel achtende ende oversulcx tegen synen broeder mede woirden
+maeckende, heeft die voorscreven christiaen den suppliant al lachende met een geerdeken
+oft roedeken geslaegen, waertegen die suppliant nemende in syn handt een cleyn stocxken
+ende tselve naerden voorscreven synen broeder worpende is by ongeluck comen te vallen op
+hooft, die daervan oock een weenich gequest wordde sonder nochtans ter dyer oorsaecke
+syn gaen, staen, geten, drincken ende daegelyck handtwerck te doen gelaeten te hebben
+dan wel sesse weken naer t’voorscreven accident, bevangen worddende met eene natuerlycke
+sieckte, is vande selve sieckte tot des suppliants groot leetwesen comen te overlyden
+wyens ziele godt benaede, ende hoewel hy suppliant inde doot vande voorscreven christiaen
+synen broeder geenssins en is culpabel ende dat hy van een andere sieckte is gestorven
+van tvercleren desselffs chirurgyn, broeders, susters ende andere, den selven
+christiaen in syne sieckte geassisteert hebbende claerder is blyckende by attestatie
+van borgemeesters, schepenen ende raedt der stadt herentals voorscreven daer van zynde
+expresselyck ontlastende den suppliant van des voorscreven syns broeders afflyvicheyt
+met affirmatie dat hy christiaen van voorscreven quetsuere nyet en is gestorven
+daermede hy soude mogen gestaen zoo eest nochtans dat hy cortelinge ge$
+willende vertrecken, om wat voirder te versuecken ende het lant te sien $
+daervoor noch gereprocheert oft anderssins gequelt te mogen wordden tgene
+hy midts de versche memorie van eenenyegelyck ende syne nothoire innocentie
+al voren hem op reyse te geven wel wilde versien te syn allet gelyck hy suppliant
+seyde, heeft ons daerom seer ootmoedelyck gebeden om onse opene brieven van remissie
+daertoe dienende soo eest dat wy desen aengemerckt ene gesien hebben
+het advys van onse lieve ende beminde die schouteth ende schepenen onser stadt
+van herentals eentsaementlyck d’informatie by hun opt voorscreven feyt genomen ge$
+wesende ter beden des voorscreven suppliants ende willende hem in dit stuck prefereren
+gratie ende misericordie voor strangheyt ende rigeur van rechte, hebben den selven
+inden gevalle als boven quytgeschouwen ende vergeven, schelden quyte ende vergeven vuyt
+sunderlinger gratien by desen onsen brieve tfeyt ende ongeval boven geruert, mitsgaeders
+alle offencie corporele ende criminele daerinne hy ter causen voorscreven midts dat
+daeraen cleven mach tegen ons ende iusticie misdaen ende misbruyckt mach hebben
+hem dien aengaende wedergestelt ende gerestitueert, stellen weder ende restitueren
+tot synen goeden naeme, fame ende geruchte in onsen voorscreven lande van brabant
+ende allen anderen onse landen ende heerlyckheyden ende tot syne onverbeurde goeden
+indyen hy eenige onder ons heeft, gelyck ende in alder manieren zoo hy was voor de $
+vande voorscreven feyte imponerende hierop een eeuwich geswych onsen procureur generael in brabant
+den voorscreven schouteth van herentals ende allen onsen iusticieren ende officieren wie
+sy syn, satisfactie ende beternisse eerst ende vooral gedaen der partye geinter$
+voor soo vele die noch nyet gedaen en zy ende eenige daertoe staet civilyck alleenelyck ende de saecke sulcx
+verheyschende behoudelyck dat de voorscreven suppliant gehouden sal syn t’voorscreven feyt tegen ons te beteren
+civilyck naer gelegentheyt van saecken ende facilteyt van zyne goeden met oock te betaelen die redelycke
+costen van iusticien hierom alreede gedaen ende te doene alles ter taxatien ende moderatien vanden
+lieve ene getrouwe die cancellier ende luyden van onsen raede geordonneert in brabant, die wy
+daertoe gecommitteert hebben ende committeren by desen, ontbieden daerom ende bevelen den selven onsen cancellier
+ende raedtsluyden dat voor hun geroepen die gene die daerom behoiren geroepen te syne, zy $
+wel ende deuchdelyck ter verificatie ende interimente van desen, ende ter taxatie ende moderatie
+vande selve amende ende costen van iusticien alsoo sy sullen bevinden te behooren, welck
+interimente de voorcreven suppliant gehouden sal syn te versuecken ende hem in persoone te presenteren
+in onsen voorscreven raede binnen sesse maenden naestcommende op de pene van te
+verbeuren d’effect van dyen, ende dat gedaen ende de selve civile boete ende
+costen van iusticien getaxeert ende betaelt zynde in handen vande genen dyen dat behoiren
+sal sy, onsen voorscreven procureur generael in brabant, onsen schouteth van
+herentals voorscreven ende alle andere onse rechteren, iusticieren, officieren ende
+ondersaeten tegenwoirdige ende toecommende dyen dat aengaen sal mogen, heure
+stedehouderen ende eenen yegelycke van hun besundere soo hun toebehoiren sal, doen
+laeten ende gedoogen den voorscreven suppliant van deser onser tegenwoirdiger gratien
+ende remissien ende van alle d’inhouden van deser inder vuegen ende manieren voor
+verhaelt, peyselyck, rustelyck, vredelyck ende volcommenlyck ten eeuwigen daegen genyeten
+ende gebruycken, sonder hem daerinne te doen off te laeten doen ende geschieden nu oft in
+toecommenden tyden eenich hinder, letsel oft moeyenisse aen lyff ofte aen goeden
+ter contrarien maer indyen syn lyff off eenige van sijne goeden daerom gearresteert,
+becommert oft beleth waeren, dat sy die setten ende stellen doen setten ende stellen
+terstont ende sonder vertreck tot geheelder ende volcommender delivrantien, want
+ons alsoo gelieft ende ten eynde dat dit vast end e gestaedich blyve ten eeuwigen
+daegen soo hebben wy onsen segel hieraen doen hangen, behoudelyck in andere dingen
+onsen rechte ende eenen yegelycken anderen des syns gegeven binnen onser stadt
+van bruessela inde maent van meye int jaer ons heeren
+duysent zeshondert ende vijff onder opde plycke stont gescreven
+bijde eertshertogen ende onderteeckent n. lombaerts ende was
+gesegelt met eenen grooten zegele van groenen wassche onder vuyt hangende
+in syden snoeren. [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+

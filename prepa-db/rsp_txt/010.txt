@@ -1,0 +1,247 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc.doen te wetene allen iegenwoirdighen ende toecomende dat
+wy hebben ontfangen hebben die oitmoedighe supplicatie van servaes van
+bouchout metser belast met huysvrouwe ende kinderen bynnen onser stede
+van mechelen inhoudende hoe dat hy op sint jans dach den xxiiijen junij
+lestleden gehoirt hebbende die hooftmisse inde kercke van sinte rombout
+tot mechelen voirs. is vergadert geweest metten anderen gesellen van
+zynen ambachte om te helpen kiesen die cuerlinge geweest hebbende in
+onsen dienste van oirloge ende tselve gedaen zynde es tot hombeke
+op een syn huys gaen eten met synen huysvrouwe ende daer nae een ure oft
+daerontrent gerust hebbende zoe es syn huysvrouwe ende daer en tusschen hem
+ontgaen dwelck beseffende die voirs. suppliant heeft naer haer gaen sien
+vernemen ende haer gesocht hebbende omtrent twee uren heeft se ten laeste
+gevonden in seker bier taverne staende byden houtenen driesch dwelck men
+seeght te zyne onder de iurisdictie vanden heere van grimberghen als
+eensdeels heere van sempse aldaer was sittende inden geselschape
+van zekere gravers vander nyeuwervaert onser stadt van brussel ende
+onder andere van eenen geheeten pieter bul wesende van roekeloosen
+leven ende van een vrouwe persoon oyck van lichten leven genaempt
+lysbeth cl$$yls alias solsepels ende de suppliant int geselschap
+commende zeer geturbeert wesende mits dongeregeleethede van synder
+huysvrouwe die tanderen tyde hem noch ontloopen hadde heeft de selve zyn
+huysvrouwe deur beroerthen de gegeven twee oft drye souffletten by
+maniere van castigatie ende hoe wel de voirs. peeter bul noch
+yemandt anders hem dies nyet en behoirde tonderwinden zoe es nochtans
+de voirs. bul opgesprongen willende de suppliant innaderen ende inneloopen
+maer de suppliant stiet hem weder op zyn plaetse ende mits dyen
+zoe heeft de voirs. p$$ lysbeth den suppliant gegrepen met den boesem
+ende schouweren dwelck die suppliant siende ende merckende oyck dat de
+voirs. gravers hadden elck een bloote rappiere ende dat hy alzoe
+in merckelyck peryckel was van synen lyve geevelt te worddene
+zoe heeft die selve suppliant die een hamer in * hant hadde om te
+ontwycken ende hem te salveren die voirs. lysbeth van hem gestooten
+sulcx dat zy achterwaerts over viel nyet wetende dat hy haer
+metten voirs. hamer geslagen ende gestooten heeft van welcken
+val oft stoot vanden hamere de selve lysbeth als de suppliant sichtent
+verstaen heeft eweynich gequest es geweest in haer hooft
+sonder dat hy suppliant doen wiste van eenighe quetsuere ende
+daer naer es de suppliant uuyten huyse gegaen achterwaerts deysende
+ende buyten zynde zyn hem gevolght de voirs. peeter bul ende drye vanden
+voirs. gravers ende tselve siende heeft die suppliant geseyt waeromme
+volghdy my wat heb ic u luyden mitsdaen ick hebbe myn huysvrouwe
+gehaelt ende es alzoe es de voirs.suppliant de selve gravers ontloopen
+gheen achterdincken hebbende vanden quetsure die de voirs. lysbeth selsepels
+als voirs. es ontfangen hadde alsoe oyck die selve quetsure gheensins
+letael was als de suppliant verstaen heeft nyettemin duur incurie
+ende negligencie vande selve lysbeth die haer nyet en heeft $$$
+gewacht gaene wercken inde groote hitte ende anderssins daer
+haer beliefde soe es ten laesten haer toegeslagen een cortse
+als hy suppliant verstaet ende es den xvijen dach naer de voirs. quetsure
+tot mechelen int gasthuys gestorven wyens ziele godt genadich zy
+ter causen van welcken onnoeselen feyte de suppliant onlancx geconstitueert
+es gevangen bynnen onser voirs. stede van mechelen ende die heere van
+grimberghen mitsgaders onse amptman van onser stede van brussel
+onder tdexele dat de toecompst vanden voirs. quetsure gebeurt es onder
+de voirs. prochie van sempse hebben elck in regardt van zyn
+iurisdictie begonst te procederen opde goeden vanden voirs. suppliant
+sonder dat men sekerlyck weet onder wyens iurisdictie de voirs. taverne
+gestaen heeft ende want de voirs. quetsure geenssins letael en
+es geweest als de suppliant verstaet ende dat tfeyt gebeurt es
+inder manieren boven verhaelt soe heeft hy ons gebeden dat ons
+gelieven wille hem tselve feyt te vergevene ende daerop te doene expedieren
+onse oepenen brieven daertoe dienende wairom zoe eest dat wy desen aengesien
+geneycht wesende ter beden des voirs. suppliants ende willende hem
+in dit stuck prefereren gracie ende misericordie voer strangheyt ende rigeur
+van rechte hebben den selven suppliant inden gevalle als boven
+quytsgeschonden ende vergeven schelden quyte en vergeven uuyt
+zunderlinger gracien by desen onsen brieve tfeyt ende ongeval boven geruert
+mitsgaders alle offensie ende bruecke corporelle ende criminelle daer
+inne hy hem overmits ende uuyt saken tghenen des voirs. is
+tegen ons ende iusticie eenichssins mach hebben ontgaen ende
+mesdragen ende hebben hem dien aengaende wedergestelt ende
+gerestitueert stellen weder ende restitueren tot zynen goeden name fame
+ende geruchte in onsen voirs. lande van brabant ende allen anderen
+onsen landen ende heerlicheyden ende tot zynen onverbeurden goeden indien
+hy eenighe onder ons heeft gelyck ende alder manieren zoe hy was
+voer de toecompste vanden voirs. feyte imponerende hierop een
+eeuwich geswych onsen procureur generael in brabant ende allen anderen
+onsen iusticieren ende officieren wye zy zyn satisfactie ende beteringe
+ierst ende voer al gedaen der partyen geinteresseerde indien die
+noch nyet gedaen en zyn ende eenighe daertoe staet civilyck alleenlyck
+behoudelyck dat de voirs. suppliant gehouden zal syn tvoirs. feyt tegen
+ons te beteren civilyck nae gelegentheyt vander zaken ende faculteyt
+van zynen goeden met oyck te betalene die redelycke costen van
+iusticien hieromme alreede gedaen ende te doene allet ter taxatie
+ende moderatien van onse lieve ende getrouwe die cancellier ende
+luyden van onsen raide in brabant die wy daertoe gecommitteert
+hebben ende committeren by desen ontbieden daerom ende bevelen den selven
+onsen cancellier ende raedsluyden dat voer hen geroepen deghenen
+die daerom behoeren geroepen te zyne zy procederen wel ende duchdelyck
+ter verificatie ende interinemente van desen ende totter taxatie
+ende moderatien vanden voirs. amende ende costen van iusticien
+alsoe zy sullen bevinden behoirende welck interinement de voirs.
+suppliant gehouden sal zyn te versuecken ende hem in persoone te
+presenteren in onsen voirs. raide bynnen zess maenden naestcommende
+opte pene van te verbeurene deffect van desen ende dat
+gedaen ende de selve civile boete ende costen van iusticien
+getaxeert ende betaelt zynde in handen vanden ghenen dien dat
+behoiren zal zy onse voirs. procureur generael ende alle andere onse
+rechteren iusticieren officieren ende ondersaten iegewoirdighe ende
+toecommende dien dat aengaen zal moegen huere stedehouderen ende
+eenyegelyck van hen besundere soe hem toebehoiren sal doen laeten
+ende gedooghen den voirs. suppliant van deser onser iegewoirdiger
+gracien ende remissien ende van alle dinhouden van desen inder vueghen
+ende manieren boven * verhaelt rustelyck vredelyck volcomelyck ende eeuwelyck
+genyeten ende gebruycken sonder hem te doene oft te laten
+geschieden nu noch in toecomende tyden eenich hinder letsel oft
+moyenisse aen lyve noch aen goeden ter contrarien maer want
+indien zy lyff oft eenighe van zynen onverbeurde goeden daerom
+gearresteert becommert oft beleth waeren dat zy die setten
+ende stellen terstont ende sonder vertreck tot geheelder ende volcomender
+delivrancie nyet tegenstaende dat tvoirs. feyt nyet en is overjaert
+dwelck wy mits der onnoselheyt vanden selven feyte ende uuyt andere
+redenen boven verhaelt nyet en willen den suppliant hinderlyck
+te wesene noch desen aengaende te lettene want ons alsoe
+gelieft gegeven in onser voirs. stadt van brussel inde
+maent van septembrj int jaer onssheeren duysent vyff
+hondert ende vierenvyfftich van onsen keyserrycke txxxve
+ende van onsen rycke van castillien ende anderen daer txxxixe
+aldus stont gescreven opde plycke by den keyser in zynen raide
+ende geteeckent $$$ visa $$$
+gecollotionert ende bevonden accorderende
+met zynen originalen brieven by mij
+$$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "24th June",
+  "persons": [
+    {
+      "firstname": "servaes",
+      "lastname": "van bouchout",
+      "role": "suppliant",
+      "function": "citizen of Mechelen"
+    },
+    {
+      "firstname": "huysvrouwe",
+      "lastname": "van bouchout",
+      "role": "wife of the suppliant",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "kinderen",
+      "lastname": "van bouchout",
+      "role": "children of the suppliant",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "bul",
+      "role": "third party",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "lysbeth",
+      "lastname": "cl$$yls alias solsepels",
+      "role": "third party",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "heere",
+      "lastname": "van grimberghen",
+      "role": "third party",
+      "function": "lord of Grimbergen and Sempse"
+    },
+    {
+      "firstname": "onsen",
+      "lastname": "amptman",
+      "role": "officer",
+      "function": "bailiff of the city of Brussels"
+    }
+  ],
+  "locations": [
+    {
+      "name": "mechelen",
+      "loctype": "city"
+    },
+    {
+      "name": "sempse",
+      "loctype": "province"
+    },
+    {
+      "name": "brussel",
+      "loctype": "city"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "castillien",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Servaes van bouchout, a citizen of Mechelen, pleads for remission after an incident on St. John's day (24th June). His wife had left him during a meal with colleagues and was later found injured in a tavern under the jurisdiction of the lord of Grimbergen and Sempse. She had been beaten, and Servaes had fled the scene, fearing for his life as the tavern patrons were armed. His wife died 17 days later, and Servaes was arrested. He requests that the authorities drop the case and grant him letters of pardon.",
+    "fr": "Servaes van bouchout, citoyen de Malines, demande la rémission après un incident le jour de la Saint-Jean (24 juin). Sa femme l'avait quitté pendant un repas avec des collègues et avait été retrouvée blessée dans une taverne sous la juridiction du seigneur de Grimbergen et Sempse. Elle avait été battue, et Servaes avait pris la fuite par crainte pour sa vie, car les clients de la taverne étaient armés. Sa femme est décédée 17 jours plus tard, et Servaes a été arrêté. Il demande que les autorités abandonnent l'affaire et lui accordent des lettres de rémission.",
+    "nl": "Servaes van bouchout, een burger van Mechelen, vraagt om vergeving na een incident op de Dag van Sint-Jan (24 juni). Zijn vrouw had hem verlaten tijdens een maal met collega's en werd later gewond aangetroffen in een herberg onder de jurisdictie van de heer van Grimbergen en Sempse. Zij was geslagen, en Servaes was gevlucht, bang voor zijn leven omdat de herberggasten gewapend waren. Zijn vrouw overleed 17 dagen later, en Servaes werd gearresteerd. Hij vraagt de autoriteiten om het zaak te laten vallen en hem gratieverlening te verlenen.",
+    "de": "Servaes van bouchout, ein Bürger von Mecheln, bittet um Vergebung nach einem Vorfall am Johannistag (24. Juni). Seine Frau hatte ihn während eines Mittagessens mit Kollegen verlassen und wurde später in einer Taverne unter der Gerichtsbarkeit des Herrn von Grimbergen und Sempse verletzt aufgefunden. Sie war geschlagen worden, und Servaes war geflohen, um sein Leben zu fürchten, da die Tavernengäste bewaffnet waren. Seine Frau starb 17 Tage später, und Servaes wurde verhaftet. Er bittet die Behörden, den Fall fallen zu lassen und ihm einen Begnadigungsbrief zu erteilen."
+  }
+}
+```

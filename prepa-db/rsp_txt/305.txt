@@ -1,0 +1,193 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen condt allen luyden iegewoirdich ende toecomende dat
+wy ontfangen hebben die oetmoedige van merten de groote lantman
+woenende tot kestere inhoudende hoe dat zekere tyt nae paesschen
+lestleden hy suppliant met twee van zynen gebueren uuyt recreatien gegaen
+is wandelen tot leerbeke met hem nemende keese ende broot om aldaer te
+banqueteren ende zyn tsamen gegaen binnen die prochie van leerbeke ten
+huyse van peeteren de groote des suppliants bruedere alwaer int
+bancketeren tusschen hem suppliant ende den voirs. peeter zynen brueder
+woirden geresen syn ter causen van eenigen scapen die opt velt waeren
+geweest ende den suppliant in zyn graen schade gedaen hadden zoe dat de
+voirs. peeter den voirs. suppliant zynen bruedere daeruuyt overvallen
+heeft met vele iniurieuse woirden ende daer toe den voirs. suppliant zynen brueder
+gedreycht gehadt te smijtene seggende totten suppliant onder dandere onder
+reverenen gesproken in effect dese oft diergelycke woirden zeert u moeder
+ghy hoveerdige leckert ghij en syt nyet weerdt tegen my te spreken
+met vele andere nydige ende onverdraechelycke woirden die welcke
+die voirs. suppliant patientelyck verdragen heeft sonder hem daer te$
+oft dien aengaende met spitige woirden oft wercken te verantwoirdene
+oft te vrekene ende daer nae heeft die voirs. peeter eenen tinnenpot in zyn
+handt genomen ende den voirs. suppliant zyn bruedere daermede met felle$
+moede een groote wonde op zyn hooft geslagen zoe dat die voirs. suppliant
+daer uuyt grootelyck geturbeert zynde vander bancken opgestaen is
+in meyningen van hem tegen den voirs. peetere te weerene ende int opstaen
+heeft die voirs. peeter den voirs. suppliant noch eenen anderen grooten
+slach op zijn hooft geslagen ende daermede grootelyck gewont waer uuyt
+hy suppliant zoewel vanden slagen als vanden bloede dat hem vuyten
+wonden in zijn oogen overvloedelycken geloopen heeft alverblint
+ende anderssins ontvreempt van zijnen sinnen geworden is in sulcken
+vuegen dat hy suppliant uuyt verblintheyt ende uuyt sinnicheyt zynen
+opstekere oft brootmes uuytgetrocken heeft om den voirs. peeter daer
+mede te steken end soe is des voirs. peeters huysvrouwe geheeten
+katheryne ymbrechts tusschen beyden geloopen om de selve gebrueders
+van malcanderen te scheyden alwaer die voirs. katheryne gewont
+is geweest in huer hals ontrent der kelen ende $$ beducht hem die
+voirs. suppliant dat hy der selver katherijnen die voirs. wonde
+gegeven heeft hoewel hy dat nyet zekerlyck en weet mits dyen
+dat hy soe gequetst was ende verblint van zijnen bloede dat hy nyet
+en sach noch en wiste wat hy dede soe hy oyck bereet is tselve by eede
+te affirmerene ende daer af is die voirs. katherijne corts daer nae
+gecommen van levende lyve ter doot dwelck hem suppliant uuyt gront
+zijnder herten zeer leet is mits den welcken die suppliant beduchtende
+rigeur van justicien hem heeft yesundert geabsenteert levende in
+grooter miserien ende armoeden ende noch meer gescapen es te doene
+en worde hem onse gracie hierop nyet geextendeert ende verleent
+alsoe hy suppliant seeght ons daerom oetmoedlyck biddende
+waerom zoe eest dat wy desen aengesien geneycht wesende
+ter beden des voirs. mertens de groote suppliant ende willende hem in dit tstuck
+prefereren gratie ende misericordie voer strangheyt ende rigeur van
+justicien hebben den selven suppliant inden gevalle als boven quytgesconden
+geremitteert ende vergeven schelden quijte remitteren ende vergeven uuyt
+sunderlinger gracien by desen onsen brieve tfeyt ende dootslach boven geruert
+mitsgaders alle offensien ende bruecke corporele ende criminele daer inne
+hij ter causen voerscreven mits dat daeraen cleven mach tegen ons ende
+justicie mesdaen ende mesbruyct mach hebben ende hebben hem
+daer af wedergestelt ende gerestitueert stellen weder ende restitueren
+tot zynen goeden name fame ende geruchte in onsen voirs. lande ende
+hertoochdom van brabant ende allen anderen onsen landen ende heerlicheyden
+ende tot zynen onverbeurden goeden indyen hy ennige onder ons heeft
+gelyck ende in alder manieren soe hy was voer de toecompste vanden
+voirs. feyte imponerende hier op een eeuwich geswych onsen procureur general
+in brabant ende allen anderen onsen justicieren ende officieren wye zy zyn
+satisfactie ende beternisse eerst ende voeral gedaen der partie
+geinteresseerde indyen die noch nyet gedaan en is zy ende ennige daertoe
+staet civilyck alleenlyck behoudelyck dat die voirs. suppliant
+gehouden sal zijn tvoirs. feyt tegen ons te beteren civilyck nae
+gelegentheyt vander saken ende faculteyt van zijnen goeden met oyc$
+te betalen de costen van justicien hieromm alreede gedaen ende te doene
+allet ter taxatien ende moderatien van onsen lieven ende getrouwen den
+cancellier ende luyden van onsen raede in brabant die wy daer toe
+gecommitteert hebben ende committeren by desen ontbieden daerom ende
+bevelen den selven onsen cancellier ende raedtsluyden dat voer hen
+geroepen degene die daerom zullen behoiren te zyne zy procederen wel
+ende duechdelyck ter verificatie ende interinemente van desen ende totter
+taxatie ende moderatie vander voirs. amende ende costen alsoe zy sullen
+bevinden behoirende welck interinement de voirs. suppliant gehouden sal zyn
+te versueckene ende hem in persoene te presenteren in onsen voirs. raede binnen eenen
+jaere naestcomende op te pene van te verbuerene deffect van desen ende
+dat gedaen ende de selve civile boete ende costen van justicien getaxeert
+ende betaelt zynde in handen vanden genen dyen dat behoiren sal zy
+onse voirs. procureur generael in brabant ende alle andere onse rechteren
+justicieren officieren ende ondersaten iegewoirdige ende toecommende dien dat
+aengaen sal moegen huere stedehouderen ende een yegelyck van hen besunder$
+soe hen toebehoiren sal doen laten ende gedoogen den voirs. suppliant van deser
+onser iegewoirdiger gracien remissien ende pardoene ende van alle den inhouden
+van desen inder vuegen ende manieren voere verhaelt rustelyck vredelyck
+volcommelyck ende eeuwelyck genyeten ende gebruycken sonder hem te doene
+noch te laten geschieden nu noch in toecommende tyden ennich hinder letsel
+oft moeyenisse aen lyve noch aen goeden ter contrarien maer indyen zyn
+lyff oft ennige van zynen goeden daerom gearresteert becommert oft belet
+waeren dat zy die zetten ende stellen terstont ende sonder vertreck tot
+geheelder ende volcomender delivrancie want ons alsoe gelieft ende
+ten eynde dat dit vast ende gestadich zy ende blyve tot eeuwygen dagen
+hebben wy onsen segel hier aen doen hangen behoudelyck in anderen dingen
+onsen rechte ende eenen yegelycken anderen dessyns gegeven in onsen stadt
+van bruessele inde maent van julio int jaer onsheeren duysent
+vyffhondert ende achtendertich ende van onsen keyserycke txixe ende
+van onsen rycken van castillien etc. txxiiie aldus stont gescreven opte
+plycke byden keyser in zynen rade ende geteekent boudewyns noch
+stont gescreven opte selve plycke visa registrata
+ghecollacionneert tegens die
+originale brieven by my
+decock
+# sy hieraff verantwordt
+byden ontfanger vanden
+exploiten [/INST] ```json
+{
+  "doctype": "CONDEMNATION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "merten",
+      "lastname": "de groote",
+      "role": "suppliant",
+      "function": "farmer"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "de groote",
+      "role": "accused",
+      "function": "brother of the suppliant"
+    },
+    {
+      "firstname": "katheryne",
+      "lastname": "ymbrechts",
+      "role": "intervenor",
+      "function": "wife of the accused"
+    }
+  ],
+  "locations": [
+    {
+      "name": "kestere",
+      "loctype": "parish"
+    },
+    {
+      "name": "leerbeke",
+      "loctype": "parish"
+    }
+  ],
+  "summary": {
+    "en": "A farmer named Merten de Groote from Kestere complains that his brother Peeter de Groote attacked him near Leerbeke, causing severe injuries to his head. Peeter's wife, Katheryne Ymbrechts, tried to intervene but was also threatened by Peeter.",
+    "fr": "Un fermier nommé Merten de Groote de Kestere se plaint que son frère Peeter de Groote l'a attaqué près de Leerbeke, causant de graves blessures à sa tête. L'épouse de Peeter, Katheryne Ymbrechts, a tenté d'intervenir mais a également été menacée par Peeter.",
+    "nl": "Een boer genaamd Merten de Groote uit Kestere beklagt zich over het feit dat zijn broer Peeter de Groote hem in de buurt van Leerbeke aanviel en ernstige hoofdwonden toebracht. De vrouw van Peeter, Katheryne Ymbrechts, probeerde tussenbeide te komen maar werd ook door Peeter bedreigd.",
+    "de": "Ein Bauer namens Merten de Groote aus Kestere beschwert sich, dass sein Bruder Peeter de Groote ihn in der Nähe von Leerbeke angriff und ihm schwere Kopfverletzungen zufügte. Peeters Frau, Katheryne Ymbrechts, versuchte einzugreifen, wurde aber auch von Peeter bedroht."
+  }
+}
+```

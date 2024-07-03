@@ -1,0 +1,270 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen condt allen luden nu ende naemaels
+wesende dat wij ontfangen hebben die oetmoedige supplicatie
+van cornelis dibbondt arm schamel man belast met x=10 oft
+xi kinderen inhoudende hoe dat des ix oft x jaeren geleden
+hy suppliant heeft sitten drincken int huys geheeten jhxlm jezus christus gestaen
+binnen den dorpe van herent int quartier van lovene ende binnen
+middelen tyde is voere tselve huys comen lydende claes schellekens
+vranckensen. welcken claese de voirs. suppliant vuyt kennisse
+heeft nae geroepen ende in huys wesende heeft hem gepresenteert
+te drinckene ende tsamen duuserende heeft de voirs. claes onder dandere
+den suppliant geclaegt vanden grooten overlast die een geheeten kaerle
+vogels cuypere ingesetene van herent voirs. sdaegs te voeren by
+nachte en ontyde gedaen hadde binnen den byvanck ende
+huyse oft wooninge van zynen vadere ende besundere dat de selve
+kaerle hadde gesmeten op zyns vaders duere ende vensteren
+willende compelleren die vanden huysgesinne dat zy hem souden
+innelaten ende want zy tselve nyet en wilden doen dat hy
+waere gegaen in zyns vaders schuere aldaer hy twee oft
+drie hamels = gecastreerde ram oft schapen den hals afgesteken hadde van
+welcken gebbalde ende fortse de voirs. claes totten suppliant seyde
+dat hy clachtich vallen soude over den voirs. kaerle aenden
+meyere van herent dwelck de voirs. suppliant teenemale hem
+ontraede seggende totten selven claese dat de voirs. kaerle
+sat en dranck inden wildeman daerby aldaer zy beyde tsame$
+zyn gegaen ende int huys vanden wildeman wesende
+vraeghden nae den selven kaerle ende was henluyden geseegt
+dat hy sliep op de moutvloer ende seyde de voirs.suppliant
+dat men den selven kaerle roepen soude ende want hy nyet en
+quam soe is de voirs. suppliant by hem gegaen ende seyde totten selven
+kaerle dat hy wilde opstaen want claes schellekens is hier
+wy sullen den peys maken hy heeft my vertelt tgene des ghy
+desen nacht bedreven hebt hy wilt over u clagen ende
+dier gelycke woerden ende binnen middelen tyde dat de voirs.
+suppliant metten voirs. kaerle opten moutvloer was soe is
+de voirs. claes buyten huyse gaen strycken ende de voirs. suppliant
+ende de voirs. kaerle vanden voirs. moutvloer comende beneden int
+huys soe heeft de voirs. kaerle nyet vindende aldaer den voirs. claese
+totten suppliant geseegt dese oft gelycke woirden nu sie ic wel dat
+ghy my wilt bedriegen waer is claes die ghy seydt hier te
+wesene dwelck hoirende de weerdinne vanden huysse seyde
+totten voirs. kaerle hy heeft twee potten biers betaelt ende is
+ewech gegaen ende nyet tegenstaende dien heeft de voirs. kaerle
+hem qualicken begonst te hebbene opten voirs.suppliant overvallende
+hem met vele injurieuse ende quaede woerden seggende dat hy suppliant
+tanderen tyden te wetene over een jaer daer te voeren zynen
+brueder geslagen hadde daerop hy suppliant seyde heb ic uwen
+brueder geslagen soe hebdy myn moedere geslagen alsoe hy
+oyck inden waerheyt gedaen hadde ende de selve zyn moedere
+zoe getracteert ende geslagen dat zy huere armen nyet en conste
+gerueren welck slaen vanden moedere des suppliant was gebuert
+al eer hy suppliant den bruedere vanden voirs. kaerle geslagen
+hadde ende nae zekere woirden die de voirs. kaerle
+ende de suppliant aldus underlinge hadden soe nam de voirseyde
+kaerle eenen pot biers die opte tafele stont metten selven
+smytende opte tafele soe dat dbier tot aenden solder ende alomme
+spranck dwelck sinde siende de voirs. suppliant seyde totten selven
+kaerle met gracelycke woirden ende onderwijs dat hy hem te
+vreden wilde stellen ic sal claesen wel onderwysen dat hy
+nyet claegen en sal ende hy den voirs. overlast vergevenen zal
+ende dat ghy hebt geseegt dat ic uwen bruedere soude
+geslagen hebben ende ghy myn moedere willen wy gansselyck
+deen den anderen vergeven want wy schamele gesellen zyn
+daerop de voirs. kaerle totten suppliant seyde dese woerden
+wiste ic dat ghy dat metter herten meynde daer waere goet
+mede te doene daerop hy suppliant seyde jae ic dat kenne god
+alsoe hy suppliant inden waerheyt oick meynde metter herten
+ende heeft anderwers den pot metten bier op te tafele gesmetene
+ende den suppliant met onverdrachelycke ende injurieuse woerden
+overvallen zweerende groote eeden tastende nae zyn
+opstekere stekende op zyn lanck mess dwelck hy aen hadde
+welcken opstekere deselve kaerle nyet vuyt getrecken en cosste
+mits den cruyce van zynen langen messe dwelck siende
+de suppliant ende dat de voirs. kaerle zyn beste dede om zynen
+opstekere vuyt te treckene in meyninge den suppliant daermede
+te stekene seyde totten selven kaerle laet steken uwen opstekere
+of ic sal u in u vleesch steken oft diergelycke woirden nyet $$$ik denk nyetmin
+en wilde de selve kaerle noch nyet cesseren maer wat
+quaets inden zinne hebbende ende om den suppliant te evelene
+vander live te evelene track zyn lanck mess half half uuyte of vuyte
+dwelck siende de suppliant ende beduchtende vanden selven kaerle
+geprenemeert ende verrascht te worddene gelyck die selve
+kaerle zeer licht ende rasch was van slaene ende anderssins
+van quaden ende roekeloosen levende heeft getrocken eenen
+quaden opstekere ende heeft den voirs. kaerle daermede
+eenen steeck gegeven in zynen hals zoe dat hy ter eerden viel ende
+tselve gedaen zynde badt den voirs. kaerle dat hy hem tselve
+wilde vergeven seggende dat hy nyet en meynde hem alsoe
+te geraekene ende int turbelen soe viel het lanck
+mess vanden voirs. kaerle wederom inde scheyde van
+welcken steeck oft quetsure de voirs. kaerle corts daernae
+is aflivich gewordden dwelck den voirs. suppliant uuyt of vuyt
+gronde zynen herte leet is van welcken ongevalle de suppliant
+der partien satisfactie ende beternisse gedaen heeft ende
+beduchtende rigeur van rechte heeft hem sekeren tyt
+gehouden buyten onsen landen van brabant maer is
+naemaels tot steenhuffele achterhaelt ende gevangen
+gelevert binnen onsen stad van bruessele ter zaken van welcken
+ongevalle onse amptman hem is criminelyck belastende soe
+beducht hy suppliant dat hy ter zaeken voirs. soude mogen in
+laste comen gemerct de voirs. amptman hem ter zaken
+voirs. criminelyck is betichtende ende soude alsoe die voirs.
+suppliant gescapen zyn criminelyck geexecuteert teworddene
+allet tot zynder huysvrouwe kinderen ende vrienen grooten confusie nota van annick: niet zeker van grooten, kan ook groven
+schade ende verdriete ten waere dat onse gratie ende genade
+hem hierop wordde geextendeert ende verleent ons daerom
+oitmoedelyck biddende soe eest dat wy desen aengesien
+geneycht wesende ter beden des voirs. cornelis dibbondt nota van annick: hier zou ik bijna durven zeggen dibboult . debboudt /dibboult is wel een bestaande familienaam
+suppliant ende willende hem prefereren gratie ende misericordie
+voer strangheyt ende rigeur van justicien besundere ter
+contemplacie van onse blyde wedecompste vuyt onse
+rycken van spaengnen in dese onse nederlanden hebben
+denselven suppliant inden gevalle als boven quytgeschonden
+geremitteert ende vergeven schelden quyte remitteren
+ende vergeven vuyt zunderlinger gratien by desen onsen
+brieve tfeyt ende dootslach boven geruert mitsgaders
+alle offensie ende bruecke corporelle ende criminelle
+daer inne hy ter causen voirs. mits dat daeraen cleven
+mach tegen ons ende justicie mesdaen ende mesbruyct
+mach hebben abolerende extinguerende ende te nyeuwte
+doende tvoirs. pces ende pceduere nomminelle bij onsen
+voirs. amman van bruessele ter causen voerscreven
+tegen hem alrede begonst ende hebben hem daeraff
+wedergestelt ende gerestitueert stellen weder ende
+restitueren tot zyner goeden name fame ende geruchte
+in onsen voirs. lande van brabant ende allen ander en
+onsen landen ende heerlicheiden ende tot zyner onverbuerden
+goeden indien hy eenige onder ons heeft gelyc ende in
+alder manieren soe hy voer de toecompste vanden
+voirs. feyte imponerende hierop een eeuwich geswich onsen
+procureur generael in brabant onsen voirs. amptman van bruessele
+ende allen anderen onsen justicieren ende officieren wie
+zy zyn satisfactie ierst ende voer al gedaen der
+partie geinteresseerde indien die noch nyet gedaen en
+zy ende ennige daer toe staet civilyc alleenlyck
+**behoudelic dat de voirs. suppliant gehouden sal zyn voirs.
+feyt tegen ons te beteren civilick nae gelegentheyt vanden zaken ende
+faculteyt van zynen goeden met oic te betalene de costen van
+justicien hieromme alreede gedaen ende te doene allet ter
+taxatien ende uwder af nu moderatien van onse lieve ende getrouwe de
+cansellierende luyden van onse raede in brabantdie wy daer
+**sy hieraff verantwordt byden
+ontfanger vanden exploiten
+toe gecommitteert hebben ende commitheren by desen ontbieden
+daerom ende bevelen den selven onsen cansellier ende raedsluden
+dat voer hen geroepen deghene die daerom behoiren geroupen
+te zyne zy procederen wel ende duechdelyc ter verificatie
+en interinemente van desen ende totter taxatie ende moderatie
+vanden voirs. amende ende costen alsoe zy zullen bevinden
+behoirende welck ints enende interinement de voirs. suppliant gehouden zal
+zyn te versueckene ende hem in persoon te presenteren in
+onsen voirs. raede binnen eenen jaere naestcomende op de pene
+van te verbuerene deffect van desen ende dat gedaen
+ende deselve civile boete ende costen van justicien getaxeert
+ende betaelt zynde in handen vanden ghenen die dat behoiren
+sal zy onse voirs. procureur generael in brabant onse amptman
+van bruessele ende alle andere onse richteren justicieren
+officieren ende ondersaten iegewoirdige ende toecomende dien
+dat aengaen sal mogen huere stedehouderen ende een iegelyck
+van hem bezundere zoe hem toebehoiren sal doen laten ende
+gedoogen den voirs. suppliant van deses onser iegewoirdiger gratien
+remissie ende pardoene ende van alle den inhouden van desen
+inden vuegen ende manieren voere verhaelt rustelyck vredelick
+volcommelyck ende eeuwelyck genieten ende gebruycken zonder hem
+te doene oft te laten doene gheschieden nu noch in toecomenden
+tyden ennich hinder letsel oft moeyenisse ter aen live noch aen
+goeden ter contrarien maer indien zyn lyf oft ennige van zynen
+goeden daerom gearresteert becommert oft belet waeren dat zy die zetten
+ende stellen ter stont ende sonder vertreck tot geheelder ende
+volcommender delivrancie want ons alsoe gelieft ende ten eynde
+dat dit vast ende gestadich blyve tot eeuwigen dagen zoe hebben
+wy onsen segel hieraen doen hangen behoudelyc in anderen
+dingen onsen rechte ende eenen iegelyck anderen dessyns gegeven in
+onser stadt van ghendt inde maent aprille int jaer onsheeren
+duysent vyf hondert ende veertich ende van onsen keyserrycke
+txxie ende van onsen rycken van castillien ende anderen txxv e
+aldus gescrevenen op de plycke byden keyser in zynen rade ende
+geteekent boudewyns visa registrata of recepta
+gecollationeert ende bevonden accorderende
+met zynen originale by my
+j diruwez [/INST] {
+  "doctype": "CONDEMNATION",
+  "act_date": "UNKNOWN",
+  "fact_date": "IX or X years ago",
+  "persons": [
+    {
+      "firstname": "cornelis",
+      "lastname": "dibbondt",
+      "role": "suppliant",
+      "function": "poor, father of 10 or 11 children"
+    },
+    {
+      "firstname": "claes",
+      "lastname": "schellekens",
+      "role": "accuser",
+      "function": "innkeeper"
+    },
+    {
+      "firstname": "kaerle",
+      "lastname": "vogels cuypere",
+      "role": "accused",
+      "function": "innkeeper"
+    }
+  ],
+  "locations": [
+    {
+      "name": "herent",
+      "loctype": "village"
+    },
+    {
+      "name": "lovene",
+      "loctype": "quarter"
+    },
+    {
+      "name": "wildeman",
+      "loctype": "inn"
+    }
+  ],
+  "summary": {
+    "en": "Cornelis Dibbondt, a poor man with many children, complains that Claes Schellekens, an innkeeper, accused him of causing trouble at the inn of Kaerle Vogels Cuypere, another innkeeper, in the village of Herent, quarter of Lovene. The incident happened IX or X years ago. Cornelis was drinking in the inn when Claes accused him of causing trouble the previous night. Cornelis asked for Kaerle but was told he was sleeping on the floor. Cornelis went to wake him up and a fight ensued, resulting in Cornelis stabbing Kaerle with a knife. Kaerle later died from the wound. Cornelis was condemned for the crime but fled the country. He now requests pardon and grace in consideration of his poverty and the many children he has to support.",
+    "fr": "Cornelis Dibbondt, un homme pauvre avec dix ou onze enfants, se plaint que Claes Schellekens, un aubergiste, l'ait accusé de causer des troubles à l'auberge de Kaerle Vogels Cuypere, un autre aubergiste, dans le village de Herent, quartier de Lovene. L'incident s'est produit il y a IX ou X ans. Cornelis était en train de boire dans l'auberge quand Claes l'a accusé d'avoir causé des troubles la nuit précédente. Cornelis a demandé Kaerle mais on lui a dit qu'il dormait sur le sol. Cornelis est allé le réveiller et une bagarre a éclaté, ce qui a conduit à Cornelis poignardant Kaerle avec un couteau. Kaerle est décédé plus tard de sa blessure. Cornelis a été condamné pour le crime mais a fui le pays. Il demande maintenant le pardon et la grâce en considération de sa pauvreté et des nombreux enfants qu'il a à élever.",
+    "nl": "Cornelis Dibbondt, een arme man met tien of elf kinderen, beklagt zich over het feit dat Claes Schellekens, een herbergier, hem heeft beschuldigd van overlast te veroorzaken in de herberg van Kaerle Vogels Cuypere, een andere herbergier, in het dorp Herent, kwartier Lovene. Het incident vond plaats IX of X jaar geleden. Cornelis zat in de herberg te drinken toen Claes hem beschuldigde van overlast te hebben veroorzaakt de vorige nacht. Cornelis vroeg om Kaerle maar werd verteld dat hij op de vloer sliep. Cornelis ging wakker maken en een gevecht ontstond, wat resulteerde in Cornelis die Kaerle neerstak met een mes. Kaerle overleed later aan zijn verwondingen. Cornelis werd veroordeeld voor het misdrijf maar vluchtte het land uit. Nu vraagt hij om gratie en genade in overweging van zijn armoede en de vele kinderen die hij moet onderhouden.",
+    "de": "Cornelis Dibbondt, ein armer Mann mit zehn oder elf Kindern, beschwert sich, dass Claes Schellekens, ein Wirt, ihn beschuldigt hat, in der Herberge von Kaerle Vogels Cuypere, einem anderen Wirt, im Dorf Herent, Quartier Lovene, Unruhe gestift zu haben. Das Ereignis liegt IX oder X Jahre zurück. Cornelis saß in der Herberge und trank, als Claes ihn beschuldigte, in der vorherigen Nacht Unruhe gestift zu haben. Cornelis fragte nach Kaerle, aber man sagte ihm, er schlafe auf dem Boden. Cornelis ging hin und weckte ihn auf, und ein Kampf entbrannte, was dazu führte, dass Cornelis Kaerle mit einem Mess niederstach. Kaerle starb später an seiner Verletzung. Cornelis wurde für das Verbrechen verurteilt, aber er floh aus dem Land. Jetzt bittet er um Gnade und Barmherzigkeit in Betrachtung seiner Armut und der vielen Kinder, die er zu versorgen hat."
+  }
+}

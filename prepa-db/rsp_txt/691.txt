@@ -1,0 +1,1234 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+raad - conseil
+van - de
+brabant
+691
+vonnisbo
+vanden jaere
+xve xviiii
+1594
+boven-greffie
+peeter van ysschot wouter lysen ende jan van praet
+scepen. ende m. anthoine van opstal secretaris des
+dorps van lichtaert gedaeghd. ende herdaeghde ter ander
+zyden, gesien ende persiteert wel ende int lange inden voors.
+raede van brabant doepene brieven hoe van daeghssele als het
+daeghssele simessme byde voors. impetm. inden voors. rade
+verworven metten acte vand. pene rade ende bezundene dacte
+vand. ienenste july lestleden daerby blyckt dat den voors. impn.
+is geaccordeert deffault derde ende gepermitteert hen proffijt
+inden voors. raede te leggene, gesien het dyen die instruen
+van prouffyte metten stucken daerbij gevueght ende op al wel
+ende rijpelijck gelet met oock geconsidereert tegen desiven in
+desen behoorde te considerere., onse genadichste heere die
+coninck hertoge van brabant etc. voer tprouffyt
+vand. voors. deffaulten, versteeckt die voors. gedaeghde ende
+herdaeghde van allen ehouptie declinatoir, dilatoir ende
+peremptoir, ende ten principaelen recht doende, condempmt.
+die voors. gedaeghde ende herdaeghde den impetn. op te leggene
+ende te betaelen het vierendeele vand. cost vand. heurwagen
+byde impetn. betaelt inden processe naerder penert metten
+intereste van dyen tegen den pen. geschreve zekere den derden
+marty lumo dryentnegentich totter wederbetaelinge toe
+incluise ende tot dyen inde costen van desen processe ter
+taxatie ende vand. voors. rade, gedaen inder stadt van
+bruessele derthien dagen inde maent van januario int jaer
+duysent vijffhondert vierentnegentich
+inder saken geport ende hangende inden rade van onsen genadichsten
+heere de coninck van castillien van arragon van
+leon van beyden sicillien van jerusalem van portugal van
+navarre etc. eertshertoge van oistenrijck hertoge van
+bourgoingnen, van lothrijck, van brabant van lymborch
+jonffre. johanna vand.
+neesen
+mr. jan van belle
+procur.
+dierick vand. beken
+ingeseten. van hoolaer
+van luxemborch etc. greve van habsbourch van. vlaenderen
+van licthouw. etc. geordonneert in desen zijnre mats. lande ende
+hertoghdomme van brabant tusschen jonffrouwe
+johanna vander neesen impetrante ter eenre, ende mr. jan
+van belle procureur vand. voors. rade gedaeghde ter andere
+zyden, gesien ende gevisiteert wel ende int lange inden
+voors. rade van brabant doepen. brieven de voors. impetrante
+licten vand. voors. rade justitien van advertissem. der voors.
+partyen ende op al wel ende rypelyck gelet met oick
+geconsidereert tgene desiven in desen behoorde te considereren.
+onse genadichste heere die coninck hertoge van
+brabant etc. condempneert den gedaeghde by provisie
+ende onder cautie te nompteheren die somme van zessenvijftich
+rinsguldenen naerdere inden processe geruert reserverende
+die costen totter devisie vand. materie principaele
+gedaen ende zoe uuijtgesproken inder stadt van bruessele
+twee dagen inde maent van aprili int jaer vijffhondert
+vierentnegentich
+inder zaken geport ende hangende inden
+rade van onsen genadichsten heere den coninck van castillien
+van arragon, van leon, van beyden sicillien, van jhem., van
+portugal, van navarre etc. eertzhertoge van oistenr.
+hertoge van bourgoignen, van lothrijck, van brabant, van
+limbroch van luxemborch etc. grave van habsborch, van
+vlaenderen, van arthois etc. geordinneert in desen zijnre
+mat. lande ende hertochdomme van brabant, tusschen
+dierick vander beken dertijts rentmre. vand. staten des
+landes van brabant int quartier van vruessele impetr.
+ter eenre, ende dingesetenen van hoolaert aen christiaen
+de mandemakere ende cornelis de borntriddere schepen.
+aldaer gedaeghde ter andere zyden, alwaer die voirsre.
+impetrant op den veerthiensten dach der maent van
+novembrij int jaer xvc tnegentich concluderende jadde
+gecontendeert ten eynde dat bij vonnisse vand. voirs. rade
+die voirs. gedaeghde souden wordden gecondempneert op te
+leggen ende te betaelen de somme van vierhondert vijffven=
+tzeventich oinden negen schellingen, elff penningen arthois
+als reste inde ordinarise bede van hondert thien duijsent
+ponden arthois metter augmentatie vand. twee achtste
+deelen ende dat voerde termijnen, te weten johannis xvc
+zessentzeventich hondert zessenvijftich ponden acht schellingen
+vier penningen, item van kersmisse xvc zessentzeventich
+hondert negenenvijftich ponden, vijff schellingen vier penn.
+enden van st. jansmisse xvc zevenentzeventich hondert
+negenenvijftich ponden, vijff schellingen vier penningen
+arthois, makende heysche van costen, waerop off tegen
+de voirs. gedaeghde antwoordende hadden midts den redenen
+ende middelen bij hen te contrarie geallegeert gecon=
+tendeert ter eijnde dat die voirs. impetrant om tegen
+hen gedaeghde geconcludeert te hebbene in maten vuegen
+ende tot zulcken eijnde gelyck hy dat hadde gedaen soude
+by vonnisse vanden voirs. rade vercleert wordden nyet
+ontfanghbaer, makende insgelycx heijsche van costen
+ende die voirs. partijen voirts respectivelyck repliceren.
+ende duplicerende ende midts den redenen ende middelen
+by hen te wederzyden gallegeert persisterende byde inde
+eynden ende conclusien by hen kercke als boven genomen
+waeren deselve partyen finalycken geapponcteert
+die redenen ende middelen by hen ter eenre ende ter
+andere zyden geallegeert ende verbalijck bedinght te
+scryven ende over te geven by maniere van advertissem.
+ende daerbij te vueghen die stucken, titulen ende
+munimenten daerlede zy hen tot justificatie van heur ende
+meijninge ende intentie respective in dyer saken souden
+willen ende mogen behelpen ende van acte dienene
+teenen zekeren daghe hen daertoe bescheijden, om
+dat gedaen ende alle toversien voirts geappoincteert oft
+anderssins geordineert te worddene zoe behoiren soude
+welcken appoinctement die voirs. partyen namaels ten beyden
+zyden hadden voldaen in sake gesloten ende recht begheert
+gesien ende gevisiteert wel ende int langhe
+inden voirs. rade van brabant dopene brieven des voirs.
+impetrs. dacten vanden voirs. rade, metten scrifturen van
+advertissementen der voirs. partyen ende andere stucken daer
+by gevueght op al geleth met oyck geconsidereert tghene
+desiven in desen behoirde te considererene die coninck
+onse genadichtste heere hertoge van brabant etc. condemp=
+neert die voirs. gedaeghde inde voirs. qualiteijt ende inden
+name vande gemeijnte van hoolaer voirs. den voirs. impetr.
+op te leggen ende te betalen die drije sommen van penningen
+inde voirs. conclusie des impetrants ende hiervor. geruert ende
+dat in vier termynen van vier maenden te vier maenden deen
+dander vervoegende ende tot dijen in deen hellicht vanden
+costen ter saken van desen geresen ter taxatie ende
+moderatie vanden voirs. rade dander hellicht om redenen
+compenserende, gedaen ende zoe uuytgesproken inder stadt
+van bruessele twee daghen inde maent van aprili in tjaer duysent
+vijffhondert vierentnegentich
+inder saken geport ende hangende inden rade van onsen genadichste
+heere den coninck van castillien van arragon van leon
+van beyden sicillien van seru jerusalem van portugal van
+navarre etc., eertshertoge van oistenrijck, hertoge van
+bourgoingnen van lothryck van brabant van limbroch van
+luxemborch etc. greve van habsbourg van vlaenderen van
+arthois etc. geordineert in desen zijnre mats. lande ende hertoghdomme
+van brabant, tusschen heeren janne de drenckwaert ridde.
+tiesoner gnael. van zijnre mats. demeynen ende sman. impetr.
+ter eenre, ende heere robbrecht van linden riddere heere van
+froidcourt gedaeghde andere zyden, gesien ende gevisitdt.
+heer jan de drenckwaert
+ridd. etc.
+heer robbrecht van
+linden
+wel ende int lange inden voors. rade van brabant t proces der
+voors. partyen metten vonnisse den achtentwintichsten meerte
+lestleden daerinne gegeven, ende die verbaelen voer comissaris.
+vand. voors. rade tusschen die voors. partyen gehouden, gesien
+tot dyen die requeste byden voors. daeghe den twintichsten
+aprilis lestleden den voors. rade gepresenteert metter rescriptie
+byden voors. dimpetr. daertegen gedient ende op al wel ende
+rypelyck gelet met oick geconsidereert tgene des men in desen
+behoorde te considereren., onse genadichste heere die
+coninck hertoge van brabant etc., recht doende op de
+provisie byden voors. impetrant versocht, admitteert ende
+stelt den selven impetrant int gebruyck ende possessie
+van het borchgraefschap, hunne slot hoff ende heerlyckheyt
+van dormale, ende vand. goeden van oudts daer toe behooren.
+al naerdere inden voors. processe geruert, des zoe zal
+dimpetrant den voors. gedaeghde restitueren die somme
+van negen duysent acht hondert guldens eens byden
+selven impetrant voorden somme prijs vand. voors. goeden
+ontfangen, behoudelyck dat daer aene zal cortten den
+onbetaelden achterstel vanden renten uuyten voors. goeden
+gaende verschenen ende te verschynen. gelet het transport
+tot het aenveerden der selver goeden, ende tot dyen zal de selve
+impetrant noch moegen innehouden die somme van acht hondert
+guldens eenen voer dre deterioratie ende reparatie vande voors.
+goeden by hen gepretendeert, ende zal daerenboven die voors.
+gedaeghde gehouden zyn den voors. dimpetrant tindempneren
+vand. salaris ende tractement van irenen van hoogelande
+aengaende die betalinge bewaeringe ende gadeslaen vand.
+voors. huyse ende goeden zedert het transport der selver
+ende dit al by provisie ende zonder prejuditie van partyen
+recht te principaelen, die costen van desen reserverende
+totte densie vand. voors. materie principale, gedaen
+heer cosmas ende
+cesat delaffatadi
+pedro ducco
+ende zoe uuytgesproken inder stadt van bruessele eenentwintich
+dagen inde maent van meije int jaer duysent vijffhondert
+vierentnegentich
+inder saken geport ende hangende inden rade van onsen genadichsten
+heere den coninck van castillien van arragon van leon
+van beyden siillien van jerusalem van portugal van navarre etc.
+van napels etc. eertshertoge van oistenryck hertoge van
+bourgoingnen van lothryck van brabant van lymborch van
+luxemborch etc. greve van habsbourg van vlaenderen van
+arthois etc. geordineert in desen zijnre mats. lande ende hertogh=
+domme van brabant, tusschen heer cosmas ende
+cesat delaffatadi impetn. ter eenre, ende pedro
+ducco gedaeghde ter andere zyden, gesien ende gevisiteert
+wel ende int lange inden voors. rade van brabant, die
+resolutien mogende die surrogatie van eenen neutralen coopman
+inde plaetse van wylen joes vand. steene byden voors. rade genomen
+respective opden vierentwintichsten decembrie ende eenentwintichsten
+aprilis beyde lestleden mtte justelycke vercleren daerop gedane
+zoe by de voors. impetn. als gedaeghde opden vierden elfsten ende
+twelfsten may voerleden, ende op al wel ende rypelijck gelet,
+met oick geconsidereert tgene desiven in desen behoorde te considereren.
+myne heeren vand. voors. rade van brabant, surrogenen inde
+voors. plaetse den persoon van balthazar robiano zoe verre
+die selve daertoe zal cunnen verstaen, ende zoe verre neen,
+wordt gesurrogeert anthoin van surck, ordinerend
+aende voors. impetn. deen oft deandere vand. voors. gesurrogeerd
+te verwilligen om ter ordinantie ende besocyninge vand. voors. rade
+met robbert van eeckeren volgende die voors. rosolutie vand.
+voors. rade inden selven rade te compareren. tegen den tweesten dinsdach
+post sacramenten naestrovende, gedaen inder stadt van
+die canonincken
+van st. joris cappelle
+opt casteel binnen der
+stadt van grave
+die schepenen ende
+ingesetenen van
+vierlincxbeeck
+ende te betaelene by provisie ende onder cautie lichtjaeren
+verloopen zynder suspensie oft rente van zesse rinsg. tsiaers
+ende dit zonder preluditie vand. voorgaen. vonnisse tot liymdatie
+inden voors. rade tusschen die voors. partyen gewesen ende tselve
+vonnisse noch tertyt beynende in zyn vigeur , reserverende die
+costen van desen processe tertyt toe partyen metter minnen
+oft metten rechte zullen wesen welken geligindeert ende geaccordeert
+gedaen inder statd van bruessele vijffventwintich dagen
+inde maent van juno int jaer duysent vijffhondert vieren=
+tnegentich
+alzoe inden rade van onsen genadichsten
+heer den coninck van castillien, van arragon
+van leon, van beyden sicillien, van jherusalem, van
+portugal, van navarre etc., eertshertoge van oistenr.
+hertoge van bourgoignen, van lothryck van brabant
+van limborch, van luxembroch etc., grave van habsborch
+van vlaendren van arthois etc. geordineert in desen zynre.
+mat. lande ende hertochdomme van brabant waere den
+xven octobris int jaer xvc tweentnegentich van wegen
+die canonicken van st. joris cappelle opt casteel binnen
+der stadt vanden grave by henne huyne supplicatie verthoont ende
+te kennen gegeven geweest in substantie hoe dat hem suppln.
+was copeterende zekere graen thiende gelegen tot leon
+ende holteze resorterende onder het kespel van vierlincxbeeck
+inden lande van cuijck, welcke thiende zy hadden verpacht
+ende uuyt gegeven voir vijfftich malderen rocx tfrs, inde
+hoe wel dat nae dispositie van gheeselycke ende weerlycke
+rechten soedanige thienden oyck over memorie van menschen
+altyt waeren vrye exempt, ende gheenssins subiert geweest
+eenige lasten van contributien impositien, exactien, off
+dyergeycke, midts dat zy waeren innegestelt de jure dimno
+ende wordden gegeven in signum et recognitioem. binnersalis
+dominy, desen nochtans nyettegenstaende zoe hadden hen
+gevordert die schepenen, ende ingeseten. van vlierne
+vierlinckbeeck voirs. hen suppln. thiende te setten inde
+ytributien, min noch, meer als ande. weerlycke goeden
+pretendren. hun oft hunne pachters, ende gecomitteerde aff te
+nemen, ende te doen betalen tot vervallinge vande voors. ytributie
+vijffventwintich maldren rocx wesende de hellicht van
+tghene deselve thiende in pachtinge was geldende, ende dit
+nyet alleene qualycken, onbehoird., ende tegen alle rechten maer
+daerenboven oyck in allen gevalle te zeer excessivel., alsoe
+zy suppln. anders luttel middels hadden om den dienst goidts te
+doene, ende hen tonderhouden dan de voirs. thiende, daer aff
+zy in sulcken gevalle maer die hellicht jaerlycx en souden
+proffiteren, ende dande. hellicht wordden geappliceert
+ende geemployeert inde lasten van. contributien, ende dyen nyet=
+tegenstaen. moeten dragen die reparatien, ende ande. oncosten
+totten, dienst goidts inde voors. cappelle nootelyck soe van
+sangers dienaers als anderssins dwelck gen nyet mogelyck
+en waere was te vervallen by aldyen zy souden inde contributie moeten
+dragen sulcken hoogen tanx vande hellicht der voirs. thiende, ende
+ter saken van dyen zoe grossel. ende excessivelyck mogen gestelt
+wordden, gelijck de voirs. schepenen, ende ingesetenen van
+vierlincxbeek met groote myenwicheyt, ende tennerteyt
+waeren doende, contrarie der vrydicheyt ende exemptie
+allen thienden bij gheestelycke, ende weerlycke rechten
+gegundt, daer nochtans zy suppln. om de gemeyne ingeseten.
+te subleveren hadden gepresenteert hun quote oft ytingent
+in revelycker wyse te ghenen, ende op te bringhen ter discrete
+moderatie, ende seggen van. amptman, ende rentmre. vanden
+lande van cruyck oft ande. neutrale persoonen, waer nae
+zy bereedt waeren hen te reguleren, inde op dat zy suppln.
+den dienst gods mochten blyven ytinueren, zoe hadden de selve
+suppln. ondtmoedelyck gebeden, dat den voirs. rade gelieven
+wilde hier inne te versien, ende dat doende den voirs. schepen.
+ende ingesetenen van vierlincxbeeck tordineren, dat zy den
+voirs. suppln., ende henne thienden by hun verpacht souden laten
+vry, ende ongemolesteert van deselve te setten, ende te
+taxeren inde contributie, ende ande. occurreren. lasten ende
+hun verdragen van gelycken meer te doene op groote penen
+tot behoeff van syne mat. te verbeuren, inde in gevalle
+en dit hen versueck nyet en soude mogen aengewesen
+wordden des zij hoepten jae daer op ierst bij ordre recht
+versueckende, dat zij suppln. emmers soude gestaen met
+sulcken tax ende moderatie gelijck by den voers. amptman
+ende rentmre. vanden lande van cruijck oft andere neutrale
+gequalificieerde, ende onpartydige persoonen inde redelyckheyt
+ende naer advenant van. groote lasten der suppln. soude bevonden
+wordden te behoirene, inde in cas van comunicatie, alle
+voorde. taxatie settinge ende executie op hen suppln. oft henne
+pachters, ende gecomitteerde te houden, in state ende surceantie
+emers tot dat die rescriptie van partye gesien anders soude
+wesen geordineert, welcke supplicatie inden voirs. rade
+wel ende int lange gesien, ende gevisiteert zynde, waeren den
+voirs. suppln. daer op verleendt ende geexpedieert geweest zyne
+mats. beslotene brieven, addresserende aende voirs. schepenen ende
+ingesetenen van vierlincxbeek, ten eynde zy binnen eender
+maert nae de receptie van. selve op dinhouden vande voirscreven
+supplicatie souden seggen tghene des hen goetduncken soude
+ende nijettemin middeler tyet, ende tot dat henne rescriptie
+gesien anders soude wordden geordineert alle voirde. taxatie
+settinge ende executie opde suppln. oft hunne pachters ende
+gecomitteerde te houden. in state ende surcean., inde wesende
+die voirs. beslotene brieven en supplicatie daermede gaende aende voirs. schepen. ende
+ingeseten. van vierlincxbeke geaddresseert, ende op het
+innehouden der selver geleth hebbende hadden dese schepenen
+ende ingesetenen daerop oft tegen inden voirs. rade overgesonden
+henne scriftelycke rescriptie, ende midts den reden. ende middelen
+daerinne begrepen geconcludeert ende gecontendeert ten
+eynde dat afdoende die voirs. surceantie die voirscreven
+suppln. by vonisse vanden voirs. rade souden vercleert
+wordden in hen voirs. versueck in maten ende vuegen nyet
+ontfangbaer, maer dat ter contrarien van den deselve
+suppln. by souden wordden vercleert ende gecondempneert schuldich
+ende gehouden te zyne van henne voirs. thiende inde
+schattingen ende contributien des voirs. dorp van vierlincx=
+beke hen paert ende gedeelte te betalen nae rate van
+duer, ende naer uuytwysen vande oude schadtcedullen, ende
+inder manieren gelyck alle ande. gheestelycke ende weerl.
+persoonen waeren betalende, ende zij suppln. tot doen te
+oyck betaelt hadden, oft dat anderssins in ende op alles
+jan van. hove
+cana carris
+soude wordden recht ende justitie gedaen ende geadministreert
+gelyck den voirs. raedt in goeder equieyt soude bevinden te
+behoirende, makende heysch van costen, ende daer op recht
+versueckende, gesien ende gevisiteert wel ende int
+lange inden voirs. rade van brabant die requeste by oft van
+wegen der voirs. suppln. opten xven octobris xvc tweentnegentich
+den selven rade gepresenteert, ende die rescriptie by de voirs. rescriben.
+daer teghens gedient metten stucken daerby gevueght, op al geleth
+met oyck geconsidereert tghene desiven in desen behoirde te considereren
+die coninck onse genadichste hee. hertoge van brabant etc.
+ordineert den rescribenten hen te verdraghen van te settene ende
+taxerene inde contributien ende andere occurente lasten die thienden naerde inden
+voirs. processe ende hier voore geruert, maer den voirs. suppln.
+daer aff te laten vry ende ongemolesteert, gedaen ende zoe
+uuytgesprokene inder stadt van bruessele den iersten february
+int jaer duysent, vyffhondt. vierentnegentich
+inder saken geport ende hanghende
+inden rade van onsen genadichsten heere den coninck
+van castillien, van arragon, van leon, van beyden sicillien,
+van jherusalem, van portugael, van navarre etc., eertsher=
+toge van oistenr., hertoge van bourgoignen, van lothr.
+van brabant, van lymborch, van luxemborch etc., grave
+van habsborch, van vlaendren., van arthois etc., geordineert
+in desen zijnre mat lande ende hertochdomme van brabant
+tusschen jan vanden hove, woonende tot lijmborch inden
+lande van overmaze impetrant ter eenre, die schepen.
+van limborch gedaeghde ende cana carris geinthimeerde
+ter anderere zyden, gesien ende gevisiteert wel
+ende int langhe inden voirs. rade van brabant tproces
+der voirs. partijen zoe tselve voerde voirs. rade
+verbaelijck is beleydt ende voer sulcx inden voirs. rade
+ontfanghen metten vonnisse byde selve gedaeghde den
+tweeden martij anno zevenentachtentich daerinne
+gegeven daeraff reformatie is versocht, opene
+brieven van reformatien des voirs. impetrs., scrifture.
+van memorien der voirs. partijen metten stucken daer
+bij gevuecht ende dacten vanden voirs. rade, op al
+heer gillis de lens
+quate qua
+mr. franchois van
+asbroeck quate qua
+wel ende rypelyck geleth, met oyck geconsidereert tghene
+desiven in desen behoirde te considererene, die coninck
+mijne heeren van. voirs. rade van brabant
+sonder noch tertyt diffinitivelyck recht te doene
+admitteren die geinthimeerde ten thoone van. feyten bij
+huer in huere voirs. scriftue. van memorien geposeert
+om tselve gedaen, ende die sake wederomme geinstruedt.
+zijnde voirts recht gedaen te worddene spe behoiren soe
+gedaen inder stadt van bruessele derthien daghen inde
+maent van julio int jaer duysent vijffhondert ende
+vierentnegentich
+inder saken geport ende hangende inde rade van onsen genadichsten
+heer den coninck van castillien van arragon van leon van
+beyden sicillien van jerusalem van portugael van navarre etc. eertshertoge
+van oistenryck hertoge van bourgoingnen van lothryck van brabant
+van lymborch van luxemborch etc. greve van habsbourch van
+vlaenderen van arthois etc. geordineert in desen zynre mats lande ende
+hertoghdomme van brabant, tusschen heer gillis de
+lens boenderheere van antognies inder qualiteyt als hy
+procedeert impetr. ter eenre, ende mr. franchois van asbroeck
+als administratie hebbende vand. goeden van agnes van busleyden
+gedaeghde ter andere zyden, gesien ende gevisiteert wel ende
+int lange inden voors. rade van brabant tproces tusschen partyen
+inden voors. rade beleydt tvonnis interlocutoir daerinne gegeven opden
+elffsten dach der maent van januario int jaer xvc tweentnegentich
+ende den thoon dyen volgende gedaen ende geemployeert ende and.
+stucken huic inde gefurneert ende op al wel ende rypelyck
+gelet met oock geconsidereert tgee desiven desen behoorde te
+considereren., onse genadichste heere die coninck hertoge
+van brabant, afslaende degeptie byden gedaeghde geproponet.
+seeght ende dat die voors. impetr. zal genyeten
+quytscheldinge van deene hellicht van vier jaeren achterstels
+vand. rente van tweentzestich guldenen thien stuyvers daeromme
+questie in ende inden processe naerdere geruert, dies zal die
+selve impetr. die resteren. hellicht oft twee jaeren betaelen
+deen hellicht oft daer bynnen zesse weken naest comen, ende
+dander resterende jaer bynnen eenen halven jaere daer naestvolg.
+oft anderssins ende by gebreke van dyen zal de voors. gedaeghde
+de selve twee jaeren achterstele moegen verhaelen opde panden
+vand. selver rente zoe ae recht behoort, vercleren. dat
+die voors. impetr. om voordere oft anderssins geconcludt.
+te hebbene nyet en is ontfangbaer de costen vand. processe
+compenser. midts reden., gedaen ene zoe uuytgesproken inder
+stadt van bruessele den lesten dach der maent van junno int
+jaer duysent vijffhondert vierentnegentoch
+peeter van merstraten
+joos ensselincx
+uuytrecht overyssel ende groeningen ende dominateur in
+asien ende in affrycken, allen den ghenen die dese onse oepen.
+brieven zullen zien oft hooren lesen saluyt, alzoe ons
+in onsen rade geordineert in desen onsen lande ende hertoghdomme
+van brabant waere opden zessentwintichsten november int jaer xvc
+dryentnegentich van wegen peeters van merstraten by zynde supplicatie
+verthoont ende te kennen gegeven, geweest in substantien, hoe dat hy
+suppliant hadde proces gehadt als gedaeghde voorde wethouderen deser
+onse stadt van bruessele tegen joes ensselinck aenlegger
+ter saken van zekere schult der compaignyr geweest hebbende
+tusschen hen partyen gecompeteert hebbende ende doen alnoch
+onbetaekt uuytstaende, by onsen lieven ende heer beminden neve den
+grave van arenberge riddere van onser orden. etc. vand.
+gilden vliese ende die de voors. ensselinck hadde gepretendet.
+te ontfangen, by exclusie vand. suppliant die daeromme aenden vand.
+voors. grave hadde doen doen zekere verboth uuyt onsen
+secreten rade daer die selve grave pretendeerde meerlyck
+te recht te staene, ende was daerinne zoe verre geprocedeert
+dat die voors. wethouderen doende recht hadden hadden den zesten
+dach der voors. maent novembrie gegeven zekere somme diffinityff
+tot achterdeele des voors. supplis. ende tot zynen grooten beswaernisse
+gelyck die voors. suppl. seyde, midts den welcken zoe hadde die
+voors. suppliant ons zeer oitmoedelyck gebeden om onse oepene
+brieven van reformatien in behoorlycke formen, welcke onse
+oepene brieven den voors. suppliant gegundt ende geexpedieert zynde
+waeren uuyt crachte der selver tot zynen versuecke als impetr.
+van dyen by zekere onse officier ende deurweerder ordinans
+vand. voors. onsen rade gedaeght geweest die voors. wethoude.
+onser stadt van bruessele, te zyne ende te compareren.
+teenen zekeren gelegenen doen toecomenden ende nu lange overstreken.
+dage inden voors. onsen rade van brabant met beele dat
+zy ten selven dage met hen souden brngen oft seynden toegesloten
+zoe dat behoorde tproces der voors. partyen alzoe dat
+voer hen beleydt ende bedinght waere geweest met alle tgene des
+zy desen aengaende oude mochten hebben onder behoorlycken inventaris
+van heuren greffier oft gezworen clerck in presentien vand.
+voors. partyen oft heure procureurs daer aff gemaect, om
+aldaer heure voors. vonnisse te zien ende hooren wysen ende
+vercleren nul, machteloos ende van onweerden oft ten minsten
+ondeughdelyck, qualyck ende tonrechte gegeven op dat alzoe
+behoorde, ende over zulcx te reformeren, corrigeren, ende beteren
+nae recht, tselve heure vonnisse te sustineren, ende
+verantwoorden op dat hen goet dochte, tantwoordene ende
+inde saken ende materie van reformatien voorts te proceder.
+zoe behooren soude, waere oick den vors. dach geinthimeert
+geweest den voors. joes ensselincx ten eynde dat hy alsdan
+aldaer oick soude zyn ende compareren zoe verre hen dat goet dochte
+ende den voors. sake ende materie van reformatien hem
+eenichssins aenghinge oft toebehoorde, ende ten dage daerop
+dienende, ende andere daer aff onderhouden, compareren. inden voors.
+onsen rade die voors. partyen zoe by hen selven in persoon
+als by heure procureurs, nae dyen dat van wegen der voors.
+gedaeghde waere aldaer overgeleght geweest tproces voer hen
+tusschen den voors. impetrant ende geinthimeerde beleydt ende vercleert
+tvonnisse by hen daerinne gegeven nyet te willen justineren
+stellende partye tegen partye, ende dat visie vand. selve processe
+waere den voors. partyen in presen. oft absen. deen des anders geaccordt.
+geweest, ende dach om inder voors. saken ende mater. van reformatien
+voorts te commen procederen zoe behooren soude waere dyen achterde
+inder voors. saken ende mater. van reformatien zoe verre geprocedt.
+geweest, als dat opden zesthiensten dach der maent van meerte
+lestleden die voors. partyen hadden te wederzyden geseeght ende
+vercleert dat hen voors. proces vand. ierster instan. was
+proces in gescrifte ende instelyck vande voors. gedaeghde
+beleydt consenterende ende zynde tevreden dat tselve voer
+zulcx byden voors. onsen rade soude willen gehouden ende ontfangen
+ende dat men hen daerop soude recht doen uuyten voorgaenden
+acten weder wel oft qualyck byde voors. gedaeghdewaer
+gewesen geweest concluderede perinentelyck to dyen eynde
+in materie van reformatien ende makende heysch van costen die
+voors. impetrant van beyde den instantien, ende die voors. geint.
+van deser instantien oft materie van reformatien alleenlyck ende
+te wederzyden van schaden ende interesten, waer aff waere ter
+ordinantien vand. voors. onsen rade gemaect geweest acte ende geseght
+dat die gevueght soude wordden totten voors. pocesse van partyen
+ende datmen hen daerop soude recht doen naer behooren, ende
+wesnde die voors. sake ende materie van reformatien aldus
+behoorlyck geinstrueert ende in state om wijsene gestelt, waer
+opden lesten dach der maent van aprili insgelycx lestleden van wegen
+des voors. impetrs. inden voors. onse rade gepresenteert ende overgegeven
+geweest zekere andere zyne supplicatie oft requeste civile daerby
+versueckende ende oitmoedeluck biddende hem gepermitteert te wordden
+tegen des ine voors. requeste waere verhaelt te vuegen. totten voors.
+processe van reformatien ende tot dyen te versuecken dat die
+voors. ensselinck aenleggere inde voorgaende instantie ende
+geinthimeerde inde voors. reformatie soude schuldich zyn tantwoorden
+ende te contesteren opde voors. conclusie inde voorgaen. instan.
+byden voors. suppl. genomen boven de conclusie van nyet
+ontfanckelyckheyt op dat daerop mochte recht gedaen wordden
+zoe in goeder justitien soude bevonden wprdden te behooren. ende dat
+nyettegenstaende den state vander saken ende dat het overgebrocht
+proces waere vercleert in scriptie ende daerinne recht versocht
+exes den acte daeraff den voors. suppl. releverende midts
+betaelende die costen van retardatien zoe verre daer eenige
+waeren, welcke supplicatie oft requeste civile inden voors.
+onsen rade gesien waere by appoinctement opde marge der selver
+gestelt geseeght geweest dat die voors. suppl. soude zyn versueck
+doen opde rolle vand. voors. onsen rade in presen. van partye de
+selve oft heure procureur daertoe behoorlyck gedaeght zynde
+ende wesende dyen achtervolgende ten versuecke des voors.
+suppls. gedaeght majoors keye als procureur vand. voors. joes
+ensselincx te zynre ende te compareren. opde rolle vand. voors.
+onsen rade opden vierden dach der laent van meye insgelycx
+lestleden, ende die voors. partyen aldaer compareren. zoe by hen
+selven in persoone als by heure procureurs waere van wegen des
+voors. suppls. in substantien verhaelt geweest dinhouden vand.
+voors. supplicatie oft requeste civile, ende midts den redenen ende
+middelen daerinne begrepen gecontendeert tot zulcken oft
+gelycken eynde als boven, makende heysch van costen ingevalle
+van oppositie waerop oft tegens die voors. geinthimeerde inde
+voors. materie van requeste civile originael gedaeghde hadde
+vercleert gehadt in plaetse van antwoorde tevreden te zyn
+dat die voors. requeste civile met het stuck soude wordden
+gevueght totten processe behoudelyck hen zyne redenen van
+impertinen. die hy soude overgeven bynnen zekeren costten dae.
+toecomenden dage, dwelck alzoe by appoinctemente vand. voors.
+onsen rade geseght zynde te laten geschieden hadden die voors. partyen
+naemaels aengaende de voors. vueginge te wederzyden voldaen ende
+zeer ernstelyck versocht ende gebeden gehadt hen recht ende justitie
+geadministreert te worddene, doen te wetene, dat gesien
+ende gevisiteert wel ende int lange inden voors. onse rade van
+brabant tproces der voors. partyen zoe tselve voorde voors.
+gedaeghde instelyck is beleydt, ende voe zulcx inden voors. onsen
+rade ontfangen metten vonnisse byde selfve gedaeghde daerinne
+opden naestlesten octobris lestleden gegeven, daer aff reformatie
+is versocht oepene brieven van reformatien der voors. impets.
+requeste civile byden selven impetrant inden voors. onsen rade
+gepresenteert metten redenen van impertinen. byden voors. geinth.
+ende gedaeghde tegen de selve requeste civile overgegeven,
+ende dacten vand. voors. onsen rade ende op al wel ende
+rypelyck gelet met oick geconsidereert tgene desiven in desen
+behoorde te considereren., ende dat soude hebben konnen ende moegen
+gemoveren, wy by goede ende ryper dliberatien van rade
+reycierende die voors. requeste civile hebben geseeght
+gewesen, ende vercleert ende by desen onsen uuyterlycken vonnisse
+seggen wysen, ende vercleren voer recht, dat byde voors. gedh.
+met hennen voors. vonnisse wel is gewesen, qualyck
+daer aff reformatie versocht, sal daeromme tselve vonnisse
+stadtgrypen ende zyn volcommen effect sorteren, condempneren.
+den voors. impetrant ende suppl. inde costen van deser instan.
+ter taxatie ende moderatie vand. voors. onsen rade, ende tot
+desen inde penen zoe van onwyse versochte reformatie als
+vand. voors. gereyoceerde requeste civile, ende des
+toirconden hebben wy onsen zegel hier aene doen hangen
+gegeven ende zoe uuytgesproken in onser stadt van bruessele
+zesthien dagen inde maent van julio, int jaer ons heeren duysent
+vijffhondert vierentnegentich van onse rycken te weten
+van naples ende jerusalem txlve van castillien
+arragon, sicillien ende ander txxxix, ende van
+portugael txve
+jan van steenwinckele
+hans jorichoth
+heere den coninck van castillien, van arragon, van leon,
+van beyden sicillien, van jzlm., van portugal, van navarre
+etc., eertshertoge van oistenr., hertoge van bourgoignen
+van lothryck, van brabant, van lymborch van luxemborch
+etc., grave van habsborch, van vlaenderen, van arthois etc.
+geordineert in desen zijnre mats. lande ende hertochdome
+van brabant, waere opden negenentwintichsten dach der
+maent van januario int jaer xvc drijentnegentich, van
+wegen jans van. steenwinckele borgere ende ingesetene
+der stadt van antwerpen bij sijnder supplicatie verthoont
+ende te kennen gegeven geweest in substantie hoe dat hij
+voer schepenen aldaer hebben. proces tegen hans jorichoth
+ter saken van sekere gelofte ende condempnatie volunte
+voer borgemre. ende schepenen der voers. stadt opden
+twelffsten meerte int jaer vijffventachtentich gedaen
+ende gepasseert ende der verbintenisse daerop gevolght
+inden voers. rade van brabant hadde gepnteert reqte
+ende midts den reden. ende middelen daerinne verhaelt ende
+naementl. die voers. procedueren opden zesthiensten
+octobris doen lestleden daerop verworven open. brieven
+van daeghssele tegen den voers. jorichoth met
+committimus voerde voers. schepen. van antwerpen ten
+eynde die voers. opene brieven totten processe souden
+mogen wordden gevueght ende die voers. schepenen
+geloefte, verbintenisse ende condempnatie metten
+anderen, geloften affreekeninge etc. daer uuijt ende
+naegevolght voer soe vele was aengaen. dombehoird.
+ende nijet toegelaten interest soude wordden vercleert
+nul ende van onweerden ende voer sulcx gecasseert ende
+geredureert tot behoird. interest tegen den penn. xvie
+oft dat ten minsten die voers. suppliant van. voers.
+gelofte verbintenis ende condempnatie soude wordden
+gereleveert midts opleggen. de reste van. capitaele
+penn. van acht hondert vijggventwintich gulden. vls.
+daervan affgetrokcken de betalinge daerop gedaen van
+vierhondert tweenveertich gulden. vls. ende meer ende
+dat voerde reste van. voers. acht hondert vijffventwintich
+ponden vlems de voers. betalinge daerop affgetrocken den suuplt.
+soude wordden verleent eenen gracel. tyt ende termijn van
+betalinge, naerdere blijckende bij de selve brieven daeraeff
+sijnde, welcken volgende die voers. supplt. den voers.
+hans jorichoth uuijt crachte vande selve open. brieven
+voerde schepen. der voers. stadt van antwerpen hadde
+doen dagen ende aldaer tegen hem conclusie genomen
+ten eynde voers. alwaer tusschen partijen tvoers. proces
+alnoch waere hangen. ongedecideert, ende hoe wel des.
+aengemerckt den voers. hans jorichoth nijet en waere
+gepermitteert geweest in prejuditie van. voerscr.
+proceduere ende litispendentie ijet te attempteren
+ende vele min eenige executie te doene uuijt crachte
+van. voers. geloefte, volunatire condempnatie ende
+verbintenisse oijck in respecte van. reste der voers.
+somme de welcke boven de voers. betaelinge soude
+moegen wesen liquide besundere geconsidereert den
+uppliant bij de voers. opene brieven oijck wae. gepermitte.
+geweest voerde voers. schepenen van antwerpen onder
+andere voerde voers. reste te versuecken gracelijcke
+dagen, ende termijnen van betaelinge daertoe de supplt.
+oijck hadde gecontendeert oijck lange nae date vande
+voers. geloefte ende voluntaire condempnatie ende
+daerop versocht executie ende naevolgende consent
+bijden amptman der voers. stadt van antwerpen den
+negenthiensten februarij int jaer xvc tweentnegentich
+vercleert ende alsoo lange voer date van. voers. opene
+brieven ende conclusie daeruuijt genomen, soe hadde
+nochtans die voers. hans jorichoth hem gevoirdert
+uuijt crachte van. voers. geloefte voluntair condempnae.
+ende schepenen verbintenisse vanden twelfsten meerte
+vijffventachtentich ende de voers. versochte naegevolghde executie
+ende consent des voers. amptmans vanden xixen februarij
+tweentnegentich zekere des voers. suppls. goeden ende gronden
+van erffven te coope te doen gebieden mette langroede al
+in prejuditie ende bij notoiren attemptaete vande opene
+brieven bij den supplt. inden voers. rade op den xvien octobris
+bae vermogen der selver brieven genomen, tenderen. oijck
+mede tot atterminatie ende gracelijcken termijn ende dagen
+van betaelinge voer tgene die voers. supplt. boven sijne
+geallegeerde betalinge soude bevonden wordden rest te
+sijne, welcken aengemerckt ende dat van. voers. open. brieven
+midtsgaders van. feijtel. vercoopinge ende executie des
+voers. hans jorichoth promptelijck waere blijcken bij
+copijen vanden stucken daeraff sijnde, alle tgelijck hij
+supplt. seijnde, zoe hadde die voers. supplt. oitmoedel.
+gebeden om zijnre mats opene brieven daertoe dienende
+welcke supplicatie inden voers. rade van brabant
+gesien waeren den voers. supplt. daerop gegundt ende geexpedieert
+gesien waeren den voers. supplt. daerop gegundt ende
+geexpedieert geweest sekere sijne mats. opene brieven
+uuijt crachte vande welcke tot sijnen versuecke
+als impt. van dijen sekere synre mats. officier ende
+deurweerdere vanden voers. rade hem hadde getransporteert
+binnen der voers. stadt van antwerpen aenden persoon vanden
+voers. hans jorichoth ende hem gedaen hebbende visie ende
+lecture vande voers. opene brieven hadde den voers. hans
+jorichoth van wegen sijne mat. opde pene van tweehondert
+goude croonen bevolen dat hij van stonden aene ende sonder
+dilaij soude casseren ende te nijete doen de voertsgekeerde
+executie ende vercoopinge des voers. suppls. goeden
+sonder cost of last des voers. impts. met alle tgene
+des daeraff dependeerde uuijt ende aegevolght waere
+ende dat hij hem soude verdragen van gelijcken meer te doen.
+ende daerenboven betaelen die costen bij den voers. impt. daeromme
+gedaen gehadt ende geleden maer want die voers. hans
+jorichoth hem tegen die voers. bevelen opponeerde begeren.
+in oppositie ontfangen te worddene, soe hadde die voers.
+deurw.re deselve bevelen stadhouden. den voers. hans jorich=
+oth van wegen sijnre mat gedaeght te sijne ende te
+comparerene teenen zekeren gelegen. doen toecommen. ende
+nu lange overstreken dage inden voers. rade van brabant
+om aldaer die redenen van zijnder oppositie op te doene
+ende te verclerene tantwoerdene ende inder saken voerts te
+procederen en sien appoincteren als behoiren soude, ende
+ten dage daerop dienen. ende andere daeraff compar onderhouden
+compareren. inden voers. rade die voers. partijen soe bij hen
+selven in persoone als bij heure procurs. wae. van wegen des
+voers. impts. in substantie verhaelt geweest tgene des
+voers. is ende daeruuijt gecontendeert tot interinemente
+vande bevelen daeruuijt ende, naegevolght ende dat die interineren.
+soude wordden geseeght ende vercleert dat die voers. bevelen waeren
+wel ende te rechte gedaen, dat tonrechte ende met quader
+saken die voers. gedaeghde hem daertegens hadde geopponeert
+ende dat sijnder oppositien nijettegenstaende hij soude schuldich
+sijn ende bij vonnisse vanden voers. rade gecondempneert wordden
+te casseren ende te nijete te doene die voertsgekeerde executie
+ende vercoopinge des voers. suppls. goeden sonder cost oft last
+des voers. impts. met alle tgene des daeraff dependeerde uuijt
+ende naegevolght waere ende hemte verdragene van gel.
+meer te doene makende heijsch van coste van desen ende vande
+voergaende requeste mette beslotene brieven, ende coicatie der
+waerop off tegens die voers. ged.e antwoerden. hadde midts
+den reden. ende middelen bij hem geallegeert, gecontendeert
+tot surreptien ende obreptien van. voers. open. brieven bij den
+voers. impt. inden voers. rade verworven dat hij om die
+verworven ende daeruuijt gecontendeert te hebbene in maten
+ende vuegen ende tot sulcken ejnde ged. hij dat hadde gedaen
+vercleert soude wordden nijet ontfanghbaer ende den ged.e
+verhaelt gewest tgene des voers. is, ende daeruuijt geconcludeert
+ende geciontendeert ten eijnde dat bij vonnisse vanden voers.
+rade soude wordden geseght ende getermineert voer recht
+dat die voers. gedaeghde soude schuldich ende gehouden sijn
+der voers. impetrante op te eggene ende te betalen
+vijffvendertich sisteren rocx tsiaers ter saken van. thiende
+van steenacker ende kerckacker inde voers. opene brieven
+ende hier voere geruert verschenen sedert st. jansmisse
+anno drijentachtentich excluijs tot doen toe, ende die
+pendente lite noch souden verschijnen noch thien sisteren
+rocx ter saken vande thiende va twee beken oijck voorschreven
+zedert den voers. jaere drijentachtentich ende doen noch te
+verschijnene pendente lite noch vierentwintich rinsgulden
+ter saken vande thiende van sweertenbeeck oijck verschenen
+ende te verschijnene als boven, tot dijen noch eeneveertich
+ponden tsiaers ter saken vanden schijns van gilsen oijck
+verschenen ende te verschijnene als boven, ende ter saken
+vanden voers. meulenpacht thien veertelen rocx tsrs. al
+verschenen als boven, condempnerende den gede inde
+costen van desen processe ende vanden voergaen. coicatoir
+schaden, ende interesten, ende in gevalle van processe tot
+namptificatie bij provisie ende onder cautie, oftdat
+anderssins ende bij gereke van dijen die voers. gede
+soude schuldich ende gehouden sijn affstandt te doene
+van alle die voers. thienden ende meulenpacht van gilsen
+ende die der impetrante te doen ende laten volgen metten
+prouffijten, baten ende dmolumenten bij hen daer aff
+ontfangen ende geprouffiteert sedert den voors. jae. lxxxiii
+makende insged. heijsch van coste, oft dat anderss. in
+desen op al recht ende justitie soude sal wordden gedaen, soe den voors.
+raidt nae gelegentheijt van. saken ten meesten prouffijte
+van. impte. soude bevinden te behoirene waerop oft tegen
+die voers. gedaeghde ende met hem gevueght die procur.
+gnael. van brabant antwoerden. hadde midts verscheijden
+reden. ende middelen van heuren twegen ter contrarien
+geallegeert gecontendeert ten eijnde dat die voors. impte.
+om gecontendeert te hebbene in maten vuegen ende tot sulcken eijnde
+gelijck sij dat hadde gedaen soude wordden vercleert nijet ontfangh=
+baer maer dat hij gedaeghde soude gestaen midts heur betalen.
+die cheijnsen ende renten inde selve heure conclusie geruert
+nae rate dat sijne mat van. panden daervoer verbonden hadde
+geprouffiteert ende soude commen te prouffiteren ende gel.
+hij was doende den anderen renthieren op sijne recepte
+geassigneert makende in sgelijcx heijsch van costen, inde
+die voers. partijen voerts respectivelijck in plaetse van
+replijcke ene duplijcke persisterende inde eijnden ende
+conclusien bij hen te wedersijden sulcke als boven genomen
+waeren deselve partijen soe gehoirt final geappoincteert
+die redenen ende muddelen bij hen ter eenre ende ter ande.
+sijden, geallegeert ende verbalijcken bedinght over te gevene
+in gescrifte, ende daerbij te vuegene heure stucken, titulen
+ende munimenten ende anderssins alle tgene daermede
+sij hen tot justificatie van heurweder meijninge respective
+in dijer saken souden willen ende mogen behelpen, ende van als
+te dienene binnen te keren dage hen daertoe bescheijden, om=
+dat gedaen ende alle toversien voerts geordineert te wordden.
+des behoiren soude, welcken appoinctem. die voers. impte.
+van heuren sijden hadde voldaen, in sake gesloten ende recht
+begeert, sonder dat van wegen der voors. gede ende
+gevueghde den voers. appoinctemente waere voldaen geweest
+gesien ende gevisiteert wel ende int lange
+inden voers. rade van brabant dopene brieven bij dimpte.
+inden voers. rade verworven, dacten vanden voers. rade
+metten scriftueren van redenen der voers. impte. ende
+die stucken daerbij gevueght, ende op al wel ende
+rijpelijck geleth met oijck geconsidereert tgene desiven in
+desen behoirde te considereren. onse genadichste
+heere die coninck hertoge van brabant etc. seeght
+ene vercleert voer recht dat d'impetrante om
+gecontendeert te hebbene in maten, vuegen, ende
+heere librecht de schalon
+abt des cloosters van
+vlierbeke
+die weduwe wijlen
+mr. bartholomeeus
+vand. heetvelde
+tot sulcken eijnde gelijck sij dat heeft gedaen, nijet en is
+ontfangbaer, maer dat hij sij gedaeghde sal gestaen midts
+der impetrante betalen. die cheijnsen ende renten in
+heure conclusie geruert, nae rate doet sijne mat. vand
+panden daer voere verbonden heeft geprouffiteert ende sal
+commen te prouffiteren compenseren. die costen ter sak
+van desen geresen ende dat om redenen, gedaen inder
+stadt van bruessele vijff dagen inde maent van mee
+int jaer duijsent vijffhondert vierentnegentich colla.
+alsoe inden rade van onsen
+genadichsten heere den coninck van castillien,
+van arragon, van leon, van beijden sicillien, van jhlm.
+van portugal, van navarre etc., eertshertoge van
+oistenrijck, hertoge van bourgoignen, van lothrijck
+van brabant, van lijmborch, van luxemborch, etc.
+grave van habsborch, van vlaenderen, van arthois etc.
+geordineert in desen sijnre mats. lande ende hertochdomme
+van brabant waere opden twelfsten dach der maen
+van meerte int jaer xvc tnegentich van wegen hee
+lijbert de schalon abt des cloosters van vlierbeke
+bij sijnder supplicatie verthoont ende te kennen gegeven
+geweest in substantie, dat alsoo van inden jaere
+xvc tsestich bij commissie ende uuijt last van onsen
+alderheijlichsten vader den paus ende sijne mat.
+informatie wordde genomen op het schadel. regiment
+van wijlen heer jacop marotel doentertijt abt vanden
+voers. cloostere, ende ten lesten bemercken. dat hij
+het afsetten vande prelature nijet en soude connen ontga
+gel. hij oijck we. gedestitueert geweest, ende dat hij
+tverkiesen van heeren janne marotel sijnen neve
+religieulx aldaer tot eenen coadjuteur midts sijn ongeregelt
+leven nijet en soude comen tot effect gebringen, soe hadde
+hij recht te voerens bij jacques manotel oijck sijnen neve
+rentmre. vanden selven cloostere soe vele weten te practiseren
+dat den selven jacques vanden connentualen voer ende
+aleer daerinne eenen nijeuwen abt gebrocht wordde
+hadde commissie gecregen om tot laste van cloostere
+op te lichtene achthien hondert carolusguldenen gelijck
+hij doen alreede van te voerens de hootpenningen wel
+van achtentwintich rinsgulden erffelijck den penn. xvie
+van wijlen joes herthals gelicht hadde ende de andere
+wiste te vindene aen wijlen peeteren moons, ende
+desselfs moos huijsvrouwe die te voerens getrouwt
+hadde michiel de kempenere die alsoo tsamen hadden
+gedaen twelffhondert ende tsestich rinsguldenen voer
+het capitael van vijffvendertich mudden rocx mate van
+lovene elck mudde tot zessendertich rinsguldenen
+ende want die voers. jacques hem daervoere mede hadde
+verobligeert soe hadde hij terstont naer dat heer jan
+houtaert religieulx van affligem totte prelature
+was gecommen vanden selven willen gelost sijn gelijck dat
+inden voers. rade van brabant naer merckelijcke
+proceduere alsoo oijck waere getermineert geweest
+midts dat sulcken oplichten bij hem maer als diener ende
+gecoitteerde vanden cloostere en was gedaen ende hem
+nijet voerdere noch oijck hem aen en ginge hadde
+geraeckt gehadt dan om daeraff rekeninge te doene,
+noch oijck hem ae en ginge oft tselve oplichten waere
+qualijck ende nulliter geschiet oft nijet, maer was
+die voers. prelaet daerinne alnoch geheel ende
+onvermindert die daertoe oijck stoffe genoech hadde
+alsoe tselve gebeurt was sonder tconsent soe
+wel van onsen heijligen vader den paus daer onder tselve
+connent alsdoen was als oijck van sijne mat. maer in
+plaetse van alsulcke ontlastinge in voldoeninge vanden
+voers. vonnisse te doene hadde tegen die voers. rentiers
+voer al behoiren te procederen oijck sonder aenschouw van
+eenige rekeninge die de voers. marotel soude mogen
+hebben gedaen, alsoo sulcke schulden voerden meestende
+onderughdelijck moesten sijn boven dijen oijck dat om die te
+becommene het jaerlijcx innecommen ende ande. vervallen
+in sulcken goeden tijden groot ende goet genoech waeren
+ende over sulcx desselfs voergaende rekeninge ende
+administratie hadden moeten ondersocht wordden soe
+hadde die voers. houtaert nochtans andere voerdere
+ende meerdere belastinge gepractizeert als hebben.
+tot extinctie alleene vande voers. vijffvendertich mud
+rocx in tcapitael maer beloopende twelff hondert
+tsestich rinsguldenen in maio ende in augusto lxix
+opgelicht wel twee duijsent vierhondert, veertich rsgl.
+soe aen tcloostere van ste. gheertruijden veertich
+guldenen erffelijck den penn. xviiie aen doctor wilmar
+bernaerts vijffventwintich rinsguldenen aen. weduw
+van. heetvelde in twee renten vierenveertich rinsgl.
+aen tgasthuijs van loven seven ende eenen halven gul
+aen gregorio van dijnen sesse rinsguldenen, aen hee
+ende mt. indoco tiletano vijffventwintich rinsgulden
+al erffelijck den penn. xvie ende voer tverloop vande
+twelcken hij suppliant dagelijcx wordde gequelt soe
+inden voers. rade van brabant bijde weduwe wijle
+doctor ramus als hebbende transport vande voers. lest
+vijffventwintich rinsguldenen erffelijck als elders
+naementlijck oijck tot loven voerden rectoir voerde rente
+van. voers. wilmarus bernaerts sonder dandere dagelijcxe
+quellingen en van alle dandere renchieren sonder oijck te cunnen
+bevinden dat die voers. overende penningen wel van elff
+hondert tachtentich rinsgulden. souden bij den selven houtaert
+tot prouffijte vanden cloostere hebben geemploijeert
+geweest maer wel dat die gesmolten waeren inden pot
+wijns van meer als twee duijsent rinsguldenen die soe
+tschene uuijt eender missijnen om totter selver prelature
+te cimmene waeren eenige vanden hove toegeseeght
+ende voerde resterende penn. van dijen wordde hij supplt.
+noch met proces gequelt, ende in desen diende genoteert
+die nulliteijt ende ondeught van alle tgene deselve hautaert
+die als prelaet geweest sijnde nijet en conste wordden
+gehouden twaere int voers. belasten als anderssins tot
+eenige de minste vercortinge ende belastinge vanden
+cloostere oijck soude hebben gedaen alsoe tselve beseten
+soe wel vande leste als ierste renten voer machteloos ende
+van onweerden was te houdene oijck bij faulte dat die
+gerequireerde forme ende solempniteijten van rechte nijet
+en waeren geobserveert emmers ten minsten behoirden hij
+suppliant met sijnen connente van allen tselve wel
+gereleveert te worddene ende te gestaene midts restitu=
+erende oft besettende alle tgene dat geheel nootel. ende
+prouffijtel. voer tselve cloostere soude mogen sijn
+geemploijeert behoudelijck cortinge van tgene daerenboven
+jaerlijcx aende verloopen vande selve renten tot doen toe
+aen elcken soue betaelt sijn geweest ende om waertoe
+te commene soe hadde die voers. supplt. den voers. rade
+oitmoedel. gebeden om sijnre mat. behoirlijcke provisie
+daertoe dienende, welcke supplicatie inden selven rade
+gesien waeren den voers. suppliant daerop gegundt ende
+geexpedieert geweest sekere sijnre mats. opene brieven
+uuijt crachte vande welcke tot sijnen versuecke als
+impt. van dijen bij sekere sijne mat. executeur waere
+gedaeght geweest die weduwe wijlen mr. bertholomeus van.
+heetvelde, te siujne ende te comparerene teenen sekeren gelegen.
+doen toecommenden ende nu lange overstreken dage inden
+voers. rade van brabant, om aldaer taenhoiren
+alsulcken versueck ende conclusie als die voerscr.
+suppliant soude willen doen ten eijnde dat die constitutie
+vande voers. renten souden wordden vercleert nul machtelo
+ende van onweerden, ende dat sij die voer sulcx soude schuldi
+sijn te casseren. renoceren. doot ende te nijete te doene
+emmers dat ten minsten bij ordene hij suppliant met sij
+connente daeraff souden worden gereleveert ende in al
+gevalle gestaen midts voer goet houdende, ende bij
+besette oft aderssins voldoende voer soe vele eeni
+penningen capitael van dijen souden moegen bevon
+wordden, tot grooten noot oirboir ende prouffijte van.
+cloostere geemploijeert te sijne, behoudel. cortinge
+van tgene daerenboven aen het jaerlijcx verloop
+betaelt waere geweest ende voerts gelijck die voers.
+supliant ten dage dienende naerdere bij gescrifte
+soude willen overgeven daerop bij de voers. gedaeghde
+tantwoerdene die contrarie te sustineren soo verre
+hem dat goet dochte ende inder saken voerts te
+procederen soe behoiren soude, ende ten dage daer
+dienende ende andere daeraff onderhouden, comparerende
+inden voers. rade die voers. partijen soe bij hen selven
+in persoone als bij heure procureurs waere den xvi
+dach der maent van novembri int voers. jaer xc van
+wegen des voers. impetrs. verhaelt geweest dinhou
+van. voers. sijne opene brieven, ende daeruuijt geconten
+tot sulcken oft gelijcken eijnde als boven, makende
+heijsch van costen in gevalle van oppositie waerop
+oft tegen die voers. gedaeghde antwoerden. hadde midts
+den redenen ende middelen van heuren twegen ter contrarien
+geallegeert gecontendeert op als ten eijnde dat dimpt.
+om opene brieven van daeghsele verworven, ende daeruuijt
+tot laste vanden gedaeghde gecontendeert te hebbene
+in maten ende vuegen soude vercleert wordden nijet te
+sijne ontfanghbaer ende datter alsoe egheene provisie en
+viele makende insgel. heijsch van costen, die voors. impt.
+daerop replicerende ende midts den redenen ende middelen
+bij hen geallegeert persisterende ende die voers. gedhe.
+in plaetse van duplijcke insgelijcx persisteren. bij de
+voers. heure eijnden ende conclusien te wedersijden genomen
+waeren deselve partijen soe gehoirt final. geappoincteert
+heure voers. redenen ende middelen bij hen verbalijcken
+bedinght te scrijvene ende over te gevene bij maniere
+van memorien, ende daerbij te vuegene die voers. opene
+brieven bij den voers. impetrant verworven metten acten
+vanden voers. rade eensamentl. die stucken titule ende
+munimenten dienende tot justificatie van heurlieder
+meijninge respective in dijer saken ende van als te
+dienene teenen sekeren dage hen daertoe bescheijden om
+dat gedaen ende allet oversien voerts geordineert te
+worddene soe behoiren soude, welcken appoinctem.
+achtervolgende hebbende die voers. partijen ten beijden
+sijnden van heure scriftuere van memorien ende stucken
+gedient ende deselve behoirlijck gewisselt gedebatteert
+ende gereporteert hadden sij eijntelijck oijck te wedersijden
+in sake gesloten ende recht begeert gesien ende
+gevisiteert wel ende int lange inden voers. rade van
+brabant tproces der voers. partijen soe tselve inden
+voers. rade is geinstrueert ende op al wel ende
+rijpelijck geleth met oijck geconsidereert tgene
+desiven in desen behoirde te considereren, onse
+condemnae. volunt.
+tusschen
+everaert bete
+jan jacques weerdt etc.
+genadichste heere die coninck hertoge van brabant etc.
+vercleert dat die voers. impts. om tegen die voers. gede.
+geconcludeert ende gecontendeert te hebbene soe hij dat
+heeft gedae nijet en is ontfanghbaer, condempneren.
+tot dijen hem impt. inde costen ter saken van dese
+geresen ter taxatie ende moderatie van. selven rade
+gedaen ende soe uuijtgesproken inder stadt van brue
+vijff dagen inde maent van meerte int jaer
+duijsent vijffhondert, vierentnegentich
+alsoe inden rade van onse
+genadichsten heere den coninck van castillien, van arragon
+van leon, van beijden sicillien, van jerusalem, van portugael
+van navarre etc., eertshertoge van oistenrijck, hertoge
+van bourgoignen, van lothrijck, van brabant, van lijmborch
+van luxemborch, grave van habsborch, van vlaendren
+van arthois etc., geordineert in desen sijnre mat. la
+ende hertochdomme van brabant, waere op heden date van
+desen personnelijck gecommen ende gecompareert mr. joos
+de greve procureur postulerende inden voers. rade als
+onwederroepelijck geconstitueert ende gemachticht bij
+everaert bete hoeffmr. vanden vrijheere van reijde
+seggende ende vercleerende desele comparant dat
+sijnen voers. constituant hadde op den achthiensten
+septembris int jaer xvc tweentnegentich gekent ende
+geleden wel ende deuchdelijck schuldich te sijne, jan jacques
+weerdt inden wolff bij tcorenhuijs binnen deser stadt
+van bruessele de somme van seven hondert vijffvender
+rinsguldenen ende vier stuijvers ter saecken van verteerd
+montcosten bij den voers. constituant ende ande. dienar
+ende peerden des voers. vrijheere van reijde ten
+huijse des voers. jan jacques gedaen, behoudel. dat de selve
+constituant in handen des voers. jan jacques als doen
+liet te kere grauw hincxtpeert om dat te vercoopen tot
+sijnen proffijte in mindernisse vande voers. somme wel
+verstaende dat tvoers. peert soude staen ten laste ende
+costen des voers. constituants tot dat tselve vercocht
+soude wesen, gelovende de selve constituant in sijnen
+eijgenen name die selve somme die na de vercoopinge van tvoers.
+peerdt soude resteren, den selven jan jacques oft actie
+van hem hebbende te betaelen te kersmisse doen naest=
+commende, al nae breeder uuijtwijsen vanden instrumente
+notariael daerop gemaeckt dwelck die voers. comparant
+inden voers. rade overgaff, ende waeraff den teneur
+hiernae van woirde te woirde volght ende is dese, op
+heden den achthiensten dach septembris anno duijsent
+vijffhondert tweentnegentich, is voer mij openbaer notaris
+ende getuijgen hier onder gescreven in persoon gecompareert
+sr. everaert bete hooffmr. vanden vrijheere van reijde
+dewelcke heeft gekent ende geleden, kent ende lijdt
+bij desen wel ende deuchedelijck schuldich te sijne, jan
+jacques weerdt inden wolff bij tcronenhuijs binnen der
+stadt van bruessele present ende tselve accepterende
+de somme van seven hondert vijffvendertich rinsguldenen
+ende vier stuijvers ter saecken van verterde montcosten
+bij den comparant ende andere dienaren ende peerden
+des voers. vrijheerde van reijde ten huijse des voers. jan
+jacques gedaen, behoudelijck dat deselve comparant
+laet in handen des voers. jan jacques sekeren grauwen
+hincxtpeerdt om die te vercoopen tot sijnen prouffijt in
+mindernisse van. voers. somme wel verstaen. dat tvoers.
+peerdt sal staen ten laste ende coste des voors. comparants
+tot dat tselve vercocht sal wesen, gelovende deselve
+comparant in sijnen eijgenen name die selve somme die
+na de vercoopinge des voers. peerdt alsdan sal resteren den
+selven jan jacques oft actie van hem hebbende te
+betaelen te kersmisse naestcommende, onder verbintenisse
+van sijnen persoon ende alle sijne goeden present ende
+toecommende, die stellende ter coertie ende judicature
+van alle richteren heestelijcke ende weerlijcke,
+renunchierende de voers. comparant aen alle privilegi
+exceptien, ende alle anderen remedien van recht die hem
+comparant eenichssins te stade, ende den voers. jan
+jacques tontstade soude mogen commen, ende besundere
+den recht seggende dat gnale. renunciatie van geend
+weerden, en is ten sij dat speciale voergae, constitueren.
+tot dijen de voers. comparant onwederroepel. bij desen
+mrs. nicasius de pretere, reijnier de gouij, ende joos
+de greve procureurs postulerende voerden rade van
+brabant, peeter jammaert, gillis wagemans, ende
+tsamen ende elck besundere, om in
+sijnen name te compareren voer alle hoven ende rechters
+daer dat van noode wesen sal, ende aldaer hem
+constituant inde betaelinge van. voers. somme
+behoeff als voiren, mette costen daerom te doene
+ende schaden daeromme te lijdene voluntario te doen
+ende laten condempneren, ende voerts daerinne doe
+al dat de voers. constituant selve present sijnd
+soude connen oft mogen doen alwaert oijck dat
+saecke speciael der macht behoeffde gelovende
+de voers. constituant voer goet vast ende van weerd
+te houden tallen dagen allet gene des bij de voerscr.
+geconstitueerde tsamen ende elck besundere daerinn
+gedaen ende gehandelt sal wordden, onder verbintenisse
+als voeren, aldus gedaen inder stadt van bruessel
+ten daege maende ende jaere alsboven in presentie
+van jacques roeloff ende phls. derbe poirters ende
+innewoenders der selver stadt van bruessele getuijgen
+hiertoe geroepen ende gebeden, onderstont gescreven
+ende van mij openbaer notaris bij sijnder mats. rade
+geordineert in brabant geadmitteert, tselve
+onder mijn. gewoonel. handteecken alhier gestelt
+confirmerende ondergeteeckent domitiaen le jong
+nots. sst. versueckende ende oitmoedel. biddende
+die voers. mr. joos de greve uuijt crachte vander
+procuratie hem bijden instrumente notariael
+hiervoere geinsereert gegeven dat den voers. rade
+gelieven wilde den voers. sijnen constituant in
+sijnen eijgenen name te condempneren aenden voers.
+jan jacques op te leggene ende te betalene die
+voers. somme van seven hondert vijffvendertich
+rinsguldenen ende vier stuijvers off alsulcken
+somme als nae de vercoopinge des voers. peerdts
+aende voers. somme sal bevonden sijn te resteren
+allet welck bij henrick vander saert deurweerdere
+vanden voers. rade oijck name des voers. jan jacques
+inden selven rade oijck comparerende geaccepteert
+sijnde hadde versocht hem daeraff verleendt ende
+geexpedieert te worddene behoird. acte mijne
+heeren vanden voers. rade van brabant
+gehoirt tvercleren, versueck ende acceptatie bij de
+voers. comparanten soe voers. is respective gedaen,
+ende gesien dinstrument notariael hier voer de [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1594-07-15",
+  "fact_date": "1594-07-15",
+  "persons": [
+    {
+      "firstname": "peeter",
+      "lastname": "van ysschot",
+      "role": "schpen.",
+      "function": "not specified"
+    },
+    {
+      "firstname": "wouter",
+      "lastname": "lysen",
+      "role": "schpen.",
+      "function": "not specified"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "van praet",
+      "role": "schpen.",
+      "function": "not specified"
+    },
+    {
+      "firstname": "m. anthoine",
+      "lastname": "van opstal",
+      "role": "secretaris des dorps van lichtaert",
+      "function": "secretary"
+    },
+    {
+      "firstname": "onse genadichste heere die coninck hertoge van brabant etc.",
+      "lastname": "none",
+      "role": "condempneert",
+      "function": "king"
+    },
+    {
+      "firstname": "den voors. impn.",
+      "lastname": "none",
+      "role": "is geaccordeert deffault derde ende gepermitteert hen proffijt in den voors. raede te leggene",
+      "function": "defendant"
+    },
+    {
+      "firstname": "die instruen",
+      "lastname": "none",
+      "role": "van prouffyte metten stucken daerbij gevueght",
+      "function": "not specified"
+    },
+    {
+      "firstname": "den gedaeghde",
+      "lastname": "none",
+      "role": "by vonnisse vand. voors. rade op te leggene ende te betaelen het vierendeele vand. cost vand. heurwagen",
+      "function": "defendant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "vanden jaere xve xviiii",
+      "loctype": "none"
+    },
+    {
+      "name": "boven-greffie",
+      "loctype": "none"
+    },
+    {
+      "name": "derthien dagen inden maent van januario int jaer duysent vijffhondert vierentnegentich",
+      "loctype": "none"
+    },
+    {
+      "name": "inder stadt van bruessele",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "The king of Brabant condempns the defendant to pay a fourth of the cost of the cart and the interest on the third day of the month of July 1594.",
+    "fr": "Le roi de Brabant condamne le défendant à payer le quart du coût de la charrette et les intérêts le troisième jour du mois de juillet 1594.",
+    "nl": "De hertog van Brabant veroordeelt de verdachte om een vierde deel van de kosten van de wagen en de rente te betalen op de derde dag van de maand juli 1594.",
+    "de": "Der Herzog von Brabant verurteilt den Angeklagten, ein Viertel der Kosten des Wagens und der Zinsen am dritten Tag des Monats Juli 1594 zu zahlen."
+  }
+}
+```

@@ -1,0 +1,318 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslaege voir machiele vroen
+ende janne tscosters gebruederen
+kaerle ick doen te wetene eenen yegelycken tegewoirdige
+ende toecomende dat wy ontfangen hebben die oitmoedige supplicatie
+van michielen / vroen / ende janne tscosters gebruederen wettige
+kinderen mathys de costere alle schamele lantlieden
+woenende inde prochie van halle in ons. lande van henegouwe
+inhoudende hoe dat nu omtrent zess oft zeven jaren geleden de
+voirs. vroen suppliant ende een geheeten hannen de vuegelerre
+doen tertyt beyde noch wesende jonge knechtkens hebben
+tsamen spelende geworstelt op een stuck lants versch
+gesaeyt soe lange dat de voirs. vuegelerre is ondergevallen
+ende opgestaen zynde zeyde hy dat zynen arm in stucken
+was / versaeckende aen peeten de bock doen tertyt daer
+tegen woerdich zynde. dat hy den voirs. zynen arm
+trecken wilde. dwelc de voirs. peeter niet en wilde
+doen ende is alsoe de voirs hannen zonder meer
+zeggens gegaen nae huys / van welcken stucken is bynnen
+twee of drye jaeren daer nae in presentien ende by
+tusschen sprekene vanden prochiaen ende den lieutenant
+vanden meyer van halle voirscreven gemant eenen peys tusschen
+den voirs. hennen ende wylen jacoppe de vuegelere
+zynen vader ter eene ende den voirs mathyse de costere
+inden naeme vanden voirs. vroen zynen zoene ter andere zyd
+mits der sommen van acht rinsgulden die de selve
+mathys om met vreden te moegen bliven ende onminne
+te schuwene den voirs. jacoppe ende zynen zoene geven
+soude gelyc hy hem die ten genoemden dage heeft
+gedragen ende willen geven / maer de voirs. jacop
+anders beraden zynde en heeft tsleve gelt nyet
+willen ontfange seggende dat hy noch de voirs. zynen
+zoene van egheender weerden en hielden al tgene
+dat te voeren tusschen hen partyen gemaect ende gesloten
+was / daer af de voirs. mathys zeer bedroeft
+es geweest / vreesende gelyck naemaels gebuert es geweest
+dat de voirs. wylen jacop oft yn zoene den voirs
+supplianten noch eens souden oploopen / oft enige bescaempthen
+aendren / bezonder want de selve wylen jacop met zyne
+dochter voertyts doot gesteken hadden eene vrouw bevrucht
+met twee kinderen ende soe sorchlyc was ende vechtachtich
+dat hy van eenen yegeglycken zeere was ontsien / ende
+is de voirs. sake aldus blyven staende tot nu onlancx
+geleden den voirs. jacoppe ende zyn zoene altyt veede
+ende rancuer dragende tegen den voirs. supplianten in sulcker
+vuegen dat hoe wel zy oft enich van hen den
+selven wylen jacoppe ontmoetende hem gegroet
+oft aengesproken hebben hy nyet en heeft willen
+antwoirden maer is stom gegaen oft heeft hem
+daenzicht gekeert / in meyninge zynde dat hy
+de voirs. supplianten oft enige van hen soude doot
+steken oft evelen van huenen lyve / gelyc te presumeren
+is / want is gebuert op sinte lauwereys dach
+lestleden dat de voirs. supplianten gecomen zynde
+te dorepe by halsenberge ter kermissen tot bovene
+huyse soe wetende tot reyniers vanden bossche
+hunnen neve . ende aldair goede recreatie gehadt
+hebbende sonder enichsins by drancke te zyne onredelyck
+zynde de voirs. michiel ende jan supplianten gegaen
+ter plaetsen weert vanden selven dorpe zien
+naeden voirs vroen hunnen brueder om tsamen thuys
+weert te ghane ende opte plaetse commende
+ende malcanderen gevonden hebbende zyn zy daer
+blyven danssende tot omtrent vi oft vii uren vanden
+avonde sonder bynnen dien dage in taverne geweest
+te hebbene / ende ten lesten hebben zy gesien den
+voirs. wylen jacoppe de vuegelerre ende zynen
+zoene staen voir een taverne onder hen beyden
+drinckende ende gelyc scheen wel by drancke zynde
+welcke vader ende zoene ziende de voirs. supplianten zyn tehenwaerts
+gecomen zeggende de voirs jacop totten voirs. zynen zoene
+hem stootende van achter omtrent zynen halse / wech boeve
+wech boeve. den selven zynen zoene stierende gelyc de supplianten
+namaels hebben gepresumeert om hen te bevechten / want
+terstont als zy zyn gecomen byde voirs. supplianten zoo heeft
+de voirs. jacop sonder spreken met eender luyckscher pycken
+die hy in zyn hant hadde gesteken naeden voirs. michiele
+ende de voirs. zoen aenveerdende den voirs. janne de coster
+heeft hem met eender javelyne gesteken doer de mouwe
+van zynen stucken arm dwelc ziende de voirs. michiel
+de coster heeft terstont geroepen tot dry reysen
+toe oft meer met luyder stemmen gheeft vrede gheeft
+vrede / wy en willen nyet vechten nyemant en trecke
+zyn mes ons en staet gheen vechten aen gelyck sy oick
+egheen vechters en zyn nog noyt voir dyen dach tegen
+yemande gevechte ofte ongenuechte gehadt en hebben
+ende vliedende de voirs. michiel ende jan achter
+tvolc heeft de voirs. hennen de vuegelerre / met
+zynder voirs. javelynen gesteken naeden voirs. vroen
+ende hem gegeven in zyn borst een blodinghe wonde
+ende daer nae heeft de selve hennen gaen steken
+naeden voirs. janne de coster dwelc ziende de
+voirs. vroen gequetst zynde / heeft met zynder
+javelynen geslagen naeden voirs. hennen maer en
+heeft hem nyet gequetst ende hebben alsoe
+onder hen beyden tsamen gevochten bynnen welcken
+middelen tyde de voirs. wylen jacob zoe scerpelic
+volghde den voirs. michelen ende janne supplianten die
+altyt bloden tusschen de leden stekende ende slaende
+de voirs jacob nae hen met zynder voirs. pyken
+alsoe dat hy den voirs. michielen raecte doer zyn
+stucke mouwe ende voir zyn hoot doer zyn bonette
+ende den voirs. janne de coster op zynen slincken arm
+ende opte rechte zyde van zynen hoode sonder dat
+alnoch de selve michiel ende jan mes trocken oft
+hen ter weeren stelden en hen sonder hen alnoch
+te onderwinden vanden gevechte tusschen den voirs.
+vroen hunnen brueder ende den voirs. hennen de
+vueghelerre / maer de voirs. wylen jacop nyet
+cesserende / heeft ten lesten de voirs. michiele
+innegevaren hem grypende metter mouwen dwelck
+ziende de voirs. jan de coster vreesende dat hy
+den voirs. michiel zynen brueder vermoerden zoude
+heeft zyn mes getrocken ende den voirs. jacoppe
+gegeven eenen slach int hoot daer mede hy den
+voirs. michiele heeft laten gaen / bynnen welcken
+middelen tyde de voirs. vroen hem verweerende
+tegen den voirs. hennen de vueghelerre hadde gebroken
+zyn voirs. javelyne ende zynde zonder stock
+oft mes in handen vanden selven hennen
+heeft geroepen / en sal my nyemant comen
+helpen / dwelc hoirende de voirs. jan zyn
+broeder dat de voirs. vroen in sulcken laste
+was / is hem te hulpen gelopen latende den
+voirs jacop ende michiele by een ende gaf
+den voirs. hennen om eenen slach int hoot daer af
+de selve hennen gelyc de supplianten hopen byder
+gracien goids egheen noot en heeft vanden live /
+maer de voirs. michiel by toedoene vanden
+voirs. jannen zynen broeder ontlost zynde vuyt
+handen vanden voirs. jacoppe de voeghelerre heeft
+hem tegen den selven jacoppe ter weere gestelt
+ende hem insgelycx gequetst in zyn hoot /
+dat hy bynnen omtrent drye dagen daer nae is gecomen
+van levende live ter doot / ende hoe wel tvoirs.
+stuck is onnosel ende gebeurt in nootelycken defensien
+vande voirs. supplianten die des voir by nyet en hebben
+gemoegen / nyettemin tselve is hen hertelycke
+leet / ende beduchtende rigeur ende strangheyt
+van justicien en souden hen bynnen desen onsen lande
+van brabant noch anderen onsen landen ende heerlyckheyden
+nyet dorren vinden gaen staen oft verkeeren ten was
+dat hen onse gratie ende genade in desen gedeylt
+wordde / daerom zy ons oitmoedelycke hebben gebeden //
+ware om zo eest dat wy desen aengesien
+willende altyt gratie ende genade prefereren voir
+rigeur van justicien / den voirs. supplianten geneycht
+wesende tot huerder voirs. beden / hebben in
+gevalle als boven quytge schouden geremitteert ende
+vergeven ende van zunderlinger gratien quytschelden
+remitteren ende vergheven by desen onsen voirs. brieve
+tfeyt ende doot slach boven geruert mitsgaders
+alle offensien ende bruecken corporele ende criminele
+daer innne zy ter cause voirsreven met datter aencleven
+mach teghen ons ende justicie misdaen moegen
+hebben ende hebben hen als daer af wedergestelt
+ende gerestitueert stellen weder ende restitueren
+tot hunnen goeden naeme fame en geruechte / in ons.
+lande ende hertoghdomme van brabant ende allen
+anderen ons. landen ende heerlicheden ende tot hunnen
+ongeconfisqueerden goeden zoo verre zy enige hebben
+gelyck ende in alder manieren alsoe zy waeren eer den
+voirs. dootslach geschiede / imponerende hier op een
+ewich geswych ende silencie ons. procureur generael in
+brabant ende allen anderen onsen justicieren ende officieren
+wye zy zyn / satisfactie ende beteringe doende / der
+partyen geinteresseerde indien dye nyet gedaen en is
+ende enige daer toe dient civilic alleenlic / behoudelic
+dat de voirs supplianten gehouden sullen syn tselve
+feyt tegen ons te beteren civilick nae die gelegentheyt
+vanden saken ende faculteyt van hunnen goeden ende dat
+zy oic gehouden wordden op te leggen ende te betalen
+de redelycke costen van justicien indyen dair ennige
+ain gedaen zyn oft gedaen wordden ter taxatien
+ende moderatien van ons. lieven ende getrouwe cancelliere
+ende lieden van ons. rade geordoneert in brabant
+die welcke wy daertoe gecomitteert hebben
+ende comstten by desen / ontbieden daer om ende
+bevelen den selven ons. cancelliere ende lieden
+van ons. rade in brabant dat voir hen geroepen
+die dair om behoeren geroepen te zyne zy procederen
+wel ende getrouwelic totten interinemente ende
+verifficatie van desen / ende totter taxatien
+vanden voirs. amende civile ende costen van
+justicien / ende dat gedaen ende de voirs.
+amende civile ende costen getaxeert ende
+betaelt zynde in handen van den gheene van ons.
+ontfangers dyen dat behoeren sal / die gehouden
+wordt rekeninge bewys en reliqua te doene
+vanden voirs. amende civile / tot ons. behoef
+metten anderen penningen van zynen ontfange / zy onse
+voirs. procureur generael in brabant ende alle andere
+onse rechteren justicieren ende officieren tegewoirdige
+ende toecomende die dat aengaen sal moegen hunnen
+stadthouderen ende een yegelic van hen bezunder / zoo hem toebehoeren
+sal / doen laten ende gedogen den voirs. supplianten
+van desen onsen tegewoirdiger gracien remissien ende pardoenen
+ende van alle den inhouden van desen inder vuegen
+ende manieren voir verhaelt rustelic vredelic volcomelic
+ende eewelic genyeten ende gebruycken / sonder
+hen te doene noch te laten geschieden nu noch in
+toecomende tyden eenigen hinder letssel oft moeyenisse
+aen live noch aen goede ter qontrarien / maer indien
+huerliedern liven oft eenige van huenner goeden daer om
+gearresteert oft becommert waren / dat zy die stellen
+ende stellen oft doen setten ende stellen / tot geheelder
+ende volcomender delivrancie / terstont ende zonder vertreck /
+want ons alsoe gelieft / ende ten eynde
+dat dit vast ende gestadich zy ende blive tot
+ewigen dagen hebben wy onsen zeghel hier
+aen doen hangen / behoudelyc ons in anderen
+saken onsen rechte ende eenen iegelycken
+dessyns in allen / gegeven in onser stat van
+bruessel inde maent van oeghst int jaer ons heeren
+duysent vyfhondert dryentwintich / ende van
+onsen rycken te wetene vanden roomschen etc. tvyfste
+ende van spaengien ende allen den anderen tachste /
+aldus stont gescreven boven opte plycke. byden
+keyser ende geteekent proefft / ende noch visa [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "michielen",
+      "lastname": "vroen",
+      "role": "suppliant",
+      "function": "king's subject"
+    },
+    {
+      "firstname": "jacoppe",
+      "lastname": "vuegelerre",
+      "role": "opponent",
+      "function": "king's subject"
+    },
+    {
+      "firstname": "mathys",
+      "lastname": "de costere",
+      "role": "suppliant's brother",
+      "function": "king's subject"
+    },
+    {
+      "firstname": "jacob",
+      "lastname": "vuegelerre",
+      "role": "jacoppe's son",
+      "function": "king's subject"
+    }
+  ],
+  "locations": [
+    {
+      "name": "halle",
+      "loctype": "parish"
+    },
+    {
+      "name": "henegouwe",
+      "loctype": "province"
+    },
+    {
+      "name": "dorepe by halsenberge",
+      "loctype": "parish"
+    },
+    {
+      "name": "bovene huyse",
+      "loctype": "tavern"
+    }
+  ],
+  "summary": {
+    "en": "Michielen Vroen and Jan Tscosters, brothers, request remission for a fight that took place in Halle, in the province of Henegouwe. The fight was between them and Jacoppe Vuegelerre and his son Jacob. The fight took place near a tavern, where Jacoppe and his son were drinking. Michielen and Jan were dancing nearby and approached Jacoppe and his son to go home. Jacoppe attacked Michielen with a pitchfork and his son attacked Jan with a javelin. Michielen and Jan did not want to fight and fled. Jacoppe and his son pursued them and continued to attack them. Eventually, Jacoppe injured Michielen with his pitchfork and his son injured Jan with the javelin. The fight ended when Jan Tscosters brother, who was unarmed, intervened and struck Jacoppe with his hand, allowing Michielen and Jan to escape.",
+    "fr": "Michielen Vroen et Jan Tscosters, frères, demandent la rémission pour une bagarre qui a eu lieu à Halle, dans la province de Henegouwe. La bagarre a opposé les frères à Jacoppe Vuegelerre et à son fils Jacob. La bagarre a eu lieu à proximité d'une taverne, où Jacoppe et son fils buvaient. Michielen et Jan dansaient à proximité et ont approché Jacoppe et son fils pour rentrer chez eux. Jacoppe a attaqué Michielen avec une fourche et son fils a attaqué Jan avec une javeline. Michielen et Jan ne voulaient pas se battre et ont fui. Jacoppe et son fils les ont poursuivis et ont continué à les attaquer. Finalement, Jacoppe a blessé Michielen avec sa fourche et son fils a blessé Jan avec la javeline. Le combat a pris fin lorsque Jan Tscosters, le frère de Michielen, qui était désarmé, est intervenu et a frappé Jacoppe avec sa main, permettant à Michielen et Jan de s'échapper.",
+    "nl": "Michielen Vroen en Jan Tscosters, broers, vragen vergeving voor een gevecht dat heeft plaatsgevonden in Halle, in de provincie Henegouwe. Het gevecht vond plaats tussen hen en Jacoppe Vuegelerre en zijn zoon Jacob. Het gevecht vond plaats in de buurt van een herberg, waar Jacoppe en zijn zoon dronken. Michielen en Jan dansten in de buurt en naderden Jacoppe en zijn zoon om naar huis te gaan. Jacoppe viel Michielen aan met een vork en zijn zoon viel Jan aan met een javelijn. Michielen en Jan wilden niet vechten en renden weg. Jacoppe en zijn zoon achtervolgden hen en bleven hen aanvallen. Uiteindelijk verwondde Jacoppe Michielen met zijn vork en zijn zoon verwondde Jan met de javelijn. Het gevecht eindigde toen Jan Tscosters, de broer van Michielen, die onbewapend was, ingreep en Jacoppe sloeg met zijn hand, waardoor Michielen en Jan konden ontsnappen.",
+    "de": "Michielen Vroen und Jan Tscosters, Brüder, bitten um Ab remission für einen Kampf, der in Halle stattgefunden hat, in der Provinz He negouwe. Der Kampf fand zwischen ihnen und Jacoppe Vuegelerre und seinem Sohn Jacob statt. Der Kampf fand in der Nähe einer Taverne statt, wo Jacoppe und sein Sohn tranken. Michielen und Jan tanzten in der Nähe und näherten sich Jacoppe und seinem Sohn, um nach Hause zu gehen. Jacoppe griff Michielen mit einer Gabel an und sein Sohn griff Jan mit einer Wurf speer an. Michielen und Jan wollten nicht kämpfen und flohen. Jacoppe und sein Sohn verfolgten sie und griffen sie weiter an. Schließlich verletzte Jacoppe Michielen mit seiner Gabel und sein Sohn verletzte Jan mit dem Wurf speer. Der Kampf endete, als Jan Tscosters, der Bruder von Michielen, der unbewaffnet war, eingriff und Jacoppe mit seiner Hand schlug, was Michielen und Jan die Flucht ermöglichte."
+  }
+}

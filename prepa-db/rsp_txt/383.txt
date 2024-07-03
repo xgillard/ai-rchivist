@@ -1,0 +1,246 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie laureys steynen
+kaerle etc. doen te wetene allen ende eenen yegelycken
+iegenwoirdich ende toecommende dat wy ontfangen hebben
+die oitmoedige supplicatie van laureys stynen victorssone
+jonck ongehouwt man van xxv oft xxvi jaeren woenende
+inden dorpe beerlaer in onsen hertoghdomme van brabant
+inhoudende hoe dat inde maent van novembri anno 1546
+de suppliant heeft sitten drincken ten huyse van gommaer
+svetters ende zyn gelach gerekent hebbende seyde der
+weerdinnen goeden nacht gaende thuysweerts met eenen
+gielis vanden velde ende commende voor hendrick de
+wolff tweeste huys daer nae saeten aldaer andere persoonen
+en droncken die hen aenriepen ende werdt by eenen van
+hen luyden geheeten jan de sommere drincken geleydt
+ende gaende vuytten huyse op den steenwech riep hem aen een
+willem torff seggende ghy sicken ghy lutten waer gaede
+ghy dwelck twee bynaemen zyn daeraff den eenen zynde
+vadere toegegeven was die victoer hiet ende den anderen den
+voirs. suppliantende de suppliant daerinne gestoort wesende
+keerde wederom metten voirs. gielis vanden velde
+ende vindende daer veele stocken ende pycken voor die
+deure staende wierp eenen van dyen stocken ter eerden
+ter welcker causen de voirgenoemde willem torff zeyde
+wederomme totten suppliant ghy sicken waerom doet ghy
+dat ick zoude v in uwen neck smijten ende midts dien
+trock hy suppliant eenen opstekere oft cleyne mes ende stack
+naer den voorgenoemde willemen die welcke willem smeet
+den suppliant ter eerden met een halffpycke ende opgestaen
+wesende greep hem weder een gielis de witte die
+droncken was metten erme ende stiet metten hechte
+van zynen opstekere op de schouwer vanden selven suppliant
+ende wierp hem oick ter eerden ende ten derdemale is
+hy suppliant weder ter eerden gesmeten geweest by eenen jan
+ghoys die met eender pycken smeet tusschen hem suppliant
+ende den voirs. gielis de witte ende daernae is hy suppliant -
+opgestaen geweest zynde ende bloedende in zyn hooft ende alzoe
+verhidt ende vergrampt opgestaen zynde siende eenen -
+genoempt peeter de puetere met eender pycken inde $ handt ende
+anders nyet wetende de suppliant de voirs. peeter en was mede -
+strytbaer want hy metten anderen strytbarigen gedroncken hadde
+zoe heeft hy suppliant naeden selven met zynen voirs. messe gesteken
+ende de voirs. peeter hem defenderende hyelt zyn pycke voor hem
+deysende die strate over ende weder zoe dat die suppliant int dicke
+van zynen beene een quetsure gekrech metter pycken ende alzoe
+de voirs. peeter was voere die doere van gommaer swet svetters
+die voirs. gielis vanden velde medegeselle vanden suppliant
+greep ende hielt van achter de voirs. pycke ende zoe schoot hy
+suppliant in die verbaestheyt den voirs. peeter toe ende gaff
+hem met zynen voirs. cleynen messe eenen steeck daer
+van hy acht dagen tyts daernae oft daer omtrent deser
+werelt overleden is dwelck den suppliant zeer leet is
+ende naederhandt heeft zoennige ende peys gemaict metter
+geinteresseerde partye nochtans vreesende strancheyt van
+justicien en zoude nyet dorren hanteren in desen onsen lande
+van brabant ende elders ten was dat hem hierop versien
+wordde van onse gracie ende remissie alzoe hy seegt ons
+daerom oitmoedelick biddende waeromme zoe eest dat wy desen
+aengesien ende hierop gehadt dadvys vanden meyere van -
+ballaer geneyght wesende ter beden des voirs. laureys
+stynen suppliant ende willende hem in dit stuck prefereren gracie
+ende misericordie voir strangicheyt ende riguer van rechte
+hebben den selven suppliant inden gevalle als boven quyt
+quytgeschouden ende vergeven schelden quyte ende vergeven
+vuyt zunderliger gracien by desen onsen briefve tfeyt ende
+ongeval boven geruert mitsgaders alle offenden ende bruecken
+corporelle ende criminelle daerinne hy hem overmidts
+ende vuyt zaken van tgeene des voirs. is tegen ons onse
+hoogheyt ende justicie eenichssins mach hebben
+ontgaen ende mesdragen ende hebben hem dyen aengaende
+wedergestelt ende gerestitueert stellen weder ende restitueren
+tot zynen goeden naeme fame ende geruchte in onsen voirs. lande
+van brabant ende allen anderen onsen landen ende heerlicheyden
+ende tot zynen onverbuerden goeden in dyen hy eenige onder ons
+heeft gelyck ende in alder manieren zoe hy was voor die -
+toecompste vanden voirs. feyte imponerende hierop een
+eeuwich geswych geswych onsen procureur generael in
+brabant ende allen anderen onsen justicieren ende officieren wye
+zy zyn satisfactie yerst ende voor ald algedaen der
+partye geinteresseerde in dyen die noch nyet gedaen en zy
+ende eenige daertoe staet civilick alleenlick behoudelick
+dat de voirs. suppliant gehouden sal zyn tselve feyt iegens ons
+te beteren civilyck nae gelegentheyt vander zaken ende faculteyt
+marge: sy h$ van vera$$
+byden ontfanck vanden e$$
+van zynen goeden met oick te betalene de redelycke costen van
+justicien h$$ hier omme alreede gedaen ende te doene allet
+ter taxatien ende moderatien van onse lieve ende getr$$ die
+cancellier ende luyden van onsen rade in brabant die
+wy daer toe gecommitteert hebben ende committeren by desen
+ontbieden daerom ende bevelen den selven onsen cancellier
+ende raidsluyden r$ luyden van onsen rade in brabant
+raidsluyden dat voor hen geroepen die gheenen die daerom
+zullen behoiren geroepen te zyne zy procederen wel ende
+dueghdelyck ter verificatie ende interinemente van desen ende totter
+taxatien ende moderatien vanden voirs. civile boete ende costen
+van justicien alzoe zy zullen bevinden behoirende welck
+interinement de voirs. suppliant gehouden sal zyn te versueckenen
+ende hem in persoone te presenteren in onsen voirs. rade bynnen
+zesse maenden naestcommende opte pene van te verbuerenen -
+deffect van desen ende dat gedaen ende de voirs. civile
+boete ende costen van justicien getaxeert ende
+betaelt zynde in handen vanden genen dyen dat
+behoiren sal zy onse voirs. procureur generael in
+brabant ende alle andere onse richteren justicieren
+officieren ende ondersaten iegenwoirdige ende
+toecommende dyen dat aengaen sal moegen huere -
+stedehouderen ende een yegelyck van hen bez$$
+zoe hem toebehoiren sal doen laten ende gedooghen
+den voirs. suppliant van deser onser iegenwoirdiger gracien
+ende remissien ende van alle dinhouden van desen
+inder vuegen ende manieren boven verhaelt -
+rustelyck vredelyck volcommelyck ende eeuwelyck
+genyeten ende gebruycken zonder hem te doene oft te laten
+geschieden nv noch in toecommenden tyde eenich hinder
+letssel oft moeyenisse aen lyfve noch aen goede ter
+contrarien maer zoe verre zyn lyff oft eenige
+van zynen goeden daeromme gearresteert becommert
+oft belet waren dat zy die setten ende stellen oft
+doen setten ende stellen terstont ende zonder vertreck
+tot geheelder ende volcomende delivrantie want ons
+alzoe gelieft ende ten eynde dat dit goet vast ende
+gestadich blyve ende gehouden wordde teeuweigen dagen
+zoe hebben wy onsen zegel hier aen doen hangen -
+behoudelyck in anderen dingen onsen rechte ende
+eenen yegelycken anderen dessyns gegeven in onser
+stadt van bruessele inde maent van februario int
+jaer onssheeren duysent vyffhondert zeven ende veertich
+nae costume$ van scryven onshoefs van brabant van
+onsen keyserycke txxviiie ende van onsen coninckrycke
+van castilien ende anderen txxxiie aldus gescreven
+opte plycke byden keyser in zynen rade ende geteeckent jacubben
+visa $$
+gecoll$$eert enden bevonden accorderende
+met synen originale by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "1546-11",
+  "persons": [
+    {
+      "firstname": "laureys",
+      "lastname": "stynen",
+      "role": "suppliant",
+      "function": "unmarried man"
+    },
+    {
+      "firstname": "gommaer",
+      "lastname": "svetters",
+      "role": "host",
+      "function": "innkeeper"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "torff",
+      "role": "involved in the incident",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "gielis",
+      "lastname": "vanden velde",
+      "role": "involved in the incident",
+      "function": "companion of the suppliant"
+    },
+    {
+      "firstname": "hendrick",
+      "lastname": "de wolf",
+      "role": "involved in the incident",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "de sommere",
+      "role": "involved in the incident",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "de puetere",
+      "role": "involved in the incident",
+      "function": "UNKNOWN"
+    }
+  ],
+  "locations": [
+    {
+      "name": "beerlaer",
+      "loctype": "village"
+    },
+    {
+      "name": "brabant",
+      "loctype": "duchy"
+    }
+  ],
+  "summary": {
+    "en": "Laureys Stynen, an unmarried man from Beerlaer, in the Duchy of Brabant, supplicates for remission of his offense. In November 1546, while drinking at Gommaer Svetters' inn, an incident occurred involving several people, including Willem Torff, Gielis Vanden Velde, and Peeter De Puetere. Stynen was injured and Peeter De Puetere died a few days later. Stynen fears legal repercussions and seeks grace and mercy.",
+    "fr": "Laureys Stynen, un homme célibataire de Beerlaer, dans le duché de Brabant, supplie pour la rémission de son offense. En novembre 1546, alors qu'il buvait à l'auberge de Gommaer Svetters, un incident s'est produit impliquant plusieurs personnes, dont Willem Torff, Gielis Vanden Velde et Peeter De Puetere. Stynen a été blessé et Peeter De Puetere est décédé quelques jours plus tard. Stynen craint les répercussions juridiques et cherche la grâce et la miséricorde.",
+    "nl": "Laureys Stynen, een ongehuwde man uit Beerlaer in het hertogdom Brabant, vraagt om vergeving van zijn misdaad. In november 1546, tijdens het drinken in de herberg van Gommaer Svetters, vond er een incident plaats met meerdere personen, waaronder Willem Torff, Gielis Vanden Velde en Peeter De Puetere. Stynen werd gewond en Peeter De Puetere overleed enkele dagen later. Stynen vreest juridische gevolgen en vraagt om genade en mededogen.",
+    "de": "Laureys Stynen, ein unverheirateter Mann aus Beerlaer im Herzogtum Brabant, beantragt die Vergebung seiner Straftat. Im November 1546, während er in der Herberge von Gommaer Svetters trank, ereignete sich ein Vorfall mit mehreren Personen, darunter Willem Torff, Gielis Vanden Velde und Peeter De Puetere. Stynen wurde verletzt und Peeter De Puetere starb einige Tage später. Stynen fürchtet rechtliche Folgen und bittet um Gnade und Barmherzigkeit."
+  }
+}
+```

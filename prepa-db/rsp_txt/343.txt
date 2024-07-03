@@ -1,0 +1,149 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips byder gracie gods ertshertoge van oistenryck hertoge van
+bourgoingnen van lothringen van brabant van stier van karinten van crain
+van limborch van luxemborch ende van geldren grave van hasborch
+van vlaenderen van thirol van artois van bourgoingnen palstgrave
+ende van henegauwe lantgrave van elzaten lantgrave* van borgau
+ende des heylichs rycs van hollant van zeelant van phirt van
+kiburg van namen ende van zutphen grave heere van vrieslant
+opten windismarck van portenauw van salins ende van mechelen
+doen kond eenen yegelycken iegewoirdich ende toecomende dat wy ontfaen
+hebben die oitmoedige supplicatie van lodewyck oskens inhoudende hoe
+dat op sinte michiels dach int jaer xvc een de voirs.suppliant was
+inden avontmael etende bynnen onser stede van lyere in brabant ten huyse
+van eenen tyelman van leefdale met eenen wylen gheert die rycke
+alias sioncker ende anderen aldair zy waeren in goeden geselscepe
+sonder twist tot dat quam te rekenen dat alsdoe gerekent wesende
+de voirs. wylen gheert seyde dat hy noch eens wilde gerekent hebben
+hem tsoncken makende omme zyn gelach te betalen waeromme die voirs.
+suppliant hem seyde oft niet genoech en was $$ eens oft tweewaerst
+gerekent ende dat alle die andere daer mede te vreden waeren waer up
+de voergenoemde wylen gheert den suppliant vraechde oft hy weert was
+die hem antwoerde neen die welcke wylen gheert oprees om den
+voirs. suppliant uploop te doene ende de suppliant van gelycken hoewel
+zy alsdoen gescheeden waeren ende den voergenoemde gheert buyten huyse
+byden voirs. anderen persoenen gedrongen die welcke wederomme int
+huys quam sprekende vele quade woerden iegen die weerdinne
+ende ooc nae huer slaende de welcke gheert anderwarf weder
+buyten huyse gedrongen ward die opter strate ende naest der
+duere dair die andere noch inne waeren lach ende wachtede
+met eenen blooten messe alle die ghene die dair uuyt comen
+souden soe lange tot dat die voirs. suppliant uuyt quam die hem
+vraechde oft hyt op hem hadde ende metter vraghe syende
+den selven gheert metten bloeten messe ende beduchtende dat hy
+soude geslegen geweest hebben sloech selve yerst naer den
+voirs. wylen gheert dien hy gerochte met eenen langen messe
+op syn hooft dat hy ter eerde vyel van welcken slage ende
+quetse die voergenoemde wylen gheert de rycke bynnen eender maent
+daer naer quam van levende live ter doot ter cause van welcken
+feyte ende doodslach dair af de voirs. suppliant partye voldaen ende
+gebetert heeft soe es by hem nochtans beduchtende riguer van
+iusticien geabsenteert uuyt onsen lande ende heerlicheyden inde welcke
+hy niet wederomme en soude dorren comen $emaer hem dair
+uuyt moeten houden ende eynden zyn dagen in vremde landen
+ende contreen in dien onse gracie ende ontfermhertichheyt hem hier up
+nyet verleent en wordde alsoe hy seet de selve oitmoedelic
+versuyckende zo eest dat wy de saken voers. overgemerct
+ende besondere dat de voirs. lodewyck suppliant soe wy ver staen
+altyts geweest es van goeder fame en name nooydt achterhaelt
+van ennigen quaden feyten ende by desen medelyden ende compassie
+up hem hebbende ende willende in dit stick gracie ende genade prefereren
+voor strangheyt ende riguer van iusticien sonderlinge ter eeren
+weerdicheden vander heyliger passie ons liefs heeren die
+hy leet op sulcken dach als huden hebben den selven lodewyck
+oskens suppliant genegen zynde tot zynder supplicatie ende begheerte
+inden gevalle voirs. genegen vergeven quytgescolden ende
+geremitteert vergeven quytscelden ende remitteren uuyt
+onser sunderlinger gracie by desen tfayt ende dootslach boven
+geroert mitsgaders alle peyne ende bruecken corporelle
+criminelle ende civile dair in hy ter cause ende omme de redenen
+van dien met datter an cleven mach iegens ons ende iusticie
+mesdaen ende hen mesgrepen ende gebruect mach hebben ende
+hebben hem als dair af wedergestelt ende gerestitueert
+tot zyner goede fame ende name in alle onse landen ende
+heerlicheyden ende tot zynen ongeconfisqueerde goeden in dien
+hy ennige heeft gelyc ende alsoe hy was eer de voirs.
+dootslach geschiedde imponerende hier up een eewich swigen
+ende scilencie onsen procureur generael ende allen anderen onsen
+iusticieren ende officieren wie zy zyn satisfactie ende beteringe
+yerst ende al vooren byden voergen. suppliant gedaen der partye
+geinteresseert in dien dit noch niet gedaen en zy ende dair
+ennige toe dient civilic alleenlic ontbieden dair omme
+ende bevelen onsen lieven ende getruwen cancellier ende die luden
+van onsen raide in brabant dat voer hemlyeden geroepen
+die ghene diere behoeren geroepen te zyne zy procederen
+wel ende duechdelic ter verificatie ende interinemente van desen
+ende dat gedaen synde zy ende alle andere onse iusticieren ende
+officieren dient aengaen mach ende yegelic van hem lyeden
+doen laten ende gedoegen den voirgen. suppliant van deser onser
+iegewoirdiger gracie remissie quytsceldinge ende verghiffenisse
+ende van allen den inhouden van desen vulcomelic rustelic ende
+eewelic genyeten ende gebruycken sonder hem te doene noch
+gedoegen gedaen te syne nu noch in toecomende tyde in live
+noch in goede eenich hynder stoot letsel oft moeyenisse
+ter contrarien maer by alsoe zyn lyf oft ennige van zynen
+voirs. goeden niet geconfisqueert daer omme gevangen
+gearresteert becommert oft belet waeren dat zy die stellen
+ofte doen stellen terstont ende sonder vertreck tot geheelder
+slakenisse ende delivrancie want ons alsoe belieft
+en ten eynde dat dit goet vast ende gestadich blyve
+tot eewigen dagen soe hebben wy onsen segel hier an doen
+hangen behoudelycken in anderen dingen ons ende eenen
+yegelycken zyns rechts in allen gegeven in onse
+stad van ghend op den goeden helegen vrydach inde
+maent van april int jaer ons heeren anno vc ende drie
+aldus ondergescreven by mynen heere den ertshertoge ter
+rela$$en vanden rade ende geteykent haneton
+gecollationeert ende bevonden concorderende
+metten originalen bezegelden
+brieve by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "VC and 3 in the month of April",
+  "fact_date": "XVC",
+

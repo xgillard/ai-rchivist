@@ -1,0 +1,221 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle doen te wetene allen ende eenen yegelicken tegenwoirdich
+ende toecomende dat wy ontfaen hebben die oetmoedige supplicacie
+van symoenen de scepere van schoere by loevenen inhoudende hoe dat
+zekeren tyt voir vastelavont lestleden naedien wylen gorys de
+scepere zyn vader ende een geheeten de zeegere tsamen by avonde
+verdroncken zyn geweest inde dele zoe heeft men de selve
+verdroncken persoenen gaen soecken ende want de voirs. zeegere corts
+daer nae ende gevonden ende gevischt was ende de vader vanden voirs.
+suppliant noch nyet hoewel de selve suppliant dair toe zyn diligencie gedaen
+hadde zoe es des middernachts gecomen in des voirs. suppliant bogaert
+aen zyn camerveynstere een geheeten wylen willem sloets roepende
+aldair tot menich reysen toe totten selven suppliant zeggende dat hy
+een boeve een bylam ende een rabaut was dat hy zynen vader alsoe
+liet in water liggen want hy souden nacht ende dach soecken
+daer op hem de selve suppliant badt om goidswille dat hy slapen
+wilde gaen zeggende ick hebbe drucx genoech ghy en dorves my
+hier nyet meer aen doen ende ick hebbe hem vroech ende spade
+doen soecken ende dair toe myn beste gedaen ende daer nae
+heeft de huysvrouwe vanden voirs. willemen hem van dair geleydt
+ende drie oft vier dagen daer nae alsoe de voirs. suppliant ston$
+en maecte eenen thuyn tegen zyn messie zoe is aldair verby
+gecomen de voirs. willem ziende opten voirn. suppliant sonder spreken
+ende gaende wech ende heeft de selve willem dat alsoo gedaen
+tot drye oft vier reysen toe mits den welcken hem de selve
+suppliant den wech gescouwet heeft nu eest zoe dat opten tweesten
+dach voir vastelavont lestleden alsoe de suppliant quam tusschen
+huffle ende blauputte zoe is hem dair te gemoete gecommen de
+voirs. willem sloets ende was op des voirs. suppliant lyf eer hyt
+wiste dewelcke willem den voirs. suppliant vraechde naeden wech
+van mertten deckers dair op hy antwoirde willeken ghy hebt
+den wech geweten eer ick geboren was hem voits vragende oft
+hy byden woerden bleve die hy den selven suppliant by nachte ende
+ontyde overgeseyde hadde daer op die voirs. willem nyet en
+antwoirde maer sloech den suppliant met eenen stocke op zyn hooft dat
+hem dbloet ten aensichte af quam mits den welcken de voirs.
+suppliant heeft achterwerts getreden spannende alsdoen zynen boghe
+dwelck ziende de voirs. willem heeft met zynen voirs. stocke
+den boge uuytgeslagen alsoe dat den pyl vloech op zynen boesem
+welcken pyl de voirs. willem uuyttoech ende werp dien opdes
+voirs. suppliant aensichte naeden welcken de selve suppliant badt den
+selven willem om goidswille dat hy hem met vreden soude laten
+vlyende achterwerts om uuyt zynen handen te comene maer de
+selve willem es den voirgenoemden suppliant naergevolght ende heeft
+hem metten boesem gegrepen hebbende een mes in zyn handt om
+dair mede den selven suppliant te stekene mits den welcken de
+voirs. suppliant wech geloepen es ende heeft meynen over een grecht
+te springen aldair hy vyel in over een breeme ende de voirs. willem
+es noch den selven suppliant naegevolght meynende oick springen
+over de grecht maer is daer oick inne gesprongen ende de
+voirs. suppliant es weder uuyt gesprongen ende de voirs. willem oick
+uuyter grecht ende nae den selven suppliant dwelck ziende oick
+selve suppliant die welcke was in een strate daer hy nyet doer
+en conste mits eender hagen die daer stont ende siende dat
+hy nyet voirdere vlieden en mochte zoe heeft hy hem ommegekeert
+ende den selven willem gegeven eenen slach met zynen voirs.
+boghe op zyn hooft dair af hy corts dair nae aflivich wordt
+dwelck hem leet es ende hoewel de selve suppliant met partien
+overcomen es nietmin beduchtende rigeur van justicien heeft
+hem geabsenteert uuyt desen onsen lande van brabant aldair
+hy nyet weder en zoude dorren keeren maer gaen dolen in
+grooter miserien het en waere dat wy onse gracie ende genade
+te hemweerts keerden dair om hy ons oitmoedelick heeft doen
+bidden soe eest dat wy desen aengesien compassie
+ende medelyden hebbende metten voirs. suppliant willende hem
+in desen gracie ende genade gedaen werden tegen rigeur ende
+strangheyt van justicien besundere in faveur van onsen
+blyder wedercompst van onsen coninckrycken van spaengnen
+in desen onsen landen van brabant ende te desen male
+besundere in onser stadt van loevenen inclinerende ende geneycht
+wesende ter beeden ende begheerten vanden voirn. suppliant hebben
+hem in gevalle als boven quytgeschouwen ende vergeven
+schelden quyte ende vergeven uuyt onser zunderlinger gracien
+by desen onsen brieve den dootslach ende tfeyt voirscrevenen
+mitsgaders alle penen ende amenden corporeele ende criminele
+daer inne hy hem uuyt saken van tgene des voirs. es
+ennichssins mesgrepen mach hebben tegen ons ende justicie
+ende hebben hem als boven van desen gerestitueert ende
+restitueren tot zynre eeren goeden name ende famen ende
+tot onsen voirs. lande van brabant ende tot allen zynen
+goeden nyet verbuert zynde op datter ennige zyn gelyckerwys
+ende inder manieren hy was voir de geschiedenisse vanden ongevalle
+voirscreven imponerende hier op een ewich geswych onsen procureur
+generael van brabant ende allen anderen officieren ende justicieren
+dien dat aengaen mach satisfactie ende beternisse nochtans
+gedaen zynde der partyen in desen geinteresseert in alsoo
+verre die noch te doene zy behoudelick dat de voirs. suppliant
+gehouden sal wesen ons ter causen vanden voirs. feyte te doene
+civile beternisse nae gelegentheyt der mesdaet ende faculteyt
+van zynen goeden ende dat hy oick gehouden werdt te betalen
+ende refunderen de redelicke costen van justicien indien datter
+ennige geschiet zyn ter taxatien ende arbitrage van onsen
+lieven ende getruwen cancellier ende lieden van onsen raide in
+brabant die wy daer toe gecommitteert hebben ende committeren
+by desen ontbieden daerom ende bevelen den selven onsen
+cancellier ende lieden vanden raide voirscreven dat voir hen
+geroepen die ghene die dairomme behoeren selen geroepen te
+zyne zy procederen v ende doen procederen wel ende deughdelick
+totten interinemente ende verificatien van desen onsen voirs.
+brieve ende totter taxatien ende arbitragen vander voirs. amende
+civile ende costen van justicien gelyck ende alsoo dat behoirt
+ende dat gedaen ende die voirs. amende civile alsoe getaxeert
+ende betaelt wesende in handen vanden ghenen dien dat
+behoirt die welcke dair af schuldich ende gehouden sal wes$
+te maken ontfanck tonsen prouffyte met oyck de voirs.
+costen van rechte getaxeert ende betaelt zynde zy onse
+drossete van brabant meyer van loevenen amman van bruessel
+schoutetten van antweerpen ende vanden bossche ende voirts
+alle andere onse ende der smaelre heeren officieren justicieren
+richteren ende dieneren ons voirs. lants van brabant ende alle
+dien dat aengaen mach den voirs. suppliant van deser onser
+gracien quytschellinge ende remissien doen ende laten in
+maten voirscreven rustelick ende vredelick genyeten ende
+gebruycken sonder hem dair tegen te laten geschieden
+ennigen hinder commere oft letsel in enniger manieren ma$
+by alsoo hy oft zyne goede aengetast gevangen oft gearrestee$
+weren die ter stont ende sonder vertreck ontslaen doen ende
+*sy byden ontfanger
+vanden exploiten van
+desen amenden verantwort
+laten ontslaen ende stellen tot volcomender delivrancie ende
+ten eynde dat dit vast ende gestadich zy ende blive teuwigen
+daghen soe hebben wy onsen zegel hier aen doen hangen
+gegeven in onser stadt van loevenen inde maent van oighste int
+jaer ons heeren duysent vyfhondert ende twintich ende van onsen
+rycken te wetene vanden roomschen tweeste ende van castillien
+van leon etc. tseste aldus stont gescreven onder opte plycke
+byden keyser in zynen raede ende geteekent j decock
+ende noch visa $
+gecollationeert ende bevonden accorderende
+metten originale by my
+$strat$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "vor Faselavond letzten Jahren",
+  "persons": [
+    {
+      "firstname": "symoenen",
+      "lastname": "de scepere van schoere",
+      "role": "supplicant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "gyris",
+      "lastname": "de scepere's father",
+      "role": "deceased father of the supplicant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "de zeegere",
+      "lastname": "a friend",
+      "role": "deceased friend of the supplicant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "Wylen Willem",
+      "lastname": "Sloets",
+      "role": "opponent",
+      "function": "citizen"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Loeven",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Symoenen de Scepere van Schoere, a citizen of Loeven, pleads for remission of punishment for killing Wylen Willem Sloets, who left his father and a friend to drown and later attacked Symoenen. The events took place before Faselavond the previous year.",
+    "fr": "Symoenen de Scepere van Schoere, citoyen de Loeven, demande la rémission de la peine pour avoir tué Wylen Willem Sloets, qui a laissé son père et un ami se noyer et qui l'a ensuite attaqué. Les faits se sont produits avant Faselavond l'année précédente.",
+    "nl": "Symoenen de Scepere van Schoere, een burger van Loeven, vraagt om vergeving voor de straf voor het doden van Wylen Willem Sloets, die zijn vader en een vriend in het water achterliet en later Symoenen aanviel. De gebeurtenissen vonden plaats voor Faselavond het vorige jaar.",
+    "de": "Symoenen de Scepere van Schoere, ein Bürger von Loeven, bittet um die Erlassung der Strafe für die Tötung von Wylen Willem Sloets, der seinen Vater und einen Freund im Stich ließ und später Symoenen angriff. Die Ereignisse fanden vor Faselavond im letzten Jahr statt."
+  }
+}
+```

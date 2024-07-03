@@ -1,0 +1,199 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philippe etc. savoir faison a tous presents et advenir nous avoir
+receu lhumble supplication de maitre gilles le chesne demourant
+a villers le parwyn contenant que pour assopir certains
+differens et questions esmendeez entre ledit supliant et feu philippes
+guyot, parties sen avoient soubmis a l arbitraige daulcuns
+gens de bien qui suyvant icelle submission en ont depuis
+esmologue leur sentence arbitraire et combien que ledit philippe
+guyot se debvroit avoir tenu content de ladite sentence sans
+au supliant avoir faict aulcune foulle force violence ce
+nonobstant ayant ledit feu philippe guyot sur la feste de la
+sainte magdaleine dernierement passee trouve le supliant
+passant son chemin pour aller a sa maison sur les rues
+devant la cense ou que ledit philippe demouroit luy dit
+plusieurs atroces iniurieuses parolles et luy donna quant a
+quant ung vilain coup de poing et se retirant incontinent
+dedans ladite cense sortit incontinent apres avecq une dernyere
+picque courrant en grand fureur apres ledit supliant en lune
+main et en laultre une pierre laquelle il jetta sur
+lestommach du supliant de sorte que estant ledit supliant par
+i ce constrainct de se mettre a juste et necessaire desfence
+leva de terre ladite pierre et la jettant contre ledit philippe
+lattaint au front et le blessant quelcque peu et eust ledit
+philippe au mesme instant perche ledit supliant tout oultre et tue
+sur la place en cas que par intercession daulcuns il neust
+este empesche et comme la blessure dudit philippe estoit de
+fort petite importance et entierement curable ne laissa ledit
+philippe a cause dicelle continuer son labeur ny de boire ny de
+manger a laccoustume, mesmes de frequenter et hanter
+les tavernes courir saulter et suyvre le compaignon ne se
+plaindant oncques dicelle blessure, comme aussy pour la
+tante petite importance dicelle il navoit occasion de se
+plaindre ains quelzques jours apres comme ledit philippe
+ne cessa de sa vye irriglee seroit advenu que le mal du
+coste et pleurisie luy surprins, dont parapres il est
+decede de ce monde et combien que selon ladvis des maistres
+es droictz, mesmes suyvant certaines informations sur ce
+tenues il seroit tout notoire que le supliant nest culpable
+de ladite mort joinct quil a faict paix a partie interessee
+ce nonobstant comme le coup de ladite pierre joinct la
+devantdite nonchalance dudit defunct ladite maladie en
+pourroit avoir prins en luy son origine a la mort et
+que partant aulcuns noz officiers ou des aultres particuliers
+luy pourroient par cy apres donner quelcque fascherie soubz
+pretext que le supliant auroit quelcque coulpe en icelle
+il nous a treshumblement suplie et requiz luy vouloir pardonner
+ledit faict et sur ce luy faire despescher noz lettres patentes
+de remission en tel cas pertinentes pource est il que
+nous les choses dessusdites considerees et sur icelles eu ladvis de
+noz bien aimez les mayeur et eschevins dudit villers le parwyn
+audit maitre gilles le chaisne supliant inclinans a sadite supplication
+et requeste et luy veullans en ceste partie grace et misericorde
+preferer a rigeur de justice avons au cas susdit quicte remis et
+pardonne quictons remettons et pardonnons de grace especialle
+par ces presentes le cas et homicide dessus declaire ensamble
+toutes paines amendes et offences corporelle et criminelle
+enquoy pour et a raison dudit cas et homicide es circumptances
+et dependences, il a et peult avoir mesprins offence et
+estre encourru envers nous et justice, lequel quant a ce
+avons remis et restitue mettons et restituons a ses bons
+noin et fame en notre pays et duce de brabant lembourg
+et oultremeuze et en tous aultres noz pays terres et seigneuries
+et a ses biens non confisquez sanlcuns en y a tout ainsy
+et par la forme et maniere quil estoit auparavant
+ladvenue dudit cas et homicide imposant surce silence
+perpetuel a notre procureur general et a tous aultres noz
+* justiciers officiers et subiectz quelzconcques satisfaction
+toutesfois faicte a partie interessee premierement et avant
+tout oeuvre si faicte nest et elle y chiet civiliement
+tant seulement pourveu que ledit supliant sera tenu amender
+ledit cas envers nous aussy civilement selon lexigence
+diceluy la faculte de ses biens et la forme de noz ordonnances
+surce faictes et enoultre de refundre et payer les fraiz
+mises et despens de justice, sanlcuns en ont este pource
+faictz le tout a larbitraige et taxation de noz ames
+et feaulx les chancellier et gens de notre conseil en brabant
+que commettons a ce dausquelz mandons que appellez
+pardevant eulx tous ceulx et celles qui pource feront
+a appeller ilz procedent bien et deuement a la veriffication
+et interinement de ces presentes, selon leur forme et teneur
+et a la taxation desdits frais et despens de justice et aussy
+de ladite amende civile lequel interinement ledit supliant
+sera tenu requerir et poursuyr pardevant lesdits de notre
+conseil en brabant endeans six mois prochainement venans
+apres la date de ces presentes, a paine de perdre le fruyt
+et effect dicelles ce faict lesdits despens deuement
+payez et ladite amende civile tauxee et payee es mains de
+notre receveur des exploix ou aultres noz officiers quil
+appertiendra, et qui sera tenu den faire recepte et tenir
+compte a notre prouffit avecq aultres deniers de sa charge
+et entremise ilz et tous aultres noz justiciers, officiers,
+* soit de lamende civile
+a tauxer quie et payer
+es mains du receveur
+des exploix fait recepte
+et respondu au prouffit
+de sa majeste paricelluy receveur
+des exploix
+et subiectz presents et advenir cuy ce regardera, leurs lieuxtenans
+et chacun deulx endroict soy et sicomme a luy appertiendra
+facent soeuffrent et laissent ledit supliant de ceste notre grace
+remission et pardon et de tout le contenu en cesdites presentes selon
+et par la forme et maniere que dict est plainement, paisiblement
+et perpetuellement joyr et user. sans en ce luy faire mettre
+ou donner, ne souffrir estre faict mis ou donne ores ny au
+temps advenir en corps ny en biens aulcun arrest destourbier
+ny empeschement au contraire ains si son corps ou aulcuns
+de sesdits biens sont ou estoient cy apres pource prins saisiz ou
+arrestez ou aultrement empeschez les mettent ou facent
+mettre incontinent et sans dilay a plaine et entiere delivrance
+car ainsy nous plaist il nonobstant que le cas cy dessus
+declaire ne soit encoires sur a$$e et a fin que ce soit chose
+ferme et stable a tousiours nous avons faict mettre nostre
+seel a ces presentes. saulf en aultres choses notre droict et
+laultruy en toutes donne en notre ville de bruxelles au
+mois de mars lan de grace mil cincq cens soixange quatorze
+avant pasques de noz regnes, assavoir des espaignes sicille roy
+le xxe. et de naples le xxije ainsy soubscript sur le ply
+par le roy en son conseil et signe mesdach
+collationnee aux lettres originalles.
+par moy
+vanden houte $ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "mars 1564, avant Pâques",
+  "fact_date": "the date when the related facts have taken place (exact date is not provided in the text)",
+  "persons": [
+    {
+      "firstname": "gilles",
+      "lastname": "le chesne",
+      "role": "plaintiff",
+      "function": "master gilles le chesne"
+    },
+    {
+      "firstname": "philippes",
+      "lastname": "guyot",
+      "role": "defendant",
+      "function": "feu philippes guyot (deceased)"
+    }
+  ],
+  "locations": [
+    {
+      "name": "villers le parwyn",
+      "loctype": "parish"
+    }
+  ],
+  "summary": {
+    "en": "Master Gilles le Chesne requests remission for the death of Philippe Guyot. The two had a disagreement, and Philippe attacked Gilles with words and violence. Gilles defended himself and accidentally killed Philippe. Philippe's death was caused by the injury, but also by a subsequent illness. Gilles has been living peacefully since the incident and has not caused any trouble. The authorities consider Gilles not guilty, but to avoid any future issues, he requests remission and pardon for the act.",
+    "fr": "Maître Gilles le Chesne fait une demande de rémission pour la mort de Philippe Guyot. Les deux hommes avaient un désaccord, et Philippe a attaqué Gilles avec des mots et de la violence. Gilles s'est défendu et a accidentellement tué Philippe. La mort de Philippe a été causée par la blessure, mais aussi par une maladie subséquente. Gilles a vécu paisiblement depuis l'incident et n'a pas causé de problèmes. Les autorités considèrent Gilles comme non coupable, mais pour éviter tout problème futur, il demande la rémission et le pardon pour l'acte.",
+    "nl": "Meester Gilles le Chesne vraagt vergeving voor de dood van Philippe Guyot. De twee hadden een meningsverschil en Philippe viel Gilles aan met woorden en geweld. Gilles verdedigde zichzelf en doodde Philippe per ongeluk. De dood van Philippe was veroorzaakt door de blessure, maar ook door een daaropvolgende ziekte. Gilles leefde vreedzaam sinds het incident en veroorzaakte geen problemen. De autoriteiten beschouwen Gilles als niet schuldig, maar om toekomstige problemen te voorkomen, vraagt hij vergeving en gratie voor het feit.",
+    "de": "Meister Gilles le Chesne bittet um Absolution für den Tod von Philippe Guyot. Die beiden hatten einen Streit und Philippe griff Gilles mit Worten und Gewalt an. Gilles verteidigte sich und tötete Philippe versehentlich. Der Tod von Philippe wurde durch die Verletzung, aber auch durch eine anschließende Krankheit verursacht. Gilles lebte seitdem friedlich und verursachte keine Probleme. Die Behörden betrachten Gilles als nicht schuldig, aber um zukünftige Probleme zu vermeiden, bittet er um Absolution und Vergebung für die Tat."
+  }
+}
+```

@@ -1,0 +1,143 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+commutatie van grieven in eeuwiger
+gevanckenissen vo$ janne grammay
+kaerle etc. allen den gheenen die dese onser brieven
+sullen zien oft saluyt alsoe een geheeten jan gramay
+ter saken van sekeren crimen valscheyden mesbruycken ende
+abusen by h$n gecommiteert in ons$$$ tegewoirdelyck
+gevangen is bynnen onser stad van antwerpen aldaer zoo
+wy verstaen zijn proces gemaect is wordt zoo dat die
+vader ende andere vrinden ende magen vanden voers. gevang$
+hen beduchten zyn dat hy cr$$$elyc gecondempneert
+mochte wordden ende oppenbaerlyc geexecuteert dwelck
+oft zoo gebuerde zyn soude totter voers. vrienden ende
+magen grooter scanden ongemechten ende verdriete ten
+waere dat wy de voers. senten$ geprovidteert zynde
+veranderen ende commuteren wilden in andere beternisse
+ende penitentie daerom de voers. vader vrienden ende
+magen ons zere oitmoedelyc hebben gebeden ende doen
+bidden doen te wetene dat wy om sekere redenen ende consideratien
+ons daer toe porrende ende bezinde ter ernstiger beden
+ende begheerten van enigen onsen sp$$len dienen die
+pene ende punitie daer inne de voers. jan gramay
+ter saken vanden voersscreven valscheyden mesbruycke
+ende abusen behoirt ende sculdich sal zyn gecondempneert
+te wordden ende daer voer hy gevangen is als voir
+nae dien de sententie tegen hem openbaerlyc
+geprovidtieert sal wesen gelyc in sulcken saken gewoenlyc
+es te geschieden ende sulcke als byden richters es oft sat
+gesloten ende geconcludeert zyn hebben verandert ende
+gecommuteert veranderen ende commuteren vuyt zonder teger
+gaende by desen onsen brieve in eeuwich gevanckenisse
+van zynen persoen in zulcker plaetss als by onss daer
+toe sal wordden geoirdineert behoudelyc nochtans dat
+de voers sententie sulcke als die byden voers. richters
+als voe geaviseert geraempt ende gesloten sal zyn
+ierst voir al openbaerlyc geprovidtieert sal wordden
+in sulcken saken behoirt ontbieden daerom ende bevelen
+onsen lieven ende getrouwen cancellier ende lieden
+van onsen rade in brabant $$$ van loeven a$$an van
+brussel scoutheten van antwerpen ende vanden
+bossche mercgraeve ons lants van ryen ende voerts
+allen anderen onsen ende der $$$ he$$ richteren
+insticieren officieren ende dieneren ons voers. lants
+van brabant nu zynde ende naemaels wesende dat zy
+den voers. janne gramay van deser onser tegenwoirdigen
+gren$ veranderingen ende commutatien inder vuegen
+ende manieren voers. doen ende laten genyeten ende
+gebruycken sonder hem te doenen noch te laten gescieden
+nu oft in toecomende ende enich hinder stoot oft letsel
+ter contrarien want ons alsoo gelieft ende $$
+torconden hebben wy onsen zegel hier aen doen hanghen
+$egenen in onser stadt van gendt elf dagen in
+meye int jaer ons heeren duysent vyfhondert twee
+ende twintich ende van onsen rycken te wetene
+vanden roomschen ende van hongryen tderde ende
+vanden spaanschen ende alle andere tzevenste $
+aldus stont gescrevenen boven opte plycke $nden rey$r
+ende geteekent $oote
+gecollo$$eert ende bevonden $corderen
+metten originale [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "ons",
+      "lastname": "heer",
+      "role": "issuer of the remission",
+      "function": "king"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "grammay",
+      "role": "beneficiary of the remission",
+      "function": "criminal"
+    }
+  ],
+  "locations": [
+    {
+      "name": "onser stad van antwerpen",
+      "loctype": "city"
+    },
+    {
+      "name": "onss daer toe sal wordden geoirdineert",
+      "loctype": "location determined by the king"
+    },
+    {
+      "name": "onser stadt van gendt",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "The king grants a remission to Jan Grammay, who is currently imprisoned in the city of Antwerp for certain crimes, falsifications, and abuses. The king changes the original sentence to a milder punishment and imprisonment in a place to be determined by the king.",
+    "fr": "Le roi accorde une remise à Jan Grammay, qui est actuellement emprisonné dans la ville d'Anvers pour certains crimes, falsifications et abus. Le roi modifie la peine initiale en une peine plus clémente et l'emprisonnement dans un lieu à déterminer par le roi.",
+    "nl": "De koning verleent gratie aan Jan Grammay, die momenteel in de stad Antwerpen wordt vastgehouden wegens bepaalde misdaden, vervalsingen en misbruiken. De koning wijzigt het oorspronkelijke vonnis in een mildere straf en gevangenhouding in een te bepalen plaats door de koning.",
+    "de": "Der König gewährt Jan Grammay eine Begnadigung, der derzeit in der Stadt Antwerpen wegen bestimmter Verbrechen, Fälschungen und Missbräuche eingesperrt ist. Der König ändert das ursprüngliche Urteil in eine mildere Strafe und Gefangennahme an einem vom König zu bestimmenden Ort."
+  }
+}

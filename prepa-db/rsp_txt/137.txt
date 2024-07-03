@@ -1,0 +1,221 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+charles etc. a tous ceulx qui ces presentes lettres verront
+ou orront salut. savoir faisons nous avoir receu
+lumble supplication de walry begin et de arnoul et
+willemairt beghin ses filz demourans a orbais en notre
+romman pays de brabant contenant comment iceulx supplians
+ont este boutez en prison par ung nomme pierre de
+haultepenne, bailly de perwez a cause que lesdits
+supplians auroient blessez et navrez un nomme raoul
+regnart et rolon son filz, dont ledit bailly procedant
+pardevant les eschevins dudit lieu dorbaiz a prins
+conclusion contre lesdits supplians seullement civile, assavoir
+affin destre condempnez a faire aucuns voyaiges et
+de payer certaines sommes de deniers comme aussy
+aultre conclusion ny cheoit que civile et nullement criminele
+et combien par lesdits eschevins dorbaiz ait este juge
+par sentence parties dung coste et daultre en leurs
+allegations et deffences oyez, et laquelle sentence
+a este par icelles parties tenue pour bonne et
+expressement ratifiee et approuvee que lesdits
+supplians seroient eslargiez et delivreez de ladite prison
+parmy baillant caution souffissante par eulx presentee
+destre a droit et furnir le juge desdits eschevins
+et que en ensuyant icelle sentence lesdits supplians
+ayent presente dobliger pour caution leurs rentes
+heritaiges et bien meubles et immeubles quilz
+ont soubz la justice dudit orbais, souffisans
+et furnissans a la demande dudit bailly de perwez
+et avecq ce plesge souffisant jusques a la
+somme de deux cens florins ce toutesvoyes non
+obstant et sans ladicte caution vouloir accepter
+sest avanchie ledit bailly de laisser la voye
+et train de justice et soy tourner a voye
+de faict de concussion et dextorsion de
+emmener lesdits supplians hors la justice et bancq
+dudit orbais en les gectant en prison tresestroicte
+et rude au fon de fosse et ceppe de fer
+en la tour du chasteau et fortresse dudit
+perweiz et que pis est sest avanchie
+ledit bailly sans loy et sans justice de son auctorite
+indue de faire gecter ledit arnoul ung desdits
+supplians par le borreau sur ung bancq et
+faire gehenner si horriblement et inhumainement
+quil luy a pres rompu ses membres et ce en la presence
+dudit walry son pere suppliant tellement que ledit willemart
+suppliant le plus jeune desdits enffans quy nestoit guerres
+loing du lieu de ladicte gehenne, oyant les douleureux
+criz et lamentations de sondit frere suppliant estant
+en gehenne a este avecq ledit walry son pere
+constraint par crainte et peur de semblablement
+ou plusenormement estre tormentez et gehennez,
+confesser tout ce quil a pleu audit bailly. les
+veul vueillant icelluy bailly par la confession ainsy
+desdits supplians indeuement et sans justice extorquee
+constraindre a composition desquelles forces
+violences et extorsions lesdits supplians se sont plainctz
+vers nous en notre conseil ordonne en brabant
+ayans illecq impetre noz lettres patentes en vertu desquelles
+ledit bailly a este adjourne en notredit conseil de
+brabant pour illecq oyr telles demande requeste
+et conclusion que lesdits supplians vouldroient faire
+affin destre relevez de leurdites confessions, comme
+deulx indeuement par crainte et force extorquees
+et aussy affin destre releveez delivrez de ladite
+prison moiennant caution souffissante dester a
+a droit et furnir le juge ensuyant lappoinctement
+desdits eschevins dorbaiz entre lesdites parties comme
+dit est rendu. et aussy que ledit bailly seroit
+tenu leur faire reparation desdites forces injures
+et tormens dont le jour a servy lundy xxvje
+jour de ce present mois de novembre. or est
+est il que apres ladite provision avoir obtenue
+en notre conseil lesdits supplians demourans en ladite prison au fon de
+fosse en grant misere et povrete, craingnant vraysemblablement
+pis estre traictez par ledit bailly que au paravant pour ce
+que iceulx supplians sestoient plaintz de luy en notredit conseil
+par invocation de layde de dieu et de la glorieuse
+vierge marie, faisans leurs veuz de la visiter a haulx
+et a wavre, ont trouve facon que le xj jour dudit
+mois de novembre environ ix ou x heures du soir
+ilz sont sailliz eschappez et enfrainctz de ladite prison
+apres laquelle infraction de prison iceulx supplians
+ont acquicte leurdits veuz a haulx et a wavre.
+a cause de laquelle infraction lesdits supplians
+craignent et doubtent grandement avoir offense
+et mesfait envers nous et justice et par ce
+avoir empire leur bon droit, comme aussy a cause dicelle
+infraction de prison ledit bailly a desia mis
+gardemengeurs es biens desdits supplians cuydant proceder
+a la confiscation diceulx, ce que tourneroit a
+la totale ruine povrete et desolation desdits povres
+supplians et encoires plus seroit se notre grace ne leur
+estoit sur ce impartie dont ilz nous ont treshumblement
+supplie et requis. et pour ce est il que nous
+ses choses considerees, auxdits walry arnoul et
+willemart begin supplians inclinans favorablement
+a leurdite supplication et requeste et leur
+vueillant en ceste partie partie preferer grace
+et misericorde a rigeur de justice, avons
+au cas dessusdit quicte remis et pardonne
+quictons remectons et pardonnons de grace
+especial par ses presentes linfraction de ladite prison ensemble toute
+paine et amende corporelle criminele et civile
+esquelles a cause dicelle infraction de prison ilz
+pevent estre encourruz ou avoir mesprins et offense
+envers nous et justice ostant levant et
+mectant du tout a neant tous arrests mainmises
+et aultres procedures desia faiz sur leurs biens
+et heritaiges a cause dicelle infraction et les
+avons quant a ce remis et restitue, remectons
+et restituons par cesdites presentes a leurs bonnes renommee
+et fame en notredit pays de brabant et a leurs biens et
+heritaiges non confisquez sancuns en ont en
+imposant sur ce silence perpetuel a notre procureur
+general en brabant audit bailly de perweiz et a tous
+aultres noz justiciers officiers et subgectz et
+aussy des bassains seigneurs de notredit pays de brabant
+quelz quilz soient. satisfaction prealablement
+a la partie interessee saucune y chiet et faicte
+nest civilement tant seullement et pourveu que
+lesdits supplians seront tenuz eulx rendre prisonniers
+en tel estat quilz estoient a lheure de ladite infraction
+de prison es mains de noz amez et feaulx les
+chancellier et gens de notredit conseil en brabant
+tant et jusques ace que parties oyes en la matiere
+illecque intentee comme dessus aultrement sur la
+relaxation desdits supplians sera ordonne, pourveu
+aussy que iceulx supplians seront tenuz de payer et
+reffondre les mises et despens raisonnables
+de justice a larbitraige et tauxation de notredit chancellier
+et gens du conseil en brabant lesquelz avons ace
+commis et commectons par se cesdites presentes, sy
+mandons et commandons a iceulx noz chancellier
+et gens du conseil en brabant que appellez pardevant
+eulx notredit procureur general en brabant ledit bailly de
+perweiz et tous aultres quy pour ce feront a appeller
+ilz procedent bien et deuement a la verification
+et interinement de cestes. et ce faict et lesdites
+mises et despens de justice tauxez et payez
+ilz notre maire de louvain amman de bruxelles
+escoutettes danvers et de boisleduc, bailly
+de nyvelle et de notredit romman pays de
+brabant bailly de perweiz et tous autres nos justiciers
+officiers et subgectz et cheu ceulx de noz vassaulx
+et bassins seigneurs de notredit pays de brabant leurs
+lieutenans et chacun deulx en droit soy et sicomme
+a luy appartiendra facent seuffrent et laissent
+lesdits supplians et chacun deulx plainement
+entierement et paysiblement de notre presente
+grace et pardon selon et en la maniere que dit
+est joyr et user sans en ce leur faire
+mectre ou donner ne souffrir estre faict mis
+ou donne aucun destourbier ou empeschement
+au contraire ains se leurs corps ou aucuns
+de leursdits biens estoient a cause de ladite infraction
+prins saisiz arrestez emprisonnez ou aultrement
+empeschez les mectent ou fachent mectre
+incontinent et sans delay a entiere et plaine delivrance
+car ainsy nous plaist il. et en tesmoing
+de ce avons faict mectre notre seel a ses presentes
+donne en notre ville de bruxelles le xxviije
+jour dudit mois de novembre lan de
+grace mil cincq cens et vingt et
+de noz regnes assavoir de celluy des rommains
+le second, de germanie le premier, et
+despaignes arragon et aultres le cincquiesme.
+ainsy estoit escript sur le reploy. pour
+lempereur en son conseil, et signe boudewynt
+collationne a loriginal
+par moi
+n strat [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "xxviije novembre mil cincq cens et vingt",
+  "fact_date": "UNKNOWN",
+

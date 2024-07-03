@@ -1,0 +1,236 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips byder gratien goidts coninck van castillien ethcetera
+allen die gene die dese onse opene brieven sullen sien oft hooren
+lesen salut doen te weten dat wy ontfganghen hebben
+doytmoedilycke supplicatie van peeter suys alias
+mompeliers jonckman oudt ontrent de sesse oft seven
+entwintich jaeren geboren van wettighen bedde binnen
+onse stadt van mechelen, drooghscheder van syn ampt
+dwelck eenighe jaeren binnen onse stadt van loven
+geexerceert hebbende ende commende opden vyffthienden
+january 1641 inde herberghe van caerel causmans inde
+compagnie van hendrick zegers ende hendrick frans beneffens
+wijlen bernaert custermans metten voorschreven hendrick
+frans spelende mette het caertspel genoempt romsteken
+waerop hij suppliant siende ende lettende dat de
+respective spelders maer twee caerten meer en waeren
+inde handt hebbende den voorschreven custermans de
+sesse ende den anderen de vrouwe vande selve sesse, soo is
+gebeurt dat den voor suppliant seyde teghen den
+voorschreven custermans leght u spel daerhenen want
+hy heeft die vrouwe denotterende den voorschreven
+hendrick frans daer van ghy de ses hebt, dwelck
+de voorschreven custermans hoorende seyde teghen
+den suppliant wat hebt ghij in myn spel te spreken
+ende opstaende heeft daetelyck sonder voorder
+woorden eenen vuystslach gegeven nemende daerenboven
+den kandelaer in deen handt ende die kerse in dander
+heeft daermede naer den suppliant seer furieuselyck
+geslaeghen sonder dat hy daerdoore ter aeden was
+gevallen, ende hernemende synen slach heeft hem metten
+voorschreven kandelaer het in het slaep van syn hooft soo
+grooten wonde geinfligeert dat syn bekeneel bloot
+lach, soo dat hij is geweest in peryckel van sterven
+naer uuytwysen vande attestatien soo van doctor als
+chirurghyn hem gecureert hebbende waermede des
+voorschreven custermans noch nyet gestilt synde
+ende meynen slach te hervatten. is de kerse ter aenden
+gevallen ende den suppliant om nijet van leven ter
+doot gebrocht te worden heeft hem in defensie stellende
+den voorschreven custermans eenen steek met syn
+mes in de borste oft buyck gegeven waervan hy
+tot des suppliants groot leet wesen eenighen
+tuyt daernaer is commen aflyvich te wordden ende
+alsoo vuijt tgene voorschreven is blyckt by de
+attestatie vande persoonen daer present geweest
+synde dat den voorschreven afflyvighen ierst ende
+vooral den suppliant soo furieuselyck de voorschreven
+dootelycke quetsure hadde geinfligeert
+met intentie van hem noch naerder te
+quetsen ende evelen vanden lyve sonder dat
+nochtans hy suppliant hem stoot noch slach
+hadde gegeven soo ist dat hij volghende de
+naturele redenen is genootsaeckt geweest
+syn lyff te defenderen met die waepenen
+die hy hadde gelyck dat die geschreven rechte
+syn permitterende. soo ist nochtans dat hij
+ten voorschreven plaetsen en derft frequenteren
+sonder ierst over tvoorschreven ongeluck
+van behoorelycke acte van innocentie oft gratie
+versien te syn, ende alsoo voor date van desen
+sonder jactantie gesproken hy noynt met yemant
+de minste woorden oft crackeel en heeft
+gehadt dan altyt gestaen hebbende tot goeden
+naeme ende faeme ende dat den voorschreven
+voorschreven afflyvighen selffs in syn dootbedde
+liggende heeft bekent van tvoorschreven ongeluck
+ongeluck deenighe oirsaecke te wesen heeft
+daeromme den suppliant uuytte grondt sijns
+herten vergeven tghene hij hem mochte misdaen hebben.
+badt daeromme den suppliant in alder oytmoedichyt
+dat ons believen favoralyck considererende
+dwaerachtich narratiff deser hem over
+tvoirschreven ongeluck te vergunnen eene
+acte van innocentie oft wel onse brieven van
+remis hem de selve doende expedieren in behoorlycke
+forme. waerom soo eest dat wy de saecke voerschreven
+aengemerckt ierst hierop gehadt dadvis van
+lioeutenant meyer onser stadt van loven ende
+gesien d informatie genomen mette stucken daertoe
+gevuecht, geneyght wesende ter beden des
+voirschreven suppliants ende willende hem in dit
+stuck prefereren gratie ende misericorde voor
+strenheyt ende rigeur van rechte, hebben den
+selven suppliant inden gevalle als boven quytgeschonden
+ende vergheven, schelden quyte ende vergheven uuyt
+sunderlinghe gratien, bij desen onsen brieve tfeyt ende
+ongeval boven geruert midtsgaeders alle offensie
+ende breucke corporele ende criminele daer inne
+bij hem overmidts ende uuyt saecken van tghene
+des voorschreven is tegens ons ende justitie
+eenichsints mach hebben ontgaen ende misdraegen
+ende hebben hem dyen aengaende wedergestelt
+ende gerestitueert stellen weder ende resti-
+tueren tot goeden naem, faem ende geruchte
+in onsen voorschreven lande van brabant ende allen
+andere onse landen ende heerelyckheden ende
+tot onverbeurden goeden in dyen hy eenighe onder
+ons heeft, gelyck nde in alder manieren soo
+hy was voorde toecompste vande voorschreven
+feyte. imponerende hierop een eeuwich geswijgh
+onsen ons procureur generael in brabant
+onsen meyer van loven ende allen anderen onse justicieren
+ende officieren wie sij syn, satisfactie ende
+beternisse . ierst ende vooral gedaen der
+partyen geinteresseerde . in dyen die noch nyet
+gedaen sy ende eenighe daertoe staet
+civilyck alleenelyck behoudelyck dat die voirschreven
+suppliant gehouden sal syn tvoorschereven feyt
+tegen ons te beteren civilyck naerder gelegenthyt
+vander saecke ende faculteyt van syne goederen met
+oyck te betaelen die redelycke costen van justitie
+hieromme alreede gedaen ende te doene, allet ter
+taxatie ende moderatie van onsen seer lieven
+ende getrouwen ende lieden van onsen raede
+in brabant die wy daertoe gecommitteert
+hebben ende committeren by desen. ontbieden
+daeromme ende bevelen den selven onse cancellier
+ende raedtsluyden dat voor hen geroepen degene
+ende daeromme behooren geroepen te syne, sy procederen
+wel ende deughdelyck ter verificatie
+ende interinemente van desen ende totter
+taxatien ende moderatien vande voorschreven costen
+van justitien alsoo sy sullen bevinden behoorende
+welck interinement die voorschreven suppliant
+gehouden sal syn te versuecken ende hem in persoone
+te presenteren in onsen voorschreven raede
+binnen sesse maenden naestcommende op pene van
+te verbeuren deffecte van desen ende dat gedaen
+ende de costen van justitie getaxeert ende
+betaelt synde in handen vanden genen die dat
+behooren sal tsy onsen voorschreven procureur
+generael in brabant, meyer van loven ende
+alle andere onse rechteren, justicieren officieren
+ende ondersaeten tegenwoordich ende
+toecommende dyen dat aengaen sal moghen
+heure stedehouderen ende een yegelyck van hun
+besundere, soo hem toebehooren sal, doen laeten
+ende gedooghen den voorschreven suppliant
+van deser onser teghenwoordigher gratien
+ende remissien ende van alle d inhouden van desen
+inder vuegen ende manieren voore verhaelt
+rustelyck vredelyck volcomentlyck ende
+eeuwelyck genyeten ende gebruycken sonder
+hem te doen oft te laeten geschieden nu noch
+in toecomende tyden eenich hinder letsel oft
+moyennisse aen lyve noch aen goeden ter contrarien
+maer indyen syn lyff oft eenighe van syne goeden
+daeromme gearresteert oft becommert waeren
+dat sy die setten ende stellen terstont ende sonder
+vertreck tot geheelder ende volcomender
+delivrantie. want ons alsoo gelieft gegeven
+ende te eynde dat dit vast ende gestadich
+blyve teeuwighen daeghe soo hebben wy af onsen
+segher hier aen doen hanghen. behoudelyck in
+anderen dinghen onsen rechte ende eenen iegelycken
+anderen dessyns. gegeven binnen onse stadt van
+brussele inde maent van october 1642.
+onderteeckent j. fourdin [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "October 1642",
+  "fact_date": "15th January 1641",
+  "persons": [
+    {
+      "firstname": "peeter",
+      "lastname": "suys alias mompeliers",
+      "role": "suppliant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "philips",
+      "lastname": "byder gratien goidts",
+      "role": "king",
+      "function": "coninck van castillien"
+    },
+    {
+      "firstname": "bernaert",
+      "lastname": "custermans",
+      "role": "opponent",
+      "function": "drooghscheder of ampt"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Peeter Suys Aliases Mompeliers, a citizen, has submitted a supplication to King Philips Byder Gratien Goidts, Coninck Van Castillien, regarding a physical altercation that took place in January 1641. The incident occurred in a tavern, where Suys claimed that Bernaert Custermans, a drooghscheder of ampt, attacked him while they were playing cards. Suys has requested an act of innocence or remission for the incident.",
+    "fr": "Peeter Suys Aliases Mompeliers, un citoyen, a soumis une supplique au roi Philips Byder Gratien Goidts, Coninck Van Castillien, concernant une bagarre qui a eu lieu en janvier 1641. L'incident s'est produit dans une taverne, où Suys a prétendu que Bernaert Custermans, un drooghscheder d'ampt, l'avait attaqué alors qu'ils jouaient aux cartes. Suys a demandé un acte d'innocence ou de rémission pour l'incident.",
+    "nl": "Peeter Suys Aliases Mompeliers, een burger, heeft een supplicatie ingediend bij koning Philips Byder Gratien Goidts, Coninck Van Castillien, betreffende een vechtpartij die plaatsvond in januari 1641. Het incident vond plaats in een herberg, waar Suys beweerde dat Bernaert Custermans, een drooghscheder van ampt, hem aanviel tijdens het kaartspel. Suys heeft om een akte van onschuld of remissie voor het incident verzocht.",
+    "de": "Peeter Suys Aliases Mompeliers, ein Bürger, hat bei König Philips Byder Gratien Goidts, Coninck Van Castillien, eine Supplikation eingereicht, die sich auf eine Schlägerei bezieht, die im Januar 1641 stattgefunden hat. Der Vorfall ereignete sich in einer Taverne, wo Suys angab, dass Bernaert Custermans, ein drooghscheder von ampt, ihn angegriffen habe, während sie Karten spielten. Suys hat um eine Akte der Unschuld oder einer Remission für den Vorfall gebeten."
+  }
+}
+```

@@ -1,0 +1,216 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie belast met civile beteringhe voir gillis de smet
+kaerle etc. doen te wetene allen lieden jegewoirdich
+ende toecommende dat wy ontfanghen hebben de oitmoedige
+supplicacie van gillis de smet arm simpel man belast met
+wyve ende een cleyn kindeken inhoudende hoe dat hy
+opten heyligen cruysavont 1500 25 1525 commende vander kermesse
+van hafflighem is ghearriveert te merchten inden bonten osse
+ten huyse van mathis de weert aldaer oyck by hem $$$
+inden noen mael een gheheeten christoffel de beye de welcke
+int beghinssele vanden eten questie ende ghescil maecte tegens
+den suppliant seggende dat hy hem vyfthien eyeren sculdich
+was ende vragende oft hy die betalen wilde want hy die
+weder hebben wilde van stonden aen sonder langher beyden
+waer op de suppliant antwoirde segghende ic wilse wel betalen
+maer ic en hebse hier nyet compt tonsent ic salse u betalen
+ende noch eene halve douzijne daer toe de voirs. christoffel
+persisterende in syne quade opinie om den suppliant te verwecken tot
+gramscape zeyde comanscape en spaert nyemant ons wil ic
+ter stont betaelt zyn sonder eenich verdrach waer op de
+suppliant antwoirde dat hy hier noch eyeren noch corff en hadde
+want hy vuyter kermesse quam zegghende voirts als boven
+compt tonsent ic salse u betalen ende noch eene halve douzynen
+daer boven toe voren gheven ten lesten de voirs. christoffel hoorende
+de gracieuse antwoirde vanden suppliant en heeft hem nyet
+met vreden ghelaten maer heeft noch bynnen der selven maeltyt
+tot vele stonden gheheyscht de betalinghe vanden voirs.
+xv 15 eyeren hem segghende dat hy die nyet langher beyden
+en soude om nyemants wille dat alsdan de voirs. suppliant
+verhidt ende gheturbeert zynde met alynlcke langhe
+quellinghe heeft totten selven christoffel ghezeyt wel ic
+en salse u nyet langhe sculdich blyven $ghevende met dyen
+hem eene wonde daer aff hy des anderen dachs ghecommen
+is van levenden lyve ter doot, ter causen vanden welcken
+manslacht de selve suppliant zeer droevich ende mistrostich zynde
+ende vreesende rigueur van iusticien heeft hem gheabsenteert
+vuyt onsen landen ende heerlicheyden aldaer hy nyet en soude
+dorren wederkeeren hanteren noch connerseren maer is gescapen
+vuyten selven te moeten blyven soe verre onse gracie ende
+ghenade hem hier op nyet en worde verleent ende gedeylt
+alzoe hy suppliant zeght ons omme de selve zeer oitmoedelick
+* biddende soe eest dat wy de zaken voirscreven
+overghemaect den selven gillis de smet suppliant ghenegen
+wesende tot zynder beden ende supplicacien ende willende
+hem in dit stuck gracie ende ghenade prefereren voir strangheyt
+van iusticien zonderlinghe ter eeren ende remeren vanden
+bitter passien die onse lieve heere jhesus christus geleden
+heeft voir ons allen aende houte des heylighen cruyse
+op zulcken dach als heden is by advyse ende deliberatie
+van onser zeer liever ende beminder vrouwe ende moeyer
+de eertshertogine van oistenryck hertoginne ende gravinne
+van bourgoingnen douaigiere van savoyen van onse weghe
+regente ende gouvernante etc ende vanden hoofd ende
+luyden van onsen secreten rade neffens huer wesende hebben
+inden ghevalle als boven vergheven quytghescolden ende
+gheremitteert vergheven scelden quyte ende remitteren
+vuyt zonderlingher gracien midts des onsen brieve tfeyt ende
+dootslach boven ghexxx verclaert mitsgaders alle
+peyne ende bruecke corporelle ende criminelle daer
+inne hy ter causen van dyen met datter aencleeft tegen
+ons ende justicie mesdaen ende mesbruyct mach hebben
+ende hebben hem als daer aff wederghestelt ende
+gherestitueert stellen weder ende restitueeren midts
+des onsen brieve tot zynen goede fame naeme ende gericht
+in onsen lande ende hertochdomme van brabant ende allen
+anderen onser landen ende heerlicheyden ende tot hyren
+onverbuerden goeden indien hyre eenighe heeft $$$
+ende in alre manieren als hy was voir de toecompste
+vanden feyte ende dootslaghe voirs$ imponeerende hier
+op silencie ende een eewich zwyghen onsen procureur generael
+van brabant ende allen anderen onsen rechteren justicieren
+ende officieren wye zy zyn satisfactie eest ende
+voir alle welck ghedaen der geinteresseerde partyen
+indien die noch nyet ghedaen en zij ende eenighe daer
+toe dient civilyck alleenlyck behoudende oyck
+de voirs. suppliant ghehouden wert tvoirs. feyt ende
+dootslach jegens ons te beteren civilick nae gelegentheyt
+vander mesdaet ende de faculteyt van zynen goeden ende
+oyck te reffonderen ende betalen de wettelycke costen
+justicien die daerom ghedaen ende naegevolght zyn
+** ter taxacien ende arbiterscepe van onsen lieven ende getrouwen
+de cancellieren ende luyden van onsen raede in brabant
+die wy daer toe committeren ontbieden daeromme ende
+bevelen de selven onsen cancellieren ende raede in brabant
+dat voirs. hen luyden gheroepen die ghene die $$$
+behoeren gheroepen te zyne zy procederen wel ende
+duechdelick ter verifficatie ende interinemente van desen onsen
+jegewoirdighen brieve naer huere forme ende inhouden
+ende ter taxacien vander civile boete ende costen voirscreven
+ende dat ghedaen ende de voirs. civile boete ende costen
+van justicien ghetaxeert ende betaelt zynde in handen vanden
+ghenen van onsen ontfanghers oft anderen onsen officiers dient
+behoeren sal de welcke vander voirs. civile boete gehouden
+zal zyn rekening bewys ende reliquae te doene tot onsen
+proffyte metten anderen penningen? van zynen ontfanghe zyn onsen
+drossaert van brabant meyer van loeven amptman van
+bruessele scoutheten van antwerpen ende vanden bossche
+ende alle anderen $$$ ende onsen vassallen rechteren justicieren
+officieren ende ondersaten tegewoirdich ende toecommende
+dien dit aengaen oft aenroeren sal moghen hueren stedehouderen
+ende eenyegelycke van hen bezunder zoe hem toebehoiren
+zal doen laeten ende ghedooghen de voirs. gillis de smet
+suppliant. van desen onsen jegewoirdigher gracien remissien ende
+daer doene ende van alden inhoude van desen inder dingen ende
+manieren boven verhaelt rustelic vredelycke volcommelyck
+ende eeuwelyck ghenyeten ende ghebruycken sonder
+hem te doen oft te laeten gheschien nu noch in toecommenden
+tyden eenich hinder stoot letsel oft moeyenisse aen lyve noch
+aen goede ter contrarien in eenigher manieren maer indien
+zyn lyff oft eenighe van zynen onverbuerden goeden voirs.
+daeromme ghevanghen gearresteert oft becommert waeren
+zy die stellen ende setten oft doen stellen ende setten ter stont
+ende zonder vertreck tot geheele ende volcommen delivrancie
+want ons alzoe ghelieft ende ten eynde dat dit goet
+vast ende ghestadich blyve tot eeuwighen daghen zoe
+hebben wy onsen zeghel hier aen doen hanghen behoudende
+in anderen zaken ons recht ende $$$ $$$ tzy in allen
+ghegeven in onse stadt van mechelen op den goeden vrydach
+inde maent van aprille int jaer onses heeren duysent
+vyfhondert zessentwintich ende van onsen rycken
+te wetene vanden roomsschen van germanne $r dachtsen
+ende van castillien ende de anderen thiensten aldus
+ghescreven opde $$$ byden keyser in zynen rade
+ende geteekent $$$ ende visa
+ghecollacioneert tegens
+doriginal by my
+handtekening de cock $$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "1525-08-25",
+  "persons": [
+    {
+      "firstname": "gillis",
+      "lastname": "de smet",
+      "role": "suppliant",
+      "function": "arm simple man"
+    },
+    {
+      "firstname": "christoffel",
+      "lastname": "de beye",
+      "role": "accuser",
+      "function": "unknown"
+    }
+  ],
+  "locations": [
+    {
+      "name": "merchten",
+      "loctype": "unknown"
+    },
+    {
+      "name": "hafflighem",
+      "loctype": "parish"
+    },
+    {
+      "name": "onser landen ende heerlicheyden",
+      "loctype": "country"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Gillis de Smet, a poor man, has supplicated for remission after being involved in a dispute with Christoffel de Beye during the Hafflighem fair on August 25, 1525. De Smet was accused of owing eggs and, after agreeing to pay, was persistently harassed by de Beye. In response, De Smet was forced to flee the country out of fear of legal repercussions. The document grants De Smet remission and pardon for the crime, releasing him from all corporal, criminal, and pecuniary penalties.",
+    "fr": "Gillis de Smet, un homme pauvre, a supplié pour une remise après s'être impliqué dans une dispute avec Christoffel de Beye lors de la foire de Hafflighem le 25 août 1525. De Smet a été accusé de devoir des œufs et, après avoir accepté de payer, a été harcelé de manière persistante par de Beye. En réponse, De Smet a été contraint de fuir le pays par crainte de conséquences juridiques. Le document accorde à De Smet la remise et le pardon du crime, le libérant de toutes les peines corporelles, criminelles et pécuniaires.",
+    "nl": "Gillis de Smet, een arme man, heeft verzoek om vermindering gedaan na betrokken te zijn geweest bij een geschil met Christoffel de Beye tijdens de Hafflighem kermis op 25 augustus 1525. De Smet werd beschuldigd schulden te hebben en, na akkoord te zijn gegaan om te betalen, werd hij voortdurend geplaagd door de Beye. Als reactie hierop werd De Smet gedwongen om het land te ontvluchten vanwege de vrees voor rechtelijke gevolgen. Het document verleent De Smet vermindering en gratie voor het misdrijf, hem vrijstellen van alle lichamelijke, criminele en financiële straffen.",
+    "de": "Gillis de Smet, ein armer Mann, hat um Absolution gebeten, nachdem er sich während der Hafflighem Messe am 25. August 1525 in einen Streit mit Christoffel de Beye verwickelt hatte. De Smet wurde beschuldigt, Eier schuldig zu sein und nachdem er zugestimmt hatte zu zahlen, wurde er hartnäckig von de Beye belästigt. Als Reaktion hierauf wurde De Smet gezwungen, das Land aus Furcht vor rechtlichen Konsequenzen zu verlassen. Das Dokument gewährt De Smet Absolution und Begnadigung für das Verbrechen, ihn von allen körperlichen, strafrechtlichen und finanziellen Strafen zu befreien."
+  }
+}
+```

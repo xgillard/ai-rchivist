@@ -1,0 +1,161 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslage
+philips etc
+doen te weten allen ende eenen yegelycken
+tegewoirdige supplicatie van dionis robbens inhoudende hoe
+dat des is geleden van inde maent van meye hy was
+ter kermissen inden dorpe van nederhespen tot zyne vrienden
+huyst aldaer comen is een geheeten henrick gemels int hem met
+grootten woerden injurieerde seggende dat hy des zelve
+jaere souden overleden zyn overvaren soudt hebben een kint ende dat
+hy in lancx soe meer den selven suppliant injurieerde ende oic mede
+den meyer van thieen ende die selve suppliant lantwyve af was
+ende is ten lesten tot vele met goeden manieren gedaen dat die
+selve suppliant is gegaen te winde weerts dair hy woenechtich is
+die voirs. henrick hadde oic den selven suppliant willen met eenen
+potte op zyn aensicht werpen alsoe hem geseight was onder
+wegen thuysweerts gaende dat hoerende soe es die selve suppliant
+wederom gekeert ende heeft vuyten paenhuys geroepen eenen
+geheeten merten nagels ende hy sat en dranck ende heeft geseet
+totten voors. merten ende hem geclaegcht soe dat die voors.
+henrick gemels hem met grooten woerden geinjurieert hadde
+ende eenen pot op zyn aensicht hadde willen worpen ende alsoe
+es die voors. merten gegaen mitten voors. suppliant aene voirs.
+henrick hem vragende oft hy by zyne woerden bleef die hy
+geseght hadde die soudt jae doen antwoirde die voors.
+merten ic soude ende moeten by zyn dair ghy hem slaen soudt
+doen seyde die voors. henrick ja ende terstont nam hy den selven
+merten met zyne boesemme soo dat die voors. henrick den selven
+merten alle zyn hemde op schoerde dair nae gaf die voors.
+merten den voirs. henrick die hem inne schoet eene placq in zyn
+hooft metten cruyct van zyne daggen ende daer nae
+schoet die voirs. henrick den voirs. merten noch eens jnne
+daer de selve merten den voirs. henrick quetste inden
+kuyt van zyne beene die zoo lange dair nae ter
+bedde lach te weten eene tyt van vyf maenden dair van
+de selve henrick van leve ter doot is gecomen ende overmits
+dat de selve suppliant metten voirs. merten ghinck opten
+kercken ende maecte hem vluchtich soe heeft die
+selve suppliant anxt oft hy hier inne mochte hebben
+mesdaen hoe wel dese suppliant nooyt place noch stoot
+en gaf. ter van soe van welcken feyte ende mesuse
+die voirs. suppliant vreesen strangheit ende riguer van
+justicien hy hem met en soude dorren houden heden
+noch v$kten in onse lande van brabant ende meyeren
+van thienen voirs. mair hem moeten absenteren ende
+souden in vremde landen ende contraien in grooter armoede
+ende hartmichende by alsoe hem onse gratie ende ontfermichticheyt
+in desen nyet vuyt gereyct en naer alsoe hy seet
+ons daer om oitmoedelick bidden soe eest dat van
+desen aengtsen compassie ende medelyden hebben metten
+voirs. suppiant willen hem in desen gratie ende ontfermihticheyt
+gedaen werdden tegen riguer ende strangheit van
+justicien besundere te desen male dat wy onse
+yerste ende nyeuwe tucompst oft in onser stadt van
+thienen gedaen hebben comende vuyt onser reysen
+van spaeignien hebben den selven suppliant in gevalle
+als boven quyt geschonden ende vergheven scelden quyte
+ende vergheven vuyt zundelinger gratien mits desen het
+feyt ende mesusen voerscreven mitgaders alle penen ende
+amenden corporeele ende criminele dair jinnt hy hem
+tegen ons ende justicie vuyt saken voirs. misgrepen
+ende mesbruyct moegt hebben ende hebben hem
+als van famen ende name tot onse lande van brabant
+meneren van thienen voergenoemd ende tot zyne goeden nyet
+geconfisqueert noch verbuert zynde op datter enige zyn
+gelijckerwijs ende in alle der manieren zy naeren toe die
+geschiedenisse vanden voirs. ongevalle imponeren hier op een eewich
+geswych onsen procureur generaal ende allen anderen onse ende der
+smaelre heeren officieren ende justicien ine voirs. onse landen
+van brabant geseten satisfactie ende beternisse civile yerst
+ende voer al gedaen zyn der partyen getuterisseert by alsoo
+enige dair tot staet ende dat nyet gedaen en zy ende
+besondelick dat dit voirs. suppliant ons oic gehouden syn sal
+civile beternisse te doende nae die faculteyt van syne persoonen
+ende goeden ter arbitragien ende taxatien van onse heren
+ende getrouwen cancellier ende luyden van onse raede in brabant
+die wy daer toe gecommiteert hebben ende committeren by dese
+ontbieden hier om ende in brabant dat voere hen
+geroepen die ghene die dair om behoeren geroepen te zyn
+zy procederen ende doen procederen wel ende drustelic totter
+verificatien ende jnterinnemente van desen ende totter arbitragien
+ende taxatien vanden voirs. amenden civile soe dat behoeren
+sal ende dat gedaen ende die voirs. amende civile
+getaxeert ende betaelt zyn tonsen rentmetste die dat
+behoert die ende af schuldich sal zyn tonsen profyte rekenen
+ende bewys te doen zy onse drosset van brabant
+meneren van loeven ende van thienen ende alle andere
+onse officieren rechteren ende dieneren hier stedehouderen
+ende elck van hen dien dat aengaen mach doen ende laten
+den voirs. suppliant van desen onsen tegewoirdiger gratien
+ende remissen inder manieren voirschr. restelic ende vredelic
+genyeten ende gebruycken sonder hem daer tegen te doent
+noch te laten geschieden nu oft toecomende tydt aen synen
+live leden oft goeden enigen hynder arrest stoot oft belet
+ter contrarien maer by alsoo hy oft zyne voirs. goeden
+dairom gevangen aengetast oft gearresteert wesen
+zy die terstondt ende sonder vertreck ontslaen doch ende laten
+ontslaen ende stellen tot volcomender delivreren ende
+ten eynde dat dit vast ende gestadich blive teeuwigen
+daigen. zoe hebben wy onsen zegel hier aen doen hangen
+behouden ons in anderen dingen onsen rechte ende eenen
+yegelycken des zyns gegeven in onser voors. stadt van
+thienen opten viien dach van november int jair
+ons heren duysent vijfhondert ende drie
+aldus ondergeschrevene opte plycke en myne heer
+den ertshertoge dair ghy heer philips vilam? r$$
+meesteren lodewijck roelants peronim vande met
+anthonis heenkenshoot ende andere vanden raede
+by waeren. en geteykent thielt ende noch visa
+gecollationneert bevonden grond$
+met den originale by my
+n frate$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "05-11-1503",
+  "fact_date": "May, 15

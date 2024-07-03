@@ -1,0 +1,180 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+annotation dans la marge ecriture contemporaine : bc
+remissie van dootslage
+maximilian par la grace de dieu esleu empereur
+tousjours auguste roy de germanie de hongrie de dalmatie de
+croatie etc. et charles par la mesme grace archiducz
+d austriche prince d espaingnes des deux cecilles de jherusalem etc.
+ducs de bourgogne de lothier de brabant de stier de karente de
+carniole de lembourg de luxembourg et de gheldres. contes de
+flandres de habsbourg de tyrol de fierrette de kieburch d artois
+de bourgogne palatins de haynau de hollande de zellande de namur
+et de zuytphen marcquis du saint empire et de burgauw
+lantgreves d elsace. seigneurs de frise des marches d esclavonie
+de portenauw de salins et de malines. savoir faisons
+a tous presens et advenir nous avoir receu l umble supplication
+de claude seigneur de bissy et benedictus le sauvaige son serviteur
+contenant. comment le xvije jour du mois de juing lesdits suppliants
+le seigneur de fallaix jaques de licques, loys de renel et leurs
+complices en notre ville de brutxelles partirent du soir environ
+xj ou xij heures de l ostel dudit fallaix en intention de
+aller passer temps en la maison d une femme publique que l en dit
+la grande hollandoize lez les estuves du pollepelle et
+venans devant ladite maison hurterent a la porte dicelle
+et requirent y entrer. a quoy ladite hollandoize respondi
+qu ilz n y entreroient et lesdits remonstrants dirent que dont
+romperoient ilz ladite porte et pour ce faire l approcherent
+mais ilz oyrent bruyt daucuns compaignons estant ou
+baz de ladite maison qui monterent en hault lesquelz tost
+apres on aucun d eulx jetterent pierres aprez iceulx
+remonstrants et feirent leur effort de les touchier et
+bleschier. a l occasion de quoy ung nomme tristram
+serviteur dudit seigneur de fallaix s avanca donner ung cop
+de pit contre ladite porte sans la rompre et lors ledit seigneur
+de faillaix recouvra contre ladite porte qui estoit coppee
+par le mylieu et l entreouvrit de sorte qu ung homme en se
+mectans sur ses mains y povoit entrer. s y s avanca ledit
+loys de renel et y entra et y trouva ung des compaignons
+de dedens jay descendu pour deffendre ladite porte lequel
+pour ce faire rua ung coup aprez ledit renel lequel il failly
+et lors ledit renel pour sa seurete de sa personne rua apres
+l autre et le toucha mais il ne scet en quel lieu et lors
+l escrya ledit compaignon disant monseigneur l escuier pardonnez
+moy, mais en ce disant il empoigna ledit renel par le
+coullet, que lors ledit renel pour sa seurete comme dessus l embracha
+et le jetta sur ung bancq le compaignon se releva et de
+rechief sal sailly ou col dudit renel et lors ledit renel
+pour s en deffendre luy donna aincoires ung coup de dage sans
+bonnement aussy savoir en quel lieu. ce compaignon lors
+querant s enschaper sailly de la maison et le rencontra
+le seigneur de lisques lequel aiant oy le debat de renel
+et ne savoit comme il luy estoit, donna a ce compaignon
+un coup de rapierre. renel meu de chaleur monta
+en hault pour savoir qui estoient les aultres qui leur avoient
+jette de pierres et trouva ung aultre compaignon avec
+trois femmes communes auquel ledit renel se parforca
+donner de sa daghe a quoy il failly au moyen de ce
+que le compaignon se jetta le val de la montee et le
+rencontra le seigneur de licques quy rua apres luy ne scet
+s il le toucha et puis le trouva le seigneur de fallaix, lequel
+luy rua deux coupz de taille de sa dage et ung
+coup d estocq sans savoir a la verite s il le blescha
+ne quel endroit, et ainsy que leditclaude de byssy
+suppliant pensoit entrer en ladite maison, le premier
+compaignon qui avoit este blesche le hurta
+si rudement quil se desmarcha deux ou trois pas,
+et que ledit compaignon mesmes en tumba et ne luy feist
+ledit bissy riens mais entra ladite maison et venant
+aux degrez pour suyr les dessus nommez trouva le second desdits
+compaignons qui le requist le laisser passer, ce qu il feist
+puis rencontra ce compaignon ledit benedictus le sauvaige
+serviteur dudit bissy suppliant lequel semblablement le laissa
+passer et tost apres entendirent le seigneur remonstrant que
+l ung de ce compaignons bleschiez nomme jeannin de mol
+filz de l oste du poncelet dudit bruxellles termina
+de vie par mort dont ledit remonstrant et son serviteur ont
+este et sont amerement desplaisans. et doubtans rigeur
+de justice se sont absentez de notre dite ville de bruxelles
+et pays de brabant ou ilz n ozeroient retourner.
+ains conviendroit audit seigneur de bissu laisser ses parens
+et amis et aussy a son grant regret notre service comme il dist
+se notre grace ne luy est sur ce impartie et au dit benedictus son
+serviteur, dont attendu ce que dist est et que par infortunne
+et non de propoz delibere ledit meschief est advenu et que
+en autres choses jusques a ores les susdits suppliants sont bien rennomez
+et n ont ont commis cas deshonneste. ils nous ont tres humblement
+supplie et requis. pour ce est il que nous ces choses consideres
+ausdits claude seigneur de bissy et benedecitus sauvaige son
+serviteur suppliant inclinans a leurdite requeste. avons
+ou cas dessusdit quite remis et pardonne, quittons remettons
+et pardonnons de grace especial par ces presentes le cas et homicide
+dessus declaire ensemble toute peyne amende et offence
+corporele criminele et civile en quoy pour raison et a
+l occasion dicelluy cas ilz pevent avoir offence et estre
+encourrus envers nous et justice et les avons quant
+a ce remiez et restituez, remettons et restituons a leurs
+bonne fame et renommee au pays et leurs biens non
+confisquez saucuns en ont tout ainsy qu ilz estoient
+au paravant l advenu dudit cas. en imposant sur ce
+scilence perpetuel a notre procureur general en brabant
+et a tous noz officiers quelzconques. satisfaction faicte
+a partie interessee premierement et avant tout euvre
+se faicte n est et elle y chyet civilement tant seulement
+sy donnons en mandement a noz amez et feaulx les chancellier
+et gens de notre conseil en brabant qui appelle ceulx qui pour ce seront
+a appeller ils procedent bien et deuement a la verification
+et interinement de cesdites presentes et ce fait ilz et tous autres noz
+officiers et justicers quelzconques cui ce regardera ou leurs
+lieutenant et chacun deulx en droit soy et si comme a luy appartiendra
+facent seuffrent et laissent lesdits suppliants de notre presente grace
+et remission ensemble de tout le contenu en cesdites presentes
+selon et par la maniere dicte plainement paisiblement et perpetuellement
+joyr et user sans leur faire mectre ou donner ne seuffrir
+estre fait mis ou donne ores ne ou tamps advenir aucun
+d estourbier ou empeschement au contraire. ains se leurs
+corps ou aucuns de leurs biens sont ou estoient pour ce
+prins saisez arrestez ou empeschez les mectent ou facent
+mettre tantsot et sans delay a playne et entiere delivrance
+car ainsy nous plaist il. et affin que ce soit chose ferme
+et estable a tousjours, nous avons ces presentes fait seeller
+de notre seel. sauf toutesvoies en aultres choses notre
+droit et autruy en toutes donne en notre cite dab
+d aubsbourch le xxviije jour du mois de juing l an de grace
+mil cincq cens et dix. et des regnes de nous empereur
+assavoir de cellui de germanie le xxve et de hongrie etc
+le xxje . et ainsy avoit escrypt sur le reploy par l empereur
+et monseigneur l archiduc en leur conseil. et signe h de hane
+et encoires visa et sigillata de expresse mandato
+domini imperatores
+collationne a l original
+par moy
+n strate $$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "XXVIII June 1510",
+

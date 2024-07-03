@@ -1,0 +1,221 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+phle etc doen te wetene allen iegenwendigen
+ende toecommenden dat wy ontfangen hebben die oitmoedighe
+supplicatie van michiel michiels schamel lantsman geboren
+binnen dier vryheyt te mol inhoudende hoe hy suppliant
+altyt hem eerlyck gedragen heeft zynde van catholycquen
+lanen sonder eenichseyt menterende punitie vyt gepepetreet
+te hebbene dan alzoe hy inde maent van septembre inden
+jaer zevenentzestich is geweest op zekere bruijlofte
+van wegen claes nyzens dochter tot dessel ende inden
+avonde int scheyden van dyen is aldaer onder de gesellen
+grooten twist in dabsentie van hem suppliant gerepen maer
+van eenige van zyne goede kennisse geroepen zynde is
+gecommen om de voers gesellen te middelen | ende de selve
+suppliant met een hout geworpen zynde heeft zijn
+eet mes vuytgetrocken sonder alsdoen yemanden gequetst
+te hebbene ter welcke stondt braechde eenen genompt
+peeter pellens michiel wat wilde maecken ghy sult
+de selven vinden geslaeghen | waerop hy suppliant seyde
+daer is myn mes tselve over gevenden seggende ich en
+begheere egeen $ech | maer comme alleenelijk om de gesellen
+te appaiseren alzoo hy deselve middelde | presenterende
+tot dyen een vaen b$es oft twee voer hen te betaelene
+midts de welcken hy metten voers peeter pellens is
+gegaen tot omtrent der d$$$ nicolas nijs | ende
+wordde hy supppliant van eenige van zyne naegebueren
+geroepen michiel suld$ anderwerft ons hier ?? laten slagen
+oft desgelycken vuyt dyer saken hy vuyt compassie onder
+het gevechte is geloopen om anderwerft h$$lnyden te
+veraccorderen alwaer hy ongenadelijk van vier oft vyff
+persoonen met houten stocken neder te $$erden geslagen
+wordt tsulckerwys dat eenige beduchten dat hy
+suppliant deur die groote ymportuniteyt van slagen
+soude doot geslagen geweest hebben | alsulcq dat
+hy op handen ende voeten wech croop om hem te salveren |
+van welcke slagen hy tot int vuytgaende der maent
+van may lestleden continuelijk ?? sieck heeft geweest
+welcken voirgaenden stryt gedurenden $s geschiet dat
+hy suppliant eenen genoempt michiel aerts met
+zynen opstekere heeft gequest int hangen van zynen
+buijcke | waer van binnen eenen da$ge daernae hy dese
+werelt is overleden tot des suppliants grooten ende
+bitteren leetweesen die welcke vreesende tegene ?? van inst$$$e
+hem altyt heeft geabsenteert | ende en soude hem nyet
+dorven vinden in des onsen landen van brabant sonder-
+ierst ?? ende voer al daer toe verw$$ss$en te hebbene onse
+oe$$e kueren van kenesse ?? daer toe dienende |
+waeromme zol eest dat wy desen overgemaeckt
+ende hier op ierst gehadt dadvys vanden ouder schouteth ??
+van dessel geneycht wesende ter b$$l$ dies voers
+michiel michiel suppliants ende willende hem in dit
+stuck prefereren gratie ende misericordre voer
+strangheyt ende vryere van rechte hebben den selven
+suppliant inden gevalle als boven geremitteert quytgeschonden
+ende vergeven remitteren schelden quyte ende vergeven
+vuyt sonderlinger gratie by desen onsen brieve tfeyt
+ende ongeval boven gemelt midtsgaders alle offensie
+ende bruecke corporelle ende criminelle daer inne hy
+hem overmidts ?? ende vuyt saken van tgene als voers
+is tegen ons ende instatie eenichssins mach hebben
+ontgaen ende misdragen ende hebben hem dyen aengaande
+weder gestelt ende gerestitueert stellen weder ende
+restitueren tot zynen goeden name fame ende geruchte
+in onsen voers lande van brabant ende alle anderen onsen
+landen ende heerlicheyden ende tot zijn onverbeurden goeden
+indyen hy eenige onder ons heeft gelyck ende in alder
+manieren zoe hy was voer de toecompste vanden voers
+feyte imponerende hierop een eewich geswych ons
+procurere generael in brabant ende allen anderen ons
+iusticieren ende officieren wye zy zyn satiffactie
+ende beternisse ierst ende voer al gedaen die partye
+geinteresseerde indyen die noch nyet gedaen en
+zy ende eninghe daer toe staet civilyck alleenlyck
+behoudelyck dat die voers suppliant gehouden zal
+zyn tevens seyt tegen ons te beteren civilyck naer gelegentheyt
+vander saecken ende faculteyt van zyn goeden met oyck
+te betaelene de redelycke costen van iusticien hier omme
+alrede gedaen ende te doene | allet ter taxatien ende
+moderatien van onse l$$e ende gehouwe de cancellr
+ende luyden van onsen raede in brabant die wy daer-
+toe gecommitteert hebben ende comitteren by desen ontbieden
+daerom ende bevelen den selven ons cancellr ende
+landtsherlen ?? dat voer hen geroepen deghene die daerom
+behoiren geroepen te zyne zy procederen wel
+ende duechdelyck ter verificatie ende interinemente van desen
+ende totter taxatie ende moderatie vander voers
+ennende ?? ende costen van iusticien alzoe zy zullen
+bevinden behoiren | welck in$e$en die voers
+suppliant gehouden sal zyn te versueckene ende hen ??
+in persoone te presenteren in ons voers $$$le binnen
+zesse maenden naestcommende opte pene van te
+verbr$$ene deffect van desen ende dat gedaen ende
+de selve civile ?? boete ende costen van inp$$$ getaxeert
+ende betaelt zynde in handen van genen dien dat
+* gehouwen zal zy onse voers procureur generael in
+brabant ende alle andere onse rechteren iusticieren officieren
+ende ondersaten iegewoirdige ende toecommende dien
+dat aengaen zal moghen huere stedehouderen ende
+een yegel van hen bezondere zoe hem toebehoiren
+sal | doen laten ende gedoogen den voers suppliant van
+deser ons iegewoirdiger gracien ende remissien ende van
+alle inhouden van des inder voegen ende manieren
+voere verhaelt rustelyc vredelyc volcommelyck ende
+eeuwelyck genyeten ende gebruycken sonder hem te
+doene oft te laten geschieden nu noch in toecommenden
+tyden ennich hinder letssel oft moyenisse aen lyve
+noch aen goeden ter contrarien | maer indyen zyn lyff
+oft eenige van zyn onverbeurde goeden daerom gearresteert
+becommert oft belet waeren dat zy die setten ende
+stellen ter stondt ende sonder vertreck tot geheelder
+ende volcommender delivrancie want ons alsoe gelieft
+ende ten eynde dat dit vast ende gestadich blyve tot
+eeuwighen dagen soe hebben wy ons zegel hieraen doen
+hanghen behoudelyck in anderen dingen ons rechten ende
+eenen yegelycken anderen dessyns ?? gegeven in onser-
+stadt van bruessele inde maent van meerte int jaer
+ons heeren duysent vyff hondert achtentzestich nae
+constume ?? van g$ynd ons hoeffs van brabant | van
+ons rycken van spangien $ecillien etc tp$$e ende
+van naples etc tp$$e opde plycke stont gescreven
+byden conninck onderteeckent $ $$$ i isere |
+$
+gecollationneert ende behouden $$releren .??
+metten originelen bezegelden brieven by my |
+$$$ $$$
+$$$
+* ende $uutwert b$den ontfangen
+vanden $pplianten [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "September, 1685",
+  "persons": [
+    {
+      "firstname": "michiel",
+      "lastname": "schamel",
+      "role": "applicant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "claes",
+      "lastname": "nyzens",
+      "role": "father-in-law",
+      "function": "citizen"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "pellens",
+      "role": "peacemaker",
+      "function": "citizen"
+    },
+    {
+      "firstname": "michiel",
+      "lastname": "aerts",
+      "role": "opponent",
+      "function": "citizen"
+    }
+  ],
+  "locations": [
+    {
+      "name": "mol",
+      "loctype": "parish"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Michiel Schamel, a citizen of Mol, applies for remission after a fight with his son-in-law Claes Nyzens' daughter's groom. Michiel was called to intervene in a fight between groomsmen and was hit with a piece of wood. In response, he drew his knife but did not harm anyone. This led to a fight where Michiel was severely beaten, causing him to fear for his life. The fight ended with Michiel disarming his opponent Michiel Aerts, who later died from his injuries. Michiel now seeks remission for any crimes or offenses committed during the incident.",
+    "fr": "Michiel Schamel, citoyen de Mol, demande la rémission après une bagarre avec le gendre de Claes Nyzens. Michiel est intervenu dans une bagarre entre les garçons d'honneur et a été frappé avec une pièce de bois. En réponse, il a sorti son couteau mais n'a blessé personne. Cela a entraîné une bagarre où Michiel a été gravement blessé, le faisant craindre pour sa vie. La bagarre s'est terminée avec Michiel désarmant son adversaire Michiel Aerts, qui est décédé plus tard de ses blessures. Michiel cherche maintenant la rémission pour tous les crimes ou infractions commis pendant l'incident.",
+    "nl": "Michiel Schamel, burger van Mol, vraagt om vergeving na een gevecht met de schoonzoon van Claes Nyzens. Michiel werd gedurende een gevecht tussen de trouwjongens met een stuk hout geslagen. Als reactie hierop trok hij zijn mes, maar hij verwondde niemand. Dit leidde tot een gevecht waarbij Michiel zwaar werd toegetakeld, waardoor hij vreesde voor zijn leven. Het gevecht eindigde met Michiel ontwapenend zijn tegenstander Michiel Aerts, die later overleed aan zijn verwondingen. Michiel zoekt nu vergeving voor alle misdaden of overtredingen die hij tijdens het incident heeft begaan.",
+    "de": "Michiel Schamel, ein Bürger von Mol, beantragt eine Begnadigung nach einem Kampf mit dem Schwiegersohn von Claes Nyzens. Michiel wurde während eines Kampfes zwischen Trauzeugen mit einem Stück Holz geschlagen. Als Reaktion darauf zog er sein Messer, verletzte aber niemanden. Dies führte zu einem Kampf, bei dem Michiel schwer verletzt wurde und um sein Leben fürchten musste. Der Kampf endete damit, dass Michiel seinen Gegner Michiel Aerts entwaffnete, der später an seinen Verletzungen starb. Nun sucht Michiel Begnadigung für alle Verbrechen oder Vergehen, die er während des Vorfalls begangen hat."
+  }
+}
+```

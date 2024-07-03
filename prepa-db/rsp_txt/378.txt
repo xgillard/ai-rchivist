@@ -1,0 +1,205 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+rappel van banne voer elisabeth sclercx
+kaerle etc. allen den genen die desen onsen brief zullen sien
+saluyt wy hebben ontfaen die oitmoedige supplicatie van elisabeth
+sclercx jonge wedewe inhoudende hoe dat opden xven dach
+junij xv drienveertich tot vervolghe van onsen procureur generael
+van brabant ende vonnisse van zekeren onsen commissarisen
+dair toe geordineert die voorn. suppliante was gecondempneert zekere
+eerlicke reparatie te doen ende boven dien gebannen bynnen
+onse stadt van loevenen den tyt van thien jaeren sonder daer vuyt
+te moegen gaen op de confiscatie van hueren lyfne ende goeden
+verbiedende voorts de suppliante met yemande eenige co$$catie oft
+disputacie te houden van eenige articlen vanden geloove als
+byder voirs. sentencie breeder blycken mach daer aff dinhouden
+hier naer volcht de procureur generael onser heeren der keysers in
+brabant ter cause van officien aenleggere tegen elizabeth sclercx
+ghevanghen ende verweerdersse gesien tproces der voirs. partyen
+ende op al rypelen geledt mynen heeren de commissarisen condempneren
+dese verwerddersse in huere lyven cleederen ende bervoets op
+huer knijen met eender berrender torsse van twee ponden in huer
+handt god almachtich onsen heere keysere ende de justicie
+vergheffenisse te bidden ende de selve torsse alzoe te dragen
+ende te laten voer theylich sacrament inde kercke van sinte
+peeters ende een half jaer lanck in haer cleederen bloot
+met eender berrender wassen keersse van eenen ponde in huer
+handt by toruys te gaene in alle de processien die bynnen den
+halven jaere naestcoemmende gedaan sullen wordde, ste peeters
+voers. ende telcker reysen die keersse te laeten voor
+theylich sacrament aldaer. ende voirts een jaer lack alle
+weecken tot huere coste te doen doen een misse ste peeters
+inde kercke ende die te hoiren ende ten eynde vanden jaere
+daeraff certificatie te bringhen aenden voirs. procureur generael
+ende voirts vuyt sekere consideratien bannen de voirs. gevanghene
+bynnen deser stad van loevenen den tyt van thien jaeren naescoemmen
+sonder dat zy duerende desen tyt daer vuyt sal moegen gaen
+opte confiscatie van hueren lyfne ende goeden verbiedende
+voirts der voirs. gevanghene met yemande eenighe communicatie
+oft disputatie te houdene van eenighe articulen vander geloove
+ende voirts eenige boecken oft schildereyen te houden te hebben
+oft te lesen ten zy dat die yerst byden overprochiaen van
+ste peeters ten tyde zynde gevisiteert ende geteeckent zyn
+al opte pene van gehouden ende gepunneert te wordden als
+relaps condempnerende daeren boven dese verwerdersse inde
+costen van desen processe ende huere gevanckenisse die
+taxatie daeraff mynen voirs. heeren den commissarisen ghereserveert
+aldus gepronnuncieert ende vuyt gesproken opde stadhuys van
+loevenen in presentie van allen den commissarisen aldair voir recht
+sittende ende in presentie van den procureur generael ende den meyer
+van loevenen opden xven dach van junio int jaer onsheeren
+xcc dryenveertich aldus ondergescreven dese copie is
+gecollationeert ende bevonden metten originalen reg$$re accorderende
+by my geteeckent h zype zedert welcken ban de voirs.
+suppliante wedierende der justicie heeft huer continuelick gehouden
+gehadt bynnen onse voirs. stadt van loevenen ende vulcommen die
+andere pointen begrepen inden voirs. vonnisse. als naerder blycken
+mach by attestatie vanden prochiaen van ste peeters kercke van loevenen
+voits. ende heeren wouter haverloos tot huere groote scaempte verdriet
+ende achterdeel ende en zoude nochtans nyet dorven gaen frequenteren
+ende woenen buyten onse voirs. stadt van loevenen daer huere goeden geleghen
+zyn omme de selve ende anderen hueren affairen te handelen
+ende vervolgen ende anderssins den cost winnen ten zy dat onse
+gracie huer hierop verleendt wordde ns daeromme zeere
+oitmoedelyck hebbenen $$$que? eest dat wy de saken voerscreven overgemerct
+ende hierop gehadt tadvis vanden voirs. commmissarisen geordinneert
+opt stuck vander secte lutherane inden jaere xvc dryenveertich
+bynnen de voirs. onse stadt van loevenen genegen weesende ter beden
+ende begeerten vander voirs. suppliante hebben inden gevalle als boven
+weder roupen ende te nyente gedaen weder roupen ende doen te nyente
+by desen den voirs. ban zulck als die iegens der voirs. suppliante vuyt
+gesproken ende gepronunchieert is geweest ende vuyt onser
+meerdere gracien vergeven ende schelden huer quyte tdelict ende mes$$
+daervuyt den selven ban naergevolcht is mitgaders alle penen
+ende amenden corporelle criminelle ende civile daer inne zy huer
+overmits ende vuyt saken van tgene des voirs. is tegens ons onse
+hoicheyt ende justicien eenichssins mach hebben ontgaen der
+selve suppliante weder stellende ende restituerende tot huere goede
+fame ende name in onsen lande ende hertoechdomme van brabant
+ende van overmaze huer consenterende te moegen gaen hanteren
+converseren letten ende woenen zoe wel buyten onse voirs. stadt
+van loevenen als bynnen der selver gelyck ende inder manieren
+als zy dede ende doen mocht voer die pronnunciatie vanden voirs. ban
+imponerende hierop swighen ende silencie onsen voirs. procureur generael van
+brabant ende allen anderen onsen rechteren justicieren ende officieren
+ons voirs. lants van brabant ende van overmaze wye zy zyn behoudenen
+nochtans dat de voirn. suppliante huer neerstelyck wachten sal te
+converseren met persoonen suspect weesende vanden quade secten
+ontbieden dairomme ende bevelen onsen lieven ende getrouwen
+den cancellier ende luyden van onsen raide in brabant dat voir
+henluden geroupen die gene die daeromme behoiren zullen geroupen
+te zyne zy procederen wel ende duechdelick ter verificatie ende
+interinementen van desen onsen jegewoirdigen brieve naer huere voirme
+ende inhouden welck interinement de voirn. suppliante gehouden wert
+te versoucken ende desen onsen brief hen luden puterende bynnen eenen
+halven jaere naestcoemmen naer date van desen op peyne te
+verliesen deffect van dyen ende dat gedaen zy onse drossaet
+van brabant meyer van loevenen voirs. ende alle anderen onse ende
+onser vassalen oft smaelre heeren rechteren justicieren ende officieren
+onsen voirs. lants van brabant ende van overmaze hoedanige die zijn
+oft wesen moegen tegenwoirdich ende toecommende hueren stedehoudelyck
+ende elck van hen zoe hem dat toebehouden ende aengaen mach der
+voirs. suppliante van dese onser tegenwoirdiger gracien quytsceldingen
+ende rappel van ban inder manieren voirscreven peyselick ende
+volcommelick doen ende laten genyeten ende gebruycken sonder
+huer te doen noch te laten geschien eenich hinder letsel ofte
+moyenisse ter contrarien in eeniger manieren want ons alzoe
+belieft des toirconden zoe hebben wy onsen zegel hieraen doen hangen
+gegeven in onse stadt van ghendt lesten dage van april
+int jaer onser heeren duysent vyfthondert ende zevenenveertich
+van onsen keyserycke txxviiie ende van onsen rycken van castille
+ende andere txxxiie aldus gescreven opte plycke byden
+keyser in zynen raide ende geteekent de zoete recepta
+gecollacioneert ende bevou$ accurd$$ met
+zynen originale by my
+jacuwe $$$re [/INST] ```json
+{
+  "doctype": "CONDEMNATION",
+  "act_date": "15 June 1574",
+  "fact_date": "23 June 1573",
+  "persons": [
+    {
+      "firstname": "Elizabeth",
+      "lastname": "Sclercx",
+      "role": "defendant",
+      "function": "widow"
+    },
+    {
+      "firstname": "onse heeren der keysers",
+      "lastname": "in brabant",
+      "role": "plaintiff",
+      "function": "emperor of Brabant"
+    },
+    {
+      "firstname": "Wouter",
+      "lastname": "Haverloos",
+      "role": "complainant",
+      "function": "unknown"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Loevenen",
+      "loctype": "city"
+    },
+    {
+      "name": "Sinte Peeters",
+      "loctype": "church"
+    },
+    {
+      "name": "Ghendt",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Emperor of Brabant condemns Elizabeth Sclercx to perform public penance for her Lutheran beliefs, including a year of wearing a distinctive garment, carrying a two-pound torsion, attending Mass, and providing a certificate of completion. Wouter Haverloos is also involved in the case. The events took place in Loevenen, and the judgment was issued in Ghendt.",
+    "fr": "L'empereur de Brabant condamne Élisabeth Sclercx à faire pénitence publique pour ses croyances luthériennes, y compris une année de porter un vêtement distinctif, de porter une torsion de deux livres, d'assister à la messe et d'apporter un certificat de complétion. Wouter Haverloos est également impliqué dans l'affaire. Les événements ont eu lieu à Loevenen, et le jugement a été prononcé à Ghendt.",
+    "nl": "De keizer van Brabant veroordeelt Elizabeth Sclercx tot openbare boetedoening voor haar lutherse geloof, inclusief een jaar dragen van een kledingstuk, dragen van een twee pond zware torsie, bijwonen van de mis en brengen van een certificaat van voltooiing. Wouter Haverloos is ook betrokken bij de zaak. De feiten vonden plaats in Loevenen, en het vonnis is uitgesproken in Ghendt.",
+    "de": "Der Kaiser von Brabant verurteilt Elisabeth Sclercx zu öffentlicher Buße für ihren lutherischen Glauben, einschließlich eines Jahres des Tragens einer auffälligen Kleidung, des Tragens einer zwei Pfund schweren Torsion, des Besuchs der Messe und des Vorlegens eines Abschlusszertifikats. Wouter Haverloos ist ebenfalls in dem Fall involviert. Die Ereignisse fanden in Loevenen statt und das Urteil wurde in Ghendt gesprochen."
+  }
+}
+```

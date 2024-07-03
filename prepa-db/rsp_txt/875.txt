@@ -1,0 +1,801 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+purge
+francois mecheylweghen
+impt.
+alle den gene gede.
+ende herde.
+carel by der gie. godts coninck van castillien etta. allen den genen
+die desen onse opene brieven sullen sien oft hooren lesen saluyt alsoo ons in
+onsen rade geordonneert in desen lande ende hertogdomme
+van brabant waere op den vyen. may van. jaere 1685 van weghen
+francois perhen le weghen ingesetene borgher deser onser stadt brussele
+by syne supplicatie verthoont ende te kennen gegeven gevt. in substantie
+hoe dat synen sone jan anthoen oudt wesende tusschen de 2 a 23 jaeren
+door toedoen ende verleydinghe van sekeren franschen taalmeester
+hadde kennisse gecregen, nu gepast. omtrent de twee jaeren met
+bartholomeus van. brande doen ter tydt coopman binnen deser stadt
+ende t'sedert gebancqueronteert den welcken den voors. jan anthoen wesen.
+lonck van jaeren ende daerenboven van seer fgaciel gelooff, ende
+oock vervrempt van alle malitie onders pretext van hem den
+coophandel te willen leeven hadde doen teeckenen taecken oft
+accepteren eenighe wisselbrieven midtsgs. als pretensen debiteur
+onderteeckenen eenighe obligatie oft borghe blijven, soo voor nots.
+als onder privative signature, hem wijsgemaeckt hebbende dat sulcx
+in sich selven niet en was ende maer en diende om den coophandel te leeren
+van welcke wissels, ende obligatien de quantiteyt, ende importantie werde
+geignoreert hebbende den gemelden van. branden daervan eenige verhandels
+gehadt aen derde persoonen die daerover teghens den gemelden jan anthoen
+hadden betalinghe commen vraeghen ende by gebreke van dyen geproteteert
+midtsgs. hem in rechte betrocken, voor onse lieve ende wel beminde
+die wethouderen deser onser stadt brussels waerteghens den suplt. uuyt
+syne vaederl. plicht om te verhoeden de ruine van synen sone was
+genoodtsaeckt gewt. sich te motten innebienden ende de processen voor
+den selven synen sone aen te nemen, ende vervolghen daerover eerst becomen
+hebbende tot een overcoen onse authocificatie door dyen synen sone was
+minderjaerich ende in desselffs plicht ende vroodel. ende naer dyen de selve
+processen waeren in staet van wijsen soo hadden de partyen adverse daervan
+gedesisteert gehadt met oblatie van costen reserverende nochtans hunne
+actie daer ende alsoo boven dyen soo hadde den gemelden jan anthoen
+mette selve faciliteyt midtsgs. door verleydinghe van quaetwillighe
+persoonen, hem vor borghe ende cautionnalis gestelt aen derde persoonen
+ende oock aengegaen, ende geteeckent eenighe nocive contracten waer
+over den supll. in syne qualiteyt van vaeder midtsgs. uuijt onse speciale
+authocificatie onder andere oock proces hadde moeten sustineren voor onse vs.
+lieve ende welbeminde die wethren. onser stadt brussele teghens u
+d'assuny coopman van peerden waerinne hy hadde geobtineert gehadt, ende
+alsoo hij oock niet en wiste de quantiteyten noch importantie vande selve
+nocive acten ende dat hy voorts in achterdencken was dat d'onderhebbel.
+van dyen midtsgs. de voors. wisselbrieven heden oft moeghen den gemelden jan
+anthone commende tot syne meerderjaericht. hem daerover souden commen
+molesteren, als waneer den wech van relt. hen mogelyck niet wedr. en soude
+commen open te staen noch soo favorabel wesen als tegenwoordich, om waer
+hune te versien, soo soude den supltn. in qualiteyt van vaeder ende momboir van
+synen vs. sone op dat den selven hiernaermael niet en soude worden beswaets
+met onbekende schilden tsy van wissels borchtochten oft andere nocieve
+contracten geerde geerne de purge intenteren teghens alle de gene
+die nu oft naermaels daerover teghens hen iet souden willen pretenderen
+oorsaecke hy hem keerde tot ons beddende oodtmoedel. hen te verleenen
+onse opene bb. van purgein forma, wel. supplicatie in onsen tjaerde
+ghesien, synde waeren den voorn. supplicatie daerop verleent, ende
+geexpedt. geweest de selve onse opene bb. by hem versocht uuyt
+crachte vande wel. ende t'synen versuecke als impt. van dyer hadde
+p. de backer eerste deurwre. vand. voors. onsen raede opden 10 may
+1685 ter cleynder puyen deser onser stadt brussele naer voorgaende
+lecture der voors. bb. ter pntie. van verscheyde ommestaenderen
+by openbaeren edicte gedaeght alle de gene die eenich effect oft actie
+hoedaenich t'selve soude weghen wesen souden willen pretenderen tot laste
+van jan anthoine ter heyleweghe synen sone te compareren inden
+voorn. onsen raede op de rolle van. 27 juny alsdoen naest commende
+om aldaer heure actie t'intenteren op pene dat by gebreke van dyen
+die selve by die van onsen voorn. raede soude worden geimponeert
+een eeuwich geswygh, ende silentie ofte anderssints t'aenhooren al sulcken
+versueck, ende coucle. als den inset in der qualityt alsboven ten daege diene.
+die heeren vant capel.
+van ste. rombauts
+tot mechelen
+gernaert smekens
+cum suo
+eene soe. van tnegentich guld. eens gelovende de selve soe.
+aen. voors. ge. drossaerdt essers te sullen restitueren tusschen heden
+dathe deser ende 14 eerstcommende daeghen sonder langher dilay oft
+uuytstel op pene van promt. parate. ende heerlycke exr. verbindende
+hij compt. ten dyerte van dyen synen persoon, ende goederen present ende
+toecommende ende op dat alles te beter effect soude sorteren soo
+heeft den compt. ten desen onwederroepel. geconst. den and. proca.
+mayolen ende tsaemen ende elck van hun int besonder
+omme te gaen ende compareren voor verbethel. van arct pen. ende alle anderen
+haeren hoven ende gerechten tsy sonnereyn oft subalterne omme
+t'gene voors. aldaer te vernieuwen ende hem constituant int
+onderhoudt tgene tsyne costen ende lasten volontairel. te
+laeten doenen ende condemneren ende dese te laeten sententieren executa
+vel in forma, gelovende ende verbindende als als naer rechte met
+penuntiae. in forma actun binnen antpen. ten daeghe naerde ende jaere
+als boven present guillam van oostenryck, ende anthoni de ridder getuij=
+ghen hiertoe versocht ende was den minute deses by den compt.
+beneffens my was ondert. quod attestor ende was ondert. coesyns
+nots pnes. tot iteghem residerende
+gesmeckende ende oodtmoedel. biddende den vs. procur. mayolen compt.
+impt. crachte vande onvoederroepel. procuratie hem gegeven by sijne
+constituant inden 29 instrumente notariael hiervoeren geinsert. dat die
+voorn. paul de gelieaen volde synen voors. const. condemneren inde
+onderhouden, volbrenghen, ende achtervolghen vant innehouden van. meer
+gemelden inste. notariael in alle syne poincten, myne heeren van syn
+mats. souvereynen raede geordt. in brabant gehoort die bede ende
+versueck des vs. compts. ende ghesien den voorgeruerden inste. notariael
+houdende den selven voor goet vast gestaedich ende van boeerden hebben
+den voors. synen constituant gecondemneert ende condemneren hen by desen
+int onderhouden, volbrenghen, ende achtervolghen van. innehouden van. vs
+instrumente notariael in alle syne poincten sonder daerteghen te
+commen uucyte te doene directel. oft indirectel. in eeniger manieren
+accorderende hier van te behorene van. voors. d'heer gabriel
+franciscus essers drossaerdt van borchoudt cdes. versueckende
+geexpedt. te worden dese tegenwoordighe acte van conde. vol.
+om hem te dienen ende daermede te behelpen daer alsoo hij
+te raede ende van noode sal vinden te behooren aldus gedaen
+ende gepast. binnen dese stadt brussele den vijfden juny van
+jaere 1686
+alsoo in den raede van onsen genaedichsten he. carel den 2en van
+dyen naeme by der gre. godts coninck van castillien etc. geordt. in desen
+synen voorn. lande, ende hertochdomme van brabant waere op heden
+dathe desen personelen gecommen ende gecompart. engelbertus de wint
+den welcken heeft aldaer over geleght seker instrumt. notariael
+gepast. voor den nots. van attevoort, ende sekeren getuyghen op
+den 14 july 1685 tusschen de eerw. heeren gecoitteerde van het
+metropolitan cappittel van ste. rombout tot mechelen ter eert
+ende bernaert huvekens, mitsgs. lambertus knits als borghe ppaet.
+ter andere sijden, waervan den teneur hiernaer is volghende
+van woorde tot woorde ende is desel.
+op heden den 14 july 1685 omparerende voor mij openbaer not.
+ende inde pntre. van. getuijghen naer genoempt de eerw. heeren
+gecoitteerde van het metrop. cappittel van ste. rombouts alhier
+de wel. hebben verclaert verhuert te hebben, gelyck sy verhuert
+midts desen aen gernaert smekens alhier present, ende accepteerde
+de thiende van steynockerseel so in graenhout ende anderssints
+gelyck de selve in voorleden tijden is gecollecteert geworden, ende
+dat voor eenen teracuyn van dry jaeren elckanderen vervolghende
+waervan het eerste jaer van betaelinghe vallen, ende verschijnen sal
+kersmisse naest commende 1685 ten prysen jaeren van vijff hondert
+guld. boven alle lasten in goeden en gepermitteerde gelden
+adrien govaerts
+cum suo
+robert mieuson
+cum suo
+volghens syne mats. placcaerte
+den huerlincken sal gedaen quytscheldinge genieten ten sy om merckel.
+schaede ter oorsaecke van hagelslach overvloet van waeteren
+ofte gewelt van crychsvolck overvloet van waeteren, ende in
+sulcken geval sal hem affslach gedaen worden tot vier guld. van
+herte graenen ende tot twee guld. van weeke graenen par bunder
+dus sal hij gehouden syn binnen den eerden daeghe daervan advertentie
+te doen aen de heeren verhuerders
+item sal den pachter gehouden sijn aen te wysen te synen coste de panden
+van het district waerop dese thiende is vallende als hy tot sulckx
+van voeghens de verhuerders sal versocht worden
+item is noch conditie dat in gevalle den pachter niet en betaelde
+syne pacht op den preciesen valdach voors. oft uuyterl. vijff maenden daer
+naer, dat alsdan de huere sal uuytwesen, ende hy huerdere tot de
+voors. thiende geen recht en sal moghen pretenderen oft dat de heeren
+verhuerders belieft, ende anders niet ende heeft voor borghe gestelt
+mr. lambertus kints ingesetenen van brussel den voel. hem als ppael.
+ende in solidum verbonden heeft voor den pachtprys uuytwysens
+d'acte notariael hierover gepast. voor den nots. u. clocques de data 14
+juny 1685 ende severe getuyghen constituerende midts dese de persoonen
+in dit te noemen den vs. engelbertus de wint om te compareren voor
+den raede van brabant ende alloe elders daer het de heeren verhuerders
+believen sal ende aldaer t'gene voors. te herkennen ende inden inhoudt
+desselffs gewillichl. met costen te doen ende laeten condemneren alles
+onder paratie executie aldus gedaen ende gepast. tot mechelen ter
+pntne. van anthoen van schrieck ende peeter kempeners als getuyghen
+hiertoe geroepen ende gebeden ende hebben de vs. heeren gecoitteerde
+ende huerder de minute deser ondert. beneffens my notario t'gene
+voors. stipulerende quod attestor, ende was ondert. van attevoort nots. puw.
+gesmeckende ende oodtmoedel. biddende den vs. engelbertus de wint compt.
+uuyt crachte van. onvoederroepel. procuratie hem gegeven by synen
+constituant inden dinstrute. notariael hiervoren geinsereert dat den
+selven raede gelieven wilde, synen vs. const. te condemneren in het
+onderhouden, volbrenghen ende achtervolghen van. innehouden van. veer=
+gemelden inste. notariael in alle syne poincten myne heeren van syne mats.
+souvereynen raede geordt. in brabant gehoort die bede ende versueck des
+voors. compts. ende gesien den voorn. instrumente notariael houdende den selven
+voor goet vast, gestaedich ende van weerden hebben den voorn. synen constat.
+gecondemneert, ende condemneren hem by desen int onderhouden, volbrenghen
+ende achtervolghen van. innehouden van. vs. instrumente notariael in
+alle syne poincten sonder daer ten hen te commen nochte te doene
+directel. oft indirectel. in eenigher manieren, accordeerde hiervan
+ten behoeve van. voorn. eerw. heeren gecoitteerde van het
+metrop. capel. van ste. rombouts tot mechelen c. des versueckende
+geexpedt. te worden in deser teghenwoordighen acte van condte. vol.
+om hun te dienen, ende daermede te behelpen, daer, ende alsoo sy ten
+raede ende van noode sullen vinden te behooren, aldus gedaen ende
+gepast. binnen dese stadt brussele den xien juny van. jaere 1686
+comme au conseil du roy mesir. charles 2e de ce nom par la
+grace de dieu, roy de castille etta. ordonne en cettun sondt. pays et
+duche de brabant, soit ce jourdhuy datte de cettes personnellt.
+venu et comparu engelbert de wint lequel y at faict exhibition
+de certain instrument notarial passe par devant le note. s. de
+frage et certains tesmoings le 13 de mars 1683 entre le sr.
+adrien govaerts et francois du werckhoven d'une part
+et robert mieuson ensemble le sr. cornelle mieuson capne. pour
+le service de sa mate. coe. pleigne et cautione. ppal. d'autre
+part, dont la teneur icy s'ensuict de mot a autre et est tel
+ce hourdhuy 13 mars 1683 pardonant men et tesmoins etta.
+compararent personnelt. le sr. adriain govaerts et francois
+de werckhoven son beaufrere lesquels declarent avoir donne
+coe. ils sont par cette tietre local ou lonaye. au sr. robert
+mieuson, icy present et aceptant scavoir leur cense ditte la ceas
+de cart a venes occape a present par matthias d’arquenne
+telle qu’elle se comprend consistant en maison estables et grange et
+autres edifices, jardins preits, pastures, verres labourables, et autres
+de pendences er ce pour un terace de noeuff ans consecutiffs a
+commencer au may prochain et ce pour en rendre la. soe. de cent
+et septante fl. dont la premiere annee eschera ala sr. andre
+du l’an 1684 n’estant oblige l’entreprenneur de payer le lonage
+de l’an 1683 a cause que la despoulle demeure aus en 1rs. compts. lequel
+payement ses devra faire apres six sepmaines l’escheance a
+pence des privation de son bail si les premiers compts. le requierent
+le tout francq, et en empt. des tailles subsides 20es et autre impo=
+sitions mises, et a mettre par le prinnce, et estat de ce pays que led.
+premier a ferme, devra payer, sans que les en premiers compts.
+en recoivent aucun interest
+item serat ledt. prenneur a ferme oblige de payer et acquitter
+ammelemt. les cens seriaux ala descharge de sen premiers compts.
+item serat oblige de fumer les en terres d’une pleine famiere
+pendant le terme de soudt. bail et ce au dire des laboureurs et gen
+de bien, ensemble d’enretenir les chemins, et cavins et les hayes
+item est conditione que ledt. entrepenneur devra remettre lade. cense
+grange et estable, en estat de couverture placcage et portes insqu
+ala soe. de cent, et cincquante fl. et non plas dont les 1rs. compt.
+les defalcquerent sur le rendage dela derniere annee le ce
+terme moyennant de nesquitteance et acquits des ouvriers,
+item devra l’entrepenneur entretenir lade. cense des couverture
+et placcages a ces fraix, item ne pourra remettre lade. ferme
+a autre sans le consentemt. des en premiers compets.
+item est encor pour parle que l'entrepenneur prendra a son
+les deponilles qui sont a present sur les verres a de ne taxain
+a faire par la loy de resues et hor lade. taxaen. payerat les
+tailles de la pnte. annee et du surplas en tiendra compte
+aus en premiers compts. hormis que ledt. entrepenneur sera oblig
+de payer les tailles et impositions au regard des prairudes
+commenceant au mois de may et si le cas arrivoit que ledic
+matthias d'arquenne ne vouloit consentie lade. taxaen. lesds.
+premiers compts. donneront procure audt. entrepenneur au con ca=
+tionnaire affin de ces faire vendre par justice, et les dernier
+employer coe. dessus
+item ne pourra l'entrepeneur depuis la une mars apres
+l'expication de son bail pasturer auturs dese. prairies et pastaret
+ny aussy toucher oucqunes a aucan arbre croissant ny coupper
+aucus bois pendant les trois dernieres annees de son bail,
+ny pretendre aucune moderaon. si non a cause de foudre
+et force majeure de guerre, que dieu ne veuile, et ce con.
+ses voisins
+item l'entrepeneur aurat son renon de trois en trois ans moyemant.
+six mois amparanant m'advertissant de plus est comparu aussy le sr.
+cornille mieuson cape. pour le servie de sa mate. lequel l'est
+constitue coe. il faict par ene. pleige et cautre. coe. ppal.
+et un solidun pour le sr. robert son fils a l'acconselipt de
+tout ce que dessus avecq promesse et obligan. in forma renoveant
+a toutte exceptions relievements et privileges telles qu'elles puissant
+este a contraire
+de plus est conditionne que ledt. present bail se faict sans
+prejudice du proces pendant indecis au conseil de brabant
+ai rapport du ge. consr. bulteel nonobstant lequel ledt. procureur
+a ferme ne pourra sebempter ny excuser le rendaige annuel
+ceux du chapre. de
+l'eglise cathe. a
+liege
+jean de wale can suo
+un pour quelque cause que ce fat si autremt. par sentence
+me fut juge constituant ledt. entrepenr. condt. cautione.
+irrevocablt. touts porteurs de cette present bail pour en leur
+nom compardistre tant au conseil de brabant que par tout
+aillieurs on il plairat ausez premiers compts. et illecq leur laisser
+volontairt. condemneren l'accomplist. de tout ce que dessus
+obligeant etta. ausy faict a bruxees. led. jour, mois et an que dessus
+en presence de francois wambacq et francois ten troost test vus
+requisits au reguard de premiers compts. et cautre. et au regard dudt.
+entrepeneur le 15 dudt. mois de mars 1683 en pnce. dudt. wambacq
+et adrien vand. berghe coe. tesmoings et est la minute de cette
+signe par tout lessen compts. ensemble de moy note. quod attestor
+et estoit soubsigne fde forage nots.
+requerant et suplt. ledt. engelbert de wint comperant coe. porteur
+dudt. instrut. notarial et en venta dela procare irrevocalble luy
+donne par lesdicts constituants cy dessus inserre audt. instruments
+notarial et en vettu dela procure irrevocable a luy donnes par
+fesen respectiffs constns. qu'il pleust audt. conseil de condemner
+fesen respectiffs constns. en l'entretemt. accomplist. et par furnissent
+du coutenn dudt. instrument notarial en touts et quel conque
+ses poincts messieurs dudt. souverain conseil dessu mate. ordonne
+en brabant ayant ony la demande et requisition dudt. compt. et veu
+ledt. instrut. notarial tenant icellay pour bon ferme stable
+et vaillable ont condemne et condemnent par cettes fesen respectifs
+constituants en l'entretent. accomplist. et par furnist. du condenn dudit
+instrut. notarial en touts et quel corques ses poincts sans y contre
+venir ou faire contrevenir direct. ou indirect. en aucune maniere
+accordant de ce au prouffict desen drs. adrien govaerts et francois
+de werckhoven son beau freres requerants este expediesce
+present acte de condon. vol. pour en servir et ayder la
+et ausy qu'il trouveront convenir ausi faict et passe en cette
+ville de bruxes. le 25 de juin de l'an 1686
+comme au conseil du roy nre. six charles 2e de ce nom par
+la grace de dieu roy de castille etta. ordonne en cettun soudit
+pays et duche de brabant soit ce jourdhuy datte de cettes
+personnelt. venu et comparu ce procur. mre. pierre de
+moitemont lequel y at fait exhibition de certain instrument
+notarial passe par devant le note. pollain et certains tesmoings
+le 4e de juillet de l'an 1684 entre les penerends cet
+roblis seigrs. cornelis faes. thomas francois de crixhe
+martin de fosse et jean pene de neuffcour coe. constituen.
+des mesrs. les doyen et chapre. de l'eglise cathe. de liege
+d'une part et jean de wale et jean andries d'autre parts
+dont la teneur icy s'enfuict de mot a autre et est tel,
+landen et dismes
+l'an huit six cent huictante quattre du mois de jullet le quattr.
+tour par devant moy le publicq mate. soubsigne et en pnte. des
+tesmoings embas denommez personnel. constituez demereurs et
+nobles seigneurs cornelis faes thomas francois du crixhe martin
+de fosse et jean pene de neuffcour lhavoines de l'eglose cathe.
+de liege et directeures pour le temps des affaires delade. eglise
+partie faisants et le soubescript acceptans pour messeigrs. les doyen
+et chapre. d'icelle nt rende a tiltre de ferme et cluyt locale
+a jean de wale et a jean andries demeurants a landen presents aussy
+acceptants tant conjunctemt. que divisements l'un pour l'autre et un pour
+le tout sans benefice de division, ou discussion, les disurs grasses et
+meunes que mesdicts seigneurs ont a eux appartenantes audict lieu
+fait en son nom prime, a la reserve tauttefois d'une somme de
+vingtsept florins et une autre de trois florins et huict sols reprises
+entre lesdits acts, que ledt. jean francois doibt audit pierre en son
+nemparliculier ce que parle dit pierre icy present at este accept=
+te sans promesse que ledit jacques burnette a fait daccamplir
+tant le dessus fidelement sans forme nij figure depreces saubs
+obligatoir de sa personne et biens avec constitutien quste
+dunne surtout parteur de cette un de son double autentich.
+par anbesaign recognuike et passer le prevus encondem=
+nation volontaire audit conseil et ailleurs ouil plairat audit
+pierre ausquels etha. premettant etha. obligeant etha. ainsy fait
+et passe en la ville de jodoigne le quattorziesme d'avril
+nul six cent huictante quattre en presence dusr. advocat
+de glymes, et de jean bapte. petrij tesmoins acerdyuis lori=
+ginel est signe j. burnette e. pierre desdits tesmoins et de
+maij ledit notaire qui certifie cette y concorder estant signe
+g. duchesner nots. 1684
+requerant ledit jean charliers comparant enveran dela
+precure. irrevocable lan donnee parleet. jacques burnette
+san constituant dans linstrument notarial cy dessus intere.
+quste pleust audit conseil de condemner soudit constituant
+en l'entretement au emplissement et par furnissement
+du canteny dudit instrument notarial en tans et quel=
+caucques ses punicts messeigneurs du souverain con=
+seil de sa mate. ordonne en brabant ayant ouy la der
+monde et requisition dudit comparant et veul instrument
+notarial cy dessus insore le tenant pour bon et vail=
+lable aut condemne et condemnet par cette ledit
+jacques burnette son cauktuant en l'entretenement
+accomplissement et par furnissement du cauteun dudit
+instrument notarial entens et quelcum qures ses seincts
+sans y contravenir au faire contravenir directement
+au indirectement en aucunne maniere accordant
+le present acte de condamnation ure. au pressici dudt.
+eulache pierre pour luij servir et an derla et aussy
+quste trennerant canvenir ausy fait et passe en
+la ville de bruxelles le 28e jour du mois d'avril
+en lan seize cent quattre vingt et six
+8-10
+condemnatie vol.
+voor
+den doctoor chamaert
+cum suo
+ende
+die van neerlinter
+144
+alsoo inden raede van onsen genaedighen
+heer carel den tweeden van dijen naeme bij der gratien godts coninck van
+castillien van leon van arrgon van beyde sicillien etha. geordonneert in
+in desen sijnen voors. lande ende hertoghdome van brabant waere op heden
+date desen personnelijck gecommen ende gecompareert francois lanck=
+rij iersten officiael der greffe vanden voorn. raede den welcken heeft
+aldaer overgeleght seecker instrument notariael gepasseert voorden
+notaris le noire ende seeckere getuijghen op den sesthiensten julij 1663 tusschen
+niclaes sprockeels ende hendrick goossens borgemeesters ofte dorpmeesters
+van neerlinthere inden naem ende als genachtich precuratie hebbende van die
+scepenen ende andere ingesetenen ende gemeyntenares van het voors. dorp
+ter eenre, ende heer ende mr. natalis chamart doctoir professeur inde
+rechten ende president van het collegie van sint leo oft vande rechten
+binnen loven ende heer ende mr. jan van moll licentiaet in de rechten
+ter andere syden ende waervan den teneur hiernaer volght van waer de
+te woorde ende is dese
+op heden den 16 july 1163 comparerende voor mij openbaer notaris ende
+getuyghen naergenaempt die eersamen niclaes sprockeels ende hendrick
+goossens borgmrs. ofte dorpmrs. van neerlintere die welcke uuyt crachte
+ende naer vermoghen vande prucuratie aen hem gegeven voorden notaris peeter
+nijs ende getuyghen op den sevensten deser, by die scepenen ende andere
+ingesetenen ende gemeynteraeren van het dorp alhier gesien ende ge=
+bleecken, hebben bekent ontfangen te hebben gelijck sij ontfangen
+mits desen van heer ende mr. natalis chamart doctoir, professeur
+inde rechten ende president van het collegie van st. leo oft vande rechten
+binnen dese stadt ende universiteijt loven, de somme van twelff
+hondert guldens eens, ende van heer ende meester jan van moll
+icentiaet in de rechten vier hondert guldens eens in permissie gelt maec=
+kende tsaemen sesthien hondert gulden tot twintich stuyvers
+ende den stuyver tot drije plecken brabants gereeckent gelovende daer
+voor uuyt crachte vande selve procuratie te betaelen so aenden voorschreven
+heere doctoir chamaert tot proffijt van dneersche fundatien in het voors.
+collegie als te weten seven hondert guldens capitaels tot behueve vande
+cursiers van het voors. collegie, item twee hundert guldens tot behoeve
+vande fundatie rijnschot, item hondert seven seven envijftich guldens
+tot behoeve van de fundatie waltheri becka, item hundert vierentwintich
+guldens tot behoeve van de fundatie van schutteputt, als aen den voors.
+van mull te weten tot behoeve van. laeggetijde van wijlen heere
+doctoor santvoort drije hondert guldens capitaels ende han=
+dert guldens tot behoeve van de cantorije van de colegiale
+kercke van st. jacobs tot loven eens rente van hundert guldens
+t'jaers beginnende cours te nemen op heden dathe deser ende
+akken jaer te leuren binnen dese stadt loven, als te weten
+daeruuijt aenden voors. heer doctoir chamart vijfenseventich guldens
+ende aenden voors. van moll qualitate qua vijffentwintich guldens
+les ende vrije van alle lasten ende impasitien inngestelt oft
+naemaels inne te stellen als schult met recht verwormen ende soo
+voorts van jaer tot jaer totte quytinge toe de welcke sal mogen geschieden
+als de rentgelders sullen gelieven t'eender reyse met gelycke
+somme van sesthien handert guldens ende met volle rente obligerende
+daervoor uuyt crachte van deselve procuratie soo hunne persoonen
+als de persoonen ende goederen van hunne constuanten ende
+van elck van hun int besundere ende naementlyck volgens
+den fusent van de selve procuratie als te weten ierst van
+guilliam goossens den hal boender landts op die catmeren
+regenoten de maerstraete thomas goenen cornelis everaerts
+ende merten ryeymaeckers met belast als met theeren
+grootchuijs, item merten de greve den halff boender lants
+hem competerende uuijt crachte van testament gelegen
+onder item dingen op de vleught regenoten derffgenaemen
+sebastiaen herbauts boort van essche catlijn van boeren
+etha. belast met sheeren cleynen grontcheyns ende niet meer,
+item willem raeckaerts drij zillen lants gelegen tot hoelede rege=
+noten sheerenstraete de taefel van thienen ende syn selffs goet
+in twee syden uuyt vier boenderen, int geheel betaelt met
+tweendertich guldens erffelijck aen jan hoelanders tot saut=
+leeuw, item wijnant de wilde anderhalff zille weyde re=
+genoten d'erffgenaemen jonffrouwe aldegunde biucquer
+in twee syden, het clooster van oplinter ter derdere ende
+d'erffgenaemen machiel marien belast met sheeren cleynen
+grontchijns ende niet meer item hendrick goossens drije
+sillen weyde gelegen over de ghete regenoten die
+haeckstraete mijnheer van nederlintere in twee syden d'erff=
+genaemen reyen ter vierdere syden, belast let sesse guldens
+vijff stuijvers erffelijck ende niet meer, item lambrecht pulinx
+huijs ende zoff gelegen tot goethuijsen regenoten sheeren=
+straete d'erffgenaemen juliaen cocx derfggenaemen jan
+laps mijnheer van neerlintere ende hendrick goossens joordens
+den ouden, belast met vier haesteren duen aenden baron
+van huefalize ende niet meer, item jan vrenen d'oude een
+halff boender bempts aen shertogengracht regenoten, deselve
+gracht ter eenre, herman heusdens. ter tweedere d'erffgen.
+jan moeurs ter derdere, ende derffgenaemen willem van
+eertrijck rer vierdere syden, item nicolaes sprockeels ander=
+halff sille landts gelegen opt winckerwelt regenoten derffge=
+naemen aert pulinx derffgenaemen hendrick jordens, ende den
+voetweg leydende van goetshuijsen naer den ransbergh on=
+belast goet, item adriaen van graesbeeck anderhalff sille
+landts gelegen opden grooten bruel brull regenoten
+die gemeynstraete, merten vander velpen ende jan vander
+145
+raeren etha. onbelast goet, item jan jordens anderhalff sille
+weyden gelegen inden leerdriesch regenoten het clooster van
+oplinter jan tamleur de rectorije van den ransbergh belast met
+vijff vierendeelen corenchuijs ende niet meer, item niclaes vander
+wesenhuijs ende de hoff gelegen inde nounnstraete regenoten
+die selve straete cornelis van leeuwe ende jan van roije groet
+omtrent anderhalff sille belast met achtentwintich guldens ende
+ii stuijvers erffgelijck aen het clooster eeverbode, ende niet
+meer, item peeter nijs anderhalff sille lants onder bunsbeeck
+regenoten het clooster van oplinter in twee syden thomas
+van hinnisdael ter derdere ende meester christiaen van
+winde belast met sheeren clijnen chuijs ende niet meer, item
+merten van nijvel drij sillen landts op den meijerbeeck re=
+genoten aert van nijvel de tafel van nederlinther heer
+jan van eertrijck ende sheerenstraet, item merten raeij=
+maeckers drij sillen landts op de catmeren regenoten guillam
+goossens sheerenstraete jan goenen, ende het clooster van
+oplinter belast aende tafel van nederlinther met sesse
+guldens vijff stuijvers erffgelijck ende niet meer, item jooris
+vreven junior huijs ende hoff gelegen op den oudersten driesch
+regenoten den selven driesch sebastiaen vanden hove ter twee=
+dere geert caenen ter derdere etha. belast met twee guldens
+erffelijcken ende een halff halster even aen mijnheer van ne=
+derlinther ende niet meer, consenterende int maecken van
+beleyde ende manumiese volgens hunne voors. commissie ende
+in het decreet der scepenen van loven sonder daertoe te
+moeten gedaeght ofte geroepen worden daer de voors. ges=
+specificeerde goederen constituerende ofte substituerende
+onwederroepelyck vander voors., charlier wauters ende
+allen thoonder deser om het gene voors. is te vermen uluen
+ende te realiseren voor de voors. scepen van loven inden
+raede van brabant ende alomme elders daert van neede
+soude mogen sijn promittentes ratum et gratum obligantes sub=
+mittentes ac renunciantes in forma aldus gedaen binnen loven
+ten daeghe maende ende jaere voorschreven ter presentie
+van srs. gilbet thenaerts ende jan brenart getuijghen hier=
+toe geroepen ende was deminute deser onderteeckent hen=
+drick goosens met het merckt van niclaes sprockeels ns.
+le noire nots. leeger stondt dese copije gecollationneert met
+het origineel is daerme bevonden te accorderen onderstondt
+quod attestor ende was onderteeckent g. mariott nots.
+versueckende ende oudtmoedelijck biddende ende den voors. officael
+francois lanckrij comparant uuyt crachte vande onwederriepelijcke precuratie aldaer gaende der sustineren vander instrumente
+aen hen by syne respective constitueren gegeven als thoonders vanden instrumente
+condemnation de
+pour
+le seigr. comte de glymes
+comme ayant lespouse la dame
+detae dusou sr. mre. de
+camp et quartier mr. gnl.
+suau
+et
+le seigr. baron de bourni=
+val
+notariael hiervoren geinsereert dat den voors. raede gelieven
+wilde voorn. syne respective constituanten te condemneren int anderhouden
+volvueren ende achtervolghen vanden innehoude vanden voorn.
+instrumente notarial in alle syne poincten myne heeren van.
+voorn. syne mats. raede geordonneert in brabant
+gehoort die bede ende versueck des voorschreven comparant
+ende gesien tvoors. instrument notarial hiervoren geinsereert
+houdende den selven voorgaet ende van weerden hebben den
+voorn. syne respective constituanten gecondemneert ende con=
+demneren hen aicts by dese int anderhouden volvueren ende achter=
+volghen vanden innehouden van den voors. instrumente notariael
+in alle sijne poincten sunder daertegens te commen oft te doen
+directelijck oft indirectelijck in eenige manieren accorderende
+deselve teg enwoordighe acte van condemnatie volontaire ge=
+expedieert te worden, ten behoeve van de voorn. heere ende
+meester notalis chamart doctoir, profess, professeur inden
+rechten ende president van het collegie van sint luo oft
+vande rechten binnen dr stadt loven ene universiteijt loven ende
+heer ende meester jan van moll, des versueckende, om hun te
+dienen ende daermede te behelpen daer ende alsoo sij termede
+ende van noode sullen vinden te behooren, aldus gedaen ende
+gepasseert binnen de stadt brussele den vierentwintichsten
+dagh der maendt aprilis int jaer 1686
+13-10
+comme au conseil du roij nostre sire charles
+second du nom par la grace de dieu roij de castille de leon d'arragon
+etha. ordonne en cettuij soudit paijs et duche de brabant fait ce
+jourdhuij date de cette personnelement venu et comparu jean quarelme
+official au ala greffe dudit conseil, lequel ij at exhibe certaines bres. de constitun.
+passees pardevant les lieutenant et hommes de sies. de la sonnerant
+cour feodale de sa mate. en brabant, le vingtseptieme jour du mois de juillet en l'an
+1682, entre le sr. ferdinande d'illan baron de bornival etha. d'une et son
+le sr. michel suau mre. de en son vivant mre. de camp, du conseil
+de guerre de sa mate. et quartie mre. general de ses armees aux
+paijs bas d'autre part, et dant la teneure sait de mot a autre
+et est telle
+charles par la grace de dieu roij de castille de leon
+d'arragon, des ceux sicilles de hierusalem, de portugal
+de navarre, de naples, de grenade de molede, de valence
+de galice, des mallorcques, de seville, de sardaigne, de
+cardule, de corsicque, de murice, de jaen des algaer les
+d'algesre, de gebraltar des isles de canarine des indes tant
+orientales qu'accidentales des isles et terre ferme
+de lameroceanne archidiccq d'austriche ducq de bourgoigne
+de rathier de brabant, de limbourg de luxembourg, de
+146
+gueldres et de milan, camte de habsbaurg de flandres d’arthois
+de bourgoigne de chirol, palatin et de haijnou. de mannu et de zutphen
+prince de zwaene marquis en st. empirie de rome, seigneur de
+malines et dominateur en asie et en affricque a tous ceulx
+qui ces presentes nom lettres voiront, au lire auyiront salut scavoir faisons
+qu'au jaurdhui date de cettes pardevant mre. tresohez et teal francois
+de boisschot camte d'irps baron de saiventhien seigneur de
+sterrebeke, moslegem, bygaerde etha., camme lieutenant deure
+souveraine cour feodale de brabant, et en presence des hommes
+de fief dessous nommez, scavoir, francuscis de hillegarde, mar=
+tinus de meerbeke adrianus gulant et matthias de richterich
+comparant mre. gher et feal lacques joseph michiels mre. conseiller
+secretaire et greffier de lade. caur, comme procureur ace que
+s'enfuict deveinent constitue par nostre aussij cher et feal ferdinande
+d'illan baron de bornival etha. ensuite de la precure en estante
+passee par devant hommes de fieff de nostre ditte caur le
+vingteroniesme du courtant at en scelle qualite remonstre et
+donne a cognoicke a nockedit lieutenant et hommes de fieff
+que soudit constituant aijant receu de nre. cher et feal michel
+suau mre. de camp de mre. conseil de guerre et quartier mre.
+gnael. de nos armees au paijs bas la somme de treize mille florins
+une fais, aurait au proffit d'iceluij promis, et constitue une
+rente de cinq cent quattre vingt et cinq florins par au a
+l'interest de quarrte et demij par cent, aijant pour hypotheque
+d'icelle specialement oblige le droit par luij de nous acquis
+sur les quattre bois dumuelles, hazuit, hez et bossut et autres
+domaines plus amplement repris en lade. procure, laquelle
+s'enfuit de mot a autre le jourd'huij vingtermiesme du
+mois de juillet l'an de grace seize cent quattre vingt
+et deux comparant comme au greffe de la souveraine
+cour feodale de brabant empresence des hommes de
+fief deffaul. nommez messire ferdinande d'illan baron de
+bornival seigneur du francq fieff de raignon etha. lequel at
+cognu et confesse comme il cognait et confesse par cette
+d'avoir receu de dan michel sua mre. de camp, du conseil
+de guerre de sa mate. et quartier maistre general deses.
+armees au paijs bas, la somme de treize mille florins vue fais
+monnaije du roij, au cuij et selon les derniers placcarts, pour
+laquelle some ledit seig. comparant at promis et promett par
+cette de paijer au prouffict dudit dan michel suau etha. l'interest
+a quatre et demij parcent, faisant cinq cent quattre vingt cinq
+florins par an monnaije predicte, et paijable en cette ville de
+bruxelles libre de x. xx. xl. pelus au moindre derniers etha. dant le
+premier terme de paijement et scerat le vinteuniesme de juillet xvi
+quattre vingt et trois, et ainsij d'an en au jusques auremboursement
+d'icelle somme capitale laquelle sepandra faire en monnaye
+que dessus en deux fois, par mij, preadvertence de six sept maines
+annota
+juin 1973
+ceux ou magistrat de la ville des nivelles
+empremants et interveniants pour la
+communaulte de seneffe suppls.
+jean feraille a tiltre anne marie
+petit sa femme resbnt.
+veu le proces desdittes parties comm' ivellui est instruict
+communicatoirement jusques a duplicque du resbnt. in=
+clus commence par les deux reqtes. des supplts. du 24e
+de maij et 5e de juin en 1685 la cour avant faire droict
+au diffinitiff ordonne aix parties de comparoir pardevant
+commissaires desditte cour pour de leur different accor=
+der en amiable si faire se peut si, non de leur besoigne
+verbal faict estre wereurement administre droict coe.
+de raison reservant mes despens, prononce a bruxelles
+le 5e fevrier 1686
+jor. joseph vander leenen raedt ende iersten roij
+darmes van sijne mat. in dese in der landen noe.
+officij supplt.
+d'erffgen. wijlen den borgmr. tsantels resbnten.
+ghesien in sijne mats. raede geordonneert in brabant die
+reqte. bij den supplt. aldaer gepnteert. den 9 october 1685 ten
+eynde den selven raede soude gedient wesen de voors. resbnten.
+te condemneren inde prompte weringhe van het epita phium
+geexponeert in de kercke van ste. peeters tot loven naerder
+inde voors. reqte. geruert, ende hun boven dijen te condemneren in
+eene amende van hondert guldens in gevolghe van. 8 arle.
+van het placcaert heraldicq des jaers 1616 gesien oock die
+rescriptie by de resbnten. daertegens gedient, replicque des
+supplts., ende de emplicque der voorn. resbnten. op al geleth
+thoff ordonneert aenden supplt. te doen blijcken van het exces
+ten processe geruert, ende tselve naerder te circonstan=
+tieren om ettha. reseruerende de costen, geprononceert
+tot brussele den 6 februarij 1686
+den heere raedt ende procur. gnael. van brabt.
+impt.
+anthoen wolter cox ghede.
+ghesien dopene brieven van daeghsel personneel by den impt.
+hier te hove verworven den 19 october 1682 die feijten van belas=
+tinghe desselffs impts. met het examen personneel des
+ghede. verbaelen voor commissarissen in saecke gedeputeert
+tusschen partijen gehouden behelfene de conclusien ende altercatien
+der selver, gesien oock de schren. van feijten ter wederl. den
+aengegeven, met de nieuwe feijten, ende circonstantieringhe
+der selver, des voors. impts., met de contrarien deffensien
+gedient, gesien alsnoch den vocalen thoon des impts., soo hier
+te hove geproduceert, als oock voor de vande hooghe
+justicie van limbourgh uuijt crachte van authorisatie
+van desen hove metten bielette van exhibitie employ ende
+acceptatie in forme van thoon desselffs impts., gesien desgel.
+den vocalen thoon des ghedaeghde oock geproduceert soo
+hier te hove als voorde vande hooghe justicie van lim=
+borch beneffens den litteralen thoon, ende den billetten van
+exhibitie ende emploij met presentatie van eede desselffs
+ghede., ende die stucken in forme van thoon ter wederlijden
+geemployeert, die voordere verbaelen voorde voors. coissarissen
+gehouden, ende naementlijck die gene van. 2 ende 26 junij
+1685 waerbij resspective blijckt dat den ghede. in plaetse van
+reprochen hadde geemploijeert gnalia. juris contra, ende
+in plaetse van solvatien geemploijeert gnalia. juris pro
+ghesien eyntelyck den verbaele vanden 4 julij 1685 gehouden voor
+de voors. commissarissen nae vermoeghen vade prolongatie
+by den impt. ende toe geobtineert behelfende deselven verbaele
+de reprochen desselffs impts., ende sustenie van synen tweghen
+aldaer gedaen aengaende die validiteijt van die productie
+des gede. gedaen voor die van limborgh opde feijten hier te
+hove nijet geposeert nochte gedient, met dordonnantie
+opden voors. verbaele gedecerneert, medebrengende dat
+int decideren deser saecke opden innehouden van. selve
+verbaele regardt soude worden genomen om ettha.
+welcken volgende soo hadde den impt. in plaetse van
+solvatien eemploijeert gnalia. juris pro, ende alsoo in
+saecke gesloten, ende recht versocht, gesien daerenboven
+die drije reqte. civile by den voors. impt. den hove gepnteert.
+respective den 26 januarij lestleden, iersten ende sesten deser
+loopender maendt februarij mette redenen van impertinen=
+tie by den ghede. voortegens respective overgegeven op alles
+geleth thoff volgende de reqte. civile des supplts. tot dese
+saecke ende alvooren ten diffinitiven recht te don ordonneert
+ex officio ten verhooren den raedt rijckewaert des sris.
+ysdoren, ende desselffs twee officiaelen coentzen ende du prenne
+midtsgaeders de notaris heijmans ordonnerende voorders
+aenden gede. binnen 15 daegen tantwoorden ende contesteren
+tegens de conclusie genomen by den imptr. met sijne reqte.
+civile van. 1en februarij lestleden op pene van verstelen
+ende recht op de copijen reserverende de costen, gepronon=
+ceert tot brussele den 8 feb. 1686
+le sr. marcquis de bournouille gnael. de
+bataille, gouverneur de la ville de liere
+sa. supplt.
+nicolas la terre et charles caminiau
+ferniers insinuez
+veues les trois reqtes. respectivement servies par ledit
+sr. supplt. en cette cour les 21 septembre 1685 9 et 21e de
+janvier dernier affin coe. en icelles avecq les ordonnances
+y de cervees respectivement a scavoir sur la premiere
+estoit ordonne que tous les deniers ou redenances escheus
+vuidez des mains des debiteurs insinuez en este sur
+la seconde estoit tordonne que la montisation se serat
+es mains de ladt. sarhon residente nivelles comme [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1686-04-24",
+  "fact_date": "1682-07-27",
+  "persons": [
+    {
+      "firstname": "ferdinande",
+      "lastname": "d'illan",
+      "role": "baron de bornival",
+      "function": "constituant"
+    },
+    {
+      "firstname": "michel",
+      "lastname": "suau",
+      "role": "mre. de camp, mre. conseil de guerre et quartier mre. gnael. de nos armees au paijs bas",
+      "function": "debiteur"
+    },
+    {
+      "firstname": "ferdinande",
+      "lastname": "d'illan",
+      "role": "baron de bornival",
+      "function": "constituant"
+    },
+    {
+      "firstname": "francois",
+      "lastname": "de boisschot",
+      "role": "camte d'irps baron de saiventhien seigneur de sterrebeke, moslegem, bygaerde",
+      "function": "lieutenant deure souveraine cour feodale de brabant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "brabant",
+      "loctype": "duchy"
+    },
+    {
+      "name": "bruxelles",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Ferdinande d'illan, baron de bornival, has received 13,000 florins from Michel Suau, mre. de camp, mre. conseil de guerre et quartier mre. gnael. de nos armees au paijs bas. He has promised to pay interest of 525 florins per year on this sum, with the right to the four bois dumuelles, hazuit, hez and bossut and other domains as collateral. The payment of interest is to be made in bruxelles, free of 10, 20, or 40 pelus, with the first payment due on July 21, 1683. The interest is to be paid annually until the principal sum is repaid. If the principal sum is not repaid within two years, it will be repaid in the same currency in two installments, with a six-month notice.",
+    "fr": "Ferdinande d'illan, baron de bornival, a reçu 13 000 florins de Michel Suau, mre. de camp, mre. conseil de guerre et quartier mre. gnael. de nos armees au paijs bas. Il a promis de payer un intérêt de 525 florins par an sur cette somme, avec le droit des quatre bois dumuelles, hazuit, hez et bossut et d'autres domaines comme garantie. Le paiement de l'intérêt doit être effectué à bruxelles, exempt de 10, 20 ou 40 pelus, avec le premier paiement dû le 21 juillet 1683. L'intérêt est à payer annuellement jusqu'au remboursement du capital. Si le capital n'est pas remboursé dans deux ans, il sera remboursé dans la même monnaie en deux versements, avec un préavis de six mois.",
+    "nl": "Ferdinande d'illan, baron de bornival, heeft 13.000 florijnen ontvangen van Michel Suau, mre. de camp, mre. raad van oorlog en kwartiermeester-generaal van onze legers in de Spaanse Nederlanden. Hij heeft beloofd 525 florijnen per jaar te betalen als rente op deze som, met het recht op de vier bossen dumuelles, hazuit, hez en bossut en andere domeinen als onderpand. De rentebetalingen moeten plaatsvinden in bruxelles, vrij van 10, 20 of 40 pelus, met de eerste betaling die moet plaatsvinden op 21 juli 1683. De rente dient betaald te worden jaarlijks totdat het kapitaal is terugbetaald. Als het kapitaal niet binnen twee jaar is terugbetaald, wordt het in dezelfde munteenheid in twee termijnen terugbetaald, met een voorafgaande melding van zes maanden.",
+    "de": "Ferdinande d'illan, Baron von Bornival, hat 13.000 Florin von Michel Suau, mre. de camp, mre. conseil de guerre et quartier mre. gnael. de nos armees au paijs bas erhalten. Er wurde vereinbart, 525 Florin Zins pro Jahr auf diese Summe zu zahlen, wobei die vier Waldstücke dumuelles, hazuit, hez und bossut und andere Grundstücke als Pfand dienen. Die Zinszahlungen sollen in bruxelles erfolgen, abzüglich 10, 20 oder 40 Pelus, wobei die erste Zahlung am 21. Juli 1683 fällig ist. Die Zinsen sind jährlich zu zahlen, bis das Kapital zurückgezahlt ist. Wenn das Kapital nicht innerhalb von zwei Jahren zurückgezahlt wird, wird es in der gleichen Währung in zwei Raten zurückgezahlt, wobei eine sechsmonatige Vorankündigung erforderlich ist."
+  }
+}
+```

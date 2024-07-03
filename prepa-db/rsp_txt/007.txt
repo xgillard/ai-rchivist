@@ -1,0 +1,189 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te weetene allen jegewoirdighen ende toecomenden dat wij
+ontfanghen hebben die oitmoedighe supplicatie van jan henrick vanden
+veen woonende inden dorpe van ruesele inhoudende hoe dat hij opden vi en junij
+anno lii heeft in tselve dorp ten huyse van peeter evaerts met meer andere
+geselschaps die dijen dach den papegaye geschoeten hadden sitten drincken
+ende goet chiere maeken gelijck hy oick inde gulde was ende alsoe tot
+byden avont sittende ende vroelijck met melcanderen wesende nyet weetende
+van eenighen twist oft geschilde soe is daer een geweest geheeten geene
+lenaerts hermansse insgelycks guldebroeder wesende die hem sadt en vermat
+dat hy dijen avont oft eer den avont quame eenen op zyn stroo oft cont hebben
+soude dwelck hoirende die supliant dat hy alsulcken onhebbelycke woerden
+sadt en sprack ende nyet en wiste waer op dat hyt hadde heeft geseeght
+dese oft gelycke woirden bey geene waeromme sydt ghy gestoort op wyen
+hebeyt dat ghyer een op zyn stroo leggen wilt syt toch te vreden ende
+laet ons eenen vollen vuyt drincken het waer schande datmen hier ruw
+woerden maecten daerop de voirs. geene seyde wildyse verantwoirden daer
+ickt op hebbe dat mochdy seggen waer op die suppliant zeyde bey geen ghij
+zyt een proper geselle wat wildy iemanden van desen gesellen mesdoen
+daer op die voirs. gheene antwoirde wy seeght dat ick haer mesdoen
+wille waer op die suppliant zeyde dat segdy selve ende ick hoort
+dat ghyt seght waer op de voirs. geene seer grammelyck wederzeyde
+ghy lichter aene nemende midtsdyen eenen drinckpot ende heeft den suppliant
+daer mede op syn hoot geslaeghen zoedat hy geheel onstucken spranck
+ende dat hem suppliant tbloet lancx zijn hoot liep ende dat de
+scerveren vanden selven pot spronghen eender vrouwen die neven den
+suppliant sadt in haer aensichte zoe dat zy naulyck zien en conde
+dwelck hy suppliant gevoelende die geheel beduyselt was vanden
+grooten slach heeft tot zynder deffentie vuyt grooter beruertheyt ende hitte
+van bloede zyn eetmes vuyt getogen ende daer mede eens naeden voirs.
+geenen gesteken ende hem geraect ende gequetst in syn zyde van welcker
+quetsueren hy syn bichte gesproken hebbende zekeren tyt daernae deser
+werelt es over leden wyens siele godt wil ontfermen tot groot leet
+wesen vanden suppliant die hem yesindert heeft geabsenteert ende hoe
+wel hy die daghen zyns levens noyt iet anders en heeft gecommitteert
+weerdich van eenige $$$punitie ende hy tselve feyt soe zeere onnosel
+ende ge$$ch zyns lyfs verweerens heeft gecommitteert zoe en soude hy
+vreesende rigeur van justicien nyet vrye$lyck dorren weeder keeren
+ten waere hem onse gracie ende genade verleent wordde zoe hy seeght
+ons van die om de selve zeer oitmoedelyck biddende waerom zoe
+eest dat wy desen aengesien geneyght wesende ter beden des voirs. suppliants
+e ende willende hem in dit stuck prefereren gratie ende genade voir rigeur
+van rechte hebben denselven inden gevalle als boven quytgeschouden ende
+vergheven schelden quyte ende vergeven vuyt sunderlinger gratien by desen
+onsen brieve tfeyt ende ongevalle boven geruert mitsgaders alle offensie
+ende bruecke corporelle ende criminelle daer inne hy hem overmits ende
+vuyt saeken van tghene des voirs. is tegens ons onse hoocheyt ende justitie
+eenichssins mach hebben ontgaen ende mesdraghen ende hebben hem dyen
+aengaende wedergestelt ende gerestitueert stellen weder ende restitueren
+tot zynen goeden name ende geruchte in onsen voirs. lande van
+brabant ende allen anderen onsen landen ende heerlicheyden ende tot zynen onverbuerden
+goeden in dyen hy eenighe onder ons heeft gelyck ende in alder manieren
+zoe hy was voir die toecompste vanden voirs. feyte imponerende hierop
+een eeuwich geswich onsen procureur generael in brabant meyere van
+loeven amptman van bruessele schouteth van antwerpen
+ende vanden bossche ende allen anderen onsen justicieren ende officieren
+wy zy syn satisfactie ende beternisse ierst ende vooral gedaen der
+partyen geinteresseerde indyen die noch nyet gedaen en zij ende eenighe
+daertoe staet civilyck alleenlyck behoudelyck dat de voirs. suppliant
+gehouden sal zijn tvoirs. feyt tegens ons te beteren civilijck nae
+gelegentheyt vanden saeken ende faculteyt van zynen goeden met oick
+marge: sy h$$ af verantwoirt
+byden ontfanger vanden exploiten
+te betalene die redelycke costen van justicien hieromme alreede gedaen ende te
+doene allet ter taxatien ende moderatien van onse zeer lieve ende getrouwe
+die cancellier ende luyden van onsen raide in brabant die wy daertoe gecommitteert
+hebben ende committeren by desen ontbieden daerom ende bevelen denselven
+onsen cancellier ende raidsluyden dat voir hen geroepen die ghene die
+ghene die daerom behoiren geroepen te zyne zy procederen wel ende
+duechdelyck ter verificatien ende interinemente van desen ende totter taxatien
+ende moderatien vander voirs. civile boete ende costen van justicien alzoe zy
+sullen vinden behoirende welck interinement die voirs. suppliant gehouden
+zal syn te versueckene ende hem in persoone te presenteren in onsen voirs.
+raide bynnen zesse maenden naestcomende opte pene van te verbuerene
+deffect van desen ende dat gedaen en deselve civile boete ende costen
+van justicien getaxeert ende betaelt zynde in handen vanden ghenen dyen dat
+behoiren sal zy onse procureur generael ende alle andere onse rechteren justicieren
+officieren ende ondersaten jegewoirdighe ende toecomende dyen dat aengaen sal
+moghen huere stedehouderen ende eenenyegelycken van hen besundere zoe hem
+toebehoiren sal doen laeten ende gedooghen den voirs. suppliant van deser
+onser jegewoirdigher gratien ende remissien ende van alle dinhouden van
+desen inder vueghen ende manieren boven verhaelt rustelyck vredelyck volcomelyck
+ende eeuwichlyck genyeten ende gebruycken sonder hem te doene noch te
+laeten geschieden nu noch in toecomenden tyde eenich hinder letsel oft
+moeyenisse aen live noch aen goeden ter contrarien maer indyen zyn
+lyff oft eenighe van zyne goeden daerom gearresteert becommert oft
+beleth waeren dat zy die setten ende stellen oft doen setten ende stellen terstont
+ende sonder vertreck tot geheelder ende volcomender delivrantien want
+ons alsoe gelieft ende ten eijnde dat dit goet vast ende gestadich
+blyve teeuwighen daghen zoe hebben wy onsen zegel hieraen doen
+hanghen behoudelyck in anderen dinghen onsen rechte ende
+eenenyegelycken anderen dessins gegeven in onser stadt van
+bruessele inde maendt van augusto int jaer onsheeren duysent
+vyfhondert ende dryenvyftich van onsen keyserrycke txxxiiiie
+ende van onsen rycken van castillien ende anderen txxxviiie
+aldus gescreven op de plycke byden keyser ende ondertekent
+facuwez visa recepta
+gecollationeert ende met zynen originale
+bevonden accorderende by my
+$ facuwez $ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "5 Jun lii",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "henrick vanden veen",
+      "role": "suppliant",
+      "function": "inhabitant of the village of ruesele"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "evaerts",
+      "role": "host",
+      "function": "inhabitant of the village of ruesele"
+    },
+    {
+      "firstname": "geene",
+      "lastname": "lenaerts hermansse",
+      "role": "instigator of the conflict",
+      "function": "guild brother"
+    },
+    {
+      "firstname": "onse",
+      "lastname": "gracie ende genade",
+      "role": "petitioner's request",
+      "function": "royal grace and favor"
+    }
+  ],
+  "locations": [
+    {
+      "name": "ruesele",
+      "loctype": "village"
+    }
+  ],
+  "summary": {
+    "en": "Jan Henrick vanden Veen, inhabitant of the village of Ruesele, has supplicated for remission after a conflict on June 5, lii. He was at the house of Peeter Evaerts, drinking with other companions when Geene Lenaerts Hermansse, a guild brother, accused him of wanting to put someone on his straw bed. After a heated exchange, Geene hit Jan Henrick on the head with a drinking pot, causing him to bleed. Jan Henrick, feeling endangered, drew his dagger in self-defense and slightly wounded Geene. He now asks for royal grace and favor to avoid punishment.",
+    "fr": "Jan Henrick vanden Veen, habitant du village de Ruesele, a supplié pour la rémission après un conflit le 5 juin, lii. Il était à la maison de Peeter Evaerts, buvant avec d'autres compagnons lorsque Geene Lenaerts Hermansse, un frère de la guilde, l'a accusé de vouloir mettre quelqu'un sur son lit de paille. Après un échange houleux, Geene a frappé Jan Henrick à la tête avec un pichet, le faisant saigner. Jan Henrick, se sentant en danger, a sorti son couteau en légitime défense et a légèrement blessé Geene. Il demande maintenant la grâce royale et le pardon pour éviter toute punition.",
+    "nl": "Jan Henrick vanden Veen, inwoner van het dorp Ruesele, heeft om vergeving verzocht na een conflict op 5 juni, lii. Hij was bij Peeter Evaerts thuis, drinken met andere gezelschapsgenoten toen Geene Lenaerts Hermansse, een gildebroeder, hem beschuldigde ervan iemand op zijn stro mat te willen leggen. Na een hevige discussie sloeg Geene Jan Henrick met een bierpot op het hoofd, waardoor hij begon te bloeden. Jan Henrick, zich bedreigd voelend, trok zijn mes in zelfverdediging en verwondde Geene licht. Nu vraagt hij om koninklijke genade en vergeving om straf te voorkomen.",
+    "de": "Jan Henrick vanden Veen, Bewohner des Dorfes Ruesele, hat um Vergebung gebeten nach einem Konflikt am 5. Juni, lii. Er war bei Peeter Evaerts zu Hause, trank mit anderen Gefährten, als Geene Lenaerts Hermansse, ein Zunftbruder, ihn beschuldigte, jemandem auf sein Strohbett legen zu wollen. Nach einem hitzigen Austausch schlug Geene Jan Henrick mit einem Trinktopf auf den Kopf, wodurch er zu bluten begann. Jan Henrick, sich bedroht fühlend, zog sein Messer in Selbstverteidigung und verletzte Geene leicht. Nun bittet er um königliche Gnade und Vergebung, um Strafe zu vermeiden."
+  }
+}
+```

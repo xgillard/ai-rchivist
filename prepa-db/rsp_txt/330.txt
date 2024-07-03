@@ -1,0 +1,137 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remisse van
+dootslage
+philippe par la grace de dieu archiduc daustriche duc de bourgoigne
+de lothier de branant de stier de haren$$ de cram de lembourg de
+luxembourg et de geldres conte de flandres dartois de bourgoingne
+palatin de haynau de hollande de zeelande de namur et de
+zuytphen marquis du saint empire des romains et de borgauw
+lantgreve in elsaten heere van vrieslant van opter windesch$$$$
+van portenauw $ seigneur de frize et de sur la marche desclavonie
+de porrtenauw de salins et de malines. savoir faisons a tous
+presens et avenir nous avoir receu lumble supplication et
+requeste de piere le ho povre compaignon laboureur natif du
+village dittre lez breyne la lieu de notre romant pays de brabant
+contenant comment passe deux ans ou environ ainsi que ledits suppliant
+estoit alle jouer a la ducasse en ung hameau nomme lermite
+terre dudit breyne enpres duquel il estoit demourant ung
+nemme toussain le rousseau sergant ilec requeste audit suppliant
+luy vouloir assister a prendre au corps ung compaignon que
+illec ruoit l$$$ lequel icelluy suppliant cognaissoit ass$$
+f.....
+et en allant avec ledit sergant a ledit suppliant veu que ung sien
+cousin germain nomme hacquinot ghoes et $$$ filz de gillo nicaise
+avoient * et debat contre quatre compaignons a $$$ savoir regnault
+gerymeau ung nomme myname ung aultre nomme hanno
+et symon reyen et tassin que sondit y cousin qui estoit en
+grant dangier de sa vie ne feust outraige habandona
+ledit sergant et sen ala a tout ung faulcon quil avoit en
+sa main ou ledit debat se faisoit a intencon$$$ de de y mectre
+reme$$ et tost apres survindrent encores a layde de
+sondit cousin cincy compaignons du village dudit brayne
+et tellement se $$$ le debat entre eulx que ledit reynault
+gerynneau qui estoit la contrepartie du cousin dudit suppliant
+receupt cincq plans dont deux jours apres il termina
+de vie par mort et combien que de ladvenement dudit cas
+ledit suppliant soit tres deplaisant et que audit deffunct ne
+a aultres il ne bailla aucuns cops touteffois doubtant
+rigeur de justice il sest tousiours depuis absente de
+noz pays et seignouries v..;ant en grant povrete en nous
+suppliant luy sur ce vouloir impartir notre grace et
+remission et luy sur ce faire expedier noz litres patentes en forme deue
+pour ce est il que nous ces choses considerees voulans adez
+notre grace et misericorde preferer devant rigeur de justice audit
+suppliant avons ou cas dessusdit quite remis et pardonne quitons
+remectons et pardonons de grace espcealement par ces precentes ledit fait
+et cas dont dessus est faicte menten$$$ ensemble toutes offenses
+et peynes corporelles et crimineles et civiles enquoy il peult
+estre encourru et $$$ mesprins envers nous et justice
+et lavons $$$ a ce restitue et restituons a ses bonnes
+fame et renommee au pays et a tous ses biens non confisquez
+se aulcuns en a en imposant sur ce silence a notre procureur
+generael en brbant et a tous aultres noz justiciers officiers
+quelconques cui ce regardera satisfacion toutteffois faicte
+a partir se faicte nest et $$$ y chiet pour$$
+que ledit suppliant sera tenu amender ledit fait envers nous
+$$$ fait tant seulement a larbitraige tacacion et
+modercion de noz aimez et feaulx le seigneur dorbais et
+de malene chavallier chancellier et aultres gens de
+notre conseil ordonez en brabant lesquelz avons a ce
+commis et commectons par ces presentes mandons et commandons
+icelluy notre chancellier et aultres gens de notredit conseil que
+appelle ceulx qui pour ce seront a appeller ils procedent
+bien et leaulment a linteri lenterienement et verification de cesdits
+prese-ntes $$$ aussi al la taxacion et moderation de ladite
+civile amende et ce fait et ladite civile amende payee es mains
+de notre receptuer cui il appartiendra lequel sera tenu en faire
+et rendre compte a notre prouffit ilz et tous aultres noz
+justiciers er officiers ensemble les justiciers et officiers de noz
+bass$$$ seigneurs et vassaulx de notre pays de brabant cui ce
+regardera ledit suppliant de notredit grace quitance et remission
+facent et laissent plainemendt et paisiblemendt joyer et user
+sans luy en ce faire ne ce faire et faire ne souffrir estre fait en corps ou
+biens aucun destourbier ou enc$$schement au contraire a$$
+se ledit suppliant ou ses biens a reste cause soyent arrester
+ou detinez les tantost et sans delay mecter et f$$dts omectre
+ou del$$re car ainsi nous plaist il et affin que ce
+soit chose ferme et estable a tousiours nous avons fait
+mectre notre seel a ces presentes saulf en toutes aulres choses
+notre droit et a laultruy le sien donne en notre ville
+de bruxelles le darnier jour du mois de novembre
+lan de grace mil cincqcens et trois ainsi escript
+dessoubz sur la plicque par mon seigneur larchiduc
+et signe m husoel
+collonne a loriginal
+par moij
+in de marge: et sarspurg de thirolle
+de sirette de freburg [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1503-11-30",
+  "fact_date": "1501-00-00",
+

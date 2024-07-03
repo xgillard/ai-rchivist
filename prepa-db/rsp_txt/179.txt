@@ -1,0 +1,204 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips rcha den grooten titel. doen te
+wete. iegewoordighe ende toecommende dat
+wij ontfangen hebben d’oytmoedighe supplica
+tie van jan vanderheijden sone wijlen isaacq
+vander heijden inhoudende hoe dat hij int jaer
+sesthienhondertvijftich van ons heeft ver
+worven de medegaende opene brieven van
+remissie over sekeren doodtslach bij hem ge
+committeert inden persoon van jan pierlars
+ende meijnende ter goeder trouwen dat hij
+daermede gerust mochte wesen sonder hedt
+voorders te moeten doen oft de voors. briven
+te moeten interineren van welcke ignorantie
+ende omissie hij onder correctie excusabel is
+als wetende eenen slechten huysman die lesen noch
+schrijven en can soo ist dat hij nu onlancx bijden
+officier onser stadt loven is geapprenhendeert
+geweest ende gestelt in hachten uuyt oirsaecke
+dat hij hem binnen de sesse maenden naert impl$
+treren vande selve brieve niet en heeft gepresen
+teert tot het interinement der selver ende want
+den suppliant daerinne teenemael omnosel is
+gelijck als voorseijdt is soo keerde hij hem tot ons
+seer oydtmoedelijck biddende om andere onse opene
+brieven van remissie soo eest dat wij desen
+aengesien ende hierop gehoort het officie
+fiscael van brabant geneijght wesende ter bede
+des voorschreven suppliants ende willende hem
+in dit stuck prefereren gratie ende misericordie
+voor strangheijt ende rigeur van rechte hebben
+den selven suppliant inden gevalle als inde voors.
+brieven in date alsboven van nieuws quijtgeschon
+den ende vergeven schelden quijtte ende vergeven uuyt
+sunderlinger gratien bij desen onsen brieve t’feyt
+ende ongeval offensie ende breucke corporele
+ende criminele daerinne hijter cause van dyen
+met daeraen cleven mach teghen ons ende
+justitie misdaen ende misbruyckt mach heb$
+ende hebben dienaengaende wedergestelt
+ende gerestitueert stellen weder ende restitue
+ren tot sijnen goeden naeme fame ende geruchte
+in onsen voorschreven lande van brabant ende
+alle andere onse landen ende heerlijckheden e$
+tot sijne onverbeurde goeden in dijen hij eenighe
+onder ons heeft gelijck ende in alder manieren
+soo hij was voorde toecompste vanden feyte
+inde selve brieven vermelt op imponeren
+hierop een eeuwich geswijch onsen procureur
+generael van brabant meyer van loven
+officier van wilsele ende alle anderen onse
+justicieren ende officieren wie sij sijn
+satisfactie ende beternisse ierst ende
+vooral gedaen der partijen geinteresseer
+de indyen die noch niet gedaen en sijn ende
+eenighe daertoe staet civilyck alleenlijck
+behoudelijck dat die voorschreven suppliant
+gehouden sal sijn t’selve feijt te ons te beteren
+civilijck naer gelegentheijt vande saecke
+ende faculteijt van sijne goeden met oock te
+betaelen die redelijcke costen van justitie
+hieromme alreede gedaen ende te doene
+allet ter taxatie ende moderatie van onse$
+seer lieven ende getrouwen die cancellier
+ende luyden van onsen raede geordonneert
+in brabant die wij daertoe gecommit
+teert hebben ende committeren bij desen ont
+bieden daeromme ende bevelen den selven ons$
+cancellier ende raedtslieden dat voor hen geroe
+pen sie gene die daeromme behooren geroepen $
+sijn sij procederen wel ende deughdelijck ter
+verificatie ende interinemente vandesen en$
+totter taxatie ende moderatie vande voors.
+amende ende costen justictien alsoo sij sullen
+vinden behoorende welck interinement
+de voors. suppliant gehouden sal sijn te ver
+suecken ende hem in persoone te presenteren
+in onsen voorschreven raede promptelijck
+opde peyne van te verbueren deffect van desen
+ende voorschreven brieven tot welcken
+effecte die suppliant uuytten gevancke
+nisse tot loven sal worden gessisteert op
+het treurenborch deser onser stadt brus
+sele ende dat gedaen ende de selve civile
+boete ende costen van justicien getaxeert
+ende betaelt sijnde in handen vanden genen
+dijen dat behooren sal t’sij onsen voorschreven
+procureur generael van brabant onsen
+officier van wilsele ende alle andere onse
+rechteren justicieren officieren ende
+ondersaeten ende toecomende dijen dat
+aengaen sal moghen heure stedehouderen
+ende eenen iegelijcken van hun besundere
+soo hem toebehooren sal doen laeten ende
+gedoogen den voorschreven suppliant van
+deser onser tegenwoordiger gratien ende
+remissien ende van allen d’inhouden van desen
+ende voors. brieven inder vuegen ende
+manieren voore verhaelt rustelijck vrede
+lijck volcommentlijck ende eeuwelijck
+genieten ende gebruycken sonder hem te doen
+ofte laeten geschieden nu noch in toecomende tijden
+eenich hinder letsel oft moyenisse aen lijve
+noch aen goeden ter contrarein maer in dyen
+sijn lijff oft eenighe van sijne goeden daer
+omme gearresteert becommert oft beleth
+waeren dat sij die setten ende stellen terstondt
+ende sonder vertreck geheelder ende vol
+commender delivrantie want ons alsoo
+gelieft ende ten eynde dat dit vast ende
+gestadich blijve ten eeuighen daeche soo
+hebben wij onsen segel hieraen doen hangen
+behoudelijck in anderen dingen onsen rechte
+ende eenenyegelijcken anderen dessijns
+gegeven in onse stadt van brussele den
+sevensten dach der maendt van augusti
+int jaer ons heeren duysent sesse hondert
+ende vierenvijftich ende van onse rijcke
+het vierendertichste
+collata concordat
+dero$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "augusti 7th, 1654",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "UNKNOWN",
+      "lastname": "vanderheijden",
+      "role": "applicant",
+      "function": "son of Isaacq vanderheijden"
+    },
+    {
+      "firstname": "UNKNOWN",
+      "lastname": "pierlars",
+      "role": "victim",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "philips",
+      "lastname": "rcha",
+      "role": "issuer",
+      "function": "officer of the city of Brussels"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Brussels",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Philips rcha, officer of the city of Brussels, grants remission to Jan vanderheijden, son of Isaacq vanderheijden, for a homicide committed against Jan pierlars. The remission is granted under the condition that Jan vanderheijden presents the letters of remission within six months and pays the costs of justice.",
+    "fr": "Philips rcha, officier de la ville de Bruxelles, accorde la rémission à Jan vanderheijden, fils d'Isaacq vanderheijden, pour un homicide commis contre Jan pierlars. La rémission est accordée à la condition que Jan vanderheijden présente les lettres de rémission dans les six mois et paie les frais de justice.",
+    "nl": "Philips rcha, ambtenaar van de stad Brussel, verleent vergeving aan Jan vanderheijden, zoon van Isaacq vanderheijden, voor een moord gepleegd tegen Jan pierlars. De vergeving wordt verleend onder de voorwaarde dat Jan vanderheijden de vergevingsbrieven binnen zes maanden voorlegt en de rechtbankkosten betaalt.",
+    "de": "Philips rcha, Beamter der Stadt Brüssel, gewährt Jan vanderheijden, Sohn von Isaacq vanderheijden, Vergebung für eine von ihm begangene Tötung gegen Jan pierlars. Die Vergebung wird unter der Bedingung gewährt, dass Jan vanderheijden die Vergebungsbriefe innerhalb von sechs Monaten vorlegt und die Gerichtskosten bezahlt."
+  }
+}
+```

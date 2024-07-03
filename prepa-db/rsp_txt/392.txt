@@ -1,0 +1,302 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+copie dune remission de larchin
+maximilian par la grace de dieu esleu empereur tousiours
+auguste roy de germanie de hongarie de dalmatie de
+croatie etc. et charles par la mesme grace archiducz
+daustriche prince despaigne des deux cecilles de jherusalim etc.
+ducz de bourgogne de lothraine de brabant de stier de karente
+de carmole dela lembourg de luxembourg et de gheldres
+contes de flandres et habsbourg de tyrol dartois de bourgogne palatins
+de haynnau lantgraves delsate prince de zwave
+marquis de burgauw et du samt empire de hollande
+de zeellande de serette de kyeburg de namur et de
+zuytphen contes seigneurs de frize des marches
+de sclavonie de portenauw de salms et de malines
+savons faisons a tous presents et avenir nous avoir
+receu lumble suppliccation de guilliaume van eechault
+natif de geluwe en flandres eage de trente
+ans ou environ tysseran de toille a $$$ prtsonnier
+en notre ville danvers conten$$ comment environ a
+deux ans passez que icelle suppliant partist de ce
+quartier pour fe son voyage a saint jacques de
+compostole et au retour dicellui desroba par povrete
+en une bourgade aupres de bourghes en espaigne
+le drap dune paire de chausses et en ung autre
+bourgade autres deux paires de une ses chausses
+ibidem depuis son retour dudict voyage lui venu en
+flandres se transporta en ung village nomme rouselare
+auquel lieu en la maison dun marchant de lin
+il print et emporta la somme,de,sept florins cincq
+patars ibidem a bruges a lostel dun chausseteur
+nomme demourant en la rue qui,est nomme
+de steenstrate autres huit florins de livres de groz
+monnaie ge flandres ibidem le jour de saint estienne
+derriere,passees festes de noel ledict suppliant se trouva
+de nuyt et hors heure en la maison de phillipe vanden
+$$$ general de noz monnaie ou il print et desroba
+tant en or comme en argent comptant environ la somme
+de vingt livres de groz monnaie de flandres ibidem
+ung petit pot darghent pesant quatre $$$ onces
+dargent ou environ ibidem une couppe dargent
+pesent vingt onces dargent ou environ et estoit
+ladite couppe dorree dedens et dehors ibidem ung
+gobelet dargent pesant six onces ou environ
+ibidem une petitte poix dalbastre enchassee en
+argent ibidem deux grains dor extimez $$$ une
+livre de groz ibidem une baghe ou il y avoit six
+tables et une pointe de dyamant avec trois
+grosses perles ibidem une autre baghe a cincq
+diamans y compris une pointe avec trois perles
+y pendant ibidem encoires deux petites baghes
+a chime de syvelles pendoit ung rubis y attachie
+ibidem une petite croix dor laquelle il vendy a
+anvers pour ung ducat seullemendt ibidem une
+autre baghe afachon de roze a tout ung rubis
+ou il y avoit a lentour six perles ibidem encoires
+une perle seulle de la grosseur dun bon pois
+ibidem ung gect dargent quil vendit quatre
+escuz dor ibidem ung petit cornet dyvoire a deux
+boutz dargent dore ibidem ung canon de fil dor
+traict et deux calices non $$$ lesquelz
+avoient les piedz de laiton et la reste dargent
+et combien que ledit suppliant ait en partie commis
+lesdits cas par povrete et indige$$ice et par maulvais
+conseil et enhort que diceulx il serait fort
+$arry et desplaisant resolu et delibere
+de se abstenir du semblable en lavenir et quil ait
+bonne voulonte de se restitucion et satisfaction
+aux parties interessees a son leal povoir neantmoins
+il doubte que les officiers et gens de loy de
+notredite ville danvers le veullent pour raison
+desdits cas traicter extraordinairement et
+proceder contre luy criminellement se notre grace
+et misericorde ne lui est sur ce impartie si
+comme il dit dont il nous a treshumblendt
+supplie et requis i$dour ce est il que nous
+ces choses considerees audit guilliaume suppliant
+inclinans a sadite supplication et requeste
+et lui veullant en ceste partie preferer grace
+et misericorde a rigeur de justice inersciement
+en lonneur et reverence de la benoite passion
+que notre sauveurnet redempteur jesu crist souffry
+pour nous tous en larbre de la croix a tel jour
+quil est huy avons par lav$$ de notre treschie
+et tresaimee fille de nous empereur dame et
+tante de nous charles dame marguerite daustiche
+et de bourgogne ducesse douagie de savoye regente etc.
+et la deliberacion des gens de notre prive conseil
+estans lez elle ou cas dess$$$ quicte remis
+et pardonne quictons remectons et pardonneons
+de grace especial par ces presetes les cas et mes$$$
+dessus declairez ensembles toute paine amende
+et offence corporelle et crimminelle en quoy pour
+raison diceulx les circonstances et deppendences il
+a et puet avoir mesprins offence et estre encoure
+envers nous et justice et lavons quant a ce
+restitue et restituons a ses bon nom fame et
+renommee au pays et a ces biens ,on consisgnez
+sancuns en y a tout ainsy quil estoit avant
+lad$enne duceulx cas imposant sur ce
+scillence perpetuel et a notre procureur general
+marcgrave danvers escoutette danvers
+et a tous noz autres officiers quelzconques
+satisfaction touteffoiz faicte $$$ ala
+et avant toute $$$ aux parties interessees
+se face nest et elle y chiet civilendt taut
+seulement et moyennant quil lamendera
+aussi envers nous civillendt selon lexigence en cas
+et la faculte de ses biens alarbitraige et
+tauxacionde noz aimez et feaulx les chancellier
+et gens de notre conseil en brabant que commectons ace
+sy donnons en mandement ausdits chancellier
+et gens de notredit conseil en brabant que appelez
+ceulx qui pour ce feront a appeler ilz procedent
+bien er de$$$ a la veriffication et interinendt
+de ces presendtes et a la tauxation de ladite amende
+civile et ce fait et ladite amende civile arbitree
+tauxee et payee es mains de celluy de noz receveurs
+ou officiers quil apptiendra lequel era tenu
+en fe recepte et rendra compte et reliqua a notre
+prouffit ilz ledit marcgrave marcgrave et escoutette
+danvers notre souverain bailly de flandres bailliz
+de gand de bruges et du francq escoutette dudit
+bruges et tous noz autres justiciers et officiers
+quelzcongues c$$ ce puet et pourra touchier et
+regarder et auchun deulx endroit soy et sy comme
+a luy apptiendra facent souffrent et laissent
+ledit supliant de notre presendte grace quictance remission
+et pardon$ selon et par la maniere que dit est plainement
+paissiblendt et perpetuellendt jouyr et user
+sans luy fe mectre ou donner ne suffrir estre
+fait mis ou do$$$ ores ne en temps $$$
+aucun destourber ou empeschendt au contraire
+a$$ sondit corps detenu que dit est et ses
+biens non confisquez sancuns en a pour ce
+enpeschez mectent ou facent mectre a plaine
+et entiere delivrance car ainsi nous plaist
+il estre fait et afin que ce soit chose ferme
+et estable a tousjours nous avons faict mectre
+notre nseel a ces presendtes $$$ en aultres
+choses notre droit et lautry en toutes
+donne en notre ville de malines le vendedy saint
+ou mois davril lan de grace mil cincqcens et
+huit et des regnes de nous empereurn assavoir
+dicellui de germanie le xxiij et de hongerie etc l
+e xixe ainsy signe soubs surle reploy par imperatriz
+margarita et sur ledit reploy par lempereur
+et monseigneur larchiduc et signe hanetoy
+collenne a loriginal
+par moij [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "01-01-1508",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "maximilian",
+      "lastname": "",
+      "role": "empereur",
+      "function": "king"
+    },
+    {
+      "firstname": "charles",
+      "lastname": "",
+      "role": "archiduc",
+      "function": "duke"
+    },
+    {
+      "firstname": "guilliaume",
+      "lastname": "van eechault",
+      "role": "suppliant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "phillipe",
+      "lastname": "vanden $$$",
+      "role": "general of our money",
+      "function": "official"
+    }
+  ],
+  "locations": [
+    {
+      "name": "geluwe",
+      "loctype": "village"
+    },
+    {
+      "name": "flandres",
+      "loctype": "province"
+    },
+    {
+      "name": "saint jacques de compostole",
+      "loctype": "city"
+    },
+    {
+      "name": "espagne",
+      "loctype": "country"
+    },
+    {
+      "name": "rouselare",
+      "loctype": "village"
+    },
+    {
+      "name": "burgogne",
+      "loctype": "duchy"
+    },
+    {
+      "name": "bruges",
+      "loctype": "city"
+    },
+    {
+      "name": "steenstrate",
+      "loctype": "street"
+    },
+    {
+      "name": "danvers",
+      "loctype": "city"
+    },
+    {
+      "name": "anvers",
+      "loctype": "city"
+    },
+    {
+      "name": "serette",
+      "loctype": "city"
+    },
+    {
+      "name": "zuytphen",
+      "loctype": "city"
+    },
+    {
+      "name": "frize",
+      "loctype": "province"
+    },
+    {
+      "name": "sclavonie",
+      "loctype": "province"
+    },
+    {
+      "name": "portenauw",
+      "loctype": "city"
+    },
+    {
+      "name": "salms",
+      "loctype": "city"
+    },
+    {
+      "name": "malines",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Emperor Maximilian and Archduke Charles grant remission to Guilliaume van eechault, a citizen from Geluwe, Flanders, who stole various items due to poverty. The stolen goods include fabric, money, silverware, and jewelry. The thefts occurred in various locations including Spain, Rousselare, Bruges, and Antwerp. Despite his crimes, Guilliaume has shown remorse and promises to refrain from such actions in the future. The emperor and archduke, in their mercy, have forgiven him and restored his good name and possessions, with the condition that he pays a civil fine and apologizes to those affected.",
+    "fr": "L'empereur Maximilien et l'archiduc Charles accordent la rémission à Guilliaume van eechault, citoyen de Geluwe, en Flandre, qui a volé divers objets en raison de la pauvreté. Les objets volés incluent du tissu, de l'argent, de l'argenterie et des bijoux. Les vols ont eu lieu dans divers endroits, dont l'Espagne, Rousselare, Bruges et Anvers. Malgré ses crimes, Guilliaume a exprimé des remords et s'est engagé à ne plus agir de la sorte à l'avenir. L'empereur et l'archiduc, dans leur miséricorde, lui ont pardonné et lui ont rendu son bon nom et ses biens, à condition qu'il paie une amende civile et s'excuse auprès de ceux qui ont été touchés.",
+    "nl": "Keizer Maximiliaan en hertog Karel verlenen vergeving aan Guilliaume van eechault, een burger uit Geluwe, Flanders, die vanwege armoede diverse spullen stal. De gestolen goederen omvatten stof, geld, zilverwerk en sieraden. De diefstallen vonden plaats in diverse locaties, waaronder Spanje, Rousselare, Brugge en Antwerpen. Hoewel hij strafbare feiten heeft begaan, heeft Guilliaume spijt getoond en zich verplicht om dit in de toekomst niet meer te doen. De keizer en de hertog, in hun barmhartigheid, hebben hem vergeven en hem zijn goede naam en bezittingen teruggegeven, met de voorwaarde dat hij een burgerlijke boete betaalt en excuses aanbiedt aan hen die eraan zijn gelegen.",
+    "de": "Kaiser Maximilian und Erzherzog Karl gewähren Guilliaume van eechault, einem Bürger aus Geluwe in Flandern, Absolution, der aufgrund von Armut verschiedene Gegenstände gestohlen hat. Die gestohlenen Gegenstände umfassen Stoff, Geld, Silberwaren und Juwelen. Die Diebstähle fanden an verschiedenen Orten statt, darunter Spanien, Rousselare, Brugge und Antwerpen. Obwohl er Straftaten begangen hat, hat Guilliaume Reue gezeigt und sich verpflichtet, dies in Zukunft nicht mehr zu tun. Der Kaiser und der Erzherzog, in ihrer Barmherzigkeit, haben ihm vergeben und ihm seinen guten Ruf und seine Besitztümer zurückgegeben, mit der Bedingung, dass er eine bürgerliche Geldstrafe zahlt und sich bei den Betroffenen entschuldigt."
+  }
+}
+```

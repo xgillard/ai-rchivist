@@ -1,0 +1,192 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philippe par la grace de dieu roy de castille de leon
+darragon de deux cicilles de jerusalem de portugal
+de navarre etc. archiducq daustrice ducq de
+bourgoine de lothier de brabant de limbourch de
+luxembourch etc. a tous ceulx qui ces presentes
+veorront saluts scavoir faisons que nous avons
+receu la supplication de philippe jasme inhabitant
+de la franchise de marbais contenante que
+sur la fin du mois de may 1654 il auroit commis
+un homicide casuellement et fortuitement
+au bourch de wavre en la personne de feu
+pierre simon au regard duquel malheur fortuit
+et casuel il at transige et accorde avecq la
+vefve dudit deffunct et les plur proches parens
+d’icelluy dont faict foy l’acte notarial en date
+du 26e de juin 1654 et comme le suppliant seroit
+un pauvre compaignon accoustume de
+travailler conjouctement son pere qui
+est ia viel et caducq pour gaigner leur
+pauvre vie sans que ledit suppliant auparravant
+auroit oncques connus quelqz act digne
+de reprehension et se comporte tousiours
+en homme de bien et que sondit pere sans l’assis-
+tence d’icelluy suppliant nr scavoit gaigner
+sa pauvre vie en cas que ledit suppliant debvoit
+abandonner noz pays et se refugier ailleurs
+ii se retirast vers nous suppiant humblement
+pour noz lettres de remission in forma au regard
+dususdit homicide casuel. pour ce est il
+que nous les choses susdies considerees et vu
+sur
+ce l’advys de l’officier de wavre avons
+audit suppliant inclinans asadite requeste et luy
+veullans en ce preferer grace et misericorde
+a rigeur de justice au cas susdit quicte remis
+et pardonne quictons remectons et pardonnons
+de grace especiale par le cas et homicide dessusdit
+ensemble toute paine et amende corporelle
+et criminelle en quoy pour cause et occasion
+d’icelluy cas il a ou peult avoir mesprins ou
+estre encourru envers nous et justice et lavons
+quant a ce restitue et restituons par cestes
+a ses bonne fame et renommee en notredit pays
+de brabant et partout ailleurs et ases
+biens nonconfisquez si aulcuns il en a ainsy
+qu il estoit avant la venue dudit cas
+imposant sur ce silence perpetuelle a notre
+cher et feal procureur general en brabant et a tout
+autres noz justiciers et officiers quelconques
+et a ceulx de noz vassaulx satisfaction
+preallablement et avant tout œuvre
+faicte ala partie interessee si faicte
+n’est civilement tant seulement pourveu
+que ledit suppliant sera tenu de amender
+ledit cas envers nous civilement selon
+lexigence du cas et la faculte de ses biens
+et aussy de payer les frays et mises de
+justice le tout a l’arbitrage et tauxation
+de noz treschers et feaulx les chancellier
+et gens de notre conseil de brabant que
+com
+commectons a ce si mandons et com=
+mandons a nosdits chancellier et conseil
+quappellez ceulx qui pour ce seront
+a appeller ils procedent bien et deuement
+a la verification et interinement de cestes
+presentes et alarbitrage et tauxation deladite
+amende frais et mises de justice ainsy quil
+appartiendra lequel interinement ledit
+suppliant sera tenu de derequererir et se presenter en
+personne en notredit conseil endedans six mois
+prochainement venans et ce faict et ladite
+amende civile frais et mise de justice
+tauxez moderez et paiez la et ainsy
+quil appartiendra ils et tous aultres noz
+justiciers et officiers facent souffrent
+et laissent ledit suppliant de notre presente grace
+remission et pardon en la forme et maniere
+que dict est paisiblement plainement et
+perpetuellement jouyr et user sans en ce
+luy faire mectre ou donner ny souffrir
+estre faict mis ou donne pour le temps
+advenir en corps ny es biens quelqz destour=
+bier ou empeschement au contraire ains
+si son corps ou aulcun de sesdits biens non
+confisquez estoient pour ce prins arrestez
+ou empechez les mechtent et facent
+mectre incontinent et sans delay a
+plaine delivrance car ainsy nous
+plaist il donnees en notre ville de
+bruxelles le vingtedeuxiesme de
+janvier xvic cincquante six embas
+sur la plie estoit par le roy et soubsigne
+jb : lemire [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "22nd January 1556",
+  "fact_date": "End of May 1654",
+  "persons": [
+    {
+      "firstname": "philippe",
+      "lastname": "Jasme",
+      "role": "suppliant",
+      "function": "inhabitant of the franchise of Marbais"
+    },
+    {
+      "firstname": "philippe",
+      "lastname": "King of Castille, Leon, etc.",
+      "role": "grantor",
+      "function": "King"
+    },
+    {
+      "firstname": "pierre",
+      "lastname": "Simon",
+      "role": "deceased",
+      "function": "victim of a homicide"
+    },
+    {
+      "firstname": "feu",
+      "lastname": "",
+      "role": "indication",
+      "function": "deceased"
+    }
+  ],
+  "locations": [
+    {
+      "name": "franchise of Marbais",
+      "loctype": "area"
+    },
+    {
+      "name": "Wavre",
+      "loctype": "town"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Philippe Jasme, a pauper and a good man, has committed a manslaughter in Wavre in May 1654. He has settled with the widow and relatives of the victim. He requests a letter of remission from the King Philippe, King of Castille, Leon, etc., to avoid any criminal penalty. The King, after considering the case and the advice of the officer of Wavre, grants the remission to Philippe.",
+    "fr": "Philippe Jasme, pauvre et de bonne personne, a commis un homicide involontaire à Wavre en mai 1654. Il s'est accordé avec la veuve et les proches parents de la victime. Il demande une lettre de rémission au roi Philippe, roi de Castille, de Leon, etc., pour éviter toute peine criminelle. Le roi, après avoir considéré l'affaire et le conseil de l'officier de Wavre, accorde la rémission à Philippe.",
+    "nl": "Philippe Jasme, een arme en goede man, heeft in mei 1654 in Wavre een ongewild moordperpetpleging begaan. Hij heeft zich verzoend met de weduwe en naaste familie van het slachtoffer. Hij vraagt een brief van gratie van koning Filips, koning van Castilië, Leon, etc., om strafrechtelijke straffen te voorkomen. De koning, na overweging van de zaak en de raad van de officier van Wavre, verleent gratie aan Philippe.",
+    "de": "Philippe Jasme, ein armer und guter Mann, hat im Mai 1654 in Wavre eine fahrlässige Tötung begangen. Er hat sich mit der Witwe und den nächsten Angehörigen des Opfers geeinigt. Er bittet um ein Gnadenschreiben von König Philipp, König von Kastilien, Leon, etc., um eine strafrechtliche Strafe zu vermeiden. Der König, nach Überlegung des Falles und dem Rat des Beamten von Wavre, gewährt Philippe die Gnade."
+  }
+}
+```

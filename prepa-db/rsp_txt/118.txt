@@ -1,0 +1,135 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. allen etc. saluit alsoe als tonsen kennisse comen es hoe dat
+onlancx leden herbrecht vander edelbampt in wille was ende
+bestaen hadde in onser stat van tricht eene jonge maecht
+te ontschaken ende jegens hoiren danck te ontvoeren die
+hem ter stont weder om ontweldicht wairt dair om die
+burgermeesteren gesworen ende raid oner voirs. stat van
+tricht of hoire momboiren van hoiren name den selven
+herbrecht beclaicht ende verwonnen hebben hoe wail die partien
+vrunden ende magen vander voirs. jonger maecht dair af niet
+geclaicht en hebben ende is de selve herbrecht hem dair om
+houdende buten onser voirs. stat ende lande van brabant tot zyne
+groter schaden ende meer zyn soude wairt sake dat wy onse
+gracie ende genade an hem niet en keerden, so doen wy te
+weten dat wy ter liefden vanden eerwairdigen vader in gode
+onsen lieven neve den biscop van ludick die ons dair om heeft
+doen bidden ende versueken hebben den selven herbrecht vergeven
+ende quytgesconden ende met desen onsen brieve quytscelden ende
+vergeven de voirs. misdaet ende alle peinen boeten ende broeken
+het zy van live van lede ende van goeden dair om hy jegens
+ons ende onse gericht om des voirs. ontschaecte wille gevallen
+mach zyn ende stellen hem weder in zynne eeren goeden
+name ende fame gelyc hy was voir den voirs. schaeck ende
+misdaet geschiede, ontbieden dair om ende bevelen onsen scouten
+borgermeesteren scepenen gesworne ende raid onser voirs. stat van
+tricht ende allen anderen onsen amptluden richteren dieneren ende
+ondersaten onser lande van brabant van limburg ende van overmaze dat
+zy den voirs. herbrecht van edelbampt vander voirs. misdaet
+ende broeck des voirs. schaeck ende dies dair an cleeft quyt
+houden ende ongemoeyt laten hem desen onsen gracie ende genade
+rustelic ende bredelic doen ende laten gebruyken ende over al
+in onser voirs. lande wonen wesen ende laten verkeeren sonder
+letsel of wedersegghe die rechten ende privilegien onser voirs.
+stat van tricht in hoire macht alzo dair af blivende want
+wyt also gedaen willen hebben ende des torconde etc. gegheven
+xxe dage in meye int jair ons heeren m iiiic xiiiic xlvi [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "philips",
+      "lastname": "ALLEN",
+      "role": "N/A",
+      "function": "N/A"
+    },
+    {
+      "firstname": "herbrecht",
+      "lastname": "VAN DER EDELBAMPT",
+      "role": "perpetrator",
+      "function": "N/A"
+    },
+    {
+      "firstname": "N/A",
+      "lastname": "burgermeesteren",
+      "role": "sworn",
+      "function": "mayor"
+    },
+    {
+      "firstname": "N/A",
+      "lastname": "biscop",
+      "role": "petitioner",
+      "function": "bishop"
+    }
+  ],
+  "locations": [
+    {
+      "name": "tricht",
+      "loctype": "parish"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "limburg",
+      "loctype": "province"
+    },
+    {
+      "name": "overmaze",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Philips Allen and Herbrecht van der Edelbampt are mentioned in this remission document. Herbrecht had the intention to deflower and abduct a young maiden in the parish of Tricht. The mayor has sworn to this act. The bishop of Luik has petitioned for Herbrecht's remission, which has been granted. Herbrecht is pardoned for his misdeed and all related penalties, and is allowed to return to his honorable status and good name.",
+    "fr": "Philips Allen et Herbrecht van der Edelbampt sont mentionnés dans ce document de rémission. Herbrecht avait l'intention de déflorer et d'enlever une jeune fille dans la paroisse de Tricht. Le maire a prêté serment de cet acte. L'évêque de Luik a plaidé pour la rémission d'Herbrecht, qui lui a été accordée. Herbrecht est pardonné pour sa malversation et toutes les pénalités connexes, et est autorisé à retourner à son statut honorable et à son bon nom.",
+    "nl": "Philips Allen en Herbrecht van der Edelbampt worden genoemd in dit document van gratie. Herbrecht had de intentie om een jonge vrouw te ontsieren en te ontvoeren in de parochie Tricht. De burgemeester heeft bij deze daad gezworen. De bisschop van Luik heeft zich ingezet voor de gratie van Herbrecht, die hem is verleend. Herbrecht is vergeven voor zijn misdaad en alle daaraan gerelateerde boetes en is toegestaan om terug te keren naar zijn eerbare status en goede naam.",
+    "de": "Philips Allen und Herbrecht van der Edelbampt werden in diesem Gnadenbrief erwähnt. Herbrecht hatte die Absicht, ein junges Mädchen in der Pfarrei Tricht zu vergewaltigen und zu entführen. Der Bürgermeister hat bei dieser Tat geschworen. Der Bischof von Luik hat sich für die Begnadigung von Herbrecht eingesetzt, die ihm gewährt wurde. Herbrecht ist für seine Verfehlung und alle damit verbundenen Strafen vergeben und es ist ihm gestattet, zu seiner ehrenvollen Stellung und seinem guten Ruf zurückzukehren."
+  }
+}

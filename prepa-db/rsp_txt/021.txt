@@ -1,0 +1,214 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. doen te wetene allen tegenwoordighen ende toecomende
+dat wy ontfaen hebben die oitmoedighe supplicatie van ioores de
+corthe geboren van namen arm schamel oudt $$$ belast
+met een oude herman van leeuwe oudt wesende omtrent eenentwyntich
+jaeren dyamantslyper van zijnen ambachte inhoudende hoe dat
+hy altyt zonder jactancie te sprekene is geweest van goeder name
+ende fame ende oyck aengaende zyn geloove altyt hem heeft
+gedragen ende gereguleert navolgende den gebeden vander heyliger
+kercke behalfven dat omtrenteen jaer geleden de voirs. suppliant is
+gecomen int geselschap ende conversatie van sommige persoonen
+besmet zynde met heresie oft quaden geloove die den voirs. suppliant
+zoo verre met schoonen wordden ende valsche leeringen hebben
+gepersuadeert gehadt als dat hy in sommige articulen vanden goeden
+geloove heeft gedoolt gehadt geerrert ende hem verabuseert soedat
+hy mits ende om deselve zyne dolinge ende erreur by onsen officier
+van antwerpen is genomen ende in hechte zynde zoe is gebeurt
+dat by den voirs. suppliant zyn gecommen up ten steen mr. adriaen lyod$
+prochiaen vander borchtkercke ende broeder balten dresseleers
+religieux * vander ordene vanden predicheeren binnen onsen stede van
+van antwerpen voors. die de voirs. suppliant sulcx hebben geadmon$$
+ende onderwesen aengaende de quade ende valssche leeringe
+die hy aengenomen hadde als dat hy zyn erreur ende dwaling
+bekennende desselve gerenunchieert heeft ende voirts expresselyck
+vercleert dat hy van nu voirtaen desselve zyne quade leeringe voer
+zoe veele als deselve enichssins soude mogen wesen contrarie der
+geboden vander heyliger kercken verlaten ende voirtaen ** willen leven
+ende doen gelyck een goet kristen mensche volgende den geboden vande
+heyliger kercken nae zyn vuyterste beste is schuldich te doene
+alsoe vande selve renunciatie revocatie ende beteringe claerlyck
+is blyckende byden attestatie vanden voirs. twee geestelycke
+persoonen daeraff zynde ende hoewel dese renunciatie
+ende revocatie inden manieren als boven is geschiet soe en
+can de voirs. suppliant nochtans dye nyet tegenstaende uuyter
+gevanckenisse in respecte vanden officier nyet ontslagen wesen
+ten waere dat ons believen wilde hem suppliant hieraff te verleenen
+onse oepenen brieven van abolitie ende pardoene zoe hy seeght
+ons oitmoedelick biddende om deselve. waeromme
+wy de saken voerscreven overgemerckt bezundere de jonckheyt vanden
+suppliant ende hierup gehadt tadvis eerst van onsen margrave van
+antwerpen ende naderhant vanden inquisiteuren van onsen christen
+geloove den voirs. herman van leeuwe suppliant genegen wesende
+zynder oitmoediger bede ende willende hem gratie ende genade presenteren
+voer rigeur van justitie sunderlinge by deliberatie van onsen lieven
+ende getrouwen neve ridder van onser oerdene gouverneur ende
+stadthouder generael van desen onsen nederlanden de hertoch van savoye
+prince van pietmont etc. hebben inden gevalle als boven vergheven
+quytgeschollen ende geremitteert vergeven schelden quyte ende
+remitteren uuyt onse zunderlinge gratie mits desen de transgressie by
+hem gecommitteert van onsen placcate ende edicte boven verclaert
+mitgaders alle tgene dat hy ter causen van dyen tegens ons ende
+justitie mesdaen ende mesbruyckt mach hebben ende hebben hem
+als daeraff wedergestelt ende gerestitueert stellen weder ende
+restitueren tot zynder goeder fame name ende geruchte in onsen
+lande ende hertochdomme van brabant ende allen anderen onser landen
+ende heerlicheden ende oyck tot zyne onverbuerde goeden indyen hy
+enige heeft geleden ende in alder manieren als hy was voer die
+toecompste vanden feyte voerscreven imponerende hierop een eeuwich
+zwygen ende silentie onsen procureur generael van brabant ende allen
+anderen onsen rechteren justicieren ende officieren wye zy zyn satisfactie
+ende beteringe eest ende al voren gedaen der geinteresseerde partye
+indyen die noch nyet gedaen en is ende enige daertoestaet civilyck
+alleen-lyck behoudelyck dat die voirs. suppliant gehouden wert hem te
+houden bynnen onser stede van brugge alwaer zynen ouders woenachtich
+zyn den tyt van twee jaeren eenpaerlyck eerstcommende beginnende
+van stonden aen nae dinterinement van desen om aldaer te
+volcomen ende volbringen alsulcke penitentie als hem innegestelt
+ende belast zal werden by den voirs. inquisiteuren soe verre
+nochtans des voirs. suppliants ouders ende vrienden vande selve
+penitentie by hem te volbringen hun willen verbinden ende daervoere
+innestaen ende verantwoirden ende voorts dat hy suppliant
+gehouden wert tvoirs. fait ende mesuze tegens ons te beteren civilyck
+*** naede gelegentheyt vander mesdaet ende faculteyt van van zyne
+goeden mitsgaders oyck te refonderen de wettelycke costen van justitie
+ter causen voers. gedaen ende te doene allet ter taxatie ende
+arbiterschepe van onsen lieven ende getrouwen cancellier ende
+luyden van onsen raide in brabant die wy daer toe committeren
+ende den welcken wy bevelen dat voer hun geroepen die gene
+dyer over geroepen behoiren te zyne zy procederen wel ende
+duchdelyckter verifficatie ende interinement van desen onsen brieve
+ende oyck ter taxatie vanden civile boete ende costen van justitien
+voerscreven, welck interinement de voirs. suppliant sal gehouden syn
+behorelyck te versoecken ende hem in persoone te presenteren voer den $$$
+van onsen raide in brabant bynnen zesse maenden eerstcommende
+up peyne van te verliesen ende gepriveert te wesen vanden gratie ende
+effecte van desen ende dat gedaen ende de voirs. civile boete
+ende costen van justitie getaxeert ende betaelt zynde in handen
+vanden genen dyen dat behoiren sal zy onse voirs. procureur generael
+marcgrave van antwerpen ende alle andere onse ende onser
+vassallen off der smaelre heeren rechteren justicieren officieren ende
+ondersaten tegewoordighe ende toecomende wyen dit aengaen off
+roeren sal mogen huere stedehouderen ende een yegelick van hun
+besundere soe hen toebehoiren sal doen laten ende gedoogen den voirs.
+suppliant van deser onser tegenwoirdiger gratie remissie ende
+quytschuldinge ende van allen den inhouden van desen inder
+vuegen ende manieren voren verhaelt rustelick ende vredelick ende vulcomelick
+genyeten ende gebruycken sonder hem te doen oft laten geschien nu
+noch in toecommende tyden enich hinder letsel oft moyenisse $$$ ter contrarien
+aen lyffve noch aen goede in eniger manieren ende zyne persoon
+tegewoirdelick gevangen zynde mitsgaders zyne onverbeurde goeden
+indyen die daeromme naemaels becommert oft gearresteert waeren dat
+zy die setten ende stellen oft doen stellen ende setten terstont ende sonder
+vertreck tot geheele ende vulcomen delivrancie ende slakinge want
+ons alsoe gelieft ende in oirconde van desen zoe hebben wy onsen
+zegel hier aen doen hangen gegeven in onser stadt van bruessele
+den lesten dach van junio int jaer ons heeren duysent vyffhondert
+sevenenvyftich ende vaen onsen rycken van spaengien sicillien etc. tweede
+ende van engelant vranckrick ende naples tiiiie opde plycke
+stont gescreven aldus byden coninck in zynen raide ende
+geteeckent de langhe recepta visa
+gecollacioneert ende bevonden accorderende
+met zijnen originale by mij
+facuwez [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "ioores",
+      "lastname": "de corthe",
+      "role": "supplicant",
+      "function": "commoner"
+    },
+    {
+      "firstname": "philips",
+      "lastname": "ETC",
+      "role": "none",
+      "function": "none"
+    },
+    {
+      "firstname": "adriaen",
+      "lastname": "lyod",
+      "role": "procurator of the Brotherhood of Our Lady",
+      "function": "religious figure"
+    },
+    {
+      "firstname": "balten",
+      "lastname": "dresseleers",
+      "role": "friar of the Order of Preachers",
+      "function": "religious figure"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Bruges",
+      "loctype": "city"
+    },
+    {
+      "name": "Brussels",
+      "loctype": "city"
+    },
+    {
+      "name": "Antwerp",
+      "loctype": "city"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "duchy"
+    }
+  ],
+  "summary": {
+    "en": "Philips and others receive the humble supplication of ioores de corthe, a poor man burdened with a brother named herman of leeuwe, approximately 80 years old, a diamond cutter by trade. Herman de leeuwe, the supplicant, has always conducted himself well in terms of name, fame, and faith. However, he was persuaded by heretics to doubt and err in some articles of the good faith. He was taken by our officer in Antwerp and, after confessing and renouncing his error, he promises to abandon his false teachings and live as a good Christian. The supplicant requests our letters of abolition and pardon, which are granted by the Margrave of Antwerp, the Inquisitors of our Christian faith, and the Duke of Savoy, Prince of Piedmont, etc., who remit and quitclaim the transgression committed against our placard and edict, and restore him to his good fame, name, and reputation in our lands and duchy of Brabant and all other lands and lordships.",
+    "fr": "Philips et autres ont reçu la supplique humble de ioores de corthe, un homme pauvre chargé d'un frère nommé herman de leeuwe, d'environ 80 ans, diamantaire de métier. Herman de leeuwe, le suppliant, s'est toujours bien comporté en termes de nom, de renommée et de foi. Cependant, il a été persuadé par des hérétiques de douter et de se tromper dans certains articles de la bonne foi. Il a été pris par notre officier à Anvers et, après avoir confessé et renoncé à son erreur, il promet d'abandonner ses fausses doctrines et de vivre comme un bon chrétien. Le suppliant demande nos lettres d'abolition et de pardon, qui lui sont accordées par le margrave d'Anvers, les Inquisiteurs de notre foi chrétienne et le duc de Savoie, prince de Piémont, etc., qui remettent et acquittent la transgression commise contre notre placard et éditorial, et le restaurent à sa bonne renommée, son nom et sa réputation dans nos terres et duché de Brabant et dans toutes les autres terres et seigneuries.",
+    "nl": "Philips en anderen hebben de nederige supplicatie van ioores de corthe ontvangen, een arme man belast met een broer genaamd herman van leeuwe, ongeveer 80 jaar oud, diamantbewerker van beroep. Herman de leeuwe, de suppliant, heeft zich altijd goed gedragen in naam, roem en geloof. Hij werd echter overtuigd door ketters om te twijfelen en zich te vergissen in enkele artikelen van het goede geloof. Hij werd door onze ambtenaar in Antwerpen genomen en, na het bekennen en verloochenen van zijn fout, belooft hij zijn valse leer te verlaten en als een goed christen te leven. De suppliant vraagt onze brief van abolitie en gratie, die door de markies van Antwerpen, de Inquisiteurs van ons christelijk geloof en de Hertog van Savoye, Prins van Piëmont, etc., worden verleend, die de overtreding die tegen onze placard en edict is begaan, vergeven en kwijtschelden en hem herstellen tot zijn goede roem, naam en reputatie in onze landen en hertogdom van Brabant en in alle andere landen en heerlijkheden.",
+    "de": "Philips und andere haben die demütige Bitte von ioores de corthe erhalten, ein armer Mann, belast mit einem Bruder namens herman von leeuwe, etwa 80 Jahre alt, Diamantschneider von Beruf. Herman de leeuwe, der Bittsteller, hat sich immer gut benommen in Bezug auf Name, Ruhm und Glauben. Er wurde jedoch von Ketzern überzeugt, an einigen Artikeln des guten Glaubens zu zweifeln und sich zu irren. Er wurde von unserem Beamten in Antwerpen genommen und nachdem er seine Fehler bekannte und verleugnete, verspricht er, seine falschen Lehren zu verlassen und als ein guter Christ zu leben. Der Bittsteller bittet um unsere Briefe der Absolution und Begnadigung, die von dem Markgrafen von Antwerpen, den Inquisitoren unseres christlichen Glaubens und dem Herzog von Savoyen, Prinzen von Piemont, etc., gewährt werden, die die Übertretung, die gegen unsere Placard und Edikt begangen wurde, vergeben und für ungültig erklären und ihn in seinem guten Ruf, Namen und Ansehen in unseren Ländern und Herzogtum Brabant und in allen anderen unseren Ländern und Herrschaften wiederherstellen."
+  }
+}
+```

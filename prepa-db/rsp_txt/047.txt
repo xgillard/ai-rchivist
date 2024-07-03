@@ -1,0 +1,224 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te wetene allen iegewoirdigen ende toecomende dat wy
+ontfaen hebben die oitmoedige supplicatie van jan de vyt arm scamel
+hantwercker inhoudende hoe dat de voers. suppliant nae dien hy met cornelis
+de vyt zynen zone ende onder dandere met wylen eenen geheeten janne mennekens
+hadden sitten drincken ten huyse van peteren van else bynnen den dorpe van
+duffele op sinte pauwels dach xxv in januario int jaer xvc ende sevenen
+ende huer gelach dwelcke maer en gedroech elcken xviij myten brabants
+oft daer omtrent gerekent ende betaelt hebbende zy metten voers. wylen
+mennekens des avonts spadt mitten donckeren van daer goets moets
+naer huys gecomen zyn ende comende omtrent den valck aldaer zy van
+malcanderen sceyden moesten te wetene elc nae zyn woeninge is alsoe
+de voers. suppliant ende zyn sone ommegeslagen ende hueren wech inne gegaen
+ende int sceyden seyde de voers. cornelis vyt des suppliant sone totten voers.
+janne mennekens goeden nacht heenkin nyet meynende hem yet te
+messeggende mits dat hy alsoe int gemeyne van eenen iegelyck
+alsoe onder tgeselscap sittende vuyt genoechten oft anderssins genoempt
+was zonder hem dies te stoerende daer op de voers. mennekens
+antwoirdende seyde heenkin heenkin wat heeft dat heenkin inne ende
+is alsoe al kyvende den voers. suppliant ende zynen zone hueren wech inne
+naegevolght alsoe dat de voers. cornelis vyt weder om seyde
+wat hebdy ons te volgene gaet uwen wech inne ende laet ons ghaen
+ende hebt uwer moeder lyef oft dier gelycke woerdden ende doen
+seyde de voers. mennekens doet ghy dat uwer met dien maniere
+makende om zynen stalenboge die hy by hem hadde te spannene
+alsoe dat de voers. jan vyt suppliant des voers. cornelis vader hoirende den
+voers. mennekens zijnen crych op synen boge leggen ende beduchtende dat
+hij dien spannen soude dwelcke zy mits der donckerheyt vanden avonde
+nyet wel gesien en consten quam terstont wederomme den voers. mennekens
+tegen geloopen om hem te contenteren ende tevreden te stellene seggende
+goede jan wy hebben oydt goede vrienden geweest ic bidde u
+om goidswille laet ons noch goede gevrienden bliven ende
+heeft alsoe den selven mennekens met scoene woerden luttel
+weder om geleydt tot in zynen wech om nae huys te ghaene
+dwelcke siende de voers. cornelis de vyt dat de voers. suppliant
+syn vader zoe verre achter bleef ende den voers. janne mennekens
+zoe verre volghde beduchtende oyc dat de selve zyn vader vanden
+voers. mennekens hadde moegen verlast ende overvallen wordden
+quam oic daer by geloopen om zynen voers. vader thuysweerts
+te doen commen seggende vader laet hem gaen ende gaen wij nae
+huys alsoe dat de voers. jan mennekens hoirende den voers. cornelys
+dat seggen seyde tot hem heer heer my kindt heere ende is alsoe
+hemlieden wederom tegen gecomen ende met dien is de selve
+cornelis zynen vader die hem gheerne gehouden ende den
+twist beslicht hadde ontscoten ende ontworstelt ende beduchtende
+oft de voers. mennekens daeren tusschen zynen boge gespannen
+hadde ende dat alsoe hy ende zyn vader daer beyde hadden
+moegen bliven de selve cornelis heeft eenen opstekere vuyt getrocken
+want hy anders gheen geweer en hadde ende heeft den voers.
+mennekens daermede sekere steken ende quetsueren gegeven in zyn
+hoot ende omtrent zyn herte alsoe dat hy terstont van
+levende live ter doot gecommen is ende al eest zoe dat
+voers. fayt ende dootslach den voers. suppliant seere hertelycken
+leet zy ende dat hy sedert gesoent ende partie geheelyc
+ende al voldaen ende vermiecht heeft nyetmin beduchtende
+strancheyt van iusticie hy heeft oyt zichtent geabsenteert
+vuyt onsen voers. lande van brabant aldaer hy nyet en soude
+dorren wederkeeren hanteren noch converseren maer
+soude hem van dien moeten houden absent ende leven in
+grooter armoeden ende rethmicheden in dien hem onse gracie
+ende genade hier op nyet verleent en wordde alsoe hy seet
+omme de welcke hy ons zeere oitmoedelic gebeden heeft
+soe eest dat wij de saken voerscreven overgemerct den voers.
+janne de vijt suppliantgenegen wesende tzynder voers.bede
+ende begheerte ende willende hem in dit stuck gracie
+ende genade prefereren ende voirderen voer strangheyt van
+iusticie zonderlinge tot onser ierster blyder incompst in desen
+onser stat van loevene hebben inden gevallen als boven vergeven
+quytgesconden ende geremitteert vergheven schelden quyt
+ende remitteren vuyt zondelinge gracie by desen onsen brieve
+tfayt ende dootslach boven verclaert mitgaders alle peyne
+boete ende bruecke corporelle ende criminele inde welcken hy
+ter causen voerscreven met datter aencleeft tegen ons ende iusticien
+mesbruyct ende gevallen mach wesen hem als van desen wederomme
+stellende ende restituerende tot zyne goede fame name ende geruchte
+in onsen voers. lande van brabant ende allen anderen onsen landen
+ende heerlicheden ende tot zynen onverbuerden goeden in
+dien hyre eenige heeft in alder manieren als hy was voer de
+toecompste vanden fayte ende dootslage voers. imponerende
+hier op scilencie ende euwich zwygen onsen procureur generael van
+brabant ende allen anderen onsen iusticieren ende officieren wye zy
+zyn satisfactie ende beteringe eerst ende al voeren gedaen
+der partye geinterresseert indienre eenige toe dient ende
+alnoch nyet gedaen en zy civillyc alleenlyc behoudelyc
+ende mits dien dat de voers. suppliant tvoirn. stuck tegens ons
+oyc civilyc beteren sal nae gelegentheyt vanden selven ende
+de faculteyt ende macht van zynen goede ter taxatie ende
+arbiterscepe van onsen lieven ende getrouwen die cancellier
+ende luyden van onsen rade in brabant die wy daer toe committeren
+ontbieden daerom ende bevelen den selven van onsen rade in
+brabant dat gheroepen die ghene diere over behoeren selen geroepen
+te zyne zy procederen wel ende duechdelyc ter verificatie ende
+interinemente van desen onsen iegewoirdigen brieve nae
+zyne forme ende inhouden ende ter taxatie ende arbitragie
+vanden voers. civile boete ende dat gedaen ende de selve
+civile beteringe getaxeert gegroot ende betaelt zynde
+in handen vanden ghenen van onsen ontfangers diet behoeren
+sal die daer af gehouden werdt rekeninge bewys ende
+reliqua te doene tot onsen profyte metten anderen penningen van
+synen ontfange zy onse meyere van loevene drossaet van brabant ende
+allen anderen onsen ende der smaelre heeren iusticiren officieren ende
+dienaeren dient aengaen oft aenroeren mach huere stedehouderen
+ende eeynigelyck van hen bysonder soe hem toebehoeren sal doen laten
+ende gedoegen den voers. jan de vyt suppliant van deser onser
+iegewoirdiger gratie quytsceldinge pardoene ende remissie ende
+van alden inhouden van desen inder voegen ende manieren voeren verhaelt
+rustelyc vredelic volcomelyc ende eeuwelyc genyeten ende gebruycken
+sonder hem te doene noch te laten geschiene nu noch in toecomende
+tyden aen live noch aen aen goede eenich hynder letsel ofte
+moeyenisse ter contrarien in eeniger manieren maer in dien
+zyn lyf ofte enige van zynen voerscreven onverbuerden goeden
+hier omme gevangen gearresteert oft becommert waeren dat
+zy die stellen ofte doen stellen terstont ende sonder vertreck
+tot geheele ende volcomen delivrance want ons alsoe
+gelieft ende ten eynde dat dit goet vast ende gestadich
+blive tot eeuwigen dagen soe hebben wy den segel daer
+van onse heere ende grootvader die keyser ende wy duerende
+den tyt van onser ombejaerthede gereseert ende gebruyct
+hebben hier aen doen hangen behouden in anderen
+saken onsen rechte ende eenen iegelycken tzyne in allen
+gegeven in onser voers. stat van loevene inde maent
+van januario int jaer ons heeren duysent vyfhondert
+ende xiiij aldus stont gescreven boven opte plycke
+by mijnnen heere den prince ende geteekent du blioul
+ende noch opte selve plycke stont gescreven aldus visa
+gecollationeert ende bevonden concorderende
+metten originali bij mij
+$$$
+zy byden ontfangere
+vanden exploiten
+daeraf verantwoorden
+ende de$$ $$x voere
+amenden civilen van
+cornelis de vyt
+daer nae verclaert [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "25th January 1507",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "de vyt",
+      "role": "suppliant",
+      "function": "arm scamel hantwercker"
+    },
+    {
+      "firstname": "cornelis",
+      "lastname": "de vyt",
+      "role": "son of the suppliant",
+      "function": "zone"
+    },
+    {
+      "firstname": "janne",
+      "lastname": "mennekens",
+      "role": "involved in the incident",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "peteren",
+      "lastname": "van else",
+      "role": "host of the gathering",
+      "function": "UNKNOWN"
+    }
+  ],
+  "locations": [
+    {
+      "name": "duffele",
+      "loctype": "parish"
+    }
+  ],
+  "summary": {
+    "en": "Jan de vyt, an arm scamel hantwercker, has received a remission for the incident that occurred on 25th January 1507. He and his son, Cornelis de vyt, were at a gathering at Peteren van else's house in the parish of Duffele. After drinking, they parted ways, and Janne mennekens attacked them on their way home. Janne mennekens struck Cornelis de vyt, and when Jan de vyt tried to intervene, Janne mennekens threatened him with a drawn bow. Jan de vyt was killed, and Janne mennekens has been absolved of any punishment for the crime.",
+    "fr": "Jan de vyt, un scamel hantwercker, a reçu une remise pour l'incident survenu le 25 janvier 1507. Lui et son fils, Cornelis de vyt, étaient à une réunion chez Peteren van else dans la paroisse de Duffele. Après avoir bu, ils se sont séparés et Janne mennekens a attaqué Cornelis de vyt sur le chemin du retour. Janne mennekens a frappé Cornelis de vyt, et quand Jan de vyt a tenté d'intervenir, Janne mennekens l'a menacé avec un arc tendu. Jan de vyt a été tué, et Janne mennekens a été disculpé de toute punition pour le crime.",
+    "nl": "Jan de vyt, een arme schamele ambachtsman, heeft vergeving gekregen voor het incident dat plaatsvond op 25 januari 1507. Hij en zijn zoon, Cornelis de vyt, waren aanwezig bij een bijeenkomst bij Peteren van else in de parochie Duffele. Na het drinken, gingen ze uit elkaar en Janne mennekens viel Cornelis de vyt aan op weg naar huis. Janne mennekens sloeg Cornelis de vyt, en toen Jan de vyt probeerde in te grijpen, bedreigde Janne mennekens hem met een gespannen boog. Jan de vyt werd gedood, en Janne mennekens is vrijgesproken van elke straf voor het misdrijf.",
+    "de": "Jan de vyt, ein armer Schabmacher, hat Vergebung für das Ereignis erhalten, das sich am 25. Januar 1507 ereignete. Er und sein Sohn, Cornelis de vyt, waren auf einer Zusammenkunft bei Peteren van else in der Pfarrei Duffele anwesend. Nach dem Trinken gingen sie auseinander und Janne mennekens griff Cornelis de vyt auf dem Heimweg an. Janne mennekens schlug Cornelis de vyt, und als Jan de vyt eingreifen wollte, bedrohte Janne mennekens ihn mit einem gespannten Bogen. Jan de vyt wurde getötet, und Janne mennekens wurde von jeder Strafe für das Verbrechen freigesprochen."
+  }
+}
+```

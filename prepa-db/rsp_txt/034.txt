@@ -1,0 +1,260 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. doen te wetene allen jegenwoirdighen ende
+toecomenden dat wy ontfanghen hebben die oitmoedighe supplicatie
+van jaspar anthonis ghysbrechts ingeseten van goirle inhoudende
+hoe dat al eest zoe dat hy suppliant hem altyt sonder jactantie gesproken
+rustelyck ende vredelyck heeft gedraghen sonder oyt van eenige mesusen
+achterhaelt oft befaemt te zyne soe es nochtans gebeurt dat
+in augusto inden jaere xvc ende lix hy suppliant met adriaen jan
+henricx $$$ switten de jonghe ende meer anderen van goirle
+gecomen zynde tot poppel op een bruyloft zyn tsamen naeden maeltyt
+gaen sitten drincken in een herberghe gestaen tot poppel aende plaetse
+ende alzoe de suppliant ende dander in meyninghe waeren thuys te gaen
+zoe hebben zy tsamen metten weerdt ende werdinne gerekent gehadt
+ende hy suppliant commende opte plaetse ende strate voer die deure vander
+voirs. herberghe heeft aldaer gesien eenen geselle van riele hem
+ombekent ende van zynen geselschap nyet wesende hebbende in zyn
+handt een bloot sweert oft degen daermede tegen hem selven schaermoetsen
+sonder nochtans nyemanden te mesdoen ende ten selven tyde is opt
+voirs. plaetse comen aengereden eenen wagen met volck die $$$
+van sekere andere bruyloft tot hilverenbeke gehouden wel by
+drinck wesende daerop dat onder andere was een genoempt joes
+cops woenende tot poppel diewelcke siende den voirs. geselle van
+riele heeft geroepen ghy coecketers van ghoirle dwelck is eenen
+schimpighen roep tot verachtinghe van die van ghoirle dwelck
+die suppliant hoirende zoe den selven schimp daer zeer odieulx worde
+gehouden heeft totten voirs. persoonen opten voirs. waghen sittende
+geseght die van goirle en hebben u noeyt tecort noch leet gedaen
+wat wildy op ons oft tegens ons spreken ende met dyen is den
+waghen voerby gereden tot aen thuys van gooris spilmakere
+oick opte voirs. plaetse staende alwaer zy hebben doen tappen
+drye oft vier potten biers ende die suppliant ende zyn voirs.
+geselschap gereetschap makende om naer huyse te gaende ende
+zynde omtrent den voirs. waghen zoe heeft die voirs. joes
+wesende een stout ende sterck man hem oick verlaetende op zyn
+geselschap die zesse oft zeven persoonen sterck waeren wederomme
+geroepen bij schimpe ghy coecketers van goirle ende de
+suppliant dat hoirende heeft hem $$teghen willen stellen met eender
+pycken oft knevelstock ende die voirs. joes tselve siende is den
+suppliant innegevallen by assistentie van eenen cuypere tot
+poppel woonende die den suppliant den voirs. knevelstock aff
+heeft genomen ende hebben hem wel dapperlijck geslagen gehadt
+in sulcker vuegen dat hy tereerden lach ende die voirs. jan
+switten de jonghe dat gewaer worddende ende siende dat die
+persoonen opten waghen sittende alwaeren affgespronghen
+heeft den suppliant ter assistentie willen comen maer die voirs.
+joos is hem ock opgevallen ende heeft met eenen hantclippel
+die hy vanden waghen hadde genomen denselven eenen slach
+gegeven op sijn hoot in zulcker vuegen dat hy oick tereerden
+moeste vallen daerdeure die voirs. adriaen henricx gecommoneert
+zynde heeft zynen deghen vuytgetrocken ende daermede den voirs.
+joosen op zyn hoot geslaghen een groote woende tot deur dbeck$$
+ende de suppliant ende die voirs. zwitten geweken ende gevlucht
+zynde deur die slaghen die zy gehadt hadden heeft die suppliant
+wederom zynen voirs. stock die de voirs. cuypere hem hadde
+affgenomen gecregen nyet weetende by wyen dat hem dyen
+was gerestitueert ende anders nyet weetende zyn broeder en
+was onder den hoep is metten voirs. stock wederom aengecomen
+om de zyne te assisteren ende hen te ontsetten ten eynde dat
+zy nyet en souden overvallen ende geoppresseert wordden ende
+alsoe zy al onder malcanderen waeren verwert ende int vechten
+verhit ende dat die voirs. joosen die een zeer sterck man was
+deen dandere byster sloech soe heeft die suppliant hem tspyts
+vanden voirs. knevelstock oft javelyne geboden gehadt op
+hope dat hy soude wycken maer die voirs. joes perseverende
+int voirs. gevecht en heeft nyet willen ophouwen noch
+wycken ende die suppliant hem meynende aff te keren heeft
+nae hem gesteken gehadt ende heeft met grooten ongeluck
+hem geraeckt ende gequetst gehadt in zyn zyde ende is
+tsanderdaechs daernae deser werelt overleden ten
+grooten leetwesen vanden suppliant verdriete ende eeuwighe
+bederffenisse vanden suppliant nyet weetende nochtans van
+welcker quetsueren hy mach gestorven zyn soe dat die suppliant
+die met partye geinteresseerde is overcomen daerom lantvluchtich
+zoude moeten wesen ende in vrempde landen dolen sonder dat hy
+zyne ouders die oude stockluyden zyn den cost zoude konnen te
+varen winnen soe hy tot noch toe gedaen heeft zoe verre hem hierop
+onse gratie ende genade nyet en wordde geextendeert ende verleent
+ons daerom zeer oitmoedelyck biddende soe eest dat wy
+desen aengesien geneycht wesende ter beden des voirs. suppliants ende
+willende hem in dit stuck prefereren gratie ende misericordie voer
+strangheyt ende rigeur van rechte hebben denselven suppliant inden
+gevalle als boven quytgeschouden ende vergeven schelden quyte ende
+vergeven vuyt sunderlinger gratien by desen onsen brieve tfeyt ende
+ongevalle boven geruert mitsgaders alle offensen ende bruecken corporelle
+ende criminelle daerinne hy hem overmits ende vuyt saken van
+tgeene des voirs. is tegen ons ende justicie eenichssins mach
+hebben ontgaen ende mesdragen ende hebben hem dyen aengaende
+daeraff wedergestelt ende gerestitueert stellen weder ende restitueren
+tot zynen goeden name fame ende geruchte in onsen voirs. lande
+van brabant ende allen anderen onsen landen ende heerlicheden
+ende tot zynen onverbeurden goeden indyen hy eenige onder ons heeft
+gelyck ende in alder manieren zoe hy was voer die toecompste
+vanden voirs. feyte imponerende hierop een eeuwich geswych
+onsen procureur generael in brabant ende allen anderen onsen justicieren
+ende officieren wye zy syn satisfactie ende beternisse ierst ende
+voer al gedaen der partye geinteresseerde indyen die noch nyet
+gedaen en zy ende eenige daertoe staet civilyck alleenlyck behoudelyck
+dat die voirs. suppliant gehouden zal zyn tvoirs. feyt tegen ons te
+beteren civilyck naer gelegentheyt vander saken ende faculteyt van
+zyne goeden met oick te betaelen die redelycke costen van justicien
+hierome alreede gedaen ende te doene allet ter taxatien ende moderatien
+van onse lieve ende getrouwe die cancellier ende luyden van onsen
+rade in brabant die wy daertoe gecommitteert hebben ende
+committeren by desen ontbieden daerom ende bevelen denselven
+onsen cancellier ende raidsluyden dat voer hen geroepen deghene
+die daerom behoiren geroepen te zyne zy procederen wel ende
+deughdelyck ter verificatien ende interinemente van desen ende
+totter taxatien ende moderatien vander voirs. amende ende
+costen van justicien alzoe zy zullen bevinden behoirende
+welck interinement die voirs. suppliant gehouden zal zyn te
+versueckene ende hem in persoone te presenteren in onsen voirs.
+raide binnen zesse maenden naestcommende opte pene van
+te verbeuren deffect van desen ende dat gedaen ende deselve
+civile boete ende costen van justicien getaxeert ende betaelt
+zynde in handen vanden gheenen dien dat behoiren zal zy
+onse voirs. procureur generael in brabant ende alle andere onse
+rechteren justicieren officieren ende ondersaten jegewoirdighe ende
+toecommende dien dit aengaen zal mogen huere stedehouderen ende
+eenen yegelycken van hen bezundere zoe hem toebehoiren zal
+doen laeten ende gedooghen den voirs. suppliant van deser onser
+jegewoirdigher gratien ende remissien ende van alle inhouden
+van desen inder vueghen ende manieren voeren verhaelt rustelyck
+vredelyck volcommelyck ende eeuwelyck genyeten ende gebruycken
+sonder hem te doene oft te laeten geschieden nu noch in
+toecomenden tyden eenich hinder letsel oft moyenisse aen lyve
+noch aen goeden tercontrarien maer indien zyn lyff oft
+eenige van zynen onverbeurden goeden daerom gearresteert becommert
+oft beleth waeren dat zy die setten ende stellen terstont ende
+sonder vertreck tot geheelder ende volcomender delivrantie want
+ons alzoe gelieft ende ten eynde dat dit vast ende gestadich
+blyve tot eeuwighen daghen zoe hebben wy onsen zegel hier
+aen doen hanghen behoudelyck in anderen dinghen onse rechte
+ende eenenyegelycken anderen dessyns gegeven in onser stadt
+van bruessele inde maent van novembri int jaer ons
+marge: zy hier af
+verantwoert
+byden rentmeestere
+vanden exploicten
+heeren duysent vyffhondert eenentzestich van onsen
+rycke van spaengnen ende sicillien tzeste ende naples etc.
+tviiie opde plycke stont gescreven byden coninck in
+zynen raide ende geteeckent jboudewyns visa $ recepta
+gecollationeert ende bevonden met
+zynen origina concorderen by my
+$$ facuwez $$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "August, 1559",
+  "persons": [
+    {
+      "firstname": "jaspar",
+      "lastname": "anthonis ghysbrechts",
+      "role": "suppliant",
+      "function": "ingeseten of goirle"
+    },
+    {
+      "firstname": "adriaen",
+      "lastname": "jan henricx",
+      "role": "accompanied jaspar",
+      "function": "from goirle"
+    },
+    {
+      "firstname": "joes",
+      "lastname": "cops",
+      "role": "insulted jaspar",
+      "function": "living in poppel"
+    },
+    {
+      "firstname": "UNDEFINED",
+      "lastname": "switten de jonghe",
+      "role": "accompanied adriaen",
+      "function": "from goirle"
+    },
+    {
+      "firstname": "UNDEFINED",
+      "lastname": "henricx",
+      "role": "accompanied adriaen",
+      "function": "from goirle"
+    },
+    {
+      "firstname": "UNDEFINED",
+      "lastname": "van riele",
+      "role": "insulted jaspar",
+      "function": "from goirle"
+    },
+    {
+      "firstname": "UNDEFINED",
+      "lastname": "cuypere",
+      "role": "helped jaspar",
+      "function": "from poppel"
+    }
+  ],
+  "locations": [
+    {
+      "name": "goirle",
+      "loctype": "parish"
+    },
+    {
+      "name": "poppel",
+      "loctype": "parish"
+    },
+    {
+      "name": "hilverenbeke",
+      "loctype": "parish"
+    }
+  ],
+  "summary": {
+    "en": "Jaspar Anthonis Ghysbrechts from Goirle requested remission as he was insulted by Joes Cops from Poppel during a wedding in Hilverenbeke. Jaspar and his companions were drinking in a tavern when they decided to go home. Joes Cops saw one of Jaspar's companions with a naked sword and called them 'coecketers van ghoirle'. This led to a fight where Jaspar was hit on the head and died the next day. Jaspar's brother came to assist him but was also hit on the head and fell down. Jaspar's companions tried to help him but Joes hit one of them on the head as well. Jaspar's brother then took out his sword and hit Joes on the head, causing him to fall down. Jaspar and his companions fled the scene. Jaspar's brother later returned to retrieve his stick and Jaspar picked it up, not knowing it was his. They then fought and Jaspar stabbed Joes with the stick, causing him to fall down and die.",
+    "fr": "Jaspar Anthonis Ghysbrechts, de Goirle, a demandé la rémission car il a été insulté par Joes Cops, de Poppel, lors d'un mariage à Hilverenbeke. Jaspar et ses compagnons buvaient dans une taverne lorsqu'ils ont décidé de rentrer chez eux. Joes Cops a vu l'un des compagnons de Jaspar avec un épée nue et l'a appelé 'coecketers van ghoirle'. Cela a conduit à une bagarre où Jaspar a été frappé à la tête et est mort le lendemain. Le frère de Jaspar est venu l'aider mais a également été frappé à la tête et est tombé. Les compagnons de Jaspar ont tenté de l'aider mais Joes a frappé l'un d'eux à la tête. Le frère de Jaspar a alors sorti son épée et a frappé Joes à la tête, le faisant tomber. Jaspar et ses compagnons se sont enfuis. Le frère de Jaspar est ensuite revenu chercher son bâton et Jaspar l'a ramassé, ne sachant pas que c'était le sien. Ils se sont alors battus et Jaspar a poignardé Joes avec le bâton, le faisant tomber et mourir.",
+    "nl": "Jaspar Anthonis Ghysbrechts uit Goirle vroeg vergeving omdat hij werd beledigd door Joes Cops uit Poppel tijdens een bruiloft in Hilverenbeke. Jaspar en zijn gezellen dronken in een herberg toen ze besloten naar huis te gaan. Joes Cops zag een van Jaspar's gezellen met een naakte zwaard en noemde hen 'coecketers van ghoirle'. Dit leidde tot een gevecht waarbij Jaspar op het hoofd werd geslagen en de volgende dag overleed. Jaspar's broer kwam helpen, maar werd ook op het hoofd geslagen en viel neer. Jaspar's gezellen probeerden hem te helpen, maar Joes sloeg een van hen ook op het hoofd. Jaspar's broer haalde vervolgens zijn zwaard en sloeg Joes op het hoofd, waardoor hij viel. Jaspar en zijn gezellen renden weg. Jaspar's broer keerde later terug om zijn stok op te halen en Jaspar pakte hem op, niet wetend dat het de zijne was. Ze vochten en Jaspar stak Joes met de stok, waardoor hij viel en overleed.",
+    "de": "Jaspar Anthonis Ghysbrechts aus Goirle bat um Vergebung, weil er von Joes Cops aus Poppel während einer Hochzeit in Hilverenbeke beleidigt wurde. Jaspar und seine Gefährten tranken in einer Taverne, als sie beschlossen, nach Hause zu gehen. Joes Cops sah einen von Jaspars Gefährten mit einem bloßen Schwert und nannte sie 'coecketers van ghoirle'. Dies führte zu einem Kampf, bei dem Jaspar auf den Kopf geschlagen wurde und am nächsten Tag starb. Jaspars Bruder kam, um zu helfen, wurde aber auch auf den Kopf geschlagen und stürzte. Jaspars Gefährten versuchten zu helfen, aber Joes schlug einen von ihnen auch auf den Kopf. Jaspars Bruder zog dann sein Schwert und schlug Joes auf den Kopf, woraufhin er fiel. Jaspar und seine Gefährten flohen. Jaspars Bruder kam später zurück, um seinen Stock abzuholen, und Jaspar nahm ihn auf, ohne zu wissen, dass es sein eigener war. Sie kämpften und Jaspar stach Joes mit dem Stock, woraufhin er fiel und starb."
+  }
+}
+```

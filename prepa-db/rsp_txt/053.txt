@@ -1,0 +1,202 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+phillippe etc scavoir faisons a tous presens et avenir nous avoir
+receu lhumble supplication de leonardo rodriguez portugalois a present presonnier
+en notre ville danvers contenant comme le premier jour de la quaresme
+dernier passee est contre luy suppliant entre en combat certain soldat
+du regiment du conte de lodroy nomme jooris loosf auquel sest
+joinct un aultre nomme sebastien non portant touttesfois aulcun enseigne
+de gendarme $$non voyans deux aultres lung nomme pere loupez
+de liam aussy portugualois et certain franchois sont venuz a lassistence
+du suppliant de sorte que icelluy * combat a cesse et fe sont le suppliant
+et ses assistens retirez mais sont par deriere sans leurs$$$ este poursuiviz
+par lesdits joorich et sebastien quy les eussent peu tuer en trahison
+par deriere sy par le peuple ce voyant le suppliant et sesdits assistens
+neussent este advertiz affin quilz se gardassent comme ledit franchois
+sen est garde en se saulfvent en certaine porte quy apres luy fut
+incontinent close comme peu apres a aussy faict ledit pere apres
+avoir blesse ledit sebastien tellement que le suppliant ne se
+pouviant saulfver a este contraint seul de soy deffendre contre lesdits
+deulx soldatz i recepuant les coup sur sa cappe et espe$ le mieulx
+quil pouvoit aultrement il fut este tue auquel combat a le
+suppliant principalement combatu contre ledit joorich et icelluy blesse
+comme auctheur quy avoit donne occasion audit combat mais a le tout
+pardonne a ceulx quy luy avoient blesse oires que de ses plaies
+il fut alle de vie a trespas que non mais ledit sebastien a tellement
+este blesse comme auctheur durant le deuxiesme debat quil en est
+tombe en terre et termine de vie part port mort a cause de quoy
+est ledit suppliant constitue prisonnier et capitalement accuse par
+notre officier en anvers non obstant que a la verite nne se
+trouvera que icelluy sebastien ait este blesse par ledit suppliant
+mais au contraire est apparu quil a este blesse par ledit pere
+quy pourtant sest saulve dedans le monastere des carmes en ladite
+ville ou il a confesse ouvertement que luy et point aultre est celluy
+quy a mis a mort ledit sebastien a la descharge du supplient
+et de tous aultres ce que icelluy suppliant pere avoit pareillement
+confesse des le commenchement incontinent apres ledit combat en
+certaine maison en laquelle il sestoit saulfve et cache $$$ non considere
+combien que ledit supplient debvroit estre absez de la mort dudit feu sebastien
+touteffois pource quil a este ung de combatans pourroit percliter de
+sa vie selon les coustumes de notredite ville danvers ** audit,leonardo
+rodriques supplient *** tous les combatans seront tenuz pour coulpables
+comme celuy quy avoit donne le coup mortel si de notre grace
+especialle il ne soit pourveu de clemence et midericorde dont il
+nous a treshumblement supplie et requis pource est que
+nous ces choses consuderees et en surce ladvis de noz marcqrave
+burgemaistres eschevins et conseil de notredit ville danvers audit
+leonardo rodrigues supplient inclinans favorablement a sadite
+supplication et requeste et luy veuillans en ceste partie
+preferer grac a riguer de justice luy avons au cas susdit quicte
+remis et pardonne quictons remectons et pardonnons de grace especiale
+par ces presentes le cas et homicide dessus narre avec toute peyne
+et amande corporelle et criminelle n quoy pour cause et a
+loccasion dicelluy il y a on peult avoir offence mesprins ou estre encoures
+envers nous et justice non obstant que le cas ne soit encoures suraime
+selon noz ordunances ausquelles avons derogue et deroguons en cest endroict
+par cesdits presentes et avons ledit supplient quant audit cas remis et
+restitue remectons et restituons par ses mesmes presentes a cedit bonne
+fame et renommee en notre pays de brabant et tous aultres noz
+pays **** ensemble a ces biens non confisquez sancuns en a
+tout ainsiet par le mesme maniere quil estoit avant ladvenue dudit
+cas imposant surce silence perpetuel a notre procureur general en brabant
+et a tous aultres noz justiciers et officiers et ceulx de noz
+vassaulx quelzconcques satisfaction preallablement et avant toute enure
+faicte a la partie interessee se faicte nest et elle y chiet
+civilementntant seulement pouru que lledit suppliient sera tenu de amender ledit
+homicide envers nous civilement selon lexigence du cas et la faculte de ses
+biens selon notredit ordonnances surce faicte et aussy de payer les despens
+et mises de justice saucuns en ont este faictes le tout a larbitraige
+et tauxation de noz aimez et feaulx les chancelliers et gens de
+notredit conseil en brabant que commectons a ce ausquelz
+mandons et commandons par cesditsnpresentes que appelle par devant
+eulx ceulx quy pource seront a appeler ilz procedent bien
+et devement a la verification et interinement de cesddites presentes
+selon leur forme et teneur ensamble a la tauxation de ladite
+amende civile et despens de justice ainsi quil appertiendra
+laquel interinemnt ledit suppliant seru tenu requerir et soy presenter
+en personne en notredit conseil en brabant endedens six mois
+prochainement venans a peynne destre forclos et prive de notredit
+presente grace et effort de cestes et ce faict et lesdits amende
+civile et despens de justice tauxiez et ayez en mains de
+in de marge: $$$ soit respondu par
+le $$$ des $$$ plory
+ceulx quil appertiendra ilz et tous aultres nous justiciers et officiers
+et aussy ceulx de nosdits vassaulx quelzconcques facent seuffrent
+et laissent ledit suppliant de notredit presente grace remission et
+pardon selon et par la forme et maniere que dict est paisiblement
+plainement et perpetuellement joyer et user sans en ce luy faire
+mectre ou donner ne souffrir estre faict mis ou donne oires ne pour
+le temps avenir aulcun destourbier ou empeschement a contraire avis
+son corps a present prisonnier ensemble ses biens non confisquez saucuns
+en a et quilz fussent arrestez detenuz ou emspe empeschez les
+mectent ou facent mectre incontinent et sans dilay a plaine et
+entiere delivrance car ainsy nous plaist il et affin
+que ce soit chose ferme et estable a tousiours nous avons faict
+mectre notredit seel a cesdits presentes saulf en aultres choses notre droict
+et lautruy en toutes donne en notre ville de bruxelles
+au mois de juin lan de grace mil cincq cens soixantehuict
+de noz regnes as$$ des espaignes sicille etc le xiij
+et de naples le xvme sur le plicque estoit escript
+par le roy en son conseil soubz signe de lange visa
+* premier
+** selon laquelle ainsy que le
+*** entendt
+**** $$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "June 1568",
+  "fact_date": "First day of Lent, last past",
+  "persons": [
+    {
+      "firstname": "leonardo",
+      "lastname": "rodriguez portugalois",
+      "role": "suppliant",
+      "function": "prisoner"
+    },
+    {
+      "firstname": "jooris",
+      "lastname": "loosf",
+      "role": "combatant",
+      "function": "soldier"
+    },
+    {
+      "firstname": "sebastien",
+      "lastname": "non portant touttesfois aulcun enseigne de gendarme",
+      "role": "combatant",
+      "function": "soldier"
+    },
+    {
+      "firstname": "pere loupez",
+      "lastname": "de liam",
+      "role": "assistant",
+      "function": "portuguese"
+    },
+    {
+      "firstname": "franchois",
+      "lastname": "",
+      "role": "assistant",
+      "function": "french"
+    }
+  ],
+  "locations": [
+    {
+      "name": "notre ville danvers",
+      "loctype": "city"
+    },
+    {
+      "name": "monastere des carmes en ladite ville",
+      "loctype": "monastery"
+    }
+  ],
+  "summary": {
+    "en": "Leonardo Rodriguez Portugalois, a prisoner in the city of Danvers, supplicates for remission of his act of self-defense during a combat. He was forced to defend himself against two soldiers, Jooris Loosf and Sebastien, after their initial opponents, Pere Loupez de Liam and a Frenchman, came to his aid. Rodriguez was later accused of killing Sebastien, but it was later revealed that Pere Loupez de Liam was the true killer. Despite this, Rodriguez is still held accountable for the death according to the customs of Danvers. However, the King, in his grace, pardons Rodriguez and restores his good name and reputation in Brabant and all other lands, provided that he amends the homicide and pays for the expenses and costs of justice.",
+    "fr": "Léonardo Rodriguez Portugalois, prisonnier dans la ville de Danvers, supplie pour la rémission de son acte de légitime défense pendant un combat. Il a été contraint de se défendre contre deux soldats, Jooris Loosf et Sebastien, après que leurs premiers opposants, Pere Loupez de Liam et un Français, soient venus à son aide. Rodriguez a ensuite été accusé de tuer Sebastien, mais il a été révélé plus tard que Pere Loupez de Liam était le véritable coupable. Cependant, Rodriguez est toujours tenu responsable de la mort selon les coutumes de Danvers. Cependant, le Roi, dans sa grâce, pardonne Rodriguez et lui restaure sa bonne réputation et sa renommée dans le Brabant et tous les autres pays, à condition qu'il répare l'homicide et paie pour les frais et les coûts de justice.",
+    "nl": "Leonardo Rodriguez Portugalois, gevangene in de stad Danvers, verzoekt om vergeving voor zijn daad van zelfverdediging tijdens een gevecht. Hij werd gedwongen zich te verdedigen tegen twee soldaten, Jooris Loosf en Sebastien, nadat hun eerste tegenstanders, Pere Loupez de Liam en een Fransman, hem te hulp waren gekomen. Rodriguez werd later beschuldigd van de moord op Sebastien, maar later bleek dat Pere Loupez de Liam de echte dader was. Desondanks wordt Rodriguez nog steeds verantwoordelijk gehouden voor de dood volgens de gewoonten van Danvers. Echter, de Koning, in Zijn genade, vergeeft Rodriguez en herstelt Zijn goede naam en reputatie in Brabant en alle andere landen, mits hij de moord herstelt en betaalt voor de kosten en de rechtskosten.",
+    "de": "Leonardo Rodriguez Portugalois, Gefangener in der Stadt Danvers, bittet um Vergebung für seine Tat der Selbstverteidigung während eines Kampfes. Er wurde gezwungen, sich gegen zwei Soldaten, Jooris Loosf und Sebastien, zu verteidigen, nachdem ihre ersten Gegner, Pere Loupez de Liam und ein Franzose, ihm zu Hilfe gekommen waren. Rodriguez wurde später der Totschlag an Sebastien vorgeworfen, aber später stellte sich heraus, dass Pere Loupez de Liam der wahre Täter war. Trotzdem wird Rodriguez immer noch für den Tod nach den Gebräuchen von Danvers zur Rechenschaft gezogen. Allerdings vergibt der König, in Seiner Gnade, Rodriguez und stellt Seinen guten Namen und Ruf in Brabant und allen anderen Ländern wieder her, vorausgesetzt, er macht den Mord gut und zahlt für die Kosten und Gerichtskosten."
+  }
+}
+```

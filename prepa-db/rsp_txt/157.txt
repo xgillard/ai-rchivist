@@ -1,0 +1,306 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remission pour hugenin moreau
+charles etc savoir faisons a tous presens et avenir
+nous avoir receu lumble supplication de huguenin
+moreau dit jehan de bourgogne fourier de notre
+hostel contenant comment ou mois de may en lan
+xvc dix sept icelluy suppliant print aucunes parolles
+en ceste notre ville de bruxelles allencontre feu
+jaques de belhe lors serviteur de feu guillaume de leloo
+aussi lors concierge de notredit hostel en cestedite notre
+ville pour ce que icellui feu jaques demandoit
+argent audit suppliant quil devoit a sondit feu maistre
+a cause desquelles parolles quilz eulrent parensemble
+ledit suppliant bouta ou frappa du poing de sa main
+sans autre instrument de baston ledit feu jaques
+en le tirant et pouchant a terre par ses cheveulx
+assez rudement de sorte quil fut blesche en la
+teste de laquelle bleschure il coucha malade
+pour aucun temps pendant lequel ledit suppliant se
+trouva lors au bureau de notredit hostel pour soy illec
+purgier dudit cas la ou lors par les maistres
+dicelluy notre hostel fut ordonne et appointie que
+icellui suppliant sur caucion juratoire quil feist
+lors en leurs mains seroit tenu de comparoir pardevant
+eulx oudit bureau toutes et quantesfois quil
+y seroit mande et illec respondre dudit cas
+tantost apres et environ le mois daoust
+ensuivant oudit an, ledit feu jaques estant pour lors
+bien guery desdites bleschures se trouvant en notre
+ville de middelbourg en zellande la ou il
+feist adjourner ledit suppliant audit bureau
+auquel il comparut au tour a lui prefix
+et finablement parties oyes fut illec
+appoincte que certains arbitres assavoir
+du coste dudit suppliant pierre et didier boisot
+et du coste dicellui feu feu le bailli damont
+le doyen de besancon a present archevesque
+de palerme et thomas ysacq toison dor
+appointeroient les partyes aimablement se
+faire se povoit sinon en feroient rapport
+audit bureau des difficultez quilz y trouveroient
+lesquelz arbitres eulrent pluiseurs communicacions
+parensemble pour cest affaire et en la fin
+comme sur prendre conclusion survint notre partement
+vers noz royaulmes despaigne parquoy
+icellui affaire demoura lors sans aucune
+conclusion et durant notre absence en nosdits
+royaulmes la ou ledit suppliant estoit en notre
+service oudit estoit de fourier ledit feu jaques
+environ le xxve jour de janvier ensuivant en
+retournant de notre ville de namur et affaires
+de sondit maistre par la ville de wavre est
+illec termine vie par trespas sans que
+iceulx arbitres en ayent declaire aucuns
+determinacion. or est que pui-s nagaires
+et depuis notre retour de noz pays dallemaigne
+en ceste notrdite ville de bruxelles jozyne
+vesve dudit feu jaques a de rechief requiz
+ausdits arbitres survivans ou a aucuns deulx de
+vouloir wuyder cest affaire, finablement a par
+ledit pierre boisot et thoison dor este dit et
+declaire que ledit suppliant seroit tenu pour furnir
+aux frais et despens, tant de cyrurgiens
+que autres par ledit feu soustenez a cause
+desdites bleschures payer certaine somme de
+deniers par eulx speciffiee es mains de ladite
+vesve ce quil a fait et accomply et dont
+icelle vesve soy faisant fort de ses enffans
+hors dudit feu son mary se tient pour bien
+satisfaite et entierement contentee sicomme
+icellui suppliant en fera deuement apparoir
+et combien que actendu ce que di est
+icellui suppliant ne soit aucunement
+coulpable de la mort dudit feu jaques
+ains comme dit est a vescu environ neuf
+mois apres ladvenue desdites bleschures
+toutesvoyes en reverence de justice et
+craindant la righeur dicelle aussi que
+aucuns noz officiers ou ses malvueillans
+lui pourroient cy apres obicier lesdites bleschures
+et causer icelles estre en partie occasion
+de ladite mort sicomme il dit il nous a
+tres humblement fait supplie et requerir
+quil nous plaise entant que besoing et mestier
+soit lui vouloir sur ce impartir notre grace
+et sur tout en faire despescher noz lettres
+de grace remission quictance et pardon
+en tel cas pertinentes pour ce est il
+que nous les choses dessusdites considerees
+audit huguenin moreau suppliant inclinans a sa
+supplication et requeste et lui vueillans en
+ceste partie grace et misericorde preferer a
+righeur de justice avons ou cas dessusdit
+quicte remis et pardonne quictons
+remectons et pardonnons de grace especial
+par ces presentes le cas et mesuz dessus
+declaire ensemble toute paine amende et
+offence corporelle et criminelle enquoy
+pour raison et occasion dicellui cas les
+circunstances et deppendences il a et puet
+avoir mesprins offense et estre encouru envers
+nous et justice en le restituant
+quant a ce a ses bon nom fame et renommee
+en noz pays et seigneuries et mesmement en notre
+pays et duche de brabant et a ses
+biens non confisquez saucuns en y a
+tout aussi et par la maniere quil estoit
+auparavant ledit cas et mesuz advenu
+imposant sur ce scilence perpetuel a notre
+procureur general de brabant et a tous
+noz autres justiciers et officiers quelzconques
+satifaction toutesvoyes faicte a partie
+interessee premierement et avant tout œuvre
+se faicte nest et elle y chiet civilement
+tant seulement et moyennant aussi que
+* ledit suppliant lamendera envers nous civilement
+selon lexigence du cas et la faculte de ses
+biens et si sera tenu de payer et reffondre
+les mises de justice saucunes en sont
+faictes et encourues contre luy pour raison
+du cas et mesuz dessusdit le tout a larbitraige
+et tauxacion de noz amez et feaulx les
+chancellier et gens de notre conseil en
+brabant que commectons a ce si donnons
+en mandement a iceulx de notre conseil
+en brabant que appellez pardevant
+eulx ceulx qui pour ce feront a appeler ils
+procedent bien et deuement a la veriffication
+et interinement de cesdites presentes selon leur
+forme et teneur et a larbitrage et tauxacion
+de ladite amende civille civile et mises
+de justice et ce fait et icelle amende
+civile et mises de justice saucunes en y
+a comme dit est tauxees arbitrees et payees
+es mains de celuy de noz receveurs ou officiers
+quil appartiendra qui sera tenu en faire recepte
+et rendre compte et reliqua a notre prouffit avec
+les autres deniers de sa rep recepte ils
+et tous noz autres justiciers et officiers
+quelzconques presens et avenir cui ce puet et
+pourra touchier et regarder leurs lieuxtenans
+et chacun deulx endroit soy et sicomme a lui
+appartiendra facent seuffrent et laissent
+ledit suppliant de notre presente grace quictance
+remission et pardon ensemble de tout le
+contenu en cesdites presentes selon et par la forme
+et maniere que dit est plainement paisiblement
+et perpetuellement joyr et user sans
+luy faire mectre ou donner ne souffrir estre
+fait mis ou donne ores ne ou temps advenir
+en corps ne en biens aucun destourbier
+ou empeschement au contraire ains se son
+corps ou aucuns de sesdits biens non
+confisquez comme dit est sont ou estoient
+pour ce prins saisiz arrestez ou empeschez
+les mectent ou facent mectre incontinent
+et sans delay a plaine et entiere delivrance
+car ainsy nous plaist il et
+affin que se ce soit chose ferme et
+estable a tousjours nous avons fait
+mectre notre seel a ces presentes saulf
+en autres choses notre droit et lautruy
+en toutes donne en notre ville de
+bruxelles ou mois de juing lan
+de grace mil cincq cens vingt et
+ung et de noz regnes assavoir de
+celuy des romains et de hongrie etc le
+troisiesme et des espaignes etc
+le sixiesme ainsy estoit escript sur
+le reploy pour lempereur en son
+conseil et signe t de cock et
+encoires visa
+collationne a l’original
+par moy
+n. strate [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "Juin, 1521",
+  "fact_date": "Mai, 1517",
+  "persons": [
+    {
+      "firstname": "Huguenin",
+      "lastname": "Moreau",
+      "role": "suppliant",
+      "function": "fourier of the king's household"
+    },
+    {
+      "firstname": "Jaques",
+      "lastname": "Belhe",
+      "role": "deceased",
+      "function": "servant of the late Guillaume de Leloo and concierge of the king's household in Brussels"
+    },
+    {
+      "firstname": "Guillaume",
+      "lastname": "Leloо",
+      "role": "none",
+      "function": "late master and employer of Jaques Belhe"
+    },
+    {
+      "firstname": "Jozyne",
+      "lastname": "Veuve de Jaques Belhe",
+      "role": "requester",
+      "function": "widow of the deceased Jaques Belhe"
+    },
+    {
+      "firstname": "Pierre",
+      "lastname": "Boisot",
+      "role": "arbitrator",
+      "function": "none"
+    },
+    {
+      "firstname": "Didier",
+      "lastname": "Boisot",
+      "role": "arbitrator",
+      "function": "none"
+    },
+    {
+      "firstname": "Feu",
+      "lastname": "Le Bailli d'Amont",
+      "role": "arbitrator",
+      "function": "none"
+    },
+    {
+      "firstname": "Le Doyen de Besancon",
+      "lastname": "A present Archevesque de Palerme",
+      "role": "arbitrator",
+      "function": "none"
+    },
+    {
+      "firstname": "Thomas",
+      "lastname": "Ysacq Toison d'Or",
+      "role": "arbitrator",
+      "function": "none"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Bruxelles",
+      "loctype": "city"
+    },
+    {
+      "name": "Middelbourg en Zellande",
+      "loctype": "city"
+    },
+    {
+      "name": "Namur",
+      "loctype": "city"
+    },
+    {
+      "name": "Wavre",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Huguenin Moreau, fourier of the king's household, remitted for striking Jaques Belhe in Brusselles in May 1517, leading to Belhe's injury and subsequent death. Belhe's widow, Jozyne, requested the arbitrators to resolve the matter, but the case remained inconclusive during the king's absence in Spain. After the king's return, Moreau was ordered to pay compensation to Jozyne for medical expenses and other costs related to Belhe's injury.",
+    "fr": "Huguenin Moreau, fourier de la maison du roi, remis pour avoir frappé Jaques Belhe à Bruxelles en mai 1517, entraînant la blessure et le décès subséquent de Belhe. La veuve de Belhe, Jozyne, a demandé aux arbitres de résoudre l'affaire, mais l'affaire est restée sans conclusion pendant l'absence du roi en Espagne. Après le retour du roi, Moreau a été ordonné de payer des compensations à Jozyne pour les frais médicaux et autres coûts liés à la blessure de Belhe.",
+    "nl": "Huguenin Moreau, hofmeester van het koninklijk huis, is vergiffen voor het slaan van Jaques Belhe in Brussel in mei 1517, wat leidde tot de verwonding en daaropvolgende dood van Belhe. De weduwe van Belhe, Jozyne, vroeg de arbiters de zaak op te lossen, maar de zaak bleef onopgelost tijdens de afwezigheid van de koning in Spanje. Na de terugkeer van de koning werd Moreau g orderd om compensatie te betalen aan Jozyne voor de medische kosten en andere kosten verbonden aan de verwonding van Belhe.",
+    "de": "Huguenin Moreau, Fourier des königlichen Haushalts, wurde vergeben für das Schlagen von Jaques Belhe in Brüssel im Mai 1517, was zu Verletzungen und dem anschließenden Tod von Belhe führte. Die Witwe von Belhe, Jozyne, bat die Schiedsrichter, die Angelegenheit zu regeln, aber der Fall blieb ungelöst während der Abwesenheit des Königs in Spanien. Nach der Rückkehr des Königs wurde Moreau angewiesen, Jozyne Entschädigung für die medizinischen Kosten und andere mit der Verletzung von Belhe verbundenen Kosten zu zahlen."
+  }
+}
+```

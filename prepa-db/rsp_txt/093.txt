@@ -1,0 +1,146 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+albert ende isabel etc. doen te wetene
+alle iegenwoirdige ende toecommende dat wy ontfangen hebben die
+ootmoedige supplicatie van christiaen jacops arm borger onser stadt van
+loven gareelmaeckere van zynen ambagte belast met huysvrouwe ende sesse levende
+kinderen, altyt sonder jactantie gesproken gestaen hebbende tot goeden naem ende faem sonder
+oyt iet gecommitteert te hebben dat strafte oft punitie soude meriteren, behalven het
+feyt hieronder genoempt, inhoudende hoe dat opden achthiende dach der maent van
+aprille lestleden wesende den heyligen paesdach hy suppliant hebbende die wacht als
+corporael in een vanden poirten onser voirs. stadt van loven genaempt de tiensche
+poirte, ende naer tsluyten vanden selve poirte is die suppliant gaende mette sleutels vanden selve poirte
+naer het stadhuys vergeselschapt onder andere van jan pirart ende tusschen wegen
+commende alsoo die voors. suppliant aenden voirs. jan heyschte betaelinge vanseker wachtgelt soo heeft
+hy totten voors. suppliant gesecht dese oft dyergelycke woirden ghyen syt maer een huerlinck ende en
+hebt daerinne nyet te spreken stootende voorts den suppliant met synen ellenboge op syn lyff ende terstont
+daernaer treckende syn rappier slaende daermede den voirs. suppliant op syn schouweren dwelck siende
+de selve suppliant heeft die sleutels vanden stadt die hy als voirs. is inde inde handt hadde ter
+eerden geworpen ende syn rappier oock uuytgetrocken ende tegen malcanderen stekende ende
+strydende heeft die voirs. suppliant int verweeren zyne lyffs den voirs. jan pirart eenen steeck
+gegeven inde kele, waer$$ hy vanden levende lyff ter doot is gecommen allet blyckende byder
+informacie daeraff zynde tot grooten leet wesen des voirs. suppliants die hem seder uuyter voirs.
+stadt van loven heeft geabsenteert door vreese van het rigeur van justicien, ende $$$$ lertyt n$
+partye interesseerde overcommen ende den officier aldaer synen teur betaelt, ende opdat de selve suppliant
+mach in ruste leven ende voor syn huysvrouwe ende kinderkens den armen cost winnen zoo hy
+suppliant seecht zoo keert hy hem tot ons biddende seer ootmoedelyck dat wy hem prefereren g$
+ende bermherticheyt voor rigeur van justicie omde passie ons lieffs heeren jesus christus gelieven wille
+hem suppliant van tvoirs. feyt te verleenen onse opene brieven van remissie in behoirl$
+ende gewoonderlyck forme, soo eest dat wy desen aengesien geneycht wesende ter bede
+des voirs. suppliant ende regard nemende opde circumstantie van dese saecke, willende hem in dit
+stuck prefereren gratie ende misericordie voor strangheyt ende rigeur van rechte hebben de
+selven suppliant inden gevalle alsboven quytgeschouwen ende vergeven schelden quyte ende vergeven
+uuyt onse sunderlinge gratie by desen onsen brieve tfeyt ende ongeval boven geruert midtsgaders
+alle offencie ende breucke corporelle ende criminele daer inne hy ter causen voirs. midtsgaeders
+dat daeraen cleven mach tegen ons ende justicie misdaen ende misbruyckt mach hebben
+ende hebben hem dyen aengaenen wedergestelt ende gerestitueert stellen weder ende resti$
+tot synen goeden naeme fame ende geruchte in onsen voirs. lande van brabant ende alle anderen
+onse landen ende heerlichheyden ende tot zyne onverbeurde goeden indyen hy eenige onder
+ons heeft gelyck ende in alder manieren soo hy was voorde toecompste vanden voirs. feyte
+imponerende hierop een eeuwich geswijch onsen lieven ende getrouwen procureur
+generael in brabant onsen amman van bruessele ende allen anderen onsen justicieren
+ende officieren wie sy syn satistactie ende beternisse ierts ende vooral gedaen de partye
+geinteresseerde voor soo vele die noch nyet gedaen en sy ende eenige daertoe staet civilyck
+alleenlyck ende de saecke sulckx is vereyschende behoudelyck dat die voirs. suppliant gehouden
+sal syn tvoors. feyt tegen ons te beteren civilyck naer gelegentheyt vanden saecken ende
+faculteyt van syne goeden met oock te betaelen die redelycke costen van justicien hier$
+alreede gedaen ende te doene alles ter taxatien ende moderatien van onse seer lieve ende
+getrouwe die cancellier ende luyden van onsen raede geordineert in brabant
+die wy daertoe gecommitteert hebben ende committeren by desen, ontbieden daerom ende
+bevelen den selven onsen cancellier ende raedtsluyden dat voor hen geroepen die
+gene die daerom behoiren geroepen te syne zy procederen wel ende deuchdelyck
+ter verificatie ende interinemente van desen ende ter taxatien ende moderatie
+vanden selve amende ende costen van justicien alsoo sy sullen bevinden te behoiren, welck
+interinement die voors. suppliant gehouden sal syn te versuecken ende hem in persoone te presenteren in onse
+voirs. raede binnen sesse maenden naestcomende opde pene van te verbeuren deffect van dyen ende dat gedaen
+ende de selve civile boete ende costen van justicien getaxeert ende betaelt zynde in handen vanden genen die
+dat behooren sal sy onsen voirs. procureur generael in brabant onsen amman voirs. ende alle andere onse
+rechteren justicieren officieren ende ondersaeten iegenwoirdigen ende toecommende dyen dat aengaen sal mogen heure
+stedehouderen ende eenen yegelyck van hun besundere soo hun toebehoiren sal doen, laeten ende gedoogen den voirs.
+suppliant van deser onser tegenwoirdiger gratien ende remissien ende van allen d’inhouden van desen inder vuegen ende
+manieren voor verhaelt peyselyck rustelyck vredelyck volcomelyck ten eeuwigen daegen genyeten ende gebruycken, sonder hem
+daerinne te doen ofte te laeten doen ende geschieden nu oft in toecommenden tyden eenich hinder letsel off moyenisse aen lyff
+off aen goeden ter contrarien maer indyen syn lyff off eenige van syne goeden daerom gearresteert, becommert off beleth waeren
+dat zy die setten ende stellen doen setten ende stellen terstont ende sonder vertreck tot geheelder ende volcomende delivrancie want ons alsoo
+gelieft ende ten eynde dat dit vast ende gestadich blyve ten eeuwigen daegen soo hebben wy onsen segel hieraen doen hangen
+behoudelyck in anderen dingen onsen rechte ende eenen yegelycken anderen dessyns gegeven binnen onser stadt van
+bruessele den int jaer xvic vyff opden plycke stondt gescreven byden
+eertshertogen ende ondertekent de witte ende was gesegelt met eenen grooten segele van groenen
+wassche onder uuythangende in syde snoeren [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "18th day of April",
+  "persons": [
+    {
+      "firstname": "christiaen",
+      "lastname": "jacop",
+      "role": "suppliant",
+      "function": "burgess"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "pirart",
+      "role": "involved in the incident",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "heyschte",
+      "role": "involved in the incident",
+      "function": "UNKNOWN"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Christiaen Jacop, a burgess of the city of Lovain, has supplicated for remission of punishment for an incident that took place on the 18th day of April. He was on duty as a corporal at the Tiensche gate when Jan Pirart approached him after closing the gate. Jan Heyschte, another individual involved in the incident, attacked Christiaen Jacop, resulting in the death of Jan Pirart. Christiaen Jacop has left the city out of fear of justice and is seeking remission from the court.",
+    "fr": "Christiaen Jacop, bourgeois de la ville de Louvain, a supplié pour la rémission de la peine relative à un incident survenu le 18e jour d'avril. Il était de service en tant que caporal à la porte Tiensche lorsque Jan Pirart l'a approché après la fermeture de la porte. Jan Heyschte, une autre personne impliquée dans l'incident, a attaqué Christiaen Jacop, entraînant la mort de Jan Pirart. Christiaen Jacop a quitté la ville par crainte de la justice et cherche à obtenir la rémission de la cour.",
+    "nl": "Christiaen Jacop, burger van de stad Lovain, heeft verzoek om remissie van straf voor een incident op de 18e dag van april. Hij stond dienst als korporaal bij de Tiensche poort toen Jan Pirart hem benaderde na sluiting van de poort. Jan Heyschte, een andere persoon betrokken bij het incident, viel Christiaen Jacop aan, met als gevolg de dood van Jan Pirart. Christiaen Jacop heeft de stad verlaten door angst voor rechtshandhaving en vraagt om remissie van het gerecht.",
+    "de": "Christiaen Jacop, ein Bürger der Stadt Löwen, hat um die Erlassung einer Strafe für ein Vorfall am 18. April ersucht. Er stand als Korporal am Tiensche-Tor Dienst, als Jan Pirart ihn nach dem Schließen des Tores ansprach. Jan Heyschte, eine weitere an dem Vorfall beteiligte Person, griff Christiaen Jacop an, was zum Tod von Jan Pirart führte. Christiaen Jacop verließ die Stadt aus Furcht vor der Justiz und sucht um die Erlassung der Strafe durch das Gericht an."
+  }
+}
+```

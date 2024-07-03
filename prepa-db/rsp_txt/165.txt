@@ -1,0 +1,199 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remis voor christiaen van hanewijck
+borger van loven
+philips etc. allen den genen die dese onse opene brieven
+sullen sien ende hooren lesen saluyt doen te weten dat
+wy hebben ontfangen die supplicatie van christiaen van
+hanewyck gehoudt man van ende borger onser stadt loven
+inhoudende hoe dat opden 9 deser maent aprilis tusschen
+vyff ende ses uren naer noen voorden huyse van guilliame
+de greve cuyper binnen die voors. stadt woonende op de
+christen straet is gecomen sekeren soldaet spagniaert
+van het garnisoen liggende binnen de voors. stadt
+geaccompagneert met twee andere den eenen vande
+dry gheweest synde eenen alpheris gereformeert
+den tweeden corporael vanden compagnien de m. del
+patte ende den naem vanden derde is aende verthoonder
+onbekent die welcke aende huysvrouwe van voors. de
+greve gepresenteert hebbende seker billetteken van
+fourieringe syn daer over geresen verscheijden woorden
+ende daernaer geresen groot ramoer tusschen die
+voors. soldaeten den voors. de greve ende
+andere borgers die waeren ten huysen van carel
+cansmans tegens over het huys van voors. de
+greve hebbende de voors. soldaeten naementlyck
+den voors. alpheris terstont getrocken hen
+syde gheweer ende daermede gesteken naerden
+eenen ende die anderen waerover bygecomen
+synde guilliam baudewyns uuytroeper der voors.
+stadt ende siende dat de voors. alpheris continuelyck
+was stekende over die dore vanden voors. carel
+cansmans vreesende hy baudewyns dat hy mocht
+quetsen eenige vrouwe persoonen wesende inden
+winckel van voors. cansmans is gegaen ten
+huyse vanden voors. de greve ende meynende
+daeruuyt te commen met eene duyge inde hant oft
+bert van eene tonne om alsoo tusschen beyden te
+gaen heeft den voors. alpheris hem aengevat
+ende met syn rappier hem ghebrocht eenen
+sulckenen steeck onder die ocselen dat hy
+baudewyns daer van is ter aerden gevallen
+ende geloovende den voors. alpheris dat hy daer
+van overleden was is ghevlucht naerde minne
+broeders geduerende welcken tiere ende gevecht
+waeren die borgers malcanderen roepende
+ter hulpe elcken borger tot synder defensie nemende
+alsulcken gheweir als hij ierst conste vinden
+d’een eenen haemer d’ander een bert den eenen eenen
+destel ende den voors. remonstrant syn roer
+waermede gecomme, synde by het gevecht
+ende siende dat den voors. boudewyns ter
+aerde lach den welcken nochtans nyet en was
+eenen man om iemanden te offenseren als
+alleenelycken eene hant hebbende die andere $oren
+hebbende inde belegeringe vanden voors. stadt loven
+gepresteert geweest syn door syne medeborgers
+roepende schiet schiet heeft syn roer gelost
+op een vanden voors. spaignaerden die met syn
+bloot rappier was inde hant ende de selven
+geraeckt onder de borst waervan hy deser
+weirelt dry oft vier daegen daernaeren is
+overleden tot synder groot leetwesen welcken
+aengemerckt ende dat het voors. feyt is een puer
+ongeluck voorden verthoonder alleenelyck voorts gecom$
+om syne mede borgers $$$$ in soo groote
+peryckel t’ assisteren ende dat hy is beweegt ghe
+weest doorden van vanden voors. baudewijns ende
+met recht mochte vreesen datter oploop onder
+de ghemeynte soude gevannen hebben by soo verre
+de voors. soldaeten hadden meer insolentien bedreven
+ende dat den verthoonder is een jonck gehoudt man
+die welcke syn selven ende syne huysvrouwe sijnen cost
+moet te voorens winnen met syne handen nijet
+crackeelachtich wesende dan godt vreesende ghelyck
+blyckt uuyt attestatie van synen plebaen ende dat
+den voors. soldaet dyer ghebleven is nyet en is
+hebbende vrouwe oft kinderen noch andere partijen
+geinteresseerde
+soo badt hij oidtmoedelyck dat ons soude gelieven hem
+over het voors. ongeluck te verleenen brieven van
+remis daertoe dienende waeromme soo ist dat wy
+desen aengesien ende ierst hier op gehadt het schriftelyck advis
+van onse lieve ende welbeminde die schepenen onser
+voors. stadt loven genegen wesende ter oidtmoediger
+bede des suppliants ende willende in dit stuck prefereren gratie
+ende misericordie voor strangheyt ende rigeur van
+rechte hebben den selven suppliant inden gevalle alsboven
+quijtschonden ende vergeven schellen quijt ende vergeven uuyt
+onser sonderlinge gratie by desen onsen brieve t’feyt ende
+ongheval boven geruert midtsgaeders alle breucken
+corporele ende criminele daerinne hy ter causen voors.
+midtsgaeders dat daer aen cleven mach tegens ons ende
+justitie misdaen ende misbruyckt mach hebben welcken
+aengaende aengemerckt hebben hem weder gestelt ende gerestitueert
+stellen weder ende restitueren tot synen goeden
+naeme faeme ende gheruchte in onse voors. lande van
+brabant ende in allen andere onsen landen ende heerlyckheden
+midtsgaeders tot syne onverbeurde goeden indyen hij enige onder
+ons heeft ghelyck ende in alder manieren soo hy was
+voor de toecompste vanden voors. feyte imponerende hierop
+een eeuwich geswijch onse lieven ende getrouwen procureur
+generael van brabant ende allen anderen onsen ende onser vassallen
+oft der smaelre heeren richteren justicieren ende officieren
+wy sij sijn satisfactie ende beternisse ierstelyck voor al gedaen
+der partye geinteresseerde voor soo vele die noch nyet gedaen
+en sij ende eenige daertoe staet civilyck alleenelyck ende die
+saecke sulcx is verheysschende behoudelyck dat de voors. suppliant
+gehouden sal syn t’ voors. feyt tegens ons te beteren civilyck
+ende te betaelen eene dobbele $$$$$$ midtsgaeders $$$
+naerde gelegentheyt vanden saecken ende faculteyt van sijne
+goeden met oock te betaelen die redelycke costen van justitien
+hieromme alreede gedaen ende te doene alles ter tauxatie
+ende moderatien van onsen seer lieven ende getrouwen
+cancellier ende luyden van onsen raede in brabant
+die wy daertoe gecommitteert hebben ende committeren
+by desen ontbieden daeromme ende bevelen den selven onsen can=
+cellier ende luyden van onsen voors. raede dat voor hun geroepen ende
+de daerome behooren geroepen te sijne sij procederen wel ende
+deuchdelyck tot verificatie ende interinement van dese onse
+brieven van remis naer hunne forme ende innehouden ende
+ter tauxatien ende moderatien vanden selve amende civile
+ende costen van justitien voors. alsoo sy sullen bevinden te behooren
+welck interinement de suppliant gehouden sal sijn te versuecken
+ende hem in persoone te presenteren in onsen voors. raede
+binnen sesse maenden naestcommende op de pene van
+te verbeuren d’effect van dijen ende dat gedaen ende de selve
+civiele boete ende costen van justitien getaxceert
+ende betaelt synde in handen vanden genen die dat behooren
+sal sy onsen voors. procureur general in brabant onsen meyer
+van loven ende allen anderen onse rechteren justitieren
+officieren ende ondersaeten tegenwoordige ende toecommende
+dyen dat aengaen sal mogen heure stedehouderen ende
+een iegelyck van hun besundre soo hun toebehooren sal laeten
+ende gedoogen den voors. suppliant van deser onser tegenwoor
+diger gratien ende remissien ende van allen d’inhouden van
+deser inder vuegen ende manieren voore verhaelt
+paisiblyck rustelyck verdelyck ende volcomentlyck ten eeuwigen
+daege genieten ende ghebruycken sonder hem sonder daer inne
+te doen ofte laeten doen ende te laeten geschieden $$ oft in toecommende
+tyde eenich hinder letsel oft moyenisse ter contrarien
+maer indyn syn lijff oft enige van syne goeden daeromme
+gearresteert becommert ofte beleth waeren dat sy die
+setten ende stellen doen setten ende stellen terstont ende
+sonder vertreck tot geheelder ende volcommender
+delivrantie want ons alsoo gelieft ende ten eynde
+dat dit vast ende gestaedich blyve ten eewigen daege
+soo hebben wy onsen segel hier aene doen hangen behoudelyck
+in andere dingen ende $$rechten ende eenen iegelyck anders
+dessijns gegeven in onser stadt brussele inde maent van
+juny xvic vierenveertich [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "9 April",
+

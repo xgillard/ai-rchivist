@@ -1,0 +1,230 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslage
+philips byder greci goids ertshertoge van orstryck hertoge
+van bourgoingnien van lotharingen van brabant van stier van karinten van
+cram van limborch van luxemborch ende van geldre grave van
+vlaenderen van habspourg van thirol van firette van kieburg
+van artois van bourgoingnen palatun van henegouwe van holland
+van zeeland van namen en van zuytphen marcgrave des
+heylichs roemschen rycs ende van borgauw lantgrave in
+elsaten heere van vrieslant opter windischemarg van portenauw
+van salins ende van mechelen doen te wetene allen den ghenen
+die nu zyn ende namaels wesen sullen dat wy ontfangen hebben
+die oitmoedige supplicatie van jan vanden poele ende pauwels van assche
+geboren in onsen lande van $$$ denremonde inhoudende hoe dat
+inde maent van junie lestleden die voirs. supplianten hen vonden inde
+prochie van buggenhoute in onsen lande van brabant int geselscap
+van sekere goeden luden die aldaer by adventure vergadert waeren
+ende onder andere waeren int voirs. geselscap jan van assche
+broeder vanden voirs. pauwels ende naemaech vanden voirs. jan
+vanden poele suppliant ende oic wylen joes morenay, ende aldaer
+tsamen rustelic ende vredelic drinckende sonder enigen nyt oft
+haet tusschen hemluyden te voeren gehadt thebbene die voirs.
+wylen joes morenay wel by drancke wesende begonste hem
+int voirs. geselscap oneerlic ende buyten maten thebbene sprekene
+ontamelycke ende onbehoerlycke woerden dat scande was voer
+hem ende synen vrienden dwelc siende die voirs. jan van assche
+die den voirs. joes naestgebeure was int voirs. geselscap
+gheen quaets bemoedende ende om beterswille vervoorderde hem
+de voirs. joes van synen quaden wesen te berespene twelck
+die voirs. joes zeer qualic nam soe dat uuyt dien tusschen
+hen groote woerden ende geschil resen ende en hadde geweest
+dat die voergende supplianten ende andere bystanders niet belet
+en hadden tvoirs. geschil het was gescapen dat daer soude
+groote ongenuchte gebuert hebben want een vanden geselscap
+swager vanden voirs. joese morenay genaempt joes bunderman
+hadde doe den voirs. jan van assche gegrepen byden hare
+zyn beste doende omme hem van levende live ter doot bringen
+niet te min by middele vanden goeden luyden die dair
+waeren gheen ongenuchte en geviel ende corts daer nae
+die voirs. jan van assche ende wylen joes uuytgegaen
+synde der voirs. tavernen woerden resen van nyeux
+tusschen hemluyden soe dat zy tsamen vochten int welc
+gevecht die voirs. jan van assche was ter eerden neder
+geworpen byden voirs. wylen joes morenay die zyn uterste
+beste dede omme hem te vermoerden die voirs. jan van assche
+siende den grooten noot ende sorge van synen leven ende dat op
+hem quam den voirs. joes bunderman swager vanden voergenoemde
+wylen joes die hem te voeren byden hare getrocken hadde
+creesch ende riep hulpe anden voirs. pauwels suplliant zyne
+mage doe noch wesende inde voirs. taverne dwelc siende
+huerlieder broeder ende maech in sulcken noot ende ter eerde
+liggende onder de voeten van syyen synen vyande meynende
+dat hy totter doot gewont was beroert wesende ende gemoveert
+van broederlycke affectie elck met een geyserden
+stock die sy vonden in huerlieder uuytganck werpende
+gaven sekere slagen den voers. jan morenay daer of hy
+ontfinck eene oepene wonde vanden welcken corts daer nae
+hy quam van levende lyve ter doot ende al eest soe
+dat die voirs. supplianten ter cause vanden voirs. dootslach
+partye wel ende duechdelic voldaen hebben niet te min
+beduchtende strangheyt van justicien hebben hen geabsenteert
+uuyt onsen landen ende heerlicheyden inden welcken zy en
+souden nemmermeer wederkeeren noch converseren maer
+tot eewigen daigen moeten dair buyten bliven ende dolen
+in vremde landen ende contrayen ten grooten verdriete
+ende allendichen in dien hem onse gracie ende ontfermachticheyt
+hierop niet versien en waert alsoe zy seggen omme
+welcke zy ons zeer oitmoedelycke hebben doen bidden
+soe eest dat wy die saken voerscreven overgemerct
+genegen wesende ter oitmoediger bede ende supplicatie
+vande voers. supplianten willende henluyden in dit stick
+gracie ende genade prefereren voer strangheyt van justicien
+den selven ter eere ende weerdicheyt vander heyliger
+passie ons heere jhesus christus die hy leet ant thout des
+cruycen up sulcken dach als huden voer die verlossenisse
+ende redemptie vanden mensschelycke geslachte hebben
+in gevalle als boven vergheven quytgeschouwen ende
+geremitteert ende mits desen jegewoirdigen brieve vergeven
+schelden quyte ende remitteren tfait ende dootslach
+boven verclaert mitgaders alle boeten brueken ende offensien
+corporelle criminelle ende civile, daer inne zy ter cause
+voerscreven met datter aencleven mach jegens ons ende justicie
+misdaen mesbruyct ende verbuert mogen hebben ende
+hebben hen als van desen wedergestelt ende gerestitueert
+thuerlieder goeden fame name ende geruchte in onsen voirs.
+lande van brabant ende andere landen ende heerlicheyden tot huerlieder
+onverbuerde goeden in dien sy enige hebben gelyckerwys
+als zy waeren ee aleer tvoirs. feyt ende dootslach by hemluyden
+geperpetreert gechiet was lastende ende imponerende onsen
+procureur generael ende allen anderen onsen justicieren ende officieren
+hierup scilende ende eeuwich swigen behoudelic dat die
+voirs. supplianten gehouden sullen syn te beteren ende te vreden stellen
+die geinteresseerde partye civylic alleenlic in dien daer
+enige es ende die niet gedaen en hebben ontbieden daer omme
+ende bevelen onsen haerde lieven ende getruwen die cancellier
+ende andere luden van onsen raedt in brabant dat voere hen
+geroepen die ghene die d hier toe behoeren geroepen te syne
+zy procederen wel ende duechdelic ter verificatie ende interinement
+van desen onsen brieven ende dat gedaen zy onse drosset
+van brabant amman ende schoutheet van onser stad van bruessel
+ende alle andere onse justicieren officieren ende onderseten oft
+huerluyden stadhouderen ende elcken van henluyden byzunder dien
+dit nopen oft angaen sal doen laten ende gedoogen den voirs.
+supplianten van onse jegenwoirdige gracien quytsceldinge ende
+remissie ende van al den inhouden van desen soe ende inden namen
+als voerscreven es rustelic vredelic ende eewelic gebruycken ende
+genyeten sonder hemlieden te doen gedoegen doen oft laten
+geschien nu noch in toecomende tyden eenich belet oft
+ongebruyct ter contrarie in live noch in goede maer
+in dien sy oft huere voirs. goede niet verbuert synde
+ter cause voerscreven gevangen belet oft becommert waeren
+dat zy die terstont ontslaen ende ontcommeren uuyt allen
+letselen, ende wederstellen in huerluyden iersten staet ende
+wesende want ons alsoe gelieft gedaen te syne
+ende ten eynde dat dit goet vast ende gestadich blyve
+tot eewigen dagen soe hebben wy onsen zegel hier
+aen doen hangen behouden in andere dingen an ons ende
+eeneygelycke syns rechts in al gegheven in onse stad van mechelen
+upden goeden heyligen vrydach int jaer ons heeren duyst
+vc ende twee aldus over gescreven ende geteyteyt geteykent
+by mynen heere den eertshertoge in synen raet haneton
+gecollacionneert ende bevonden concorderende
+metten originele by my $$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "JUNE",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "vanden poele",
+      "role": "suppliant",
+      "function": "unknown"
+    },
+    {
+      "firstname": "pauwels",
+      "lastname": "van assche",
+      "role": "suppliant",
+      "function": "unknown"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "van assche",
+      "role": "person involved in the fight",
+      "function": "unknown"
+    },
+    {
+      "firstname": "joes",
+      "lastname": "morenay",
+      "role": "person involved in the fight",
+      "function": "unknown"
+    },
+    {
+      "firstname": "joes",
+      "lastname": "bunderman",
+      "role": "relative of joes morenay",
+      "function": "unknown"
+    }
+  ],
+  "locations": [
+    {
+      "name": "buggenhoute",
+      "loctype": "parish"
+    },
+    {
+      "name": "onsen lande van brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "onsen lande van denremonde",
+      "loctype": "province"
+    },
+    {
+      "name": "onser stad van bruessel",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "The document is a remission for a homicide committed in the province of Brabant in June. The suppliants, jan vanden poele and pauwels van assche, were in a tavern when a fight broke out. Jan van assche was fatally wounded by joes bunderman, relative of joes morenay, who was also involved in the fight. The suppliants had to leave the country out of fear for justice. The document remits the homicide and restores the suppliants' good name and reputation.",
+    "fr": "Le document est une remise d'homicide commis dans la province de Brabant en juin. Les suppliants, jan vanden poele et pauwels van assche, se trouvaient dans une taverne lorsqu'une bagarre a éclaté. Jan van assche a été mortellement blessé par joes bunderman, parent de joes morenay, qui était également impliqué dans la bagarre. Les suppliants ont dû quitter le pays par crainte de la justice. Le document remet l'homicide et rétablit la bonne réputation des suppliants.",
+    "nl": "Het document is een remissie voor een moord die in de provincie Brabant in juni is begaan. De supplianten, jan vanden poele en pauwels van assche, bevonden zich in een herberg toen een gevecht uitbrak. Jan van assche werd dodelijk gewond door joes bunderman, een familielid van joes morenay, die ook bij het gevecht betrokken was. De supplianten moesten het land verlaten vanwege de vrees voor rechtshandhaving. Het document vergeeft de moord en herstelt de goede naam en reputatie van de suppliants.",
+    "de": "Dieses Dokument ist eine Rehabilitierung für einen Mord, der in der Provinz Brabant im Juni begangen wurde. Die Bittsteller, jan vanden poele und pauwels van assche, befanden sich in einer Taverne, als ein Kampf ausbrach. Jan van assche wurde tödlich verwundet von joes bunderman, ein Verwandter von joes morenay, der ebenfalls an dem Kampf beteiligt war. Die Bittsteller mussten das Land aus Furcht vor der Justiz verlassen. Das Dokument vergibt den Mord und stellt den guten Ruf der Bittsteller wieder her."
+  }
+}
+```

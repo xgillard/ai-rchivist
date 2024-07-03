@@ -1,0 +1,306 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+copie van een remissie van dootslage
+maximilian par la grace de dieu esleu empereur tousiours
+auguste, roy de germanie de hongrie de dalmatie de
+croatie etc. et charles par la mesme grace, archiducz
+daustrice, prince despaigne des deux cecilles de jherusalem etc
+ducz de bourgoingne de lothier de brabant de stier de carente
+de carniole de lux lembourg de luxembourg et de gelres,
+contes de flandres de habsbourg de tyrolle de fierrette de
+kyeburg
+dartois de bourgoingne palatins et de haynnau, lantgraves delsate
+prince de zwaves, marquis de burgauv et du saint
+empire de hollande de zeellande de fierrette de kyeburg de
+namur et de zuytphen, contes, seigneurs de frize des
+marches de sclavonie de poertenau de salins et de
+malines. savoir faisons a tous presents et avenir
+nous avoir receu lumble supplication de hubrecht van
+zante povre compaignon navyeur natif de notre ville
+de bruges contenant, comme peut avoir cincq ans
+ou environ ledit suppliant estant lors alle en notre ville danvers
+a la conduite dung bateau charge de biens, et ainsi
+que par ung jour de dimenche questoit la procession audit
+anvers, il eust fait bonne chiere avec ung nomme hannekin
+vander capelle aussy navyeur sons compaignon et quilz
+alloient a lesbat par ladite ville sans penser a nul mal,
+vint daventure passer aupres deulx une femme tenant
+son mary par les bras, la quelle femme estoit aussy
+native de notredite ville de bruges, parquoy ledit suppliant que
+la recongnut aucunement fut a ceste cause legierement
+meu de dire audit hannekin son compaignon, celle femme
+qui passe la devant vous est native de bruges, je lay
+autresfoiz bien congneue surquoy ledit hannekin dist
+tantost marchons viffement apres que je la voye pour
+savoir se ne la congnoisteroie aussy point. et
+disant ces parolles lung de trois compaignons
+walons natifz de notre ville de lille, qui alloient aussy au
+long de la rue devant ledit suppliant et son compaignon
+ayant entendu les parolles devant dictes se tro tourna
+tantost contre iceulx suppliant et son compaignon disant
+assez fellement et dune fiere maniere quelle chose savez
+vous a dire a celle femme, aquoy ledit suppliant et son compaignon
+respondirent gracieusement comme ceulx qui ne demandoient
+noise ne debat nous ne savons rien delle sinon bien et
+honneur. ce neantmoins celluy desdits aultres trois
+qui avoient ainsi releve ladite parolle estant nomme
+comme ledit suppliant a entendu de puis pierchon de lille
+non content de la responce telle que dessus, et demonstrant
+la fierte de son courayge, redist et replicqua audit suppliant
+et son compaignon mettant sa main sur un long couteau
+quil avoit chaint, voulez vous de cecy, ou mots de semblables
+signiffication et substance. a quoy ledit suppliant et son
+compaignon respondirent encoires de legier couraige
+et sans aigreur, nenny voir, nous ne demandons riens
+de cela, nous aymerions beaucop mieulx boire ung
+pinte de vin. surquoy dist de rechief icellui de lille
+avec ses compaignons, vous ne seriez ja si hardy de
+venir avec nous a la taverne, a quoy ledit suppliant et son
+compaignon a intencion tousiours devister noise ou
+debat respondirent allez devant et nous vous suyvrons
+sur piedtz. et ces choses dictes iceulx trois compaignons
+allerent tout droit a la taverne du molin estant a lung
+des boudz du marchie dudit anvers et a luy suppliant et a son
+compaignon considerans que bonnement ne peurent autrement
+entrerent apres en ladite taverne, et illec arrivez,
+qui fut environ les six heures de lapres disner, lesdits
+trois compaignons se mirent dune part avec ung pot
+de vin, et icellui suppliant et son compaignon dune aultre
+part mais tout en une salle ayans une pinte de vin
+seulement et buvans ainsi dung coste et daultre, se
+advisa ledit suppliant que lesdits trois compaignons estoient
+embastonnez de longs couteaulx et que luy de sa part navoit
+verge ne baston, et son compaignon pour toutes deffences
+une petite courte dagguette, doubtant que aucun oultraige
+a luy et a son compaignon pouroit estre fey fayt, print
+occasion dallez ung tour a son bateau, delaissant sondit compaignon
+en la taverne avec le vin quilz avoient fait venir, duquel
+bateau il rapporta a toutes avantures un baston assez
+roide non ferre de la longeur de trois ou quatre pietz, lequel
+il portoit musse desoubz une robbe volant quil avoit
+vestue et revint ainsi incontinent aupres de sondit
+compaignon, et ayans les ungs et les autres beu leur vin
+sans quelques parolles de lung a lautre, et ayans lesdits trois
+compaignons de lille paye leur escot, se leverent faisans
+maniere deulx en aller de ladite taverne dont ledit suppliant
+et son compaignon furent tout joyeulx, mais estans alle
+jusques a luys de ladite taverne, seulement se arresterent
+illec tout court et demoura lung deulx en estant droit
+dedans ledit huys, en sorte que len ny eust peu entrer ne yssir sans le faire desmarchier.
+ce veu par ledit suppliant et son compaignon, et ayant
+appercheu que lung des autres avoit tire ung grant
+poinchon de dessus son couteau et le baillit a celluy qui
+occupoit ainsi lissue de luys de ladite taverne, doubtant
+a ceste cause de passer parmy eulx ou vuydier de ladite
+taverne dont ilz desiroient bien eulx departir car
+avoient ja longement beu leur vin, se adviserent de
+appeller loste de ladite taverne et luy dirent comment
+iceulx compaignons estans ainsy a luys sestoient avant
+leur venue illec courouche a eulx et que pour la maniere
+quilz leur veoyent tenir audit huys ilz craignoient
+deux de partir et de passer parmy eulx, requerrant
+quil les voulsist faire en aller, telement que ce entendu par ledit hoste
+sen alla parler a iceulx compaignons et fist tant quilz sen
+allerent et tantost ledit suppliant et son compaignon se departirent
+aussy de ladite taverne, mais nen furent point eslongnez sept
+ou huit maisons long que iceulx trois compaignons les vindrent
+poursuyr et lung diceulx a tout une courte dagge ou
+poinchon quil tenoit sans escryer ou dire mot cuyda
+murdrierement parderriere en frapper et le planter au doz
+dudit suppliant mais de bien venir ledit hannekin de la chappelle
+son compaignon lappercheut et escrya ledit suppliant lequel
+se desmarcha subit et parce que ledit hannekin tira lautre
+par le collet, il rompy ledit cop parderiere et tumba celuy
+qui cuida donner le cop par terre, mais incontinent
+lung des aultres trois compaignons assavoir ledit pierchon
+de lille desgainant ung long coutteau quil portoit rua
+dicelluy couteau pour frapper sur ledit suppliant de telle radeur
+quil eust fendu la teste, neust estre que icelluy suppliant du
+baston quil avoit apporte du bateau luy rompit et
+destourna ledit cop, touteffoiz de la grant forche icellui
+couteau devala au long du baston jusques a la main dudit
+suppliant tellement quil en eust le doy aupres du paulx
+tresfort blesche, et affole lequel pierchon encoires non
+content rehaucha sondit couteau faisant soy effort de
+ruer seconde foiz sur ledit suppliant mais icelluy suppliant
+pour sa deffense et comme esmeu de courroux pour tel
+oultraige a lui fait, rua de rechief sondit baston allencontre
+dudit couteau de si grant forche aussy quil en rompy
+et destourna encoires icelluy second cop, et que ledit
+baston descendy sur la teste dicellui pierchon en facon
+que parmy chapeau et bonnet il en receut telle navrure
+en la teste que par faulte de bon pensement ou aultre inconement
+icellui pierchon de lille en termina vie par mort environ
+six ou sept jours apres. et combien que ledit suppliantsoit
+escheu en cest inconvenient a son grant deplaisir et en son
+corps deffendant. touteffoiz doubtant rigeur de justice
+ilz sest absente de noz pays et seignouries ou depuis
+cincq ans que ledit cas advint il na oze venir hanter ne
+converser, ne encoires nozeroit faire. ains luy comviendroit
+le demourant de ses jours demourer en estraingnes marches
+et contrees en grant povrete ennuy et desolacion, se
+notre misericordieuse grace ne luy estoit sur ce impartie
+de laquelle actendu ce que dist est, et que aultrement il a
+tousiours este de bonne vie et conversation, sans jaymais
+plus avoir este actaint ne convaincu daultre vilain
+cas, blasme ou reproche si comme il dist ilz nous a
+treshumblement supplie et requis, pour quoy q nous
+les choses dessusdites considerees ayans pitie et compassion
+dudit suppliant, et luy vueillans a ceste foiz grace et misericorde
+estre preferee a rigeur de justice. a icellui hubrecht
+van zante suppliant inclinans a sa humble supplication et
+mesmement a lonneur et reverence de la dolorense mort
+que notre benoist redempeur jhesuscrist a tel jour quil est
+huy souffrit a larbre de la croix pour la redemption
+de lumain linguaige, avons ou cas dessusdit par ladviz
+et deliberation de notre treschiere et tresamee fille de
+nous empereur dame et tante de nous charles, dame
+marguerite archiducesse daustrice, ducesse et contesse
+de bourgoingne ducesse douagiere de savoye regente et
+gouvernante etc, quite remis et pardonne, quittons remettons
+et pardonnons de grace especial par ces presentes le cas et hommicide
+devant declare, ensemble toute peine amende et offense
+corporelle et criminelle en quoy pour cause et a loccasion
+dicellui il peut et pourroit estre tenu envers nous et
+justice. et lavons quant a ce remis et restitue, remectons
+et restituons par cesdites presentes a ses bonne fame et renommee
+a nozdits pays et seigneuries et a ses biens non confisques sancuns
+en a, tout ainsi et en la maniere comme estoit devant ledit
+cas advenu. en imposant sur ce scilence perpetuel
+a notre procureur general et a tous noz aultres officiers quelzconques.
+satiffaction touteffoyes faicte a partie premierement, et avant
+tout euvre se faicte nest civilement tant seulement,
+et moyennant que ledit suppliant lamendra aussy civilement
+envers nous selon lexigence du cas et la faculte de ses
+biens a larbitraigie et taxation de noz amez et
+feaulx les chancellier et gens de notre conseil en brabant
+residens en notre ville de bruxelles que commectons a ce.
+sy donnons en mandement a iceulx chancellier et
+gens de notredit conseil en brabant, que appelle ceulx qui
+pource feront a appeller, ilz procedent bien et
+deuement a linterinement et verification de ces presentes.
+et ce fait et ladite amende civile par eulx tauxee
+arbitree et payee es mains de celluy de noz officiers
+quil appertiendra, lequel sera tenu den faire recepte
+a notre profyt, ilz et tous aultres noz justiciers et
+officiers cui ce regardera, leurs lieutenans et chacun
+deulx endroit soy et sicomme aluy apperthiendra, facent
+seuffrent et laissent ledit suppliant de notre presente grace remission
+et quittance et de tout le contenu en cesdites presentes
+plainement paysiblement et perpetuellement joyr et user,
+sans luy faire mectre ou donner ne souffrir estre fait mis ou
+donne, ores ne ou temps advenir quelque arrest
+destourbier ou empeschement au contraire en corps ne en
+biens en aucune maniere. aincois se son corps ou
+aucune chose de cesdits biens estoient pour ce prins
+arrestez ou detenuz, les luy mectent ou facent
+mettre tantost et sans delay a plaine et entiere delivrance
+car ainsi nous plaist il, et le voulons estre fait.
+et afin que ce soit chose ferme et estable a tousiours
+nous avons fait mecttre notre seel a cesdites presentes. sauff
+en aultres choses notre droit et lautruy en toutes. donne
+en notre ville de gand, le jour du vendredy saint,
+lan de grace mil cincqcens et dix. et des regnes
+de nous empereur, assavoir de celluy de germanie
+le xxv et desdits de hongrie etc le xxje. ainsi avoit
+escript sur le reploy par lempereur et monseigneur
+larchiduc, en leur conseil. et signe haneton.
+collation a este faicte a
+loriginal par moy
+n streit $$$ [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "1550-04-03",
+  "fact_date": "1545-01-01",
+  "persons": [
+    {
+      "firstname": "hubrecht",
+      "lastname": "van zante",
+      "role": "suppliant",
+      "function": "poor sailor"
+    },
+    {
+      "firstname": "hannekin",
+      "lastname": "vander capelle",
+      "role": "companion",
+      "function": "sailor"
+    },
+    {
+      "firstname": "pierchon",
+      "lastname": "de lille",
+      "role": "antagonist",
+      "function": "companion"
+    }
+  ],
+  "locations": [
+    {
+      "name": "notredite ville de bruges",
+      "loctype": "parish"
+    },
+    {
+      "name": "notre ville de lille",
+      "loctype": "parish"
+    },
+    {
+      "name": "notre ville de bruxelles",
+      "loctype": "city"
+    },
+    {
+      "name": "notre ville de gand",
+      "loctype": "city"
+    },
+    {
+      "name": "ludit anvers",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "A remission of murder charge against hubrecht van zante, a poor sailor from Bruges, who killed pierchon de lille in self-defense during a tavern brawl in 1545.",
+    "fr": "Une remise de chefs d'accusation de meurtre contre hubrecht van zante, un marin pauvre de Bruges, qui a tué pierchon de lille en état de légitime défense lors d'une bagarre dans une taverne en 1545.",
+    "nl": "Een verontschuldiging van moordcharges tegen hubrecht van zante, een arme zeeman uit Brugge, die pierchon de lille in zelfverdediging gedood heeft tijdens een taverne ruzie in 1545.",
+    "de": "Eine Rechtfertigung von Mordanklagen gegen hubrecht van zante, einen armen Seemann aus Brugge, der pierchon de lille in Notwehr während eines Tavernenstreits im Jahr 1545 getötet hat."
+  }
+}

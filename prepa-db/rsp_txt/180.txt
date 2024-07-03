@@ -1,0 +1,185 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips by der gratien godst coninck van
+castillien etc. aen alle dieghene die dese onsen
+oepenen brieve sullen sien, oft hooren lesen saluyt
+doen te wetene dat wy ontfangen hebben die
+oodtmoedige supplicatie van franchoes van hoeck
+geboren poorter onser stadt antwerpen , inhoudende
+zoo dat $$ ontrent die acht jaeren geleden hy
+suppliant jongman synde ende oudt twintich
+jaeren geraerckt soude syn binnen de voors.
+stadt in geselschap van wylen dierick sterckvelt
+tegens den welcken in sekere herberge gestaen
+inde moyestraet genoempt den vygenboom
+met het ticktackbert gespelt hebbende om eenige
+omcten wyns soo wast datter tusschen henlieden
+disput ontstaen soude syn nopende het verlies vanden
+voors. wylen dierick steckvelt pretenderende den selven
+soo veele nyet verlooren te hebben dan het inder
+waerheyt waere waerover heftigewoorden
+geresen synde soude hebben den voors. yerst uuyt
+getrocken syn mesch ende mynende den suppliant
+gelyck apparentelyck soude geschiet syn dat den selven
+daermede hem wilde steken geeft insgelyck syn
+mesch uuytgetrocken uuyt synen sack ende
+int inneschieten vanden voors. dierick hem daermede
+gesteken eenen steek in synen buyck met soo
+daenich ongeluck tot syns suppliants bitter
+leetwesen dat den voors. gequesten 3 daegen daernaer
+is comen t’overleyden ter causen van d’welck den
+suppliant nu ontrent den tyt vanden voors. 8 jaeren
+verlaeten hebbende dese onse landen ende hem geretireert
+hebbende tot noortwyck in hollant by eenen prister
+alwaer den suppliant vermaert unificien synde
+onder de catholicke soude syn regerende het het unificq
+soude nu geerne naer soo lanck due$ag$$ absentie
+wederom keeren tot syn vaderlant ende onder onse
+gehoorsaemheyt hebbende totdyen eyntelyck opden 23
+aprilis 1650 van jan carlo steckvelt broeder vanden voors.
+afflyvigen die oock jongman synde overleden is
+over het voors. ongeluck vercregen vergiffenisse om godtswil$
+ende die bittere passie ende vyff wonden ons here jesu chr$
+soo endegelyck hy begeerde dat godtalmachtich aen hem
+syne sonden soude vergeven naer luyt vande certificatie
+van dry geloofweerdige persoonen daervan geexhibeert
+ende want oversulcx tot veylcheyt des suppliants
+persoon nyet anders en soude resteren dan onse gratie
+soo nampt hy daeromme synen toevlucht tot ons ootmoedel$
+biddende dat ons om godtswille ende die bittere
+passie ende vyff wonden christi hem het voors. ongeluck
+in syne jonge jaeren gecommitteert sonder oynt
+voor oft naer date met eenich ander delict wel$
+geweest te syn te vergeven ende hem tot dyen $$
+t’accorderen ende doen depescheren onse behoorlycke opene$
+brieven van remis in sulcken cas gerequireert waeromme
+soo eest dat wy die saecken voors. aengemerckt ende daer$
+ierst ende voor al gehadt d’advis van onsen lieven
+ende welbeminden den marckgrave van onser voor$
+stadt antwerpen genegen wesende ter oodtmoediger
+bede ende supplicatie des voors. suppliants ende wille$
+hem in dit stuck prefereren gratie ende genade v$
+rigeur ende stranheyt van justitie hebben den voors.
+franchois vanden hoeck suppliant inden gevalle als boven
+vergeven geremitteert ende quytgeschouwen vergeven
+remitteren ende schelden quyt uuyt onser sonderling$
+gratie by desen onsen brieve het feyt ende manslag
+boven verclaert midtsgaders alle pene ende amende cor
+porele ende criminele inde welcke hyter cause
+voors. met des daeraen cleeft tegens ons ende justitie
+misdaen ende misbruyckt mach hebben ende daerinne
+hy gevallen mach wesen ende hebben hem als van dye$
+wedergestelt ende gerestitueert stellen weder ende
+restitueren tot synen goeden naeme ende fame ende
+geruchte in onsen voors. lande van brabant ende i$
+alle andere onse landen ende heerlyckheden midts
+gaders tot syne onverbeurde goederen in dyen hy eenig$
+onder ons heeft inder vuegen ende manieren als h$
+was voorde toecompste van het voors. feyt imponere$
+hierop silentie ende een eeuwich swygen onsen pro$
+generael in brabant drossaert van brabant meyer
+van loven amptman van brussele schouteth van antwe$
+ende alle andere onse ende onser vassallen oft der
+smalre heeren richteren justicieren officieren $$$
+wie sy syn oft wesen mogen satisfactie ende beteringe
+ierst ende vooral gedaen der partye geinteresseerde
+in dyen die noch nyet gedaen en is ende eenige daertoe
+staet civilyck alleenlyck behoudelyck nochtans dat den
+voors. suppliant oock gehouden wordt tvoors. feyt tegen
+ons te beteren civilyck naer gelegentheyt van het
+misdaet ende faculteyt van syne goederen ende oock
+te refonderen ende betaelen die redelycke costen van
+justitie indyen hieromme noch eenige gedaen
+ende naegevolght syn alles ter taxatie ende
+arbiterschappe van onsen seer lieven ende getrouwen
+die cancellier ende luyden van onsen raede geordonneert
+in brabant die wy daertoe hebben gecommitteert
+ende committeren by desen ontbieden daervoer ende bevelen
+den selven onsen raede van brabant dat voor hem
+geroepen dieghene die behooren geroepen te syne
+sy procederen wel ende deugdelyck tot verificatie
+ende interinement van deser onser brieve van
+remis naer heure forme ende teneur ende ter arbi
+terschappe ende amende civile ende vanden costen
+van justitie voors. welck interinement hy suppliant
+gehouden sal syn aldaer te versuecken d’effect
+vanden selve onse brieve ende dat gedaen ende de voors.
+amende civile ende costen getaxeert gearbitreert
+ende betaelt syne in handen vanden genen van onse
+ontfangers ende officieren dyent behooren sal die
+welcke gehouden wert daeraff ontfanck te maken
+rekeninge bewys ende reliqua te doene tot onsen
+proffyte mette andere penningen van synen ontfange
+sy onsen voors. procureur generael drossart van brabant etc
+doen laeten ende gedoogen den voors. franchoos vanden hoeck
+suppliant van deser onser iegerwoordiger gratie
+quytscheldinge remissie ende pardoene ende van allen
+den innehouden van desen inder vuegen ende manieren
+ende opde restrictien voore verhaelt rustelyck
+peyselyck volcomentlyck ende eeuwigh genieten ende gebluycken
+sonder hem te doen oft te laeten geschieden nu noch in
+toecommenden tyde aen lyff noch aen goet
+eenich hinder stoot letsele oft moyenisse ter
+contratien maer indyen syn lyff oft eenige van
+syne onverbeurde goederen daerom gevangen
+gearresteert becommert oft beleth waeren
+dat sy die setten ende stellen oft doen setten ende
+stellen terstont ende sonder vertreck tot geheelder
+ende volcommender delivrantien want ons alsoo
+gelieft ende ten eynde dat dit goet vast ende
+gestandich sy blyve ende gehouden worde t’eeu
+wigen daege soo hebben wy onse zegele hier
+aen doen hangen behoudelyck in andere saecken
+onsen rechte ende een iegelyck des syns in allen gegeven
+binnen deser onser stadt van brussele inde maent
+van augusti ynt jaer ons heeren $$$$$
+gesien [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1650-04-23",
+  "fact_date": "UNKNOWN",
+

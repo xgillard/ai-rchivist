@@ -1,0 +1,154 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+albert ende isabel clara eugenia infante r$
+allen den genen die dese onse opene brieven sullen sien oft hooren
+lesen saluyt, doen te wetene dat wij ontfangen hebben die
+oytmoedige supplicatie van robert de melander geboren
+poirter deser onser stadt van brussele ende tapissier
+van sijnen ambachte, inhoudende hoe dat hij in onsen rade
+geordineert in brabant requeste gepresenteert heeft ten
+eijnde van abolitie van eenen slach die hij aen pasquier
+de neeker dienaer des heeren amptmans deser onser
+voors. stadt brussel heeft gegeven, waerop den ampt
+man der selver onser stadt in sijn advijs gehoort sijnde
+es geattoincteert nihil, ende heeft den verthoonder
+t'sedert soo vele gedaen dat hij metten voors. dienaer
+heeft geaccordeert ende gecompenseert, voor soo
+vele hij hem soude mogen geoffenceert ofte te cort
+gedaen naer vuytwijsen vanden instrumente
+daervan zijnde, welcken aengemerckt ende dat al
+eest soo dat den voorscrevenen amptman den
+verthoonder pretendeert in rechte te trecken, nochthans
+het subiect daervan onder correctie behoort comen
+te cesseren midts redenen voorseyt, dat oijck den
+verthoonder tgene voors. is heeft gecommitteert
+vuyt eene haesticheyt, gecauseert bij philips opde
+bosch wyntavernier binnen deser onser stadt, die
+den verthoonder corts te vorens wat onredelijck hadde
+getracteert, gelijck daervan wel soude blijcken indijen
+noot waeren, behalvens oijck dat den verthoonder
+nyet en heeft gemeynt den voors. pasquier de
+neckere t'offenceeren inde qualiteijt als dienaer
+ofte exploict doender, des den voors. verthoonder
+oidt is presenterende, sulcx datmen onder correcti$
+nijet en can seggen dat hij eenige resistentie oft
+outtragie aende justitie soude hebben gedaen
+gelijck hij oijck nijet en is gewoon aen ijemandt
+anders te doen, als wesende den verthoonder
+sonder vantise van stillen comportemente
+gelijck oijck wel blijcken soude bij soo verre
+des noot waere, ende dat desen volgende
+d'ierste faulte sonder opgesetten wille, emmers
+ten regarde van justitie gecommitteert soo hoochelyck
+nyet en soude behooren opgenomen te worden, des
+oijck te min, vuijt dijen die straffe vanden selve
+als die exemplaier soude moeten wesen des neen
+nyet alleen en soude redonderen tot disreputatie
+des vertoonders, maer oijck van vrouwe ende
+kinderen vijf in getalle, hier beneffens alnoch
+gevuecht dat nyemandt bij t'voors. feijt grootelycx
+en is gescandaliseert geweest, als geschiedt binnens
+huijs, dat in summa die van t'feijt geinformeert
+es genoech satisfactie sal hebben vuytte apprehentie
+ende langduerige detentie inden gevanckenisse
+des voors. verthoonders als van meer dan ses weeken,
+dwelck hem oijck mach geimputeert worden voor
+eene correctie, als boven d'infamie, nijet geproffiteert
+oft gewonnen hebbende, waermede hij sijn vrouwe
+ende kinderen soude mogen onderhouden, sulcx dat
+den voors. verthoonder als versien van sobere
+middelen daer is gansch gecontinueert , midts
+denwelcken soo heeft ons den voors. suppliant
+seer oytmoedelijck gebeden dat ons gelieven wilde
+t'gene voors. is te remitteren ende hem tot dijen eijnde
+te verleenen onse opene brieven van abolitie in sulcke
+cas dienende, soo eest dat wij de saecken voors. over
+gemerckt, geneijcht wesende ter beden ende supplicatie
+des voors. supplicats ende willende hem in desen
+prefereren gratie ende genade voor rigeur van
+rechte, hebben denselven inden gevalle als boven
+quijt geschouwen ende vergeven, schelden quijte
+ende vergeven vuyt sunderlinger gratien bij desen
+onsen brieve allen tgene hij ter causen voors.
+ende tgene daeraff dependeert tegens ons ende
+justitie misdaen ende misbruijct mach
+hebben, denselven stellende in sulcken staete als hy was
+voor de toecoomste van tgene voors. is behoudelijck
+dat de voors. suppliant schuldich ende gehouden sal
+zijn te betaelen voor amende t'onsen behoeve de somme
+van vijventwintich guldens eens, mitsgaders de
+costen van justitien tot nochtoe geresen, ende daeren
+boven te doen eenen wech berrevoets naer onser lieve
+vrouwe van scherpenheuvel ende daeraff te
+brengen behoirlijcke attestatie dat hij denselven
+volbrocht ende gereffectueert heeft onbieden
+daerom ende bevelen onsen procureur generael
+van brabant, amptman deser onser stadt van
+brussele ende voirts allen anderen onsen justicieren
+officieren ons voors. landts van brabant, hueren
+stedehouderen dijen dit eenichsints aengaen sal mogen
+dat de voors. satisfactie ende beternisse gedaen,
+de voors. costen van justitien getaxeert, gearbitreert
+ende betaelt sijnde, daerenboven alsoo behooren
+sal, sij den voors. suppliant van deser onser gratien
+pardoen, abolitie, ende quijtscheldinge inder
+manieren boven verhaelt peijselijck ende vredelijck
+doen ende laten genijeten ende gebruijcken, sonder
+hem daer inne te doen oft te laeten geschieden
+in lijff oft in goeden eenich hinder, stoot oft
+letsel ter contrarien, want ons alsoo gelieft
+ende des t'oirconden hebben wij onsen zegel hier
+aen doen hangen, gegeven in onser stadt van
+brussele den negenthiensten january int jaer
+ons heeren dusent ses hondert ende negenthich
+opde plijcke stont gescreven, bijde hertogen
+ende was ondergeteekent steenhuysen gesegelt mett eenen groenen segel
+vuythangende in zijde snoederen [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "09-01-1695",
+

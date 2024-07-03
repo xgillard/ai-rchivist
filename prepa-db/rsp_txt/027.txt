@@ -1,0 +1,221 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. doen te wetenen allen jegenwoirdigen ende toecomenden
+dat wy ontfangen hebben die oitmoedige supplicatie van
+geerart steylart bootsgeselle geboren tot boone jonckman
+ongehuwt zynde inhoudende hoe dat geleden is van inde
+maent van meerte xvc lvii oinbegrepen des juysten tyts
+hy suppliant met andere geselscap ende bootsgesellen hadde
+geweest drincken int burgerhoudt by onse stadt van
+antweppen aldaer zy bleven tot des avonts ontrent poirt
+tyde ende alzoe aldair gedroncken hebbende ende wel metten
+droncken bevangen zynde is hy suppliant met sommige vanden
+geselspappe naer huys gegaen ende commende binnen onser
+voirs. stadt van antwerpen daer hy woenachtich was ende
+gaende duer die lombardeveste op oft ontrent die
+camerpoorte brugge is hem suppliant vander camerstrate
+aff tegens gecomen zekeren manspersoon die hy doen
+niet en kende maer zindert verstaen heeft dat hy ge#
+was vincent van overbeke oick bootsgeselle die hem suppliant
+met sulcken gedruysche opt lyff liepe als dat hy bynae
+in deerde gevallen lach nyet wetende weder die selve
+vincent dat willens oft onverhuts dede midts dattet
+doncker ende hy van andere vier geselscapt was emmers hy
+suppliant aldus op zyn lyff geloopen zynde vraechde totten
+zelven vincent hoe hy aldus op zyn lyff geloopen
+quamp daerop de selve vincent binnens monts ende sulcx
+dat hy suppliant tselve niet verstaen en conste wat
+geantwoirt ende geprevelt heeft midts denwelcken
+die suppliant alzoe hy wel v$$ drancke was ende
+midts die donckerheyt vanden tyde vreesde oft deselve
+vincent eenen opstekere oft andere geweer tegen hem
+hadde willen besighen heeft zyn rappiere vuytge-
+trocken ende metter selver met meer dan eenen slach
+naden selven vincent die zyn derder was geslagen
+ende den selven een wonden in zynen slincken arm boven die
+$$cture gegeven soe hy suppliant des anderen daechs
+eerst heeft verstaen want hy doentertyt niet en wiste
+dat hy den voirs. vincent gequetst hadde wesende
+die selve quetsure van soe cleynder importantien
+dat de selve vincent in vier ofte vyf dagen tyts daer
+nae anders niet daerop en besichde dan zekere plaetsters
+die hem die vrouwen ghaven daer hy thuys lach in
+sulcker vuegen dat aleer eenich chirurgyn over den selven
+quampt vier in zynen arm geraeckte ende duer dyen int gasthuys
+gedragen moste werdden aldaer hy duer zyn sober regiment
+ende versuemptheyt ontrent drie weken oft een maent
+ombegrepen daer nae gecommen is van levenden lyff
+lyve ter doot ten grooten leetwesen verdriete ende eeuwige
+bederffenisse des suppliants die maer een arm bootsgeselle
+en is noyt eenige feyten gecommitteert hebbende die welke
+al eest dat hy daer aff met partye overcommen is ende
+deselve nae zyn erm vermoegen gecontenteert ende te
+vreden gestelt heeft ende hoe wel de selve vincent
+meer duer zyn schult ende versuemptheyt afflyvich gewordden
+is dan duer die voirs. quetsure die wel geneselyck waere
+geweest indien hy goet regiment hadde geuseert soe
+ende soude nochtans hy suppliant rigeur ende strangicheyt
+van justitien bevreesene binnen onsen landen besundere
+binnen ons voirs. stadt van antwerpen daer tselve feyt
+gebuert is nyet vryelyck dorren commen oft frequenteren
+maer waere zynen leven lanck gescapen een arme lantlooper
+te blyven ende van armoede te vergane ten waere dat
+onse gratie ende genade hem hierop wordde geextendeert
+zoe hy zegt ons daeromme oitmoedelyck biddende
+soe eest dat wy die zaken voirs. overgemerckt geneyght
+wesende ter beden des voirs. suppliants ende willende
+hem in dit stuck prefereren gratie ende misericordie
+voer rigeur ende strangicheyt van rechte hebben den
+selven suppliant inde gevalle als boven als boven
+geremitteert quyt/ge/scholden ende vergeven remitteren
+schelden quyte ende vergeven vuyt sunderlinger gratien by
+desen onsen brieve tfeyt ende ongeval boven geruert
+mitsgaders alle boets ende bruecke corporelle ende criminelle
+daer inne hy hem overmidts en vuyt saken van tgene des
+voirs. is tegen ons ende justitie eenichsyns mach hebben
+ontgaen ende misdragen ende hebben hem dien aengaende
+weder gestelt ende gerestitueert stellen weder ende
+restitueren tot zynder goeder fame name ende geruchte
+in onsen landen ende heerlicheyden besundere in onsen
+voirs. lande ende hertoichdomme van brabant ende stadt
+van antwerpen daer ende tot zynen onverbeurden goeden
+indyen hy eenige onder ons heeft gelyck ende in alder
+manieren soe hy was voer die toecompste vanden vs.
+feyte imponerende hier op een eeuwich geswych
+ende silentie onsen procureur generael in brabant onsen
+schouteth van antwerpen ende marckgrave onslants
+van ryen mitsgaders allen anderen onsen justicieren ende
+officieren wye zy zyn satisfactie ende beternisse
+ierst ende voer al gedaen der partyen geinteresseerde
+indyen die noch niet gedaen en zyn is ende eenige daer
+toe staet civilyck alleenlyck behoudelyck dat die
+voirs. suppliant gehouden zal zyn tvoirs. feyt tegen ons
+te beteren civilyck nae gelegentheyt vander saken
+ende faculteyt van zynen goeden met oick te betalen
+die redelycken costen van justitien hieromme alreede
+gedaen ende te doene allen ter taxatien ende moderatien
+van onsen lieve ende getrouwen die cancellier ende lieden
+van onsen rade in brabant die wy daertoe gecommitteert
+hebben ende committeren by desen ontbieden daeromme
+ende bevelen den selven onsen cancellier ende raidslieden dat
+voer hen geroepen dieghene die daeromme behoiren
+geroepen te zyne zy procederen wel ende duechdelyck tot
+verificatie ende interinemente van desen onsen brieven
+ende totter taxatien ende moderatien vander voirs. amende
+ende costen van justitien alzoe sy sullen vinden behoirende
+welck interinement die suppliant gehouden zal zyn
+te versuecken ende hem in persoone in onsen voirs. raide
+te presenteren binnen sessen maenden naestcomende
+op de pene van van te verbeuren deffect van desen
+ende dat gedaen ende de selve civile boete ende costen
+van justitien getaxeert ende betaelt zynde in handen
+vanden ghenen dien dat behoiren sal zy onse voirs.
+procureur generael in brabant onsen schoutet van antwerpen
+ende allen anderen onsen rechteren justicieren ende
+officieren jegenwoirdige ende toecomende dien dat
+aengaen sal moegen huere stedehouderen ende een
+yegelyck van $$$ besundere soe hem toebehoiren
+sal doen laten ende gedoogen den voirs. suppliant van
+marge: ende hieraf verantwoirdt
+byden ontfanger vanden
+exploicten
+deser onser jegenwoirdiger gratien ende remissien ende van
+alle dinhouden van desen inder vuegen ende manieren
+boven vercleert rustelyck vredelyck volcomelyck ende
+eeuwelyck genieten ende gebruycken sonder hem te doene
+oft te laten geschieden nu noch in toecomenden tyden
+eenich hinder letsel oft moeyenisse aen lyve noch aen
+goeden ter contrarien in eeniger manieren maer indien
+zyn lyff oft eenige van zynen ongeconfisqueerde goeden
+waeren hieromme namaelts becommert gepraempt oft
+gearresteert dat sy die setten en stellen terstont ende
+sonder vertreck tot geheelder ende volcommender delivrantie
+want ons alzoe gelieft ende ten eynde dat dit
+goet vast ende gestadich blyve tot eeuwigen dagen soe
+hebbe wy onsen zegel hieraen doen hangen behoudelyck
+in anderen saken onsen rechte ende eenyegelycken anderen dessyns
+gegeven in onser stadt van bruesselle inde maent
+van augusto int jaer onsheeren duysent vyfhondert
+negenenvyftich van onsen rycken van spaengnien ende
+sicillien t$$e ende van napels tvie opde plycke
+stont ges$$$ byden coninck in zynen raide $$$ $$$
+visa recepta
+gecollationeert ende bevonden accorderende
+$$$ synen originale by my
+$$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "1595-08-01",
+  "persons": [
+    {
+      "firstname": "geerart",
+      "lastname": "steylart",
+      "role": "suppliant",
+      "function": "bootsgeselle"
+    },
+    {
+      "firstname": "vincent",
+      "lastname": "van overbeke",
+      "role": "involved in the incident",
+      "function": "bootsgeselle"
+    }
+  ],
+  "locations": [
+    {
+      "name": "onser stadt van antwerpen",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Geerart Steylart, a bootsgeselle, has supplicated for remission after an incident in Antwerp in August 1595. He was drinking with a group, including Vincent van Overbeke, also a bootsgeselle, when they left the tavern and went their separate ways. Geerart was attacked by an unknown man, whom he later learned was Vincent. Geerart, fearing for his life, defended himself and wounded Vincent. Vincent's condition worsened, and he died several weeks later. Geerart, who had no previous criminal record, was initially afraid of the legal consequences but has now supplicated for remission.",
+    "fr": "Geerart Steylart, un bootsgeselle, a supplié pour une remise après un incident à Anvers en août 1595. Il était en train de boire avec un groupe, dont Vincent van Overbeke, également bootsgeselle, lorsqu'ils ont quitté la taverne et sont partis chacun de leur côté. Geerart a été attaqué par un homme inconnu, qu'il a appris plus tard être Vincent. Geerart, craignant pour sa vie, s'est défendu et a blessé Vincent. L'état de Vincent s'est aggravé et il est décédé plusieurs semaines plus tard. Geerart, qui n'avait pas de casier judiciaire auparavant, a d'abord eu peur des conséquences juridiques, mais a maintenant supplié pour une remise.",
+    "nl": "Geerart Steylart, een bootsgeselle, heeft verzoek om vergeving ingediend na een incident in Antwerpen in augustus 1595. Hij dronk met een groep, waarvan Vincent van Overbeke, eveneens bootsgeselle, deel uitmaakte, toen ze de herberg verlieten en hun eigen weg gingen. Geerart werd aangevallen door een onbekende man, die hij later Vincent bleek te zijn. Geerart, bang voor zijn leven, verdedigde zichzelf en verwondde Vincent. De toestand van Vincent verslechterde en hij stierf enkele weken later. Geerart, die geen eerdere strafblad had, was aanvankelijk bang voor de juridische gevolgen, maar heeft nu verzoek om vergeving ingediend.",
+    "de": "Geerart Steylart, ein bootsgeselle, hat um eine Remission gebeten nach einem Vorfall in Antwerpen im August 1595. Er trank in einer Gruppe, zu der auch Vincent van Overbeke, ein weiterer bootsgeselle, gehörte, als sie die Taverne verließen und ihre eigenen Wege gingen. Geerart wurde von einem unbekannten Mann angegriffen, den er später als Vincent erkannte. Geerart, ängstlich um sein Leben, verteidigte sich und verletzte Vincent. Der Zustand von Vincent verschlechterte sich und er starb einige Wochen später. Geerart, der zuvor keine Straftaten begangen hatte, hatte anfangs Angst vor den rechtlichen Folgen, aber hat nun um Vergebung gebeten."
+  }
+}
+```

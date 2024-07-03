@@ -1,0 +1,182 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips bijder gratien goidts coninck van
+castillien, van arragon, van leon, van beyde sicillien etc,
+doen te weten alle tegenwoordige ende toecommende dat
+wy ontfangen hebben d'oitmoidige supplicatie van niclaes de
+hertoge ingesetene der prochie lombeke, wambeke ende
+ternath hantwerker belast met vrouwe ende kinderen, inhoudende
+hoe dat hy suppliant hem altyts heeft wel, eerlyck ende stil gedraegen,
+binnen syner cost met wercken voorde voorscreven syne huysvrouwe ende kinderen,
+dan es gebeurt dat opden kermisdach van wambeke voorscreven wesende den
+sesthienden octobris xvic tweentwintich, hij bij drancke wesende
+ten huyse van jan de plasch woonende tot wambeke voorscreven bijde kercke,
+heeft daer gehoirt groot geruchte oft getier, diewelcke tusschen
+eenige persoonen die onder hen waeren questie maeckende was gebeuren is
+opgestaen halff slaepericht oft droomende midts dat hy byden drancke
+was overvallen ende heeft soo men hem naer is seggende twee slaegen
+gegeven opden rugge van anthonis wauters, nyet wetende hij suppliant
+dat hij syn mes hadde getrocken maer alsoo die voorscreven anthonis
+wauters eene quetsure daerdoor was hebbende, wierde hem suppliant
+geseeght dat hy hem soude vertrecken, nochtans nijet wetende dat hij
+sulcx soude hebben gedaen, dan dat naermaels hem allen tselve wierdt
+opgeleeght, ende dat men heeft gesien in sijn handt seker mes
+blincken, indervuegen dat die voorscreven wylen anthonis wouters
+alsoo gequest synde heeft inde herberge alnoch blijven drincken
+met halve potten den geheelen nacht, ende tsanderendaechs gegaen
+synde te voet naer huijs ontrent drye mylen van daer heeft noch
+vierthien daegen geleeft, sonder hem te wachten gelyck eenen gequetsten
+behoirden gedaen te hebben waerdoor is hy ten lesten afflyvich
+geworden tot sijns suppliants groot leetwesen, die noynt questie, crakeel
+oft passie tegens den voorscreven wylen anthonis wouters binnen synen
+leven en heeft gehadt, ende over sulcx is hy mette vrienden overcommen
+als blyckt byde attestatie vande pastoir van lennicke daeraff sijnde
+ende nijettemin soude hy suppliant moeten wesen lantloopere verlaetende syne
+huijsvrouwe ende kinderen die anders nyet en syn hebbende dan dat hy suppliant
+daegelycks met synen sueren aerbyt can winnen ten waere dat ons
+geliefde hem tselve misdaet ten respecte vanden goeden vrydach te vergeven, badt dairomme
+seer oitmoidelyck om onse opene brieven van remis in sulcken cas
+dienende waeromme soo eest, dat wy desen aengesien
+ende ierst hier op gehadt d'advijs vanden meyer van wambeke
+genegen wesende ter beden ende supplicatien des voorscreven suppliants ende willende
+hem in desen gracie ende genaede prefereren voor rigeur ende strangheyt
+van justicie, hebben den selven suppliant in gevalle als boven quijt geschouwen
+ende vergeven, schelden quijte ende vergeven vuyt onse sunderlinge gratie by desen
+onsen brieve tfeijt ende ongeval boven geruert mitsgaederss alle offensie
+ende bruecken corporele ende criminele, daer inne hij ter saecken van
+dyen met tgene dat daer daeraff dependeert tegen ons ende justicie misdaen
+ende misbruijckt mach hebben, ende hebben hem dijen aengaende weder
+gestelt ende gerestitueert, stellen weder ende restitueren tot sijnen
+goeden naeme ende faeme in onsen voorscreven lande van brabant ende
+in alle andere onse landen ende heerlyckheden ende tot sijne
+ongefisqueerde goeden goeden indyen hy er eenige onder ons heeft,
+gelijckerwys hy was voor de toecompste van tvoorscrevenongeval,
+imponerende hier op een eeuwich geswych onsen raedt ende procureur
+generael van brabant ende alle andere justicieren ende officieren ons
+voors lants van brabant, satisfactie ierst ende voor al gedaen sijnde
+aen partijen geinteresseerde indyen eenige daer toe staet
+die noch nijet gedaen en sij ende eenige daertoe staet
+civilyck alleenelyck behoudelyck dat den voorscreven suppliant gehouden syn
+tvoorscreven feyt ende ongeval tegen ons te beteren civilyck alleenlyck naer
+gelegenthyt vande saecken ende faculteyt van synen goeden met oyck
+te betaelen die redelycke costen van justicien, indyen eenige daeromme
+gedaen syn, ter taxaetien ende moderaetie van onsen seer lieven ende
+getrouwen die cancellier ende luyden van onsen raede van brabant
+die wy daertoe committeert hebben ende committeren by desen $$
+$$ontbieden ende bevelen dat voor hen lueden geroepen degene die daertoe
+behoiren geroepen te syn, sij wel ende deugdelyck procederen ter verificacien
+ende interinement van desen, welck interinement hy suppl gehouden
+sal syn aldaer te versuecken binnen sesse maenden naer date van
+desen, opde verbeurte van te verliesen d'effect der selver, ende dat
+gedaen ende de voorscreven costen van justicien getaxeert ende betaelt synde
+in onsen voorscreven raedt ende procureur generael, drossaert van brabant,
+meyer van loven, amman van bruessele, schoutetten van antwerpen
+ende vande bossche ende alle andere onse ende onser vassalen ende smaelre heeren
+rechteren, justicieren ende officieren, dat sy ende eenygelycken van hen den voorscreven
+suppliant doen laeten ende gedoogen van onser tegenwoordiger gracie ende
+quytschelding indervuegen ende manieren boven verhaelt
+peyselyck ende vredelyck genyeten ende gebruycken, sonder hem nu noch
+toecommenden tyde daer inne te doen oft te laeten geschieden
+eenich hinder, stoot oft letsel ter contrarien. maer indyen
+syn lyff oft eenige eenige van sijne ongeconfisqueerde goeden hieromme
+waeren becommert, gepraempt oft gearresteert, dat sy die
+terstont setten ende stellen tot volcommende delivrancie, want ons
+alsoo gelieft, ende des t'oirconde hebben wy onsen segel hier aen doen
+hangen. gegeven in onse stadt van brussele den vyffden april
+xvjc vierentwintich. onder opde plijcke stont gescreven aldus
+byden coninck ende was onderteekent a defrey ende was gesegelt
+met eenen groenen wassen segele vuyt hangende in groene zyde snoeren [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "xvjc vierentwintich, den vyffden april",
+  "fact_date": "xvic tweentwintich, sesthienden octobris 24",
+  "persons": [
+    {
+      "firstname": "niclaes",
+      "lastname": "de hertoge",
+      "role": "suppliant",
+      "function": "duke"
+    },
+    {
+      "firstname": "anthonis",
+      "lastname": "wauters",
+      "role": "involved in a fight",
+      "function": "none"
+    },
+    {
+      "firstname": "philips",
+      "lastname": "bijder gratien goidts",
+      "role": "none",
+      "function": "coninck van castillien, van arragon, van leon, van beyde sicillien etc"
+    }
+  ],
+  "locations": [
+    {
+      "name": "lombeke, wambeke, ternath",
+      "loctype": "prochie"
+    },
+    {
+      "name": "wambeke",
+      "loctype": "town"
+    },
+    {
+      "name": "lennicke",
+      "loctype": "parish"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Philips, King of Castille, Aragon, Leon, and both Sicillies, informs that he has received a supplication from Niclaes, Duke of Lombeke, Wambeke, and Ternath, who has always behaved well towards his wife and children. However, on the kermisday of Wambeke, while being at the house of Jan de Plasch, he heard a great noise and was attacked by another man, Anthonis Wauters, who gave him two blows on the back. Not knowing that Anthonis had drawn his knife, Niclaes was not aware of the wound he had caused. Anthonis stayed in the inn, drinking, and died a few days later. Niclaes, who never had any quarrel with him, asks for a letter of remission, which is granted to him.",
+    "fr": "Philippe, roi de Castille, d'Aragon, de Leon et des deux Siciles, informe qu'il a reçu une supplique de Niclaes, duc de Lombeke, Wambeke et Ternath, qui s'est toujours bien comporté envers sa femme et ses enfants. Cependant, le jour de la kermesse de Wambeke, alors qu'il se trouvait chez Jan de Plasch, il a entendu un grand bruit et a été attaqué par un autre homme, Anthonis Wauters, qui lui a donné deux coups de poing dans le dos. Ne sachant pas qu'Anthonis avait sorti son couteau, Niclaes n'a pas pris conscience de la blessure qu'il avait infligée. Anthonis est resté dans la taverne, a bu et est mort quelques jours plus tard. Niclaes, qui n'a jamais eu de querelle avec lui, demande une lettre de rémission, qui lui est accordée.",
+    "nl": "Filips, koning van Castilië, Aragon, León en beide Siciliën, laat weten dat hij een supplicatie heeft ontvangen van Niclaes, hertog van Lombeke, Wambeke en Ternath, die zich altijd goed heeft gedragen tegenover zijn vrouw en kinderen. Op de kermisdag van Wambeke, terwijl hij bij Jan de Plasch thuis was, hoorde hij een groot lawaai en werd hij aangevallen door een andere man, Anthonis Wauters, die hem twee klappen gaf op zijn rug. Zonder te beseffen dat Anthonis zijn mes had getrokken, was Niclaes zich niet bewust van de wond die hij had aangericht. Anthonis bleef in de herberg drinken en stierf enkele dagen later. Niclaes, die nooit ruzie met hem had gehad, vraagt om een vergevingsbrief, die hem wordt verleend.",
+    "de": "Philipp, König von Kastilien, Aragón, León und beider Sizilien, teilt mit, dass er eine Bitte um Vergebung von Niclaes, Herzog von Lombeke, Wambeke und Ternath erhalten hat, der sich immer gut gegenüber seiner Frau und seinen Kindern verhalten hat. An dem Kirmestag von Wambeke, als er im Haus von Jan de Plasch war, hörte er ein großes Geräusch und wurde von einem anderen Mann, Anthonis Wauters, angegriffen, der ihm zwei Schläge auf den Rücken gab. Ohne zu wissen, dass Anthonis sein Messer gezogen hatte, war sich Niclaes nicht bewusst, welche Wunde er ihm zugefügt hatte. Anthonis blieb in der Herberge und trank weiter und starb einige Tage später. Niclaes, der nie Ärger mit ihm hatte, bittet um einen Erlass, der ihm gewährt wird."
+  }
+}
+```

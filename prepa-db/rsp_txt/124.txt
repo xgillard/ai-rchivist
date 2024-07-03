@@ -1,0 +1,151 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc onsen lieven ende getrouwen riddere heeren ieromme
+vander noot cancellier ende den anderen luden van onsen raide in
+brabant geordineert saluyt ende dilectie. wy hebben
+onfangen die oitmoedige supplicatie van henricke loys
+bogemakere in onser stadt van loeven inhoudende hoe dat
+hy inde maent van meye int jair xvc negenthiene
+lestleden heeft van ons vercregen onse oepene brieven van
+remissien van zekeren dootslage by hem geperpetreert inden
+persoen van wylen a$$de vander meeren welcke brieven
+van remissien die suppliant versocht heeft gehadt
+geinterineert te hebbene ende alsoe die suppliant
+int vercrygen vanden voirs. onsen brieven van remissien
+geomitteert heeft te kennen te gevene dat hy voirtyden noch
+eenen dootslach geperpetreert hadde inden persoen van
+wylen cornele van testelen dair af hy oick onse brieve
+van remissien vercregen heeft inde maent van januario
+inden iaire vyfthienhondert elfve lestgeleden ende
+die selve doen interineren soe dat behoirde hoe wel
+nochtans hy tselve nyet en heeft verswegen dan alleenlyc
+wyt sympelheyden meynende dat van egheenen noode
+en hadde geweest mits dat hy die voirs. onse andere
+oepene brieven van remissien hadde geobtineert nietemin
+beduchtende dat onder tdecssel van dien hem int interinement
+van desen onsen opene brieven soude mogen gemaict
+wordden * gere$icieert oft sureptys vercleert dwelck hem * tussenvoegsel, zie verder
+soudet comen tot grooten achterdeele alsoe hy seeght
+soe heeft hy ons oitmoedelyc gebeden hem te willen
+verleenen onse oepene brieven van ampliatien waerom
+soe eest dat wy desen aengesien u ontbieden ende bevelen
+by desen dat soe verre u blycke van onsen voirs. voirgaenden
+oepene brieven van remissien byden suppliant geobtineert
+ende dat die oick geinterineert zyn als voire verclaert is
+ghy in dien gevalle ten versuecke vanden suppliant
+procedeert ende doet procederen totter verificatien ende
+interinemente der voirs. onsen lester brieven van
+remissien in alle der manieren ende gelyck ghy hadt
+mogen doen in dien die suppliant vanden voirs. voirgande
+dootslage ende brieven van remissie hadde te kennen
+gegeven ende doen stellen in onse leste brieven van
+remissie willende ende verclarende dat tselve
+* swarich$ oft weyger ende dat zyn remissie soude mogen worden
+verswigen den suppliant egheen preiudicie oft achterdeel
+en drage ende soe verre des noet zy hebben hem
+dat vergeven ende vuyt onser zunderlinger gracien dair
+af gereleveert by desen want ons alsoe gelieft
+gegeven in onser stadt van bruessele vierthien dagen
+in meye int jair onss heeren duysent vyfhondert
+ende twintich ende van den anderen castillien van
+leon etc tvyfste. aldus stondt onder gescreven
+byden coninck tuwer relatien ende gheteekent
+h de hane
+gecollacioneert ende bevonden accorderend
+metten originale by my [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "1520-05-14",
+  "fact_date": "1519-05 (first offense), 1519-01 (second offense)",
+  "persons": [
+    {
+      "firstname": "Henricke",
+      "lastname": "Loyss",
+      "role": "supplicant",
+      "function": "bogemakere"
+    },
+    {
+      "firstname": "A$sde",
+      "lastname": "Vander Meeren",
+      "role": "victim",
+      "function": "previous beneficiary of a remission letter"
+    },
+    {
+      "firstname": "Cornele",
+      "lastname": "Van Testelen",
+      "role": "victim",
+      "function": "none"
+    },
+    {
+      "firstname": "Ieromme",
+      "lastname": "Vander Noot",
+      "role": "canceller",
+      "function": "royal councilor"
+    },
+    {
+      "firstname": "Ons",
+      "lastname": "None",
+      "role": "grantor",
+      "function": "king"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Loeven",
+      "loctype": "city"
+    },
+    {
+      "name": "Bruessele",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Henricke Loyss, a bogemakere from Loeven, has supplicated the king for ampliation letters of remission for two offenses. The first one was committed against A$sde Vander Meeren in May 1519, and the second one against Cornele Van Testelen in January 1519. Henricke had already obtained a letter of remission for the first offense but did not disclose it immediately, fearing that it could be altered or falsified during the interim period. The king has granted the request, and the new letters of remission will be included in the previous ones.",
+    "fr": "Henricke Loyss, un bourgeois de Loeven, a supplié le roi d'ampliation des lettres de rémission pour deux délits. Le premier a été commis contre A$sde Vander Meeren en mai 1519, et le second contre Cornele Van Testelen en janvier 1519. Henricke avait déjà obtenu une lettre de rémission pour le premier délit mais n'a pas révélé immédiatement, craignant qu'elle puisse être altérée ou falsifiée pendant la période intérimaire. Le roi a accordé la demande, et les nouvelles lettres de rémission seront incluses dans les précédentes.",
+    "nl": "Henricke Loyss, een bogemakere uit Loeven, heeft bij de koning om versterkte rehabilitatiebriefs voor twee overtredingen aangevraagd. De eerste was begaan tegen A$sde Vander Meeren in mei 1519 en de tweede tegen Cornele Van Testelen in januari 1519. Henricke had al een rehabilitatiebrief voor de eerste overtreding ontvangen, maar hij had deze niet onmiddellijk onthuld, omdat hij vreesde dat deze tijdens de interimperiode kon worden aangepast of vervalst. De koning heeft de aanvraag ingewilligd en de nieuwe rehabilitatiebriefen zullen worden opgenomen in de vorige.",
+    "de": "Henricke Loyss, ein Bürger aus Loeven, hat beim König um erweiterte Begnadigungsurkunden für zwei Vergehen gebeten. Das erste wurde im Mai 1519 gegen A$sde Vander Meeren und das zweite im Januar 1519 gegen Cornele Van Testelen begangen. Henricke hatte bereits eine Begnadigungsurkunde für das erste Vergehen erhalten, aber er hat sie nicht sofort offenbart, aus Angst, dass sie während der Übergangszeit geändert oder gefälscht werden könnte. Der König hat der Bitte entsprochen und die neuen Begnadigungsurkunden werden in die vorherigen aufgenommen."
+  }
+}

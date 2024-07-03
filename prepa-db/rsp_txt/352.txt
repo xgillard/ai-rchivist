@@ -1,0 +1,176 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+abolitie joes thomaessoone
+kaerle etc. allen den ghenen die dese onse brieve sullen sien
+oft hoiren lesen saluyt wy hebben ontfangen die supplicatie
+van joes thomaessoone arm scamel huysman belast met huysvrouwe
+ende vyf levende kynderen inhoudende hoe dat hy suppliant zekere
+jaeren geleden geweest zynde onder schouthet van geffene
+is by onsen procureur general in brabant te rechte geport ende
+criminelyck beticht ter saken van dat een geheeten aert van
+lybergen lutheriaen relaps gebannen synde op zyn
+lyf uuyt allen onsen landen onsen raide van brabant subiect
+wesende hem soude tot geffene voirs. gehouden ende aldaer
+verkeert hebben ten wel wetende ende aensiene des suppliants
+die daer mede soude geconverseert hebben sonder den selven
+te hebben geapprehendeert oft aengetast mits welcken
+hy suppliant soude gedelinqueert hebben tegen tplaccaet
+gepubliceert op dextirpatie vander heresie lutheriane
+ende hoe wel de suppliant aen tgene des voirs. is
+egheenssins en heeft gemeyndt te mesdoene gemerct
+tvoirs. placcaet to geffene voirs. noyt en is gepubliceert
+geweest hoe wel men aldaer alle andere edicten ende
+placcaten gewoenlyck is te publicerene zoe wanneer men
+die aldaer heeft moeten observeren ende onderhouden
+soe oick die voirs. aert van lyberghen tot geffene voirs.
+wel twee oft meer jaeren hadde geconverseert ende
+verkeert eer die suppliant tot geffene onder schoutet geworden
+is meynende alzoe de suppliant dat hy hadde remis
+gelyck daer af was gemeyn fame voix ende gesach dwelck
+den suppliant soe veel meer geinduceert heeft te geloovene
+gemerct die heere van geffene den selven nyet en heeft
+geapprehendeert noch ingsgelyck onse scouthet vanden
+bossche die nochtans nyet en ignoreerden dat de voirs.
+aert aldaer verkeerende was ende hy suppliant maer onder
+schoutet en was ende sonder assisten$$$ den selven aert
+nyet en soude hebben kunnen geapprehenderen desen
+nochtans nyet tegenstaende ende oick datmen den suppliant
+nyet en soude kunnen geimponeren dat hy selve
+vander voirs. secte oyt soude besmet oft suspect
+geweest zyn soe beducht hy hem nochtans dat
+gemerct hij is een arm schamel geselle ende de costen vanden
+processe tegen onsen procureur egheenssins en soude kunnen
+langer verdragen dat hij mits dyen ende anderssins soude
+commen in grooter schaden schanden ende confusie en wordde
+hem hierop nyet versien met onsen gracien ende oepenen brieven
+van abolitie ende perdoene alzoe hij seegt ons om de
+selve oitmoedelyck biddende waer om zoe eest
+dat wij desen aengesien ende daerop gehadt dadvys van onsen
+voirs. procureur generaerl in brabant den voirs. suppliant geneycht
+wesende tot zynder voirs. beeden ende supplicatien ende
+willende hem in desen prefereren gracie voer rigeur van justicien
+hebben in gevalle als boven vergheven ende quytgeschouwen
+vergheven ende schelden quyte uuyt onsen sunderlinger gracien
+by desen tmesuzen? ende overtredinge van onsen voirs. placcaten
+boven vercleert mitsgaders alle peyne ende boete corporele
+ende criminele daer inne hy ter saken voirs. met desser
+aencleeft tegens ons ende iusticie mesdaen ende mesbruyct
+mach hebben ende hebben hem als daeraf weder
+gestelt ende gerestitueert stellen weder ende restitueren
+tot zynen goeden fame ende naeme in onse voirs. lande
+ende hertochdom van brabant ende allen anderen onsen
+landen ende heerlicheyden mitgaders tot zynen onverbeurden
+goeden in dyen hy eenighe heeft geleden ende in alder manieren
+zoe hij was voer de geschiedenisse vanden voirs. mesuse
+imponerende hierop een eeuwich zwijgen ende s$ilencie
+onsen voirs. procureur general van brabant ende allen anderen
+onsen ende der smaelre heeren iusticieren ende officieren
+ons voirs. lants wye zij zijn ende tot dyen
+abolerende ende te nyeuwte doene proces teghen hem als
+voere bij onse voirs. procureur geintenteert behoudelyck dat
+de voirs. suppliant in plaetse van civile beternisse sal
+tot onsen behoef gehouden wesen te betaelene in handen
+van onsen ontfangere vanden exploicten in brabant die daer
+af gehouden wordt rekeninge bewijs ende reliqua te doene
+tonsen proffyte daer ende soe dat behoiren sal de
+somme van twintich gouden karolus gulden eens
+in de marge
+$$$ van verantwoordinghe
+byden ontfanger vanden
+expl exploiten [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "joes",
+      "lastname": "thomaessoone",
+      "role": "suppliant",
+      "function": "arm scamel huysman"
+    },
+    {
+      "firstname": "aert",
+      "lastname": "van lybergen",
+      "role": "accused",
+      "function": "lutheriaen relaps"
+    },
+    {
+      "firstname": "heere",
+      "lastname": "van geffene",
+      "role": "lord of the place",
+      "function": "nobleman"
+    },
+    {
+      "firstname": "onsen",
+      "lastname": "procureur general in brabant",
+      "role": "prosecutor",
+      "function": "legal representative"
+    },
+    {
+      "firstname": "onsen",
+      "lastname": "scouthet vanden bosch",
+      "role": "local sheriff",
+      "function": "law enforcement"
+    }
+  ],
+  "locations": [
+    {
+      "name": "geffene",
+      "loctype": "town"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Joes Thomaessoone, an arm scamel huysman, has received a remission from the authorities regarding the case of Aert van Lybergen, a relapsed Lutheran, who had been banned from all the lands of the Duke of Brabant. The suppliant claims that Aert had been living and conversing in Geffene for several years before Joes became the local sheriff. Despite knowing about Aert's Lutheran beliefs, the suppliant did not apprehend or accuse him, as it was common practice to first publish the placcaet against heresy before enforcing it. The suppliant also mentions that he has not yet been reimbursed for the costs of the process and asks for grace and abolition letters.",
+    "fr": "Joes Thomaessoone, un homme d'humbles moyens, a reçu une remise concernant l'affaire d'Aert van Lybergen, un luthérien relaps qui avait été banni de tous les territoires du duc de Brabant. Le suppliant affirme qu'Aert avait vécu et conversé à Geffene pendant plusieurs années avant que Joes ne devienne le shérif local. Malgré ses croyances luthériennes, le suppliant n'a pas arrêté ou accusé Aert, car il était d'usage de publier d'abord le placcaet contre l'hérésie avant de l'appliquer. Le suppliant mentionne également qu'il n'a pas encore été remboursé des frais du procès et demande la grâce et des lettres d'abolition.",
+    "nl": "Joes Thomaessoone, een arme schamel huysman, heeft gratie gekregen voor het geval van Aert van Lybergen, een relaps lutheriaan die was verbannen uit alle landen van de hertog van Brabant. De suppliant beweert dat Aert jarenlang in Geffene heeft gewoond en zich heeft gedragen alsof hij geen lutheraan was, voordat Joes sheriff werd. Hoewel de suppliant wist van Aerts lutherse overtuigingen, deed hij er niets tegen, aangezien het gebruikelijk was om het placcaat tegen de ketterij eerst te publiceren voordat er opgetreden werd. De suppliant voegt eraan toe dat hij nog steeds geen vergoeding heeft gekregen voor de proceskosten en vraagt om gratie- en abolitieverklaringen.",
+    "de": "Joes Thomaessoone, ein armer Schamelhuysman, hat eine Begnadigung für den Fall von Aert van Lybergen erhalten, einem relaps lutheranischen, der von allen Ländern des Herzogs von Brabant verbannt wurde. Der Bittsteller behauptet, dass Aert mehrere Jahre in Geffene gelebt und sich so verhalten habe, als ob er kein Lutheraner wäre, bevor Joes Sheriff wurde. Obwohl der Bittsteller von Aerts lutherischem Glauben wusste, unternahm er nichts dagegen, da es üblich war, das Placcaat gegen die Ketzerei erst zu veröffentlichen, bevor man handelte. Der Bittsteller fügt hinzu, dass er immer noch keine Entschädigung für die Prozesskosten erhalten hat und um Gnaden- und Abolitionsbriefe bittet."
+  }
+}

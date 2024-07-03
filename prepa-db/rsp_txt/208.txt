@@ -1,0 +1,219 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. allen den genen die desen onsen brief sullen zien saluyt doen te
+weten dat wy ontfaen hebben die oitmoedige supplicatie van adriaen de vyt
+nu ter tyt gevangen in handen van onsen drosaet slants van mechelen inhoudende
+hoe hij suppliant ten tyde dat wij siege hielden voir de stadt van masieres aldair
+oic mede geweest is in onsen dienst met vier wagenpeerden ende aldair
+wesende zyn hem twee vanden voirs. vier peerden genomen ende ontkeert
+geweest byden welcken naer dien dat voirs. siege obgebroken was hy
+gelyck meer andere naer huis gecommen is mit de voirs. twee anderen
+peerden ende zekere tyt daernaer is hem een vande voirs. twee
+peerden afgestorven ende bevindende dat hem niet wel mogelick
+en was die landen van zekere hoeve die welcke hy te dyer tyt houdende
+was binnen der prochie van meerbeke te cultiveren ende andere wercken
+te doene die nootsakelyck waren metten peerden beesten gedaen te
+wesene mits dat hy geene ofte luttel gelts hadde heeft zoe mistrostich
+geweest by instekene vanden quaden geeste als dat hy binnen der
+voirs. prochie van meerbeke eenen genaempt willem somer tot duffel
+een peert ontvreempt ende ontleedt heeft ende tselve aengespannen
+ende gevoert naer onse stede van thienen maer die voirs. willem
+somer dies vernemende heeft den suppliant gevolcht tot binnen
+der selver stede van thienen aldair hem die suppliant tvoirs.peert
+wedergekeert heeft vuyt welcken verliese van peerden ende
+verachteringe van wercke die suppliant zeere benauwt ende veraermoedt
+geweest is twelcke gevoelende heeft zekeren tyt daer naer ende
+binnen omtrent een jaer herweerts hem gevonden binnen de prochie van
+duffel ende ziende aldair zeker qualiteyt van peerden beesten heeft
+anderwerf zo getempteert geweest als dat hij om vuyten commer ende
+laste te geraken alwaer hy inne was handt aen twee vanden
+voirs. peerden geslegen heeft ende de selve gevoert tot bruessele
+ende die selve aldair vercocht om een somme van xxv guldens waer af
+hy gereet ontfinck xiij rynsgulden voir een vande voirs. peerden twelcke
+hij vercocht hadde eenen vreempden coopman ende van tandere twelcke hy
+gegeven hadde om tweelfve der gelycker guldenen eenen pieter berthels
+woonende tot semps ofte eppegem bleef hem die selve pieter die selve
+twelf rynsgulden schuldich hier naer is gebuert dat die voirs.
+suppliant vander voirs. hoeve versteken wesende ende nyet wetende
+waer mede hy hem generen mochte in groote ende extreme
+gebreke wesende heeft noch zoe geabuysert geweest als dat hy
+eenen jan van bocxtuyn een peert ontleedt heeft maer de voirs.
+bocxstuyn des gewaert wesende heeft hem gevolcht ende zoe
+vele gedaen dat hy die voirs. peert beeste weder gecregen heeft
+ende hoe wel die voirs. sticken ende mesusen hem suppliant
+hertelycke leet zyn zoe dat hy om geen goet ter werelt ofte
+armoede die hem toecomen soude mogen dyergelycken en zoude
+willen committeren ende dat hy in allen anderen dingen eerbaerlyck
+ende properlyck geleeft ende met zynen wyve huys gehouden
+heeft zonder oyt van iusticie gereprehendeert te zyne ende oic van
+eerbaren ende goede vrienden is zulcx dat zijn vader die noch in
+levenden lyve is in onsen banck te duffel twintich jaeren ende
+bet als schepene geseten heeft ende noch sidt des nochtans nyet
+tegenstaende beducht hem die voirs. suppliant dat onsen voirs. drosaet
+van onsen lande van mechelen rigoreuselyck tegens hem sal willen procederen
+by extreme executie den suppliant scandelyck bringende
+van levenden lyve ter doot ten zy dat hem onse gracie ende genade
+hier op verleent zy ons dair om oitmoedelyck biddende soe eyst
+dat wy desen aengesien ende hier op gehadt tadvis yerst van onsen voirs.
+drossaet ons lants van mechelen ende daernae van onsen lieven
+ende getrouwen den cancellier ende luden van onsen rade in brabant
+compassie ende medelyden hebbende metten voirn. suppliant ende willende hem
+in desen gracie ende genade prefereren den rigeur ende strancheyt
+van iusticie hebben den selven suppliant inden gevalle als boven
+quytgescolden ende vergeven schelden quyte ende vergeven vuyt onser
+zonderlinger gracien by desen die mesusen voeren verhaelt mitgaders oick
+alle penen ende amenden corporelle ende criminele daer inne hy
+hem overmits ende vuyt saken van tgene des voirs. is tegens ons
+onse hoocheyt ende iusticie eenichssins mach hebben ontgaen weder
+roepende ende te nyeuwte doende die procedueren tegens hem ter sake
+voirs. gedaen ende gevordert ende hebben hem dien aengaende
+gerestitueert ende gestelt restitueren ende stellen bij desen tot zyne
+goede fame ende name in onsen * hertochdom van brabant ende
+lande van mechelen ende allen anderen onsen landen ende heerlycheden
+ende tot zyn goeden noch ter tyt niet geconfisqueert zynde
+zoe verre dair eenige waren imponerende hier op een eewich zwygen
+ende scilencie onsen procureur generael ende allen anderen onsen rechterren
+iusticieren ende officieren ons voirs. landts van brabant hoedanige
+die zyn of wesen mogen satisfactie nochtans yerst ende
+alnoch gedaen der partyen geinteresseerde zoe verre die noch
+niet gedaen en waere civilyck alleenlyck behoudelyck
+nochtans dat hyt iegens ons civilyck beteren sal naer gelegentheyt
+der mesdaet ende faculteyt van zyn goeden ende dat hy gehouden
+wert te betalen de redelycke costen van iusticie daeromme gedaen ende
+nagevolcht ter taxatie ende arbiterscepe van onsen voors. cancellier
+ende luyden van onsen voirs. rade in brabant die wy dair toe
+committeren ontbieden hier omme ende bevelen onsen voirs. cancellier
+ende luyden van onsen voirs. rade in brabant dat voer hen lieden
+geroepen de gene die dairomme behoiren sullen geroepen te zyne zy
+procederen ende doen procederen wel ende duechdelick totter verificatie
+ende interinemente van desen onsen tegenwoirdigen brieve ende
+dat gedaen ende de voirs. civile boete ende costen van iusticie
+getaxeert gearbitreert ende betaelt alst behoiren sal van welcke
+civile boete de gene van onsen rentmeesteren dient aengaet
+gehouden werd ontfanck te makene rekeninge bewys ende reliqua
+te doen tot onsen proffyte metten anderen penningen van zynen ontfange
+zy onsen drossaeten van brabant ende slants van mechelen meyer
+van loeven amman van bruessel scoutetten van antwerpen ende
+vanden bossche ende alle andere onsen ende onsen vasallen oft
+smaelre heeren richteren iusticieren ende officieren ons voirs. slands
+van brabant ende van overmaze hoedanige die zyn oft wesen
+mogen tegenwoirdige ende toecomende hueren stedehouderen ende
+elc van hen zoe hen dat toebehoirt ende aengaen mach den voirs.
+suppliant van dese onse gracie ende pardoene inder manieren voirs.
+rustelick ende vredelick doen ende laten genyeten ende gebruycken
+sonder hem te doen noch te laten geschien in lyve noch in goede
+eenich hinder letsel oft moeyenesse ter contrarien maer zyn
+lyf nu wesende in hechte van vangenesse als voirs. is mitgaders
+zyn onverbuerden goeden op dat die becommert ende gearresteert
+waeren zy die ter stont stellen oft doen stellen tot volcommen
+deliverance want alsoe gelyeft des toirconden zoe hebben
+wy onsen zegel hieraen doen hangen gegeven in onse stede
+van mechelen den vjen dach van octobre int jaer onssheeren
+duysent vyfhondert drie ende twintich ende van onsen rycken
+te wetene vanden roomschen ende van hongrie etc. tiiijen ende
+van spaegnen tviije etc. aldus stont geschreven boven opte
+plycke byden keyser in zynen rade ende geteekent $er de rue [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "adriaen",
+      "lastname": "de vyt",
+      "role": "suppliant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "somer",
+      "role": "accused",
+      "function": "citizen"
+    },
+    {
+      "firstname": "pieter",
+      "lastname": "berthels",
+      "role": "creditor",
+      "function": "foreign merchant"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "van bocxtuyn",
+      "role": "accused",
+      "function": "citizen"
+    }
+  ],
+  "locations": [
+    {
+      "name": "mechelen",
+      "loctype": "province"
+    },
+    {
+      "name": "masieres",
+      "loctype": "city"
+    },
+    {
+      "name": "duffel",
+      "loctype": "city"
+    },
+    {
+      "name": "bruessele",
+      "loctype": "city"
+    },
+    {
+      "name": "semps orte eppegem",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Adriaen de Vyt, a citizen, has requested a remission from the authorities of Mechelen regarding William Somer, also a citizen, who took and butchered one of Adriaen's horses. Adriaen, in need of money, sold the remaining horses and kept the proceeds, but was later found guilty of theft. He has promised to lead an honest life and to repay the stolen money and costs of justice.",
+    "fr": "Adriaen de Vyt, citoyen, a demandé la rémission aux autorités de Malines concernant Guillaume Somer, également citoyen, qui a pris et abattu un cheval d'Adriaen. Adriaen, ayant besoin d'argent, a vendu les chevaux restants et a gardé les recettes, mais a ensuite été reconnu coupable de vol. Il a promis de mener une vie honnête et de rembourser l'argent volé et les frais de justice.",
+    "nl": "Adriaen de Vyt, een burger, heeft om vergeving gevraagd aan de autoriteiten van Mechelen voor William Somer, eveneens een burger, die het paard van Adriaen stal en slachtte. Adriaen, die geld nodig had, verkocht de overgebleven paarden en behield de opbrengsten, maar werd later schuldig bevonden aan diefstal. Hij heeft beloofd een eerlijk leven te leiden en het gestolen geld en de rechtbankkosten terug te betalen.",
+    "de": "Adriaen de Vyt, ein Bürger, hat bei den Behörden von Mechelen um Vergebung gebeten, weil William Somer, ebenfalls ein Bürger, das Pferd von Adriaen gestohlen und geschlachtet hatte. Adriaen, der Geld benötigte, verkaufte die verbleibenden Pferde und behielt das Geld, wurde aber später des Diebstahls schuldig gesprochen. Er hat versprochen, ein ehrliches Leben zu führen und das gestohlene Geld und die Gerichtskosten zurückzuzahlen."
+  }
+}
+```

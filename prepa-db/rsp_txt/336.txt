@@ -1,0 +1,224 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doent condt alle luden nu ende namaels wesende dat wyontfangen hebben de oitmoedige supplicatie van eloy lambrechts inhoudende
+hoe dat gelyck hy suppliant des is omtrent acht jaren geleden is te huwelick
+geallieert geweest aen katerine tsrycken alias van beringen ende daer
+mede syndert tot heyst huys gehouden ende aldaer gebrouwen ende
+herberghe gehouden uuytgenoemen dat zy huer zyndert uuyt hueren
+eygender auctoriteyt heeft tot meer stonden vanden suppliant geabsenteert
+gehadt ende den suppliant van zynen goeden gespolieert ende onder dandere
+des zal nu inde vastene naestcomende twee jaeren wesen dat zy uuyt
+des suppliant huyse heeft wech gevuert gehadt drie wagens vol
+haeffelycke goeden ende als zy by den suppliant is geweest ende by hem gewoent
+gehadt soe heeft zy denselven daghelycx vele leelicke affdraegende
+ende oneerlick woirden die de suppliant hierom der eerbaerheyt
+verzwygt gegeven jae dat noch arger is den suppliant insgelycx
+tot verscheyden stonden excessivelick gestooken ende gesmeten ende
+onder dandere is inden voirleden zoomere corts nae st jansmisse
+lestleden gebuert dat die suppliant wesende zieck gelyck hy bynae alle
+den somere geweest heeft was inde weken tot wackerzele onder
+werchtere aldaer hy suppliant doen woende op de bancke gelegen
+om te rustene soe heeft barbare dochtere der voirs. katherine
+tot huere moeder gheseegt bereydt den man : denoterende den suppliant :
+een suypken daerop de voirs. katharine antwoirde jae van twee oft drye
+mieren eyeren daerop de suppliant seyde alsulcken suypen en mach ick nyet
+daer by vuegende ic hebbe liever teten zoe ick gedaen hebbe al hebbe ick qualick
+teten gehadt daerop die voirs. katherine antwoirdene zeyde gaet
+tot heyst weerts ghy grysaert daer ghy light daer by vuegende
+maer ghy en derfter nyet gaen die duvel die heeft u inne gebracht
+die moet u hier uuyt vueren met ziele ende lyve deselve ende meer
+anderen dyergelycke woirden dicwils verhalende ende repeterende daerop de
+suppliant antwoirde ic hope dat hy egeen macht over my en heeft
+seggende totter voirs. catherine zwygt ghy quaede beeste ende
+laet my ongemoeyet ic hebt quaet genoech ende is alzoe opgestaen
+ende voerby der voirs. katherine gaende soe heeft hy suppliant den zelver
+met zynder slincker hant op hueren rechten arm geraeckt sonder
+smytene nae den welcken heeft de voirs. katherine den suppliant van
+stonden ane$$ subitelic geinvadeert ende hem in grammen moede voer zyn
+rechte schene met hueren voet ende gelapte schoenen gestooten inder
+vuegen die hy suppliant nyet en heeft cunnen gevuechelick gegaen dan met
+grooten pyne ende arbeyt soe dat die suppliant van groote pyne roepende
+ghy lelicke beeste hoe stoot ghy my daer ende heeft alzoe die
+suppliant de voirs. katherina metten platte van zyn handt gegeven
+achterop haer hoot eenen slach oft twee daermede die voirs. katherine
+in effecte geckende oft spottende metten suppliant heeft
+geseegt laet sien oft bloyet is oick daer nae die voirs. barbere
+met eenen bessem stock gecomen om den suppliant daermede te smyten
+dwelck de suppliant considererende heeft die vierscuppe genomen
+ende daermede de voirs. barbere uuyten huyse gejaegt ende is nyettemin
+die voirs. katherine aldaer blyven sittende op eenen stoel inde
+kuekene ende altyt enen qualick sprekende ende is die suppliant wederomme
+gaen liggen op te banck om hem te rustene maer gemerct die groote
+insolencie die de voirs. katherine aldaer voirs. stelde zoe en heeft die
+suppliant tselve nyet langer connen verdragen ende is alzoe weeromme
+opgestaen ende meynende eenen boteram voer hem te snydene ende
+daermede int brouwhuys uuyten wege by der werckluyden te gaene
+maer als hy suppliant de scappraye meynde open te doene ende
+boter te nemene soe heeft de voirs. katherine dezelve tot huerwerts
+genomen ende is daermede ewech geloopen inden cameren ende heeft
+dezelve aldair in zeker tritsoir gesloten ende is alzoe die
+suppliant met droech broot in deen hant ende zyn mes in dandere
+gegaen int brouwhuys ende heeft aldaer den werckluyden zijnen
+noot geclaecht zonder dat hy suppliant nochtans van eeniger
+quader tydinghe heeft vermoeyt ende binnen twee oft drie uren
+daer nae heeft den suppliant zeker vrouwe geseegt dat zy hadde
+hoiren seggen dat des suppliants huysvrouwe doot was daeraff de suppliant
+hem zeere verwonderd heeft totten voirs. vrouwe persoone geseegt jhesus
+hoe mach dat zyn oft hoe is dat mogelick soe dat die suppliant zelve
+nyet gelovende heeft dezelve persoene wederom gesonden om
+huer bat te informeren dwelck z gedaen heeft ende heeft
+den suppliant waeromme de tydinge gebracht dat zy doot was
+maer dat die maerte vanden prochiaen seyde dat zy vanden poplexie
+oft erger nicx el$$ aff was gestorven nyttemin die suppliant beducht
+hem oft zy zoude mogen wesen gestorven vanden voirs. slach oft slagen
+oft dat die zouden moegen wezen occasie van huere doot dwelck
+den suppliant hertelick leet is : ende al eest soe dat hy suppliant die voer
+een goet man van eeren altyt is geacht ende gehouden geweest :
+daer inne zeer onnosele ende onversiens is gecomen soe en derre
+nochtans hy suppliant hem nerger$$ nicx int openbaer binnen onsen
+lande van brabant vinden vreesende rigeur van justicie tot zynen
+ende zynen kinderen eeuwiger destructie ende bederffenisse ten
+ware dat onse gracie ende genade hem hierop wordde geextendeert
+ende verleent alzoe hy suppliant seegt ons daerom oitmoedelick biddende
+soe eest dat wy desen aengesien geneycht wesende ter beden
+des voirs. eloy lambrechts suppliants ende willende hem in dit
+stuck prefereren gracie ende misericordie voer strangheyt ende
+rigeur van justicie hebben den selven suppliant inden gevalle
+als boven quytgeschonden geremitteert ende vergeven schelden
+quyte remitteren ende vergeven uuyt onser sunderlinger gracien
+by desen onsen brieven tfeyt ende ongeval boven geruert mitgaders
+alle offensie ende brueck corporelle ende crimminelle daerinne
+hy ter causen voers. mits dat daer aen cleven mach tegen ons ende
+justicie gevallen mesdaen ende mesbruyct mach hebben ende
+hebben hem daeraff weder gestelt ende gerestitueert stellen
+weder ende restitueren tot zynen goeden name fame ende geruchte
+in onsen voers. raede van brabant ende allen anderen onsen
+landen ende heerlicheyden ende tot zynen onverbuerden goeden
+indien hy eenige onder ons heeft gelyck ende in alder manieren
+zoe hy was voer de toecompste vanden voirs. feyte imponerende
+hierop een eeuwich geswich onsena procureur generael in brabant
+ende allen anderen onsen justicieren ende officieren wie zy zyn
+satisfactie ende beternisse ierst ende voer al gedaen der
+partie geintersseerde indien die noch nyet gedaen en zy ende
+eenige daer toe staet civilyck alleenlyck behoudelick dat de
+voirs. suppliant gehouden sal zyn tvoers. feyt tegen ons te beteren
+civilyck naer gelegentheyt vander zaken ende faculteyt
+van zynen goeden mit oick te betaelen de costen van justicien
+hieromme alreede gedaen ende te doene allet ter taxatien ende moderatien
+van onsen lieven ende getrouwen den cancellier ende luden van onsen raede
+in brabant die wy daertoe gecommitteert hebben ende commiteren by desen
+ontbieden daeromme ende bevelen den selven onsen cancellier ende
+raedsluden dat voer hen geroepen deghene die daeromme behoren geroepen
+te zyne zy procederen wel ende duechdelick ter verificatie ende interinemente
+van desen ende totter taxatie ende moderatie vanden voirs. amende ende
+costen alzoe zy sullen bevinden behoirende welck interinement de voirs.
+suppliant gehouden zal zyn te versueckene ende hem in per soene te presenterene
+in onsen rade binnen eenen jaere naestcommende op de pene van te verbueren
+deffect van desen ende dat gedaen ende dezelve civile boete ende costen
+van justicien getaxeert ende betaelt zynde in handen vanden ghenen dien
+dat behoiren zal zy onse voirs. procureur generael in brabant ende alle anderen onse
+rechteren justicieren officieren ende ondersaten iegenwoirdige ende
+toecomende dien dat aengaen sal mogen huere stedehouderen ende een iegelyck
+van hen besundere zoe hem toebehoiren sal doen laten ende gedogen
+den voirs. suppliant van desen onsen iegenwoirdiger gracien remissien ende
+pardoene ende van alle den inhouden van desen inder vuegen ende manieren
+voer verhaelt rustelick vredelick volcomelick ende eeuwelick genyeten
+ende gebruycken sonder hem te doene noch te laten geschieden nu noch
+in toecomende tyden eenich hinder letsel oft moeyenisse aen lyve
+noch aen goeden ter contrarien maer indien zyn lyf oft eenige
+van zyne goeden daeromme gearresteert gecommert oft belet waren
+dat zy die setten ende stellen ter stont ende zonder vertreck tot
+geheelder ende volcommen delivrancie want ons alzoe gelieft
+ende ten eynde dat dit vast ende gestadich blyve tot eeuwigen
+dagen zoe hebben wy onsen zegel hier aen doen hangen behoudelick
+in anderen dingen onsen recht ende eeneniegelick anderen des syns
+gegeven in onsen stad van bruessele inde maent van november
+int jar ons heeren duysent vyfhondert ende veertich ende van onsen
+kyserrycke txxie ende van onsen rycken van castilien ende anderen
+txxve aldus gescreven op te plycke by den keyser in zynen
+rade ende geteekent boudewyns visa receptica
+gecollationeert ende bevonden accorderende
+metten originelen brieven by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "approximately 8 years ago",
+  "persons": [
+    {
+      "firstname": "eloy",
+      "lastname": "lambrechts",
+      "role": "suppliant",
+      "function": "petitioner"
+    },
+    {
+      "firstname": "katherine",
+      "lastname": "tsrycken alias van beringen",
+      "role": "former spouse",
+      "function": "defendant"
+    },
+    {
+      "firstname": "barbare",
+      "lastname": "dochtere",
+      "role": "daughter",
+      "function": "witness"
+    },
+    {
+      "firstname": "catherine",
+      "lastname": "suppliant's wife",
+      "role": "deceased",
+      "function": "spouse"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Eloy Lambrechts, the suppliant, has requested remission for his former spouse, Katherine Tsrycken alias van Beringen, due to her actions after their separation. Katherine absented herself from the home they shared, took all of the suppliant's goods, and drove him out of the house. She also verbally and physically abused him, causing him great pain. The suppliant's current wife has recently passed away, and he suspects foul play from Katherine. He fears for his life and the well-being of his children, and has come before the court to request grace and mercy, rather than strict justice.",
+    "fr": "Eloy Lambrechts, suppliant, a demandé la rémission de son ex-épouse, Katherine Tsrycken alias van Beringen, en raison de ses agissements après leur séparation. Katherine s'est absentée de la maison qu'ils partageaient, a pris tous les biens du suppliant et l'a chassé de la maison. Elle l'a également maltraité verbalement et physiquement, lui causant de grandes souffrances. La femme actuelle du suppliant est récemment décédée et il soupçonne Katherine d'être impliquée. Il craint pour sa vie et le bien-être de ses enfants et a comparu devant le tribunal pour demander grâce et miséricorde, plutôt que la justice stricte.",
+    "nl": "Eloy Lambrechts, de suppliant, heeft verzoening gevraagd voor zijn voormalige echtgenote, Katherine Tsrycken alias van Beringen, vanwege haar handelen na hun scheiding. Katherine heeft zich afgemeld van het huis dat ze deelden, nam al het goed van de suppliant en zette hem op straat. Ze verbaal en fysiek heeft ze ook misbruikt, waardoor hij grote pijn heeft geleden. De huidige vrouw van de suppliant is recentelijk overleden en hij vermoedt dat Katherine hierbij betrokken is. Hij vreest voor zijn leven en het welzijn van zijn kinderen en is voor de rechtbank verschenen om genade en mededogen te verzoeken, in plaats van strenge rechtspraak.",
+    "de": "Eloy Lambrechts, der Bittsteller, hat um Vergebung für seine ehemalige Ehefrau, Katherine Tsrycken alias van Beringen, gebeten, aufgrund ihrer Handlungen nach ihrer Trennung. Katherine hat sich von dem Haus entfernt, das sie teilten, nahm alles von dem Bittsteller und warf ihn aus dem Haus. Sie hat ihn auch verbal und physisch missbraucht und ihm große Schmerzen zugefügt. Die aktuelle Frau des Bittstellers ist kürzlich gestorben und er vermutet, dass Katherine beteiligt ist. Er fürchtet um sein Leben und das Wohlergehen seiner Kinder und ist vor Gericht getreten, um Gnade und Barmherzigkeit zu bitten, statt strenge Gerechtigkeit."
+  }
+}
+```

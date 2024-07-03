@@ -1,0 +1,246 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie voer janne steffens
+kaerle etc. doen te wetene allen jegewoirdigen ende
+toecomende dat wy ontfangen hebben die oitmoedige
+supplicatie van jan steffens ingesetene der voighdye van
+molle inhoudende hoe dat hy suppliant op alder $$$
+dach int jaer xvc ende vier ende veertich hem heeft
+gevonden inden avont in seker groot geselscap van
+mannen ende vrouwen aldair omtrent jan cops huys
+sulcke geruchte ende gevechte gebuerde dat die
+voirs. suppliant inde aerde geslagen werde van eenen
+geheeten sebastiaen cayvairts alias heens met zynen
+complicien ende die voirs. suppliant met zynen medegeselle
+geheeten peeter de jaghere alias croepel dit ziende dat men
+op henlieden het gevechte was sueckende hebben
+gelyckelyck met eenen cleynen eetmesken tegens den voirs.
+sabastiaen met zynen consoirten strytbarich gewordden
+nyet ziende waer zij stekende waren oft wyen
+zy hadden mogen gequetst hebben gelyck hy
+suppliant oick inder waerheyt alnoch nyet en weet
+noch en soude weten te vercleren datter iemant van
+hem oft den voirs. synen medegeselle alsdoen gequetst
+wordde ende henlieden alsoo nyet geabsenteert
+hebbende maer wantmen geseght heeft gelyck hij
+suppliant verstaet dat die voirs. sebastiaen ten
+selven tyde hadde ontfanghen eenen steeck achter
+in syn schouderen dair aff hy corts dair naer
+afflivich is gewordden ende datmen tselve op
+henlieden vermoeyde soo heeft onsen drossaert
+van brabant nu onlancx den voirs. suppliant ende
+zynen medegeselle gevangen genomen ende noch
+jegenwoirdelyck houdende is binnen onser stadt
+van herentals aldair hy tegens den suppliant
+ende synen medegeselle zoeverre heeft criminielyck geprocedeert
+vuyt dyen hy seyde dat hem den persoon die den
+manslach gehouden gedaen hadde was onbekent ende
+dat hy suppliant ende syn medegeselle des voirs.
+sebastiaens partye waeren ende anders egheene als dat die
+vs. suppliant met vonnisse van schepenen aldaer es gewesen
+tot scherper examinacie ende torture om welcke
+ende torture te mogen ontgaen mitsgaders alle beschad#
+ende inconvenienten die daer vuyt souden mogen commen zoe
+den suppliant als zynen kinderen ende huysvrouwe om dat hy
+duer onverdrachgelycke pyne soude moghen
+bekennen tghene dwelck hy inder waerheyt
+nyet en weet gedaen te hebben ende oick vuyter gr#
+vs. beschamptheyt vanden torture die liever den d#
+hadde te sterven dan die te lydene heeft hy suppliant
+selven manslach op hem genoemen ende dien ach#
+die vrienden ende maghen vanden afflivighen daer
+aff satisfactie doen doen gelyck sy henlieden daer#
+oick voer vernueght bekennen ende zoude wel w#
+voere alsoo vele als hy daer aen mesdaen heeft m#
+hebben aen ons oft onsen voirs. drossart in onsent
+name dair van overcommen dwelck onse voirs. drossart
+nyet doen en wilt in egheender manieren ons daer#
+hy suppliant oidtmoedelyck biddende hem hier op te willen
+verleenen onse gracie ende genade mitsgaders onsen oepene
+brieven van remissie dair toe dienende soe
+eest dat wy de saken voirscreven overgemerckth#
+hier op gehadt dadvijs van onsen voirs. drossart
+van brabant thomas nagels den voirs. jan
+steffens suppliant genegen wesende tot zyne vo#
+bede ende supplicatie ende hem willende in
+dit stuck gracie ende genade prefereren voir rigeur
+van justicien hebben inden geval als boven #
+geremitteert ende quytgescouden vergheven remitteren ende scelden
+quyte vuyt onse sunderlinge gracie mits desen tfait
+ende manslach boven geruert mitgaders alle
+peyne ende boete corporelle ende criminelle waer in
+hy ter cause van dien met datter aencleeft jege#
+ons ende justicie mesdaen ende mesbruyct mach
+hebben hem als dair aff wederstellende ende
+restituerende tot zyne goede name ende fame in
+onsen lande ende hertochdomme van brabant
+ende allen anderen onsen landen ende heerlyckheden
+heerlyck mitsgaders tot zynen onverbuerde goeden
+gelyck ende in alder manieren als hy was voir de
+toecompste vanden manslach voirs. imponerende hier
+op een een eeuwich swygen ende silencie onsen procureur
+generael van brabant ende allen anderen onsen justicieren ende
+officieren wye zy syn satisfactie ende beteringe
+ierst ende alvoeren gedaen der geinteresseerde partye indien
+die noch nyet gedaen en es ende eenige daer toe
+staet cicilyck allenlyck behoudelyck oick dat de
+voirs. suppliant gehouden wordt tvoirs. feyt ende manslach
+jegens ons civilyck te beteren nair de gelegentheyt
+vander mesdaet ende faculteyt van synen goeden ende
+onse ordinancie daerop gemaect ende daerenboven
+betaelen ende refonderen die redelycke costen van
+justicien hier om gedaen ende naegevolcht ter
+taxatie ende arbitrescepe van onsen lieven ende
+getrouwen die cancellier ende luyden van
+onsen raede in brabant die wy daer toe committeren
+ende henlieden ontbieden ende bevelen dat voir
+hen geroepen de ghene die hier over behoiren geroepen
+te syne zy procederen wel ende dueghdelyck tot
+verificatie ende interinemente van desen naer huere
+voirme ende inhouden ende tot taxatie vander
+voirs. amende civile ende costen van justicien voirs.
+welck interinement de voirgenoempde suppliant sal
+schuldich syn te versuecken voirden voirnoemde van onsen
+rade binnen eenen halffven jaere naestcommende opte
+peyne te verliesen deffect van desen ende dat
+gedaen ende de voirs. amende civile getaxeert ge$$
+ende betaelt synde in handen vanden ghenen van
+onsen ontfanghers oft anderen onsen officiers dient dat
+aengaen mach behoiren sal die daer aff gehouden
+wordt ontfanck te maken rekeninge bewys
+ende reliqua te doene tonsen proffyte metten anderen
+penningen van synen ontfanghe zy onsen voirs.
+marge: en $$ verantwoort
+$$ ontfanck vanden
+exploten
+drossaet van brabant ende allen anderen
+ende der smaelre heeren ons voirs. lants ende
+hertochdoms van brabant justicieren ende officieren
+dien dit aengaen mach oft hueren stedehouders doen
+laten ende gedooghen den voirs. suppliant van dese
+onse perdoene mitsgaders van allen den inhouden
+desen inder vuegen ende manieren boven verhaelt
+rustelyck vredelyck ende eeuwelyck genyeten ende gebruycken
+sonder hem te doen oft te laten geschien nu noch in
+toecommende tyden aen lyf noch aen goet eenich hinder
+letssel oft moyenisse ter contrarien in eeniger
+manieren ende zynen persoon jegewoirdelyck ge#
+zoo voirs. is oft eenige van synen onverbuerde goeden
+zyn of wairen hier naemaels daeromme gevangen
+gearresteert oft eenichssins belet dat zy die
+stellen ende setten oft doen stellen ende setten ter
+stondt ende sonder vertreck tot geheelder ende volcommen
+delivrancie want ons alsoo gelieft ende ten
+eynde dat dit goet vast ende gestadich blyve
+ten eeuwigen dagen zoo hebben wy onsen segel
+hier aen doen hangen behoudelyck in anderen saken
+ons recht ende eenen iegelyck tzyne in allen
+gegeven in onser stadt van bruessele inde
+maent van junio int jaer ons heeren duysent vyff
+hondert achtenveertich van onsen keyserycke txx#
+ende van onsen coninckrycken van castillien ende
+anderen txxxiii ste aldus gescreven opte
+plycke byden keyser in synen rade geteeckent
+serrycken visa recepta
+gecollationeert ende bevonden accorderende
+met zynen originale by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "24th February, 1584",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "steffens",
+      "role": "suppliant",
+      "function": "inhabitant of the village of Mole"
+    },
+    {
+      "firstname": "sebastiaen",
+      "lastname": "cayvairts alias heens",
+      "role": "opponent",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "de jaghere alias croepel",
+      "role": "associate of the suppliant",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "thomas",
+      "lastname": "nagels",
+      "role": "lord of the council",
+      "function": "drossaert of Brabant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Mole",
+      "loctype": "village"
+    },
+    {
+      "name": "Herentals",
+      "loctype": "city"
+    },
+    {
+      "name": "Brussels",
+      "loctype": "city"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "duchy"
+    }
+  ],
+  "summary": {
+    "en": "Jan Steffens, inhabitant of the village of Mole, has requested remission for a fight that took place on February 24, 1584. He was attacked by Sebastiaen Cayvairts alias Heens and his associate Peeter de Jaghere alias Croepel. The fight resulted in Steffens wounding Cayvairts. Steffens and his associate were later arrested by Thomas Nagels, drossaert of Brabant, who has now granted them remission.",
+    "fr": "Jan Steffens, habitant du village de Mole, a demandé la rémission d'une bagarre qui a eu lieu le 24 février 1584. Il a été attaqué par Sebastiaen Cayvairts alias Heens et son associé Peeter de Jaghere alias Croepel. La bagarre a entraîné la blessure de Cayvairts. Steffens et son associé ont ensuite été arrêtés par Thomas Nagels, drossaert de Brabant, qui leur a maintenant accordé la rémission.",
+    "nl": "Jan Steffens, inwoner van het dorp Mole, heeft verzoening gevraagd voor een gevecht dat plaatsvond op 24 februari 1584. Hij werd aangevallen door Sebastiaen Cayvairts alias Heens en zijn handlangers Peeter de Jaghere alias Croepel. Het gevecht resulteerde in de verwonding van Cayvairts. Steffens en zijn handlangers werden later gearresteerd door Thomas Nagels, drossaert van Brabant, die hen nu verzoening heeft verleend.",
+    "de": "Jan Steffens, Bewohner des Dorfes Mole, hat um Vergebung für einen Kampf gebeten, der am 24. Februar 1584 stattgefunden hat. Er wurde von Sebastiaen Cayvairts alias Heens und seinem Komplizen Peeter de Jaghere alias Croepel angegriffen. Der Kampf resultierte in der Verwundung von Cayvairts. Steffens und sein Komplize wurden später von Thomas Nagels, drossaert von Brabant, verhaftet, der ihnen nun Vergebung gewährt hat."
+  }
+}
+```

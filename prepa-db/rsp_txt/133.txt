@@ -1,0 +1,346 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+een remissie van schake voer wouter van cockelberge
+met vive zyne complicen
+kaerle etcetera, doen te wetene allen jegenwoirdighe ende
+toecommende dat wy ontfangen hebben die oitmoedige supplicatie
+van wouter van cockelberghe woenende ter leest binnen der
+vryheyt onser stede van mechelen, hennen steelman dierick
+eertbrugge jacob camerlinck jan van breedonck ende
+jacop van oistenryck, inhoudende hoe dat de voirs. wouter
+van cockelberghe suppliant in alle duecht ende eerbaerheyt
+gevryt ende gevolght heeft eene eerbaere jonge dochtere
+oudt xvii jaeren oft daeromtrent woenende tot hombeke
+genaempt peeternelle van wueluwe vadere noch moeder
+hebbende, zulcx dat zy malcanderen lief gehadt hebben
+zoe dat om malcanderen te trouwene ende de voirs. wouter
+suppliant verstaen hebbende dat die vrienden vande selver
+peeternellen genegen waeren haer te gheven eenen
+anderen man heeft tselve haer te kennen gegheven
+haer vragende oft tselve wel haer meyninge was
+waer up zy zeyde dat neen ende dat zy sou dien
+nemmermeer nemen en zoude ende mits dien ende dier
+gelycke woerden die zy onderlingen hadden de voirs.
+wouter suppliant bemerckende dat de voirs. peeternelle
+goede jonst tot hem droech heeft haer geseyt indien
+ick wiste dat uwen wille zulck waere ick soude
+u nemen ende met my leyden waer mede zy als doen
+werdt lachende ende colacierende daer inne genoech
+consent ghevende zoe hem dochte ende ten eynde
+zoe zette zy hem dach te commen tot hueren huyse
+upden lesten heyligen paesch dach lestleden ende
+achtervolgende dien de voirs. wouter suppliant sorge
+dragende te voldoene ten segghen vande voirs. peeternelle
+is ten selven daghe binnen zonneschyne gecommen metten
+anderen supplianten ten huyse daer de selve peeternelle
+met huere moeye woenende was ende de selve
+wouter suppliant commende binnen den huyse heeft
+aldaer gevonden de selve peeternelle hebbende een jonck
+kint op haeren schoot haer vraegende met zoeten
+woerden oft haer beliefte waer met hem te gaen
+drincken waer op die moeye vande voirs. peeternelle
+daer jegenwoirdich zynde zeyde dat zy uuyt den
+huyse niet gaen en soude mit dien zoe zyn de
+andere supplianten oic binnen den huyse gecommen des
+onder anderen de voirs. jan van breedonck suppliant
+nam zoetelyck de voirs. peeternelle metten arme
+haer zegghende staet op ghy moet mede waer op zy
+antwordde ziende huere voirs. moeye ick en sal niet
+mede gaen zoe dat de voirs. jacop camerlick oock
+suppliant nam haer tkint vanden schoye ende settet neder
+opden vloer ende namse metten anderen arme ende
+ley dese zoe buyten den huyse dwelck merckende de
+selve peeternelle zeyde waer zulde my leyden en
+hebbe ick hier gheen vrienden ende mits desen zoe
+hebben zommige vrouwen de voirs. peeternelle willen
+houden maer een vande voirs. supplianten ontrack haer die hant
+ende commende alsoe buyten den huyse zoe es gecommen
+die oom vande selver peeternelle zegghende gesellen ziet
+wat ghy doet ende zyn alsoe voorts wech gegaen belettende
+de sommighe van heurlieder datmen hen niet en volghde
+ende zunderlinge de voirs. jacop van oistenryck de
+welcke hadde eenen gespannen boghe op zyn schouwere
+ziende dat die oom vande voirs. peeternelle hemlieden volghde
+heeft den selven boghe genomen in deen handt ende eenen
+pyl in dandere zegghende blyft achtere ick raidt u voir
+tbeste oft ick doen u achter blyven ende oock al zoe
+die moeye vande selver peeternelle ende andere vrouwen
+altyts volghen wilden zoe zeyde oick een vande voirs.
+supplianten tot henlieden blyft achtere oft ick sal u smyten ende
+mits desen mach wesen dat eene vande voirs. vrauwen
+metten platten van eender pycken geslegen was heeft oick
+een vande selven supplianten metten stocke vander pycken geslegen
+omtrent den rugghe van eenen geselle die hen volghde
+ende zyn ten lesten zoe voort gegaen zonder yemandt
+te grieven tot den huyse van willem van wueluwe
+des voirs. peeternelle oom aldaer zy twee oft drie
+potten biers gedroncken hebben ende alsoe een vande
+supplianten eenen pot nam ende eenen dronck brochte der
+selver peeternelle zoe heeft zy dat gewacht
+ende den pot nemende heeft voirts den voirs. wouter
+suppliant hueren vryer gebrocht ende alsoe zy hoerden
+dat sommige vrienden haer volghden zoe zyn zy tsamen
+gewillichlyck uuyten huyse gegaen ende de selve peeternelle
+zonder in huere voirs. ooms huys eenich mesbaer te maken
+heeft uuyten huyse wesende ende hoorende dat huere
+vrienden riepen waer zydy nelle geseyt tottenvoirs.
+wouter hueren vryer gaende gesamender handt zonder
+te antwoirdden up troepen van hueren vrienden laet ons
+gaen dat zy ons niet en vinden ende liepen alsoe malcanderen
+byder handt houdende voirby gieles bessens inde strate gelyck
+oft zy man ende wyf geweest hadden ende syn alzoe
+tsamen gegaen eerst nae raemdonck ten huyse van eenen
+goeden eerbaren man genaempt willem zellekens aldaer
+zy ontboden hebben den prochiaen in meyningen malcanderen
+te ondertrouwene maer hy en was niet thuys ende
+naedien betaelt hebbende der weerdinnen zyn tsamen
+voortgegaen tot inde prochie van maldere aldaer zy
+oock ontboden hebben den prochiaen maer alzoe hy
+nyet thuys en was es daer gecommen een capellaen de
+welcke dat nyet en dorste doen overmits dat zy
+van dier prochien nyet en waeren ende mits dien nae
+goede chiere aldaer gedaen hebbende tot zanderdaechs
+zoe zyn zy tsamen voorts gegaen tot inde prochie
+van purs dair die voirs. pieternelle by hueren wille
+ende daer toe oock ontboden den prochiaen die hem
+excuseerde te commen zegghende dat hy tsanderdaechs
+gaerne commen soude waer van de voirs. wouter
+ende peeternelle des droeve wesende braken
+tsamen eenen penninck ende elck van hen beyden
+nemende een stuck hebben malcanderen huere
+kerstelycke trouwe gegheven ende daer op zyn
+zy gewillich tsamen gaen slapen ende in teeken
+van dien zoe heeft de selve peeternelle daer
+af verleden een instrument ende hoewel dat
+mits desen die voirs. supplianten nyet en meenden
+yet mesdaen te hebbene ende dat de voirs.
+peeternelle tot menigen stonden ende in presencien van goede
+mannen geseyt ende verclaert heeft dat zy den voirs.
+wouter voor hueren man houdt ende dat huer nyet leet
+en is van tghene dat zy gedaen heeft maer waert
+dat zy dat te doen hadde zy zoude noch doen nietmin
+beduchtende strangheyt van justicien en souden hen niet
+dorren houden noch converseren in onsen landen ende
+heerlicheden maer hen daer van moeten absent houden
+tot huere geheele verderffenisse ten zy dat onse gracie
+ende gnade hemlieden hier op verleent wordde alsoe zy
+zegghen ons omme de selve zeere oitmoedelyck
+biddende, soe eest dat wy de saecken voerscreven
+overgemerct den voirn. wouter van cockelberghe
+hennen steelman dierick eertbrugge jacop camerlinck
+jan van breedonck ende jacop van oistenryck supplianten
+genegen wesende tot huere voirs. bede ende supplicatie
+ende willende hen in dit stuck gracie ende genade
+vorderen voor strangheyt van justicien zunderlinge
+in faveure van onser blyder wedercompst in desen
+onsen landen van harwaertsover ende bisondere in
+onser stede van brugghe hebben inden gevalle als
+boven vergheven quytgescholden ende geremitteert
+vergheven schelden quyte ende remitteren uuyt onser
+zunderlingher gracie mits desen onsen brieve
+tfait ende mesuz boven verclaert mitgaders alle peynen
+ende bruecken corporelle ende criminelle dair inne
+zy ter causen van dien mit datter aencleeft jegens ende
+justicien mesdaen ende mesbruyct moegen hebben
+hemlieden als ten desen wederstellende ende restituerende
+tot huere goede fame ende name in onsen voirs. landen
+ende heerlicheden ende tot hueren onverbuerden goeden
+indien zy daer eenighe hebben gelyck ende in alder
+manieren als zy waeren voor die toecomptste vanden
+feyte ende mesuse voirscreven imponerende hier op
+eeuwich zwygen ende scilence onsen procureur generael
+van brabant ende allen anderen onsen richteren justicieren
+ende officieren wye zy zyn satisfactie ende beteringe
+eerst ende alvooren gedaen der geintresseerde partie
+inden die noch niet gedaen en zy ende eenighe dair toe
+dient civylyck alleenlyck behoudelyck dat de voirn.
+supplianten gehouden zullen wesen tvoirn. fayt ende mesuz
+tegens ons civylyck te beteren nair die gelegentheyt
+vande saken ende faculteyt van hueren goeden ende
+oock te betalen ende refonderen die redelycke costen
+van justicien hier op gedaen ende naegevolght der
+taxacien ende arbiterscepe van onsen lieven ende
+getrouwen die cancellier ende luyden van onsen rade
+geordonneert in brabant die wy daer toe committeren
+ontbieden daeromme ende bevelen den selven van onsen
+raide in brabant dat voor hemlieden geroupen die ghene
+diere behoiren geroupen te zyne zy procederen wel
+ende duechdelyck ter verifficatien ende interinemente
+van desen onsen jegenwoirdighe brieve nair huere
+vorme ende inhouden ende ter taxacien ende arbiterscepe
+vanden voirn. civyle boete ende costen voirscreven ende
+dat gedaen ende de voirs. civyle boete getaxeert ende
+byden voirs. supplianten betaelt zynde in handen vanden
+ghenen van onsen ontfangers dient behoiren sal
+die gehouden wert daer van ontfanck te maken
+rekeninge bewys ende reliqua te doene tot onsen
+proffyte metten anderen penningen van zynen ontfange
+zy onse drossaet van brabant ende alle andere
+onse richteren justicieren ende officieren mitsgaders
+vande smaelre heeren ons lands van brabant wyen
+dit aengaen oft aenroeren sal moegen huere
+stedehouderen ende eenyegelyck van hen bisondere
+zoe hem toebehoiren sal doen laten ende gedoogen
+den voirn. supplianten ende eenyegelycken van hen van
+deser onser gracie quytscheldinghe remissie ende
+pardoene ende van alden inhouden van desen inder
+voegen ende manieren voeren verhaelt rustelyck
+vredelyck ende eeuwelyck genyeten ende gebruycken
+zonder hemlieden te doene ofte laten geschien nu noch in
+toecommende tyden eenich hinder stoot letsel oft
+moeyenisse aen lyve noch aen goede ter contrarien
+in eenigher manieren maer indien huere lyven oft
+eenige van huere voirs. onverbuerde goeden daeromme
+zyn oft naemaels waeren gevangen gearresteert
+belet oft becommert dat zy die stellen ende setten oft
+doen stellen ende setten terstont ende sonder vertreck
+tot geheele ende volcommender slakinghe ende delivrancie
+want ons alsoe gelieft, ende ten eynde dat dit
+goet vast ende gestadich blyve tot eeuwigen dagen
+zoe hebben wy onsen zeghel hier aen doen hangen
+behoudelyck in anderen zaecken ons recht ende
+eenyegelyck tzyne in allen, gegheven in onser
+stede van brugge inde maent van jullio int
+jaer onsheeren duysent vyfhondert ende twintich
+ende van onsen rycken te wetene van dien vanden
+roomsche tweeste ende van castillien etcetera tvyfste
+aldus stont gescreven onder opte plycke byden
+coninck, ende geteekent du blioul, ende noch visa
+gecollacioneert ende bevonden concorderende
+metten originale, by mij [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "wouter",
+      "lastname": "van cockelberghe",
+      "role": "suppliant",
+      "function": "person asking for remission"
+    },
+    {
+      "firstname": "peeternelle",
+      "lastname": "van wueluwe",
+      "role": "peeternelle",
+      "function": "person involved in the story"
+    },
+    {
+      "firstname": "vive",
+      "lastname": "zyne complicen",
+      "role": "complicen",
+      "function": "associates of wouter van cockelberghe"
+    },
+    {
+      "firstname": "kaerle",
+      "lastname": "etcetera",
+      "role": "complicen",
+      "function": "associates of wouter van cockelberghe"
+    },
+    {
+      "firstname": "hennen",
+      "lastname": "steelman",
+      "role": "suppliant",
+      "function": "person asking for remission"
+    },
+    {
+      "firstname": "dierick",
+      "lastname": "eertbrugge",
+      "role": "suppliant",
+      "function": "person asking for remission"
+    },
+    {
+      "firstname": "jacob",
+      "lastname": "camerlinck",
+      "role": "suppliant",
+      "function": "person asking for remission"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "van breedonck",
+      "role": "suppliant",
+      "function": "person asking for remission"
+    },
+    {
+      "firstname": "jacop",
+      "lastname": "van oistenryck",
+      "role": "suppliant",
+      "function": "person asking for remission"
+    }
+  ],
+  "locations": [
+    {
+      "name": "mechelen",
+      "loctype": "city"
+    },
+    {
+      "name": "hombeke",
+      "loctype": "city"
+    },
+    {
+      "name": "willem van wueluwe",
+      "loctype": "person's house"
+    },
+    {
+      "name": "raemdonck",
+      "loctype": "city"
+    },
+    {
+      "name": "maldere",
+      "loctype": "city"
+    },
+    {
+      "name": "purs",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Wouter van cockelberghe and his associates ask for remission for helping Wouter court Peeternelle van wueluwe, who was being pressured to marry someone else. They were able to prevent the marriage and Peeternelle and Wouter got married instead.",
+    "fr": "Wouter van cockelberghe et ses associés demandent la rémission pour avoir aidé Wouter à courtiser Peeternelle van wueluwe, qui était pressée d'épouser quelqu'un d'autre. Ils ont été en mesure d'empêcher le mariage et Peeternelle et Wouter se sont mariés à la place.",
+    "nl": "Wouter van cockelberghe en zijn associates vragen om vergeving voor het helpen van Wouter om Peeternelle van wueluwe te courtiseren, die onder druk werd gezet om iemand anders te trouwen. Zij waren in staat om het huwelijk te voorkomen en Peeternelle en Wouter trouwden in plaats daarvan.",
+    "de": "Wouter van cockelberghe und seine Begleiter bitten um Vergebung, um Wouter bei dem Gerichtsverfahren gegen Peeternelle van wueluwe zu unterstützen, die unter Druck gesetzt wurde, jemand anderes zu heiraten. Sie waren in der Lage, die Heirat zu verhindern und Peeternelle und Wouter heirateten stattdessen."
+  }
+}

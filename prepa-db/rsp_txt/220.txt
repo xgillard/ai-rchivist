@@ -1,0 +1,260 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+copie vanden brieven van remissien ende
+gened$$$ heren der stadt vanden bossche verleent
+maximiliaen bider gratien goids hertoge van oestryke van
+bourgognen van lothringen van brabant van stierien van karinthien van
+carniolen van limburg van lutcemburg ende van gelre greve van vlaenderen van
+thirole van artois van bourgognen palatin van henegouwe van hollant
+van zeelant van namen ende van zutphen, mercgreve des hey
+lichts rycs, heer van vrieslant van salms ende van mechelen, doen
+kont allen luden, die nu syn oft namaels weesen sullen, dat wy ont
+fangen hebben die oitmoedige supplicatie van onsen wel geminden
+wethouderen geswoerenen raidsluden dekens schutten ende gemeyn ingesetenen onser
+stad vanden bossche, inhoudende hoe dat inden lestvoirledenen jaire, eer wy
+dlant van brabant ontfangen hadden, die gemeijnte inder voirs. stad
+beruert synde gelyc in anderen steden, een geheeten jan van thienrode
+ingesetene aldair, bracht den wethouderen ende raide vander selver stad
+doen ter tyt synde aen hoe dat tanderen tyden zekere vonnnisse gegeven
+geweest hade tot synen prouffyte, tegen henricke ghyselen oic
+ingesetene aldair, begerende dair op een signet, om tselve ter executien
+te moigen stellen, ende hoe wel dat van diere materien geappelleert
+hadde geweest aen de luden van onsen raide geordineert in brabant
+ende dat die zaecke aldair doen noch hinch ombeslicht, dien
+niet tegenstaende, zoe verleenden de voirs. wethouderen nochtans alse
+dair toe gedrongen zynde byder gemeynten op tvoirs. gewysde tvoirs.
+signet, ende dat meer is, al dede de voirs. henrick ghyselen tge tegen
+tselve signet seggen, dat die executie niet en behoirdt te geschiene
+gemerct die voirs. litispendentie dair aff wesende in onsen voirs. raide, ende
+dat tusschen hem ende den voirs. jannen van thienroede waer geprocedeert
+tot vonnisse toe excluys, soe deden nochtans die voirs. wethouderen
+vuyt gedrange als voer, den voirs. henricke suecken mitten schutten
+vander voirs. stad in groeten getale, ende want zys niet en
+vonden, soe waeren die voirs. schutten getrocken tot essche, buyten
+der selver stad, daer die voirs. henrick een hoff hadde staende in
+meyningen dien aldair te vindene ende ter voirs. plaetssen van essche
+comen synde clommen feytelyc ende mit fortsen int huys ende
+aldair in groeten getale bleven liggene etende, drinckende
+ende gebruyckende van allen des sy dair vonden, doende dair mede groete
+schade den selven henricke, die hem heymelyc buyten hueren bedryve
+moetste houden, ende dat hy wel oic die selve henrick die voirs.
+overdaden, mit diversen gueteliken brieven in onsen voirs. raide van
+brabant geworven ende oic by goede mannen, den voirs. supplianten
+deden te kennen geven, dat zy hueren erreur bedenckende, de voirs.
+henricke hadden vande schaden hem in maten voirs. gedaen, willen te
+vreeden stellen, ende vanden voirs. p$$ser executien verdragen, te meer wann$$$
+corts dair na byde voirs. lude van onsen raide gewyst wardt, voer
+den voirs. henricken ende tegen den voirs. janne van thienroede, soe
+en hadden die selve supplianten mids der beruerten die doen ter tyt
+noch aldair was dat niet gedaen alsoe dat vuyt dien die voirs.
+henrick $$$$el vanden voirs. werthouderen ende schutten, die men meest
+seighde culpabel te zyne vanden voirs wercke in persone ende $$$del, niet
+soe zere, oft minst culpapel synde, by procureur te compareren in onsen
+voirs. raide hadde doen betrecken, ende versocht dat hem onse
+procureur aldair voer onse interest worde toegevuecht, gelyc hy hem
+oic toegevuecht is, contenderende, op dat die voirs. wethouderen
+ende eenige vanden voirs. schutten die als voirs. is meest culpabel
+int voirs. stuck geweest hadden vonnislyc bedwongen worden hem
+syne voirs. schade ende interest te beterene, ende dat hy ombelast
+bleve vander voirs. $$$ executien ende makende voirts heysch van
+eerliker ende prouffytelicker beternisse, ende tot dien van costen die hy da$$
+om geleden hadde ende lyden soude moeten, alsoe dat die voirs. wet
+houderen ende schutten dair op ende opten heysch van onsen voirs. procureur
+dach hadden, om te antweerdene, was oic wair dat die voirs.
+wethouderen by gedrange vanden voirs. gemeynten, ten voirs. tyde en off
+dair omtrent een ander signet oft executorie verleenden op een vonnisse
+by huer voirsaten gegeven voir janne ende aerde bernaerts, tegen jouffrouw
+katharinen joerdaens huerlieder stiefmoeder, dwelck oick voer die voirs. luden van
+onsen raide geordineert in brabant, geappelleert was ende aldaer
+namaels wert mit vonnisse verclaert wel geappelleert ende
+qualic geweesen, den welcken niet tegenstaende hadden zy mitten
+voirs. signette de voirs. katharine doen aentasten ende opte poirte aldaer setten
+gevangen, dair zy eenen langen tyt gevangen bleef, niett tegenstaende
+dat die voirs. wethouderen mit oepene brieven onser liever ende zeer
+geminder gesellinnen der hertoginnenn behoirlyc versocht syn geweest,
+dat zy der voirs. katharinen vanden voirs. gevannckenissen souden ontslaen
+oft te minsten slaecken, dwelck zy ierst mitten tweesten manda
+mente gedaen hebben waer oic wair, dat die voirs. katharine aengaende
+hueren schaden schaempten ende intereste, huer tegen tvoirs. gewysde
+aengedaen hadde de voirs. wethouderen janne ende aerde bernaerts in
+persone doen betrecken voer die voirs. luden van onsen raide, ende
+ingelycs geworven die adiunctie van onsen procureur, ten onderhoudene
+van onsen interest, dair soe verre geprocedeert is, dat die voirs. katharine
+heeft t hueren thoen gedaen, om te commen tot hueren conclusien by
+huer genomen, inhoudende in substantie, dat sy verdragen worde vanden
+voirs. signette ende der executien van dien, ende dat die voirs. wet
+houderen jan ende aert bernaerts gecondempneert worden alle hueren
+schaden schaempten ende iniurien te beterene, ende dat want die
+voirs. supplianten alsnu bekennen huer dolinge ende erreur, die sy
+mitten voirs. wercken tegen ons ende oic de voirs. partyen gedaen
+hebben, ende dat sy mids dien tot groetten misgrijpe byde voirs. luden van
+onsen raide gestelts souden worden alsoe zy seggen, ons worde van
+wegen der selver supplianten oitmoedelyc versocht ende gebeden geweest
+onsen voirs. gesellinnen, onse ende huere hoocheyt heerlycheyt, ende
+justitie moegen misgrepen hebben, om die myne goids ende
+ten onderhoudene van onsen voirs. stad te willen vergheven, ende alle
+procedueren tegen hen vuyt saken van desen gevordert in onsen voirs.
+raide van brabant, te aboleren ende te nieute doen, soe eest dat
+wy desen aengesien willende te desen male gracie ende genade
+prefereren strangheyden van rechte, den voirs. supplianten ende eenen
+yegelyken van hen, geneycht wesende tot hueren voirs. beden, hebben in
+gevalle als boven om zekere redenen ende consideratien ons dair toe porrende
+quytgeschouden ende vergeven, schelden quyte ende vergheven vuyt onser
+gerechter wetenheyt ende van zunderlinge gracien overmids desen onsen
+brieve al tgene des zy oft eenich van hen vuyt saken vanden voirs.
+excessen, overdaden ende quaden voirnemen moigen in maten voirscr. in$$
+voirseegde twee saken, ende des dair aen cleeft, tegen ons ende
+onsen voirs. gesellinnen, onse ende huer hoecheyt, heerlycheyt ende
+justicie, misdaden ende misgrepen hebben, welcke misdaet wy
+geaboleert gedoodt ende te nieute gedaen hebben, aboleeren doode
+ende te nieute doen, willen dat die selve huer misdaet mitgaders
+die procedueren en off rechtvorderingen vuyt zaken van dien gedaen
+tegen die voirs. supplianten in onsen voirs. raide van brabant
+worden van nu voirtane tot ewigen dagen geacht ende gehouden
+alse voer niet geschiet, ende stellende als van desen die selve
+supplianten in hueren eeren goeden famen ende namen ende in al alsulck$$
+state als zy waeren eer die voirs. misdaet ende proceduere oft recht
+vorderinge tegen hen geschiet, ende tot dien hier aff scellende
+onse voirs procureur ende andere onse officieren, in eenen ewigen gezwy$$
+behoudelyc dat den partyen voirg. die in desen geinteresseert
+geiniurieert ende beschadich hebben geweest van hueren voirs.
+intereste iniurien ende schaden, mitgaders vanden costen die sy vuyt
+saken van desen geleden hebben, satisfactie reparatie ende
+beternisse gedaen worde, civilyc alleene, ten seggende moderacien
+ende taxatien van onsen lieven ende getruwen cancellier, meesteren
+geldolve vander noot, ende vanden voirs. luden van onsen raide
+geordineert in brabant. ontbieden dair om ende bevelen
+onsen voirs. cancellier ende luden vanden selven onsen raide in brabant
+dat zy voer hen roepen die ghene, die hier om sullen behoiren
+geroepen te zyne wel ende neernstelyc procederen totter verificatien ende
+interimente van desen onsen voirs. brieve, ende dat
+gedaen ende die voirs. satisfactie gearbiteert getaxeert ende geschiet
+zijnde, zy onse drosset van brabant, schouthet vanden bosch ende
+voirt alle andere onse ambachteren, richteren ende officieren, des voirs.
+onss lands van brabant nu synde, ende namaels wesende, dien
+dat aengaet oft aengaen sal moigen ende een yn yegelick van
+hen zoe hen toebehoirt, van desen onsen voirs. gracien quitsceldinge
+remissien ende abolicien, doen ende laeten, die voirs. supplianten
+ende eenen yegelycken van hen zoe verre het hem aengaet
+in maten voirs. rastelyc vredelyc ende eewelyc genyeten ende
+gebruycken, sonder hen te doene oft te laeten geschiene
+nu oft in toecomenden tyden eenigen hynder scoot oft letsel aen
+live leden oft goeden ter contrarien, want ons alsoe
+gelieft, ende des torconden ende eeuwiger memorien, hebben
+wy den zegel van onsen voirs. gesellinnen, in absencien ende
+by gebreecke vanden onsen hier aen doen hangen behoudelyc
+ons in anderen dingen onsen rechte ende eenen yegelycken den
+zynen, gedaen gegeven in onsen heerre by vielzwendin vii dage
+der maent julij int jair onss heeren duysent vierhondert acht
+ende tseventich, aldus geteeckent opte vouwe, by mynen heer
+den hertoge in synen raide, dair ghy heeren henrick van withem, heer
+van beersele, robrecht cotereau ridderen, meesteren henrick stoep
+jan van houthem ende anderen by waert ja hujoel visa.
+facta est collatio praesentis copiae cum litteris
+originalibus per me willelmum de busco
+notarium et concordat
+busco [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "07-07-1485",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "Maximiliaen",
+      "lastname": "bider",
+      "role": "grantor",
+      "function": "duke of Ostryke, of Burgundy, of Lothringen, of Brabant, of Stierien, of Karinthien, of Carniolen, of Limburg, of Lutcemburg, of Gelre, count of Vlaenderen, of Thirole, of Artois, of Bourgognen palatin, of Henegouwe, of Hollant, of Zeelant, of Namen and of Zutphen, margrave of the Holy Roman Empire, lord of Frieslant, of Salms and of Mechelen"
+    },
+    {
+      "firstname": "wethouderen",
+      "lastname": "geswoerenen raidsluden dekens schutten ende gemeyn ingesetenen onser stad vanden bossche",
+      "role": "recipients",
+      "function": "governing body of the city of Bossche"
+    },
+    {
+      "firstname": "Jan",
+      "lastname": "van thienrode",
+      "role": "accused",
+      "function": "citizen of the city of Bossche"
+    },
+    {
+      "firstname": "Henrick",
+      "lastname": "ghyselen",
+      "role": "accused",
+      "function": "citizen of the city of Bossche"
+    },
+    {
+      "firstname": "Janne",
+      "lastname": "joerdaens",
+      "role": "accused",
+      "function": "stepmother of Katharinen Joerdaens"
+    },
+    {
+      "firstname": "Katharinen",
+      "lastname": "joerdaens",
+      "role": "accused",
+      "function": "daughter of Janne Joerdaens"
+    }
+  ],
+  "locations": [
+    {
+      "name": "stad vanden bossche",
+      "loctype": "city"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Duke Maximiliaen bider grants remission to the governing body of the city of Bossche for the arrest and imprisonment of Jan van thienrode, Henrick ghyselen and Katharinen joerdaens despite the fact that the case against them was not yet concluded in the court of Brabant. The accused were accused of making false allegations against each other.",
+    "fr": "Le duc Maximiliaen bider accorde la rémission au gouvernement de la ville de Bossche pour l'arrestation et l'emprisonnement de Jan van thienrode, Henrick ghyselen et Katharinen joerdaens, malgré le fait que l'affaire contre eux n'était pas encore conclue devant le tribunal de Brabant. Les accusés s'étaient accusés mutuellement de fausses allégations.",
+    "nl": "Hertog Maximiliaen bider verleent remissie aan het bestuur van de stad Bossche voor de arrestatie en gevangenneming van Jan van thienrode, Henrick ghyselen en Katharinen joerdaens, ondanks het feit dat de zaak tegen hen nog niet was afgesloten bij het gerecht van Brabant. De beschuldigden hadden elkaar vals bewijs bezorgd.",
+    "de": "Herzog Maximiliaen bider gewährt der Stadt Bossche Amnestie für die Verhaftung und Inhaftierung von Jan van thienrode, Henrick ghyselen und Katharinen joerdaens, obwohl der Fall gegen sie noch nicht vor dem Gericht von Brabant abgeschlossen war. Die Angeklagten hatten einander falsches Beweismaterial vorgelegt."
+  }
+}
+```

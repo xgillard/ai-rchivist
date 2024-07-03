@@ -1,0 +1,201 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. allen den ghenen die dese onse brieven sullen zien saluyt
+doen te weten dat wy ontfangen hebben die oitmoedige supplicatie
+van janne de neve geboren van onser liever vrouwen wavre by
+onser voerschreven stat van mechelen inhoudende hoe dat inde maent
+van iunio oft daer omtrent int jaer duisent vyfhondert ende
+zesthiene hy suppliant inden prochien van rymenam ten huyse van
+henrick verspeckenen met zekeren andern geselscape heeft sitten
+drincken ende aldaer drinkende is buyten huyse gegaen totter
+plaetsen aldaer zekere vergaderinge van volcke was mits dat
+ten selven tyde daervan brulocht gehouden werdt welcke suppliant
+by den voerschreven volcke comende heeft aldaer gevonden een vrouwe
+persoen oft meysken genaempt lysbeth toerkens mitterwelcker
+hy suppliant tanderen tyden gesproken hadde ende die welcke hy met
+huer en wille en dancke geleydt heeft om met hem ten voirschreven
+huyse eens te gaen drincken daer mede zy wel tevreden was
+welcke suppliant ende lysbeth toerkens ten selven huyse weerts
+gaende is tegemoete gecomen een geheeten heyn toerkens
+der zelver lysbetten brueder vragende der selver synder zuster
+waer dat zy henen ginck waer op die voerschreven suppliant antwoird
+ick soudse gheerne eens met my te drincken leyden ende dan
+laten gaen daert huer belieft waer toe die voirschreven heyn toerkens
+seyde ick wille dat zy met my gae ende zy en sal met u nyet
+gaen ontweldigende ende ontreckende alsoe den voerschreven suppliant die
+voirschreven lysbeth metter mouwen sonder haer in eniger manieren begheert
+hebben te blameren oft mesdoen dwelck siende die selve suppliant
+is gestoort tot zynen voirschreven gelage weerts gegaen seggende
+totten gesellen van zynen gelage
+ende macht ick sal besien
+oft ick nyet een meysken en soude moegen dryncken leyden ende die
+welck niet en beghere te mesdoen zy en soude my moeten
+genomen wordden ende heeft aldaer eenen steelen boghe gespannen
+met eenen boute daer op den welkcken hy neffens hem gestelt heeft
+om hem soe verre als noot ware daer mede te defenderen want
+hy suppliant hem beducht vanden voirschreven heyn toerkens mits den
+dreygende woirden die hy hem suppl van te voiren gegeven hadde
+ende van zynen adherenten vervolght ende ge$$elt te wordden in welcke
+zyn gelaech corts daer nae ongeroepen vuyt een anderen huyse ende
+gelage gecomen zyn die voirschreven heyn toerkens met taroppen versperkenen
+zynen neve hebbende die selve tarop een bloot mes in zyn hant ende
+nyet sprekende welcke heyn toerkens vraeghde oner luyde sprekende
+tot hem suppliant hennen en rempter? nyet dwelck is te seggen schuylten
+nyet oft yster yemant dien wat lust oft hebben wille dwelck
+aenhoirende ende ziende die voerschreven suppliant dat zy hem zittende in zyn
+gelach sochten ende op hem wouden antwoirde terstont jaet alst soe
+wesen moet soe rempter? wat wacht /houdt $ daer eest ende
+mits dien schoot die voirschreven suppliant bevresende vanden voirschrreven taroppe
+ende heyn toerkens mits dat die selve tarop tvoirschreven bloot mes
+in zyn handt hadde geprevenieert te worddene ende loste zynen
+voirschreven boghe ende geraecte den selven heyne toerkens in zyn
+voirhoof van welcken schuete die voirschreven heyn toerkens corts
+daer nae van levende live ter doot gecomen is ende hoe wel
+die voirschreven suppliant zere droeve is vander toecompst vande voirschreven manslach
+ende ongevalle ende dat hy daer af eerlycke reparatie satisfactie ende
+beternisse der partien geinteresseerde gedaen heeft nyetmin --
+beduchten rigeur ende strangheyt van institien heeft hem vluchtich
+gemaect buyten onsen landt van brabant ende hem daer buyten
+gehouden den tyt van twee iaeren aldaer hy nyet wederom en soude
+dorren comen keeren hanteren noch connerseren. maer is gescapen
+daer eenwelyc vuyt te moeten bluiven tot zynder grooter schaden verdriete
+ongenuechten ende geheelder bederffenissen ten zy dat onse gratie ende
+genade hem hier op nyet gedeylt oft verleent en wordde om dewelcke
+genade hem hier op nyet oft verleent en wordde enz zie vorige
+hy ons zoo oitmoedelyk gebeden heeft soe eest dat wy die saken voirschreven
+aengemerct den voirschreven janne de neve suppliant geneyght ... tzynder
+voirschreven beden ende supplicatien ende willende hem in dit stuck vorderen
+ende preser..afkorting gratie ende genade voere strangheyt van insticien / be...
+ter eeren vanden bitteren enden onss liefs heeren ihesu xpi dwelck hy
+opten dach van huden om der menschen wille geleden heeft hebben inden
+gevalle als boven vergeven quutgesconden ende geremitteert vergeven quytschelden
+ende remitteren vuyt sunderlinger gratien by desen onsen brieve ... ende dootslach
+boven ververkleert mitgaders alle peyne boete ende bruecke corporelle ende criminelle
+inde welcke hy ter cansen voirschschreven? met dat daer aen cleeft tegen ons ende
+institie ... mesbruyct ende gevallen mach weesen hem als van desen
+wederom stellende ende restituerende tot zynen goeden name ende fame
+in allen onsen landen ende heerlicheyden ende tot zynen o..erb..rden
+goeden indien hyer ..... heeft in alder manieren als was voiren? die
+toekompst vanden fayte ende dootslach voirschr imponerende hier op
+silentie ende een eeuwich geswych onsen procureur generael in brabant afgekort?
+ende allen anderen onsen rechteren iusticie officieren ende dienaren
+wie zy zyn satisfactie ende ...... ierst ende alvoren gedaen
+der partien geinteresseerdt indien die noch nyet gedaen en zy ...
+alleenlic / behoudelyck ende mits dien oic dat die voirschreven suppliant
+tvoischreven stuck tegen ons .... beteren sal nae gelegentheyt vander
+saken ende faculteyt van zynen goeden mit oic? dat die selve
+suppliant sculdich sal zyn te refonderen ende betalen die costen van
+iusticien hier om gedaen ende te doene. allet ter ordinantien ende taxatien
+van onsen lieven ende getruwen den cancellier ende luden van onsen
+rade in brabant die wy daer toe comitteren mits desen
+ontbinden daer om ende bevelen de voirschreven cancellier ende luden
+van onsen voirschreven rade in brabant dat voir henluden geroepen
+die ghene die daer tot behoiren geroepen te zyne zy procederen
+wel ende dueghdelyk ter verificatien ende interinemente van
+interinement = officiele bekrachtiging, ratificatie
+desen onsen brieve nae forme ende teneure ende dat
+vorm en inhoud
+gedaen zy onse drossate van brabant meg. van loeven amptman
+van bruessele schouteten van antwerpen ende vanden bossche
+ende alle andere onse ende der smaelre heeren iusticien officieren
+dieneren ende ondersaten huere stedehouderen ende een ...gelyck
+van hen be... tot hem toebehoiren sal doen laten ende gedoogen
+den voirschreven janne de neve suppliant van deser onser tegewoordigen
+gratien quytscheldinge remissie ende pardoen ende van allen den
+inhouden van desen inder vuegen ende manieren voere verhaelt rustelike
+vredelic volcomelic ende eenwilic genyeten ende gebruycken sonder
+hem te doen oft te laten geschieden nu noch in toecomende tyden ende
+enigen hinder stoot oft letsel ter contrarien in eniger manieren
+maer in dien zyn lyf oft enige van zunafkorting onverbeuerden goeden
+soe voirschreven is dairom zyn oft oft namaels waerden gevangen gearresteert
+becommert oft belet dat zy die stillen ende setten $ terstont enden?
+sonder langer vertreck tot geheelder ende volcomenden ....
+want ons alsoe gelieft ende ten eynde dat dit goet vast
+ende gestadich blive tot eeuwigen dagen soe hebben wy hier
+aen doen hangen den zegel den welcken die keyser ons ...
+grootvader? ende wy dieren? onser minoriteit gebruyckt hebben ...
+in onser stat van bruessele ende maent van apprille opten
+goeden vrydach int jaer ons heren duisent vyfhondert ende
+zeventhien voir paesschen ende van onsen rycken ...erde
+....stout gescreven boven opte plycke byden coninck
+en zynen rade ende geteekent c boudewyns ....
+gec$$eert ende ver$$
+..corderend metten originalen
+by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "June, around 1569",
+  "persons": [
+    {
+      "firstname": "janne",
+      "lastname": "de neve",
+      "role": "suppliant",
+      "function": "individual"
+    },
+    {
+      "firstname": "heyn",
+      "lastname": "toerkens",
+      "role": "opponent",
+      "function": "brother of Lysbeth toerkens"
+    },
+    {
+      "firstname": "lysbeth",
+      "lastname": "toerkens",
+      "role": "involved",
+      "function": "sister of Heyn toerkens"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Janne de neve requests remission after a conflict with his brother-in-law Heyn toerkens, involving his sister Lysbeth toerkens.",
+    "fr": "Janne de neve demande la rémission après un conflit avec son beau-frère Heyn toerkens, qui impliquait sa sœur Lysbeth toerkens.",
+    "nl": "Janne de neve vraagt vergeving na een conflict met zijn schoonbroer Heyn toerkens, die zijn zus Lysbeth toerkens betrok.",
+    "de": "Janne de neve bittet um Vergebung nach einem Konflikt mit ihrem Schwager Heyn toerkens, der ihre Schwester Lysbeth toerkens einbezog."
+  }
+}
+```

@@ -1,0 +1,145 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen te wetene enenyegelicken tegewoirdige ende toecomende
+dat wy ontfaen hebben de oitmoedige supplicatie van joose peysman schamel
+jonc geselle woenende binnen onser stadt van loven inhoudende hoe
+dat omtrent sinte andriesmisse lestleden de voirs. suppl met noch vive
+andere gesellen tsamen gecaetst hebbende gegaen zyn in diverse
+plaetsen in meyningen huere winnige te verdrincken ende omtrent
+negen uren inden avont comende zyne voirs. gesellen opte rey$erct? vo$$
+een huys daermen bier vercochte hebben aldaer geclopt ende geseyt
+peter totter weirdinnen dat zy hen bier tappen soude dwelck zy nyet
+doen en wilde zeggende ick en wil u nyet nieten waer op zy lieden vraeghden
+waeromme zy henlieden geen bier nieten en wilde alsoe wel als zy
+den anderen gesellen dede die daer waeren welcke woirden $$
+zoo es gecomen vuyten huyse een wylen genoempt adriaen geens
+hebbende enen pot in zyn handt hen vragende straffelick zyt ghy uw$$
+vele waer op zy andwerdden wat hebt ghy daer mede te doene
+dwelck hoirende de voirs. wylen adriaen heeft den voirs. pot
+geworpen inden hoop van des voirs. suppl gesellen zoo dat
+zyluden elck huere messen vuyt getrocken hebben ende daer
+mede gehouwen ende oick met steenen geworpen naeden voirs.
+wylen adriaen ende de voirs. suppl eens tot huys geweest
+hebbende ende wederomme comende om tsamen te drincken ziende
+tvoirs. gevecht heeft oick met steenen geworpen in sulcker vuegen
+dat de voirs. wylen adriaen aldaer zekere quetsuren ontfinck ende
+hebben hem alsoo vuyten den huyse gesloten van welcker quetsuren
+deselve wylen adriaen gecomen es van levende live ter doot nyet
+wetende nochtans de voirs. suppl wie van henlieden hem de voirs.
+quetsure gegeven heeft ter cause van welcken ongevalle de
+voirs. suppl beduchtende rigeur van iusticien hem zindert
+geabsenteert heeft vuyt onsen landen ende heerlicheden ende
+en soude aldaer nyet derren wederkeeren maer hem moeten
+houden in vreemden landen ende contreyen in grooter armoeden
+ende miserien zoo verre hem onse gracie hier op nyet gedeylt
+en ware alsoo die voirs. suppl zeeght ons daerom
+oitmoedelick biddende. zoo eest dat wy desen aengesien
+compassie ende medelyden hebbende metten voirs. suppl ende willende
+hem in desen gracie ende genade prefereren den rigeur van iusticien
+hebben den selven suppl in gavalle als boven geremitteert
+quytgeschonden ende vergeven remitteren quytschelden ende
+vergeven vuyt onser zunderlinger gracien by desen tfeyt
+ongeval ende dootslach voirs. mitgaders alle penen ende amenden
+corporeele ende criminele daer inne hy hem overmits ende
+vuyt saken van egene des voirs. es tegens ons onse hoocheyt ende
+iusticie enichssins mach hebben mesgaen ende hebben hem dien
+aengaende gerestitueert ende gestelt restitueren ende stellen tot
+zynder goeder famen ende name in onsen voirs. lande van brabant
+ende anderen onsen landen ende heerlicheden ende tot zynen goeden
+nyet geconfisqueert zynde zoo verre daer eenge waren imponerende
+hier op een ewich geswych ende silencie onsen procureur generael ende
+allen anderen onsen rechteren iusticieren ende officieren hoedanige
+die zyn oft wesen mogen satisfactie nochtans eerst ende alvoiren
+gedaen der partien geinteresseert zynde zoo verre daer enige toe stonde
+ende die noch nyet gedaen en ware civilick alleenlick behoudelick
+dat de voirs. suppl tvoirs. ongeval tegens ons beteren sal naer gelegentheyt
+vander mesdaet ende faculteyt van zynen goeden ende oick dat hy gehouden
+zyn sal te betalen de redelicke costen van iusticien indien aer enige
+gedaen zyn ter taxatien ende arbitragen van onsen lieven ende
+getrouwen den cancelier ende lieden van onsen rade in brabant
+die wy daer toe committeren by desen ontbieden daer om ende
+bevelen onsen voirs. cancelier ende raidslieden dat voir hen
+geroepen de gene die behoiren sullen geroepen te zyne zy procederen
+wel ende deuchdelick ter verificatien ende interinemente van desen
+endae dat gedaen ende de voirs. civile beternisse ende costen van
+iusticien getaxeert gearbitreert ende betaelt alst behoiren sal
+van wecle civile beternisse de gene van onsen rentmeesters
+dien dat aengaet gehouden wordt ontfanck te maken
+rekeninge bewys ende reliqua te doene tot onsen profyte metten
+anderen peynen van zynen ontfange by onse drosset van brabant
+meyer van loven bailliu van byvele ende van onsen walschen
+lande van brabant amman van bruessel schouteten van
+antwerpen ende vanden bossche ende alle andere onse ende onsser
+vassallen ende smale heeren rechteren iusticieren ende officieren onss
+voirs. landts van brabant ende van overmaze ende anderen onsen
+landen ende heerlicheden hoedanige die zyn oft wesen moegen tegewoirdich
+ende toecomende huere stadhouderen ende elcken van hen dien voirs.
+suppl van deser onser tegewoirdeger gracien remissien ende
+quytscheldingen gelyck ende inder manieren voirscreven tot ewigen
+dagen peyselick vredelick ende volcomelick doen ende laten gebruycken
+zonder hem ter contrarien van dien te doene ofte laten geschieden nu
+noch in toecomende tyden enigen hinder stoot oft letsel in zynen
+live oft goeden in eniger manieren maer by? als alsoo hy oft enige
+van zynen voirs. ongeconfisqueerden goeden ter cause voirscreven
+enichssins aengetast gearresteert oft becommert waren zy de
+selve indien gevalle ter stont ende zonder vertreck ontslaen ende
+stellen oft ontslaen ende stellen doen tot gheheelder ende volcomen
+delivrancie want ons alsoe gelieft ende ten eynde dat dit
+vast ende gestadich zy ende blive tot ewigen dagen zoo hebben
+wy onsen zegel hier aen doen hangen behouden ons in allen anderen
+saken onss rechts ende enenyegelicken des zyns gegeven in
+onser stadt van bruessel inde maent van augusto int jaer
+ons heeren duysent vyfhondert ende negenthiene ende
+van onsen rycken tvierde aldus stont onder opte plycke
+byden coninck in zynen rade ende geteekent momboir?
+ende noch visa
+gecolattioneert ende bevonden accorderend
+metten originale by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+

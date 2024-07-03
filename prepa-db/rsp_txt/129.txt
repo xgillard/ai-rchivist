@@ -1,0 +1,237 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslage
+voere gielis vanden vivere
+philips byder gracien goids ertshertoge van oistryck hertoge
+van bourgoingnien van lotharingen van brabant van stier van karenten
+van cram van limborch van luxemborch ende van gelre grave
+van vlaenderen van habspurg van thirol van artois firette
+van kieburgh van artois van bourgoingnen palsgrave ende palatyn
+van henegauwe lantgrave van elzaten marcgreve van burgau ende des heylichs rycs van hollant van zeelant van namen ende
+van zutphen mercgreve des heylichs roemschen rycs ende
+fiert van kyeborch van namen ende van zutphen grave heere van
+van henegauw lantgrave in elsaten van upter windischenmarg
+vrieslant upter windischenmarg
+van portenauw van salins ende van mechelen
+doen te wetene allen luyden jegewoirdich ende
+toecomende dat wy ontfangen hebben die oitmoedige
+supplicatie van gillis vanden vyvere goessins zoone
+ledertauwer poirter ende inwonende van onser stede
+van ghend inhoudende hoe inde vrye antweerpssche
+maerct naer sincxen lestleden die voirs. suppliant aldair
+gecommen zynde met vele andere inwonende van onser
+voirs. stede van ghend ende onder dandere met
+drion vander varent pieter de pottere lodewyc
+sapont arnt sanders jacop de pottere wylen joos
+vanden gavere pieter braem ende willem donderdaige
+zu ghingen alle te samen logieren in huere
+gewoenlycke herberge ende bleven dien avont
+etende met hueren weert ende tsamen aldus
+gheten hebbende siende dat noch gheenen tyt en was
+slapen te gaen ghingen alle oft een deel van hein
+uuyt huer voirs. herberge in meeningen te gaen
+bancketteren alsoe zy deden in welcken banckette
+tgelach gerekent synde de voirs. wylen joos vanden
+gavere seyde totten voirs. suppliant betaelt myn gelach
+wair op de selve suppliant antwoirdde ben ic u yet
+schuldich ic sal u wel betalen ende dair mede stont
+up ende betrack naer zyn herberge dair hy ghinck
+slapen met anderen zyne medegesellen ende de voirs.
+wylen joos bleef een wyle tyts achter ende corts
+daernaer quaem oick ter herbergen weert ende comende
+ande camere dair de voirs. suppliant ende andere te
+bedde lagen cloppende ande duere vander selver
+camere, inde welcke de weert ziende dat de voirs.
+joos niet gecommen en was een bernende keersse
+gelaten hadde ende soe geringhe als de voirs.
+wylen joos inde voirs. camere gecommen was ghinck
+totten bedde vanden voirs. suppliant hem heetende cock
+boeve ende hem ghevende vele andere quade scandelicke
+ende onverdragelick woirden hem oic verwytende dat
+hy alsoe arm gewordden was als hy waer up den
+voirs. suppliant antwoirdde totten voirs. joos dat
+zwygen ende slapen comen soude of hy soude hem
+de kele afsteken ende int selve gekyf soe ghinck
+de keerse uuyte de voirs. wylen joos persevererende
+altyts in zyn quaet spreken soe dat hem de voirs.
+suppliant noch eens seyde compt slapen dair ghy de
+nacht voerleden geslapen hebt waer up de selve
+wylen joos noch nyet te vreden zynde seyde dat
+hy by hem nyet slapen en wilde heetende den
+suppliant dief ende anderssins dit hoorende byden voirs.
+suppliant ende ziende dat hy des voirs. wylen joes
+nyet quyte en conste gewordden stont up van
+synen bedde in zyn hemde ende nam een cortte
+dagge die hy by hem geleet hadde ende gaf
+dair mede den voirs. wylen joos een steke up
+een van zyne scouderen van welcker steke hy omtrent
+drie daigen daernaer te ghend gevoert zynde
+quaem van levende lyve ter doot ende hoewel die
+voirn. suppliant de vrienden ende magen vanden dooden
+gezoent ende te vreden gestelt heeft vanden voirs.
+dootslage geschiet als voirs. es nyetmin
+duchtende rigeur ende strancheyt van justicien
+hy en soude hem nyet durren houden keeren commen
+noch converseren bynnen onse landen ende heerlicheyden
+maer sal dair uuyt moeten bliven ende leven in
+anderen vreymden landen in groiter aermoeden
+ende ketimcheyde in dien onse gracie ende genade
+hem hier up nyet gedeelt ende verleent en wordde
+alsoe hy seeght ons zeere oitmoedelic
+dair om biddende soe eest dat wy die
+saken voirscreven overgemerct willende den voirn.
+gillis suppliant gracie ende ontfermherticheyt hier
+inne voirderen ende prefereren voer rigeur ende
+strangheyt van justicien wy hebben den selven
+suppliant genegen wesende tot zyn voirs. bede
+ende supplicatie inden gevalle als boven vergheven
+geremitteert ende quytgescholden vergheven
+remitteren en schelden quyte uuyt onse zunderlinge
+gracie by desen onsen brieve tfayt ende dootslach
+boven verclaert mitgaders alle peynen ende bruken
+corporelle ende criminelle dair inne hy ter cause
+van dien mit datter aencleven mach mesbruyct
+ende gevallen mach wesen jegen ons ende justicie
+ende hebben hem als te desen gerestitueert
+ende wedergestelt restitueren ende wederstellen
+tot zyn goede name fame ende geruchte
+in onse landen ende heerlicheyden ende tot alle
+zyne onverbuerde goeden in dien hy er eenighe
+heeft in alder voegen ende manieren als hy was
+voer de toecomste vanden voirs. dootslage
+imposerende hier op scilende ende eewich zwygen
+onsen procureur generael ende allen anderen onsen
+richteren ende officieren wie zy zyn satisfactie
+ende beteringe alder werck eerst gedaen der
+partie geinteresseert in dient noch nyet gedaen
+en es ende eenige dair toe dient civillyck alleenlick
+behouden oic dat hyt jegens ons civilick
+beteren sal nae gelegentheyt vander mesdaet
+ende de weerde van zynen goede ter taxacie
+ende arbiterscepe van onsen lieven ende getrauwen
+die cancellier ende luyden van onsen raide
+in brabant die wy dair toe commiteren ontbieden
+dair om ende bevelen den selven onsen cancellier ende
+luyden van onsen raide in brabant dat by hen
+geroepen die ghene die dair over behoeren geroepen
+te zyne zy procederen wel ende dueghdelic ter
+verifficatie ende interinemente van desen onsen
+jegewoirdigen brieve naer huere voirme ende
+inhouden ende dat gedaen zynde ende de voirs.
+civile beteringe getaxeert ende betaelt in handen
+vanden ghenen van onse rentmeesters diet
+behoeren sal die gehouden wert rekening bewys
+ende reliqua dair af te doen tot onsen proffyte metten
+anderen penningen van zynen ontfange zy onse
+marcgreve scout amman ende dieneren onser voirs.
+stad van antwerpen ende alle andere onse
+rechteren officieren ende ondersaten dien dit aengaen
+sal mogen ende yegelyck van hen bysondere
+soe hem toebehoeren sal doen laten ende gedoegen
+den voirs. suppliant van dese onse gracie remissie
+ende quytscheldinge ende van al den inhouden van
+desen inder manieren boven verclaert rustelic ende
+vredelic ende tot eeuwigen daigen genyeten ende
+gebruycken sonder hem te doene oft te laten
+geschieden enich hynder letsel oft moeyenisse
+ter contrarien nu noch in toecomende tyde aen
+lyve noch in goede in enig maniere mair
+in dien zyn persoen oft enige van zyne voirs.
+goeden onverbuert als voirs. es ter cause
+voirscreven gevangen becommert gelet oft
+gearresteeert waeren dat zy die stellen oft
+doen stellen terstont ende sonder enich vertreck
+oft uuytstel tot geheele ende volcomme
+delivrance want ons alsoe gelieft
+ende gedaen willen hebben ende d ten eynde
+dat die goet vast ende gestadich blyve tot
+eewigen daigen hebben wy onsen zegel
+hier an doen hangen behawen in anderen
+saken ons recht ende eenen iegelyck zyn recht
+in allen gegeven in onse stad van mechelen
+inde maent van novembris int jaer
+ons heeren duysent vyfhondert ende een
+aldus stont gescreven opte plycke vanden
+selven brieve by mynen heere den ertshertoge
+myn heer die grave van nassou stadhouder
+generael ende andere tegewoirdich ende
+geteykent hanetoch
+gecollationeert ende bevonden
+concorderende metten originele
+by my $$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "gillis",
+      "lastname": "vanden vyvere",
+      "role": "suppliant",
+      "function": "citizen of Ghent"
+    },
+    {
+      "firstname": "joos",
+      "lastname": "vanden gavere",
+      "role": "wrongdoer",
+      "function": "friend of the suppliant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Ghent",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Gillis Vanden Vyvere, a citizen of Ghent, has supplicated for a remission against Joos Vanden Gavere, his friend, who, after a night of drinking, became aggressive and violent, wounding Gillis with a dagger, leading to his death. Despite the suppliant's attempts to calm him down, Joos persisted in his abusive behavior, ultimately killing Gillis. The suppliant pleads for grace and mercy, and the document grants the remission, quitting and absolving the suppliant from all charges, penalties, and bruises, corporal and criminal, related to this matter.",
+    "fr": "Gillis Vanden Vyvere, citoyen de Gand, a supplié pour une remise contre Joos Vanden Gavere, son ami, qui, après une nuit de beuverie, est devenu agressif et violent, blessant Gillis avec un poignard, entraînant sa mort. Malgré les tentatives du suppliant pour le calmer, Joos a persisté dans son comportement abusif, tuant finalement Gillis. Le suppliant plaide pour la grâce et la miséricorde, et le document accorde la remise, dispensant et absolvant le suppliant de toutes les accusations, peines et blessures, corporelles et criminelles, liées à cette affaire.",
+    "nl": "Gillis Vanden Vyvere, een burger van Gent, heeft om een remissie verzocht tegen Joos Vanden Gavere, een vriend van hem, die, na een nacht van drinken, agressief en gewelddadig werd, Gillis verwondde met een dolk, wat leidde tot zijn dood. Desondanks de pogingen van de suppliant om hem te bedaren, bleef Joos in zijn misbruik voortduren, wat uiteindelijk leidde tot de dood van Gillis. De suppliant vraagt om genade en mededogen, en het document verleent de remissie, die de suppliant vrijspreekt van alle aanklachten, straffen en lichamelijke en criminele verwondingen, gerelateerd aan deze kwestie.",
+    "de": "Gillis Vanden Vyvere, ein Bürger von Gent, hat um eine Begnadigung ersucht gegen Joos Vanden Gavere, einen Freund von ihm, der, nachdem er die Nacht über getrunken hatte, aggressiv und gewalttätig wurde, Gillis mit einem Dolch verwundete, was zu seinem Tod führte. Trotz der Bemühungen des Suppliants, ihn zu beruhigen, hörte Joos nicht auf, sein gewalttätiges Verhalten fortzusetzen, was schließlich zum Tod von Gillis führte. Der Suppliant bittet um Gnade und Barmherzigkeit, und das Dokument gewährt die Begnadigung, die den Suppliant von allen Anschuldigungen, Strafen und körperlichen und kriminellen Verletzungen befreit, die mit dieser Angelegenheit zusammenhängen."
+  }
+}
+```

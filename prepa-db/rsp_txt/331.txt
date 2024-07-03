@@ -1,0 +1,212 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te weten alle tegenwoirdich ende toekommende
+dat wy ontfaen hebben die oitmoedige supplicatie van renart
+gundelfinger geboren binnen der stadt van noerenborch in duitschlant
+inhoudende hoe dat op den kerstavont duizend vijfhonderd achtendertig de voirseyde
+suppliant met goede eerlijk geselscap geeten hebbende snavonts binnen
+den huyse of taveerne daer vuyt hangt de wapene van hongrie
+staende binnen dese onse stede van bruessel ende buyten selven
+huyse wesende is gegaen naer zyn logis inden thuys nyet verre
+van daer staende om te slapen ende omme tseene te doen moeste
+passeren duer de camere daer zyn weert met zyn gasten
+zaten ende aten ende seyde de suppliant tot henlieden god sechent u
+ende god ghevet u goeden avont daerop de voirseyden weert seyde
+totten suppliant wat maect ghy hier, gaet van waer ghy compt
+ende want de suppliant sach aan de tafel vanden selven weert eenen
+genaempt meester frederick den welcken de suppliant hadde te
+gaste gebeden inde voirseyde herberghe van hongrien om met hem
+te comen eten zoe vraegde de suppliant den selven mr. frederick
+waeromme dat hy met hem niet en was gecomen den daerop de
+voirseyden mr. frederick antwoirde dat hy inden thuys gevonden hadde
+goet geselscap ende alsoe was hy suppliant aldaer gebleven
+ende terstont de voirseyden weert begonste den suppliant qualick
+toe te spreken ende te $$$$ sonder dat de suppliant hem
+yet mesdaen of messeyt hadde seggende ende repliqueerende
+vanden selven weert totten suppliant dese oft gelycke woerden gaet
+daer ghy gheten hebt want ghy en hebt hier nyet te doene
+waerop de suppliant hem antwoirde met schoone woorden biddende
+dat hy soude willen van hem te vreden wesen ende dat hy
+van hem geen scade lyen en soude ende des noch nyet te
+vreden wesende de voirseyde weert seyde totten suppliant gaet toch wech
+ghy en zyt gheen man van eeren ghy zyt een quae villain
+of in $$$ du bist een schellem welck woort is dat
+$$$ $$$ soude mogen spreken of seggen tot verachtinghe
+van een duytsche zunderlinge tot een edelman mitswelcken
+de suppliant niet connende hem selven dwingen trock terstont
+vuyt zyn rappier =schermdegen zoe oic dede de voirseyde weert ende staken deen
+naer danderen maer tgevecht was belet byden ommestanders
+dat nyen van hen beyden gequest wiert hoewel dat een vanden
+assisten genaempt adam speelman van onse zeer lieve ende
+beminde suster de coninginne douagere van hongrie ont$$$
+$$$ quade $$$ by $$$ tusschen beyde te gaen eenen steecke
+tusschen zyn beenen in zyn fundament van welcke steke
+de voirseyde adam twee of drie uren daernaer gevaren is van levenden
+lyfen ter doot nochtans de suppliant en soude nyet connen verclaren
+op zyn consienen of hy of een andere de steke gegeven heeft
+gehadt want de voirseyde adam was een van zynen besten
+vrienden ende en meynde hem nyet te mesdoen ter saken
+vanden welcken sake dwelck den suppliant $$$ leet is vresende
+rigueur van justicien heeft hem geabsenteert vuyt onsen
+lande ende hertochdom van brabant alwaer hy nyet
+en soude dorren wederkeeren hanteren noch commerseren ten zy
+dat onse gracie hem hierop verleent wordde alsoe hen zeyt
+ons daeromme oitmoedich biddende soe eest dat wy desen
+aengesien compassie ende medelyen hebbende metten voirseyden
+suppliant ende willende hem in desen gracie ende genade
+pefereren voir rigueur van justicie hebben inden gevalle
+als boven vergeven quytgescholden ende geremitteert
+vergeven schelden quyte ende remitteren vuyt onse zunderlinge
+gracie mits desen onsen brieve tfeyt ende dootslach $$$$
+gevoert mitsgaders alle peine ende boete corporelle ende
+criminelle daer binne hy ter cause van dien met datter
+ancleeft jegens ons ende justicie mesdaen ende mesbruyct
+mach hebben ende hebben hem als daerof wedergestelt
+ende gerestitueert wederstellen ende restitueren tzynder goeden
+fame ende name in onsen voirseyden land ende hertochdom van brabant
+ende $$$ $$$ in onse stad van bruessel ende
+ammanmie der selven ende anderen onsen landen ende heerlicheden
+ende tot zynen onverbuerden goeden indien hy eenige heeft gelyck
+ende in alder manieren als hy was voor de toecompste vanden
+feyte ende dootslach voirscreven imponerende hierop een eeuwich
+zwygen ende silencie onsen procureur generael ende allen anderen onseren
+rechteren ende officieren onsses voirseyden lants van brabant wie zy zynen
+satisfactie ende beteringe eerst ende alvooren gedaen der
+geinteresseerde partie indien die noch en is civilyck alleenlyck
+behoudelick nochtans dat de voirseyde suppliant tvoirseyde feyt ende
+dootslach tegens ons beteren sal civilyck naer de gelegentheyt
+$$$$ $$$$ by den ontfanger vanden $$$
+vanden misdaet ende faculteyt van zyn goeden ende dat hy
+oic gehouden wordt te betalen de redelicke costen van justicien
+ter zaken voirscrevene gedaen ende nagevolcht indien datter
+eenige geschiet zyn ter ar$$$$ ende taxatien van onsen
+lieven ende getrouwen den cancellier ende luiden van
+onsen rade in brabant die wy daertoe committeren ontbieden
+daerom ende bevelen den voirseyde onsen cancellier ende luyden
+van onsen rade in brabant dat voor henluyden geroupen
+diegene die behooren geroupen te zyne zy procederen wel
+ende dueghdelick ter verifficatie ende interinimente van desen
+onsen tegenwoirdighen brieve naer huer vorme ende inhouden
+ende welck interinimente de voirseyde suppliant gehouden wordt
+te versoucken in onsen voirseyden rade binnen eenen jaere naer
+date van desen op peyne te verbueren deffect van desen
+ende dat gedaen ende de voirseyde civile boete ende costen van
+justicien getaxeert ende betaelt zynde alst behoort van
+welcke civile boete de gene van onsen rentmeesters dient
+aengaet gehouden zal zyn ontfanck te maken rekeninghe
+bewys ende reliqua te doene tot onsen prouffyte metten
+anderen peinen van zynen ontfange zy zyn onse drossaert van brabant
+amman van bruessel ende alle anderen ende der smaeleren
+heeren rechteren in$$$ ende officieren onsses voirseyden lants
+van brabant wien dit aengaen sal mogen of hueren stedehouderen
+tegenwordich ende toecommende ende een $egel van hier
+zoe hem toebehoeren zal doen laten ende gedogen den voirseyden
+suppliant van dese onse gracie remissie quytscheldinge
+ende verghiffenisse zoe ende inden manieren als boven
+rustelick vredelick ende eeuwelick genieten ende gebruycken
+sonder hem te doen noch laten geschien in lyfen noch
+in goede eenich hinder letsel of moeyenisse ter contrarien
+maer indien zyn lyf of eenige van zyn ongeconfisqueerde
+goeden waren daeromme gevangen becommert of gearresteert
+dat zy die terstont stellen of doen stellen tot volcommen
+delivrantie van ons alsoe gelieft ende ten eynde dat dit goet
+vast ende gestadich blyve tot eeuwigen dagen zoe hebben
+wy onsen zegel hieraan doen hangen behoudelick in anderen
+zaken ons recht ende een segel tzyne by allen gegeven in
+onze voirseyde stede van bruessele inde maent van iunio int
+jaer onses heeren duysent vyfhondert ende veertich van onsen
+keyserrycke t$$$ ende van onsen rycke van spaegnien $$$
+t$$$ aldus gescreven op de plycke $$$$ $$$$ $$$$ in
+zynen rade ende geteekent $$$$ $$$$ $$$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "24 December 1583",
+  "persons": [
+    {
+      "firstname": "Renart",
+      "lastname": "Gundelfinger",
+      "role": "applicant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "Weert",
+      "lastname": "UNKNOWN",
+      "role": "opponent",
+      "function": "host"
+    },
+    {
+      "firstname": "Frederick",
+      "lastname": "UNKNOWN",
+      "role": "witness",
+      "function": "guest"
+    },
+    {
+      "firstname": "Adam",
+      "lastname": "Speelman",
+      "role": "intervener",
+      "function": "assistant of the Queen of Hungary"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Nuremberg",
+      "loctype": "city"
+    },
+    {
+      "name": "Brussels",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Renart Gundelfinger, a citizen of Nuremberg, has supplicated for a remission regarding a dispute that took place in Brussels on Christmas Eve 1583. The dispute arose when the applicant entered the house of his host, Weert, and found Frederick, a guest, at the table. The host became aggressive towards the applicant, leading to a confrontation that was interrupted by onlookers. Adam Speelman, assistant to the Queen of Hungary, was injured during the incident and later died. The applicant has been exiled from the land and hertogdom of Brabant until the King's grace is granted to him.",
+    "fr": "Renart Gundelfinger, citoyen de Nuremberg, a demandé la rémission d'une dispute qui s'est produite à Bruxelles le soir de Noël 1583. Le différend a éclaté lorsque le demandeur est entré dans la maison de son hôte, Weert, et a trouvé Frederick, un invité, à table. L'hôte est devenu agressif envers le demandeur, ce qui a entraîné une confrontation qui a été interrompue par des témoins. Adam Speelman, assistant de la reine de Hongrie, a été blessé pendant l'incident et est décédé plus tard. Le demandeur a été exilé du pays et du duché de Brabant jusqu'à ce que la grâce du roi lui soit accordée.",
+    "nl": "Renart Gundelfinger, burger van Neurenberg, heeft verzoek om vergeving voor een geschil dat zich op Kerstavond 1583 in Brussel heeft voorgedaan. Het geschil ontstond toen de demander binnenkwam in het huis van zijn gastheer, Weert, en Frederick, een gast, aan tafel vond. De gastheer werd agressief tegenover de demander, wat leidde tot een confrontatie die werd verhinderd door toeschouwers. Adam Speelman, assistent van de koningin van Hongarije, werd tijdens het incident gewond en overleed later. De demander is verbannen uit het land en hertogdom Brabant totdat de genade van de koning aan hem wordt verleend.",
+    "de": "Renart Gundelfinger, Bürger von Nürnberg, hat um Vergebung für einen Streit gebeten, der sich am Heiligabend 1583 in Brüssel ereignet hat. Der Streit entstand, als der Antragsteller das Haus seines Gastgebers, Weert, betrat und Frederick, einen Gast, an Tisch fand. Der Gastgeber wurde aggressiv gegenüber dem Antragsteller, was zu einer Konfrontation führte, die von Zuschauern unterbrochen wurde. Adam Speelman, Assistent der Königin von Ungarn, wurde während des Vorfalls verletzt und starb später. Der Antragsteller wurde aus dem Land und dem Herzogtum Brabant verbannt, bis die Gnade des Königs ihm gewährt wird."
+  }
+}
+```

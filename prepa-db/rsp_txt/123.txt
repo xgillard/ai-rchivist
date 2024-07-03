@@ -1,0 +1,209 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te weten allen tegewoirdigen ende toecommenden
+dat wij ontfangen hebben die oitmoedige supplicatie van
+henricke vander eertbruggen, een scaemel lantman woenende
+tot londerzele inhoudende hoe dat in iunno lestleden hem
+suppliant sittende in seker geselscap van goede mannen in een
+huys ter plaatsen geheeten ten houte* binnen der prochien
+van merchten buyten $$$ is daer inne gecomen wylen
+pauwels de weert sweerende met quaden eede in effecte
+dat hy den vader vanden voirseyden suppliant oft zynen zone
+doot steken soude ende dat midts zekere geschillen
+tanden tyden tusschen henlieden geresen dwelck hoorende
+heeft de voirseyde suppliant in effecte geseght totten voirseyden
+pauwels wat wildy den ander man wyten waerop
+de selve pauwels heeft geantwoirdt vragende in effecte
+den selven suppliant oft hy den selven $$ suppliant
+verantworden wilde de suppliant antwordende iaeck
+daer hen leet oft arch geschieden souden heeft met
+dien de voirseyden pauwels den voirseyden suppliant geworpen
+met eenen pot in zyn zyde staende vorts oppe zoe tsche$$
+om den suppliant met eenen opstekere te stekene maer wordde
+gehouden ende de suppliant buyten der doren gestooten van
+die ghene daer yegewoirdich wesende ende buyten
+zynde heeft de voirseyde suppliant zeer gecomoneert wesende
+midts raden voirseyden geseeght in effecte zyt ghy een man
+compt hier buyten sonder nochtans de voirseyde pauwels
+op sulcke woerden vuyt gecomen te zyne dan zoe de
+suppliant meynde nae huys te gaene meynende dat al
+gecesseert waere is hem de voirseyde pauwels opten
+wech nae gevolght met eender garenpeertssen ? ende
+den suppliant oploopende heeft den selven suppliant metter
+garenpeertssen ter eerden geslagen ende den selven voorts
+aengewilt nae tscheen met eenen opstekere maer is
+de suppliant opgestaen ende heeft met zynen messe in
+nootwere zyns lijfs naden voirseyden pauwels geslagen zoe
+dat int gevecht de suppliant den selven pauwels
+geslagen heeft een wonde in zyn hooft daer af hy
+van levenden live ter doot gecommen is godwille deo
+zielen barmhartich wesen dwelck de voirseyden suppliant
+vuyt gronden zyns herten leet is ende in $$ken
+van dien heeft de suppliant tvoirseyde ongeval aende vrienden
+ende magen duegdelyck gebetert ende die selve nae zyn
+vermogen gesoent ende hoewel hy anderssins is van
+goeden name ende fame met oick van vredelycken conversatien
+en eenen yegelycken kennisse van hem dragende hebbende wyf
+endeeen ionck kindeken beduchtende nochtans rigeur van
+iusticien en derre binnen onsen voirseyden lande van brabant
+nyet comersen maer soude gescapen zyn vluchtich
+buyten lants te moeten dolen ende zyn huysvrouwe
+ende cleyn kindeken in grooter armoeden mendiceren
+tzynder eeuwiger destructien desolatien ende verdriete
+ten waere dat onze gracie ende genade hem hier op
+werdde verleent ende geoptendeert by de welcke
+gemerct $$$ dat hy hem in allen anderen dingen wel ende
+eerlyck heeft gedragen hy ons zeer oitmoedelijk heeft gebeden ende versocht
+waer omme zoe eest dat wy de saken voirscreven angemerct
+den voirg$ suppliant genegen wesen tzynder voirseyden beden ende
+supplicatie ende willende hem in dit stuck gracie ende
+genade prefereren voir strangheyt van iusticien hebben
+inden gevalle als boven vergeven quytgesconden ende geremitteert
+vergeven quytschelden ende remitteren vuyt onser sunderlinger
+gratien midts desen feyt ende dootslach boven verclaert
+mitsgaders alle bruecke ende peyne corporelle ende criminelle
+daer inne hier ter causen voirscreven met dat daer aen
+cleeft tegens ons ende iusticie mesdeen mesgrepen ende
+verbuert mach hebben hem als van desen wederom
+stellen ende restitueren tot zynen goeden name fame
+ende geruchte in onsen voirseyden lande van brabant ende in
+allen anderen onsen landen ende heerlycheyden ende tot zyner
+ongeconfisqueerden goeden ende onverbuerden goeden
+in dien hy eenige heeft gelyck ende alzoe hy was
+voore die toecompste vanden feyten ende dootslach voirscreven
+imponerende hierop stilentie ende eeuwich swygen
+onsen procureur generaal in brabant ende allen anderen onser
+iusticieren ende officicieren wye zn syn satisfactie ende
+beternisse eerst ende voir al gedaen zynde der partien
+geinteresseerde in dien die alnoch nyet gedaen en zyn
+ende eenige daer toe staet civilick alleenlick besonderlick
+dat de voirseyde suppliant tvoirseyde stuck tegens ons civilick beten
+sal naer gelegentheyt vanden mesdaet ende faculteyt van
+zynen goeden met oick dat de selve suppliant schuldich zal
+syn te betalen de redelycke ende wettelycke costen van
+iusticien hieromme gedaen ende te doen allet ter taxacien
+ende moderatien van onsen zeer lieven ende getruwen den
+cancellier ende lieden van onsen rade geordonneert in
+brabant die wy daer toe comitteren by desen ontbieden
+daer om ende bevelen den selven onsen cancellier ende lieden
+van onsen rade in brabant dat geroepen wese hen die
+ghene die behoeren sullen daer om geroepen te zyne zy
+procederen wil ende getrouwen ter verificatien ende interimenente
+van desen onsen brieve naer hunne forme ende inhouden ende
+ter taxatien van den voirseyden costen van iusticien ende
+dat gedaen zynde ende de voirgenoemde costen getaxeert ende betaelt
+zoe voirseyd is zn onse drossaert van brabant ende alle
+andere onse ende die smaelere heeren rechteren iusticieren
+officieren ende denen onsser voirseyden lants van brabant huere
+stedehouderen ende een yegelyck van hen zoe hem toebehoiren
+ende aengaen sal moeyen doen laten ende gedoogen den
+voirseyden henricke vander eertbruggen suppliant van desen
+onser tegewoirdiger gracie quytscheldinge ende remissie
+van alle die inhouden van desen inder voegen ende manieren
+voere verhaelt peyselick rustelic ende vredelick genyeten
+ende gebruycken sonder hem te doen oft te laten geschieden
+nu noch in toecommenden tyden eenich hindere stoot oft
+moeyenisse in lyve oft in goede ter contrarien in
+eeniger manieren aller in dien syn lyff oft eenige van
+zyn onverbeurden goeden zoe voirseyd is daerom gevangen
+gearresteert becommert oft belet waeren dat zy die
+terstont ende sonder vertreck setten ende stellen oft
+doen setten ende stellen tot geheelder ende volcommender
+delivrancie want ons alsoe gelieft ende ten eynde
+dat dit goet vast ende gestadich blyve ende gehouden
+wordde teeuwiger dagen zoe hebben wy onsen segel
+hieraen doen hangen, behoudelick in anderen saken
+onser rechte ende eenen yegelycken $$$ gegeven
+in onsen stadt van brussele inde maent van
+aprille int jaer onses heeren duysent vyfhondert
+ende twintich ende van onsen rycken te weten
+vanden roomschen deerste ende van castillen
+ende anderen tvijfste aldus stondt gescreven onder
+op te plycke byder coninck in zynen rade ende
+gheteekent boudewyns ende noch visa
+$$ collatie van deser copyen is gedaen
+ende $$$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "JUNE, 1520",
+  "persons": [
+    {
+      "firstname": "henricke",
+      "lastname": "vander eertbruggen",
+      "role": "suppliant",
+      "function": "peasant farmer"
+    },
+    {
+      "firstname": "pauwels",
+      "lastname": "de weert",
+      "role": "accused",
+      "function": "UNKNOWN"
+    }
+  ],
+  "locations": [
+    {
+      "name": "londerzele",
+      "loctype": "town"
+    },
+    {
+      "name": "merchten",
+      "loctype": "parish"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Henricke Vander Eertbruggen, a farmer from Londerzele, seeks remission after a conflict with Pauwels De Weert in Merchten. The conflict escalated when Pauwels attacked Henricke with a garpeertssen, resulting in Pauwels' death. Henricke fears the rigor of justice in Brabant and seeks pardon to avoid exile and his family's impoverishment.",
+    "fr": "Henricke Vander Eertbruggen, cultivateur à Londerzele, demande la rémission après un conflit avec Pauwels De Weert à Merchten. Le conflit a dégénéré lorsque Pauwels a attaqué Henricke avec un garpeertssen, entraînant la mort de Pauwels. Henricke craint la rigueur de la justice en Brabant et cherche le pardon pour éviter l'exil et l'appauvrissement de sa famille.",
+    "nl": "Henricke Vander Eertbruggen, boer uit Londerzele, vraagt om vergeving na een conflict met Pauwels De Weert in Merchten. Het conflict escaleerde toen Pauwels Henricke aanviel met een garpeertssen, met als resultaat dat Pauwels overleed. Henricke vreest de rigoreuze rechtspraak in Brabant en vraagt om vergeving om vermindering van zijn straf te voorkomen en zijn gezin uit armoede te houden.",
+    "de": "Henricke Vander Eertbruggen, ein Bauer aus Londerzele, sucht Vergebung nach einem Konflikt mit Pauwels De Weert in Merchten. Der Konflikt eskalierte, als Pauwels Henricke mit einem garpeertssen angriff, was zum Tod von Pauwels führte. Henricke fürchtet die Strenge der Justiz in Brabant und sucht Vergebung, um die Verbannung zu vermeiden und seine Familie vor Armut zu schützen."
+  }
+}
+```

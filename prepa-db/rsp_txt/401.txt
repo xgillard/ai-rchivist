@@ -1,0 +1,232 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslage
+maximilian par la grace de dieu esleu empereur tousjours auguste roy de germanie
+de hongrie dalmatie croatie etc et charles par la mesme grace archiducz
+daustriche prince despaengnes de deux cecilles de jerusalem etc ducs de bourgogne
+de lothier de brabant de stier de karente de carniole de lembourg de luxembourg et
+de gelres contes de flandres de habsbourg de tyrol de phirrette de kieburg
+dartois de bourgogne palatins de haynnaut de hollande de zeellande de namur
+et de zuytphen marquis du saint empire et de burgauv lantgraves
+delzate seigneurs de frize des marches de sclavonie de portenauw de salins
+et de malines savoir faisons a tous presens et advenir nous avoir
+receu lumble supplication de loys seigneur de renel contenant comment le
+xvije jour du de juing ledit suppliant le seigneur de fallaix jaques de
+lisques claude de bissy et leurs complices en notre ville de bruxelles
+partirent du soir environ xj ou xij heures de lostel dudit de fallaix
+en intention de aller passer temps en la maison dune femme publique
+que len dit la grande hollandoise lez les estuves du pollepelle et
+venans devant ladite maison hurterent a la porte dicelle et
+requirent y entrer aquoy ladite hollandoize respondy quilz
+ny entreroient et ledit remonstrant et ses complices dirent que dont
+romperoient ils ladite porte et pour ce faire lapprocherent mais
+ilz oyrent bruyt daucuns compaignons estans ou baz de ladite
+maison qui monterent en hault lesquelz tost aprez ou
+aucun deulx jetterent pierres apres icelui remonstrant et
+sesdits complices et firent leur effort de les touchier et bleschier
+a loccasion de quoy ung nomme tristram serviteur dudit seigneur de
+fallaix savanca donner ung cop de pit contre ladite porte
+sans la rompre et lors ledit seigneur de fallaix recouvra contre
+ladite porte qui estoit coppee par le mylieu et lentreouvrit
+de sorte que ung homme en se mectant sur ses mains
+y povoit entrer sy savanca ledit remonstrant et y entra
+et y trouva ung des compaignons de dedens ja dessendu
+pour deffendre ladite porte lequel pour ce faire rua ung coup
+aprez ledit renel remonstrant lequel il failly et lors ledit
+remonstrant pour la seurette de sa personne rua aprez lautre
+et le toucha mais il ne scet en quel lieu et lors sescrya
+ledit compaignon disant monseigneur lescuier pardonnez moy mais
+en ce disant il empoigna ledit remonstrant par le coullet que lors
+icelluy remonstrant pour sa seurette comme dessus lembracha et
+le getta sur ung bancq ce compaignon se releva et de
+rechief sailly ou col dudit remonstrant et lors ledit remonstrant
+pour sen deffendre lui donna anicoires ung coup de dage sans
+bonnement aussy savoir en quel lieu ce compaignon lors querant
+senscaper sailly de la maison et le rencontra le seigneur de lisques
+lequel aiant oy le debat du remonstrant et ne savoit comme il
+luy estoit donna a ce compaignon ung coup de rapierre
+le remonstrant meu de chaleur monta en hault pour
+savoir qui estoient les aultres qui leur avoient jette de pierres
+et trouva ung aultre compaignon avec trois femmes
+communes auquel ledit remonstrant se parforcha donner de sa
+dage a quoy il fally au moyen de ce que le compaignon
+se jetta le val de la montee et le rencontra le seigneur de
+lisques qui rua aprez luy ne scet sil le toucha et puis
+le trouva le seigneur de fallaix lequel luy rua deux coupz de
+taille de sa dage et ung cop destocq sans savoir a la
+verite sil le blescha ne en quel endroit et ainsy que
+byssy pensoit entrer en ladite maison le premier compaignon
+qui avoit este bleschie le hurta si rudement quil le desmarcha
+deux ou trois pas et que ledit compaignon mesmes en tomba
+et ne luy feist ledit byssy riens mais entra en ladite maison
+et venant aux degrez pour suyr les dessus nommez trouva
+le second compaignon qui le requist le laisser passer ce quil
+feist puis rencontra ce compaignon ung benedictus le
+sauvaige serviteur dudit byssy lequel semblablement le laissa
+passer et tost aprez entendirent ledit remonstrant et
+ses complices que lung de ces compaignons bleschies nomme
+jennin de mol filz de loste du poncelet dudit bruxelles
+termina de vie par mort dont ledit remonstrant a este et
+est amerement deplaisant et doubtant rigeur de justice
+il sest absente de notre dite ville de bruxelles et pays de
+brabant ou il nozeroit retourner ains conviendroit
+audit seigneur de renel laisser ses parens et amis et aussy
+a son grant regret notre service comme il dist est se notre grace
+ne luy est sur ce impartie dont attendu ce que dist est
+et que par infortune et non de propoz delibere ledit meschief
+est advenu et que en aultres choses jusques confidences dudit
+ores ledit suppliant est bien renomme et n avoit commis cas
+deshonneste il nous a tres humblement supplie et requis
+pour ce est il que nous ces choses considerees audit loys
+de renel suppliant inclinans a sa dicte requeste avons ou cas
+dessusdit quite remis et pardonne quittons remectons et pardonnons de grace
+espcial par ces presentes le cas et homicide dessuz declaire ensemble
+toute peyne amende et offence corporele criminele et civile
+en quoy pour raison et a loccasion dicelluy cas il peult avoir offence
+et estre encourrus envers nous et justice et lavons quant
+a ce remis et restitue remettons et restituons a ses bonne
+fame et renommee au pays et a ses biens non confisquez saucuns
+en a tout ainsy qul estoit auparavant ladvenue dudit cas
+en imposant sur ce scilence perpetuele a notre procureur general en
+brabant et a tous noz officiers quelzconques satisfaction
+faicte a partie interessee premierement et avant tout euvre
+se faicte nest et elle y chiet civilement tant seulement sy donnons
+en mandement a nos amez et feaulz le chancellier et gens de
+notre conseil en brabant qui appelle ceulx qui pour ce feront a appeler
+ils procedent bien et deuement a la verificacion et interinement
+de cesdites presentes et ce fait ilz et tous aultres noz officiers et
+justiciers quelzconques cui ce regardera ou leurs lieutenants
+et chacun deulx endroit soy et si comme a luy appartiendra facent
+seuffrent et laissent ledit suppliant de notre presente grace et remission
+ensamble de tout le contenu en cesdites presentes selon et par la
+maniere dicte plainement paisiblement et perpetuelement joyr
+et user sans leur faire mettre ou donner ne souffrir
+estre fait mis ou donne ores ne ou temps advenir aucun
+destourbier ou empeschement au contraire ains se soy corps
+ou ancuns de ses biens sont ou estoient pour ce prins saisiz
+arrestez ou empeschez les mettent ou facent mectre tantost
+et sans delay a plaine et entiere delivrance car ainsy nous
+plaist il et affin que ce soit chose ferme et estable a tousjours
+avons ces presentes fait seeller de notre seel sauf toutesvoyes
+en autres choses notre droit et autruy en toutes donne
+en notre cite d ausbourch le xxviije jour du mois de juing
+lan de grace mcincqcens et dix et des regnes de nous
+empereur assavoir de germanie le xxve et de hongrie etc le xxje
+et ainsy avoit escript sur le reploy par lempereur et monseigneur
+larchiduc et signe h de hane et encoires visa et
+sigillata de expresse mandato domini imperatores
+collationne a l’original
+par moy
+n. strate $$ [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "XXVIII juing 1510",
+  "fact_date": "XVIIe jour du dé juing 1510",
+  "persons": [
+    {
+      "firstname": "loys",
+      "lastname": "de renel",
+      "role": "suppliant",
+      "function": "seigneur"
+    },
+    {
+      "firstname": "maximilian",
+      "lastname": "de habsbourg",
+      "role": "grantor",
+      "function": "empereur"
+    },
+    {
+      "firstname": "charles",
+      "lastname": "de habsbourg",
+      "role": "grantor",
+      "function": "archiduc d'Autriche"
+    },
+    {
+      "firstname": "jacques",
+      "lastname": "de fallaix",
+      "role": "accused",
+      "function": "seigneur"
+    },
+    {
+      "firstname": "claude",
+      "lastname": "de bissy",
+      "role": "accused",
+      "function": "complices"
+    },
+    {
+      "firstname": "tristram",
+      "lastname": " ",
+      "role": "witness",
+      "function": "serviteur"
+    },
+    {
+      "firstname": "jenin",
+      "lastname": "de mol",
+      "role": "victim",
+      "function": "filz de loste"
+    }
+  ],
+  "locations": [
+    {
+      "name": "bruxelles",
+      "loctype": "city"
+    },
+    {
+      "name": "grande hollandoise",
+      "loctype": "house"
+    },
+    {
+      "name": "pollepelle",
+      "loctype": "area"
+    }
+  ],
+  "summary": {
+    "en": "The document is a remission issued by Emperor Maximilian I and Archduke Charles to Lord Louis de Renel. The remission is granted for a duel that took place in Brussels between Lord Louis de Renel and Lord Jacques de Fallaix, along with their complices, against a man named Jennin de Mol. The duel occurred near a house known as the Grande Hollandoise, located near the Pollepelle. The document pardons Lord Louis de Renel for any criminal or civil offenses related to the duel, and imposes perpetual silence on the prosecutor general and all officers in Brabant. The document is dated XXVIII juing 1510.",
+    "fr": "Il s'agit d'une remise accordée par l'empereur Maximilien Ier et l'archiduc Charles à Monsieur Louis de Renel. Cette remise est accordée pour un duel qui a eu lieu à Bruxelles entre Monsieur Louis de Renel et Monsieur Jacques de Fallaix, ainsi que leurs complices, contre un homme nommé Jennin de Mol. Le duel a eu lieu à proximité d'une maison appelée la Grande Hollandoise, située près du Pollepelle. Le document accorde à Monsieur Louis de Renel le pardon pour toutes les offenses criminelles ou civiles liées au duel et impose un silence perpétuel au procureur général et à tous les officiers de Brabant. La date du document est XXVIII juing 1510.",
+    "nl": "Het document is een remissie uitgegeven door keizer Maximiliaan I en aartshertog Karel aan heer Lodewijk van Renel. De remissie wordt verleend voor een duel dat plaatsvond in Brussel tussen heer Lodewijk van Renel en heer Jacques de Fallaix, samen met hun complices, tegen een man genaamd Jennin de Mol. Het duel vond plaats in de buurt van een huis genaamd de Grote Hollandoise, gelegen in de buurt van Pollepelle. Het document verleent heer Lodewijk van Renel gratie voor elke strafrechtelijke of burgerlijke overtreding die met het duel samenhangt en legt een perpetuele stilte op aan de procureur-generaal en alle ambtenaren in Brabant. Het document is gedateerd op XXVIII juni 1510.",
+    "de": "Dies ist eine Rehabilitation, die von Kaiser Maximilian I. und Erzherzog Karl an Herrn Louis de Renel ausgestellt wurde. Die Rehabilitation wird für ein Duell gewährt, das in Brüssel zwischen Herrn Louis de Renel und Herrn Jacques de Fallaix sowie deren Komplizen gegen einen Mann namens Jennin de Mol stattgefunden hat. Das Duell fand in der Nähe eines Hauses namens Grande Hollandoise statt, in der Nähe von Pollepelle. Das Dokument gewährt Herrn Louis de Renel Amnestie für jede strafrechtliche oder zivilrechtliche Straftat, die mit dem Duell zusammenhängt, und verhängt eine ewige Stille gegen den Generalprokurator und alle Beamten in Brabant. Das Dokument ist auf den XXVIII. Juni 1510 datiert."
+  }
+}

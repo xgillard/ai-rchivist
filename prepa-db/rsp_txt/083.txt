@@ -1,0 +1,234 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+phls etc doen te wetene allen
+tegenwoerdighen ende toecomende dat wij ontfangen
+hebben die oytmoedighe supplicatie van joris van
+eyckhoven colstdrager of colfdrager vanden mercgrane onser
+stadt van antwerpen. inhoudende hoe dat
+hij hem altyt verlych heeft gedraghen, staen
+tot goeden name ende fame behalven dat is
+gebeurt dat die suppliant opden xx6 en dach
+augusty anno x6 c. eenentnegentich.comen
+uuyt zynen huyse ende gaen naer het straethen
+geheeten den bokeers des achternoens tusschen
+dry ende vier uren. is gecomen ter plaetsen daer
+wylen adriaen peeters was staende. die
+wechde den suppliant siende zonder dat die
+suppliant hem niet hadde misdaen oft missecght
+heeft tot hem gheroepen. ghy langhen dieft
+ghy langhen schelm ghy moet teghen my
+stooten. ick moet sien wat ghy in uwen boesem
+hebt. waerop die suppliant antwoorde ander
+seynde die wat wildy van my hebben. dop die
+voorsch adriaen seynde ich moet desen daer
+teghen u stooten. sydy een man thoont dat
+ghy des conincx dienaer zyt met volder anders
+leelychder ende affdraegen woorden, ende wat
+die supplt arbenden om van hem ontslaghen
+te wordden en heeft die voersch adriaen den
+supplt nyet willen $laten, maer loopenden
+den suppliant nae int voersch bokeerstraetken
+heeft zyn rappier ghetrochen, ende naeden
+suppliant gesteken ende geslaghen. soo dat
+die supplt is genootsaecht geweest zyn rappier
+oych te trechten daer mede hy den voersch adriaen
+eenen steech van voer heeft gegeven dast
+hy corts dernaer deser wererlt is overleden. tot
+grooten leetwesen, vanden supplt. godt
+wil da siele genadich wesen ende alzoo die
+vrienden des voersch adriaen astey’nighe wel
+weten donnooselseyt van toecoeminghe van
+voersch ongeval. zoo hebben sy metten supplt
+aengegaen accord ende hem tvoersch delict ender
+nederslach om de passie ons lief te hooren
+iesn schrift$ ygenen maer want die supplt
+midts den zelven delicte ende nederslach nyet
+vryelychen binnen onsen lande en sonder myghen
+oft derren skeeren maer vresonder rigoir van
+rechter. sonde moeten dolen in vremde landen
+tot geheels bederf sevisse van hem supplt
+zyn huys fors ende kinderen ende meer zyn sonde
+en wordde hem hier inne met ansien by ende
+met onse opene brieven van gratie en remissie
+hier toe diennen om de welcker hy ons zeer
+ontmoedelych heeft gebeden soo eest
+dat wy desen aengesien geneycht wesende
+ter beden ende inpplicatien des voirsch supplt
+ende willende hem in desen prefereren gratie
+en misericoorde voer rigeur en stranghent van
+rechte den zelven jooris van eyckhoven
+supplt hebben inden gevalle als bonen geremitteert
+vergeven ende quytgescholden remitteren ygenen
+ende schelden quyte buyt zunderlinger gratien by
+desen onsen brieve tfeyt ende manslach boven
+vercleert midtsgaders alle pene ende boete
+corporelle ende criminele inde welche hy teze
+cansen voersch met des daeraene cleeft toghens
+ons ende insticien misdaen ende mesbreuycht mach
+hebben oft daerinne hy gevallen mach wesen
+ende hebben hem als van dyen weder gestilt
+ende gerestitiueert stellen weder ende
+restituseren tot zynen goeden name faeme en
+geruchte in onsen lande van brabant ende
+in allen anderen onsen landen ende heerlycheden
+midtsgaders tot zyne onverbenrde goeden indyen
+hy eenighde onder ons heeft in alder bueghen
+ende manieren als hy was voerde toecompste
+vanden voirsch feyte imponierende hierop silentio
+ende eeuwich swyghen onsen procureur generael
+in brabant schouteth van antwerpen, onder
+allen anderen onsen ende onser vassalen oft der
+smaelre heeren rechteren institueren en ostitueren
+wie zy zyn oft wesen moghen. satisfaction en
+beteringhe ierst ende voer al gedaen der ptyen
+gheinteresteerde. indyen die noch nyet gedaen en
+is. ende somighe daertoe staet cimilych
+alleenlych. behoudeln nochtans dat die voer
+suppliant oych gehouden wordt tvoirsch sent
+teghens ons te beteren civilych naer goegentheyt
+vanden misdaet ende faculteyt van zynne goeden
+ende oych te resinderen en betaelen die redelyche
+costen van insticien. indyen hiercomme eeuighe
+ghedaen ende naegevolght zynne allet ter taxatien
+ende arbiterschappe van onse lieve en getrouwe
+die cancellier ende luyden van onsen rade gevrcht
+in brabant. die wy daertoe hebben ghecomitteert
+ende comitteren by desen. ontbieden somme en
+bevelen den zelven van onsen raede in brabant,
+dat voir hey geroepen die ghene die daer behoiren
+geroepen te zyne, in procederen wil en deuchden
+tot verificatie ende interim’enents van desen
+onsen brieve naer heure forme ende inhouden
+en ter taxatien en arbiterschappe vande amende
+simile ende costen van justicien voirsch wilsch
+interimenent hy suppliant zal gehouden zyn
+aldaer te versuechen binnen eenen halven jaere
+naer date van desen. opte pene van te verbeuren
+desfect van zullen onser brieven. ende dat
+gedaen ende de voersch amende cuuile en costen
+getaxeert gearbitreert en betaelt zynde. in
+hauden vanden ghenen van onsen ontfanghers en
+officiers, dyent behoorden sal. in welchen
+gehouden wordt daeraft ontfanch te maken
+reheninghen, bewys, ende reliqua te doene, tonser
+proffyte, metten anderen penny van zynen
+ontfanghe. sy ende allen anderen onser rechteren
+justicieren en de officieren tegenwoerdighen
+ende toecomende heure stedehouderen ende onze
+iegelychen van hen befindere soo hen toebehoiren
+zal doen laeten ende gedooghen den voersch
+jooris van eyckhoven supplt van deser onser
+tegenwoerdighen gratien quytscheldinghen remissien
+ende pardoene ende van ellen den inhouden van
+desen. inder vaeghen ende manieren voeren $ enhaelt
+peyselych rustelyck vredelych volcomelych ende
+eeuwelychen genieten ende gebruychen, sonder hem
+te doene oft te laeten geschieden us uich in –
+toecomenden tyden, aen lyft noch aen goet, -
+eeuich hunder stoot let steld oft moyenisse
+ter contrarien. maer indyen zyn lyst oft eenighen
+van zyne onverbeurden goeden sommen gevanghen
+gearresteert, beleten oft becomdet waeren dat
+in die setten ende stellen oft doen setten ende
+stellen terstont ende zonder vertrech tot
+geheelder ende volcomender delivrrantie en stakinghen
+want ons alsoo gelieft. nyettegenstaende dat
+tvoersch feyt oft ongeval nyet en is onerfaert
+noch anderssints onser ordonnantie desen aengaen
+ter contrarien. die wy den voersch supplt
+nyet en willen te prejudicieren maer hebben
+deselnie voer dese reyse ghederogeert ende derogeren
+by desen. dezelve anderstuits geheel beynen
+in heyr cracht ende vigeur. ende ten eynder
+dat dit goet vast gestadich blyve ten euwighen
+daghen soo hebben wy onser seghelde hier
+aen doen hanghen behoudelych in anderen
+zaken ons kocht ende eeuen iegelychen tzynde
+in allen. segenen in onser stadt van bruesselde
+ende maendt van november. int jaer ons heeren
+duysent vyff hondert seventnegentich. van
+onsen rychen te wetende van napels ende
+jerusalem het xxx6m opde plychde stont-
+gescreven. byden coninck onderteechent
+wouwere. ende onder buythanghender eenen
+groenen segel in zyden suveren [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "int month of November, in the year fifteen hundred seventy nine",
+  "fact_date": "on the 26th day of August in the year 1506",
+  "persons": [
+    {
+      "firstname": "joris",
+      "lastname": "van eyckhoven",
+      "role": "suppliant",
+      "function": "colstdrager or colfdrager"
+    },
+    {
+      "firstname": "adriaen",
+      "lastname": "peeters",
+      "role": "accused",
+      "function": "servant of the king"
+    }
+  ],
+  "locations": [
+    {
+      "name": "stadt of antwerpen",
+      "loctype": "city"
+    },
+    {
+      "name": "den bokeers des achternoens",
+      "loctype": "street"
+    }
+  ],
+  "summary": {
+    "en": "Joris van eyckhoven, a colstdrager or colfdrager from the city of Antwerpen, has received a remission for the fact that he was attacked by Adriaen peeters, servant of the king, after a dispute on the street. Joris van eyckhoven was forced to defend himself and killed Adriaen peeters. He now receives a remission for the manslaughter and all related penalties and costs.",
+    "fr": "Joris van eyckhoven, colstdrager ou colfdrager de la ville d'Anvers, a reçu une remise pour le fait qu'il a été attaqué par Adriaen peeters, serviteur du roi, après un différend dans la rue. Joris van eyckhoven a été contraint de se défendre et a tué Adriaen peeters. Il reçoit maintenant une remise pour l'homicide et toutes les pénalités et les coûts connexes.",
+    "nl": "Joris van eyckhoven, colstdrager of colfdrager van de stad Antwerpen, heeft gratie gekregen voor het feit dat hij is aangevallen door Adriaen peeters, dienaar van de koning, na een ruzie op straat. Joris van eyckhoven werd gedwongen zich te verdedigen en doodde Adriaen peeters. Hij krijgt nu gratie voor de doodslag en alle gerelateerde boetes en kosten.",
+    "de": "Joris van eyckhoven, ein Fassträger oder Stangenhalter aus der Stadt Antwerpen, hat eine Begnadigung für die Tatsache erhalten, dass er von Adriaen peeters, einem Diener des Königs, angegriffen wurde, nach einem Streit auf der Straße. Joris van eyckhoven wurde gezwungen, sich zu verteidigen und tötete Adriaen peeters. Jetzt erhält er eine Begnadigung für die Tötung und alle damit verbundenen Strafen und Kosten."
+  }
+}
+```

@@ -1,0 +1,126 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips in der gratien gods ertshoge van oistenrijkhertoge van
+bourgoignen, van lothier van brabantvan stier, van karenten, van cram, van
+limourg, vanluxembourg ende van gelre, greve van vlaenderen, vanhabspurg,
+van thirol, van sirette, van kitburg, vanartois, van bourgondien, palatin van
+henegouwe,van hollant, van zeelant, van vlamen ende vanzutphen, mercgreve des
+heylichs roemschen rijckende van borgauw, lantgreve in elsaten heere van
+vrieslant opter winderscheim, van portenauw van salms ende van mechelen, doen
+te wetene alleniegenwoirdigen ende toecomende dat wij ontfaen hebbendit
+oitmedige supplicatie van hendrick hofmansscepman ingeseten van onser stad van
+mechelen hoedat des es omtrent een jaer geleden hij suppliantcomende met
+sijne scepe tot hillebrugge onderdie prochie van yeteghem met noch eenen
+anderenscepman geheeten anthonis op gestaen sonderwoort te spr laukens zijn
+met meer anderent samen gaen drincken in een herberge aldaerstaende, soe dat
+die voirschreve suppliant metten voirscchrevenanthonis vele diverse
+infurio woirden haddeende onder dandere hycten malcanderen hendermoeder lief
+hebben het welcke nader hant terneder geleeght werdt bij den goeden
+gesellendaer mede int gelage sittende soe es namaelsde voirschreven anthonis
+opgestaen sonder woert tesprekene ende heeft genomen een blocxken metdrie
+pickelen ende heeft dair mede geworpennaden voirschreven suppliant in
+sulcker wijs dat hij hem
+geraecte op zijn hooft dat hijter eerden vyel
+**grootelic gequetst wert zijpende vanden bloedesoo dat zij malcandeen
+geinnadeert zijn endeheeft de voirschreven suppliant den voirschreven
+anthonisgesteken met eender deggen van welcke stekenhij bynnen drie oft vyer
+dagen dair naer gecomenis van leve ter doot ende hoewel dat tselve **==ende
+ongeval den selven suppliant zere leet es ende dat ***partije dair af
+gesoent ende bekeringe gedaenheeft nyet min hij heeft hem voorschreven ter
+causenvan dien ontsiende regeur van justicien geabs**vuyt onse landen ende
+heerlicheyden ten en soude daer inne nyet dorren wedercomen mair esgescepen
+dair vuyt te bliven ende zijn leven teneynden in anderen vremden landen in
+grooteraermoeden ende ketmichede$$$ wordde hem hierop nyet versien van
+onser gracienende goederth**alsoe hij seeght ens seere oitmoedelic dair
+**biddende soe eest dat wij de saken voe**overgemaeckt, medelijdenende
+compassie hebbendeop den voirnoemde henrichofmans suppliant endewillende
+hem in dit stuck gracie ende genadeop ser$$$ ende voorderen voer
+strancheyt vanjusticien sonderlinge ter eeren ende weerdiche**vander heyliger
+passen ende lijden due ondelieve heere god leet voer ons allen op sulckendach
+alst huyden es wij hebben den selvensuppliant inden gevalle als boven
+vergheven**quytgeschonden ende geremitteert ende vuyt onsen
+zunderlinger gracien auctoriteyt ende rechter wetentheytvergeven,scelden
+quyte ende remitteren mits desenonsen brieve tseyt ende dootslach boven
+verhaeltmitsgaders alle peyne ende verbuerten corporellecriminelle ende civile
+dair inne hij ter causenvan dien mits datter aencleven mach mesdaenende
+gevallen mach wesen tegens ons ende justicieende hebben hem als van desen
+wedergesteltende gerestitueert, wederstellen ende restituerentot zijnder
+goeder famen ende name tot onsen voirschrevenlanden ende heerlicheyden ende
+tot zijne ongeconfisqueerdegoeden op dat hij enige heeft alsoe hij was eerden
+voirschreven dootslach gesciede imponerende endestellende hier op een ewich
+zwijgen ende silencieonsen procureur generael ende allen anderen
+onsenjusticieren ende officieren wij zij zijn satisfactieende beteringe
+gedaen yerst ende alvoren bij denvoirnoemde suppliant der partie
+geinteresseert in diendie noch nyet gedaen en es ende eenige dair toedient
+civiliken alleenlic ontbieden dair omende bevelen onsen lieven ende
+getrouwen die ***c***ende lieden van onsen raede in brabant dat voerehen
+geroepen die ghene diere behoeren geroepente zijne zij procederen wel ende
+duechdelijckenter verifficatie ende intermomente$$$ van desentegewoirdigen
+l***ren$$$ ende dat gedaen zijndezij onsen drossart van brabant ende alle
+andereonse justicieren ende officieren dient aengaenmach ende elcken van
+henlieden doen latenende gedoegen den voirgenoemde suppliant van dese
+onse tegenwoirdige gracie, remissie, quytscheldingeende verghiffenisse ende
+van allen den inhoudenevan desen volcomelic, rustelic ende eewelic
+gemijn**ende gebruycken sonder hem te doene noch geve**gedaen te zijne nu
+noch in toecomende tijdenin lyve noch in goede enich sijnder stootletsel oft
+moeyenisse ter contrarien mairbij alsoe zijn lijf oft enige van zijne
+voirschrevenongeconfisqueerde goede dair om gevangengearresteert becommert
+ofte belet waerendat zij die stellen oft doen stellen terstont endesonder
+vertreck tot geheelder slakenisse***ende del*** want ons alsoo gelieftgedaen
+te zijne ende ten eynde dat ditgoet, vast ende gestadich blive tot ewigendagen
+soe hebben wij onsen zegel hier aendoen hangen behoudelijcken in anderen
+dingenons recht ende eenen yegelicken des zijns **allen. gegeven in onser stad
+van mechelenopten heyligen vrindach xxven in meertint jaer ons heeren duysent
+vijfhondertende een. aldus ondergescreven opten plyckebij mijnen heer den
+ertshertoge mijn heer die grave van nassou stadhouder qualite quadie heere van
+beerssel ende andere tegenwoordichende getekent haveton.gecollacioneerte
+ende bevonden*** metten originelebij mijn. frath notaris publicus [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "XXVen in Meertint, jaer ons heeren duysent vijfhondertende een",
+  "fact_date": "approximately one year ago",
+

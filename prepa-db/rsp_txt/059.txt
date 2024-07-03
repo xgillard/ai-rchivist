@@ -1,0 +1,178 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van eenen dotslage geperpetreert by
+coenraert van gavere
+kaerle zetc. doen te wetene allen iegewoerdigen ende toecomende
+dat wy ontfangen hebben die oetmoedige supplicatie van coenrart
+van gavere wijlen adriaens zoene inhoudende hoe omtrent zeuen oft
+acht jaeren geleden es hij doen wesende een jonck clerck van xvi
+oft – xvii jaeren gebeneficieert visiterende die scholen van voirsselae
+in brabant gebuerdt omtrent twee uren naer der noenen soe hy
+suppliant vande schoolen nae synen woenhuyse gaen willende dat een
+geheeten roelant de bastard sittende in een bierhuys aldaer hem
+riep om met hem te drincken het welke de voerscreven suppliant dede
+ende vant sittende met de voersscreven ter wijlen heere gielis voirsters
+priester de welke genoech by drancke wesende diverschen bekeren
+biers de voerscreven suppliant brochte ende soe vele dat de supliant die soe
+voerscreven is joncke was nyet mogelyc en was meer te wachten
+ende van noots wegen bedwongen wert hem daer af teprustenen
+het beste dat hy mochte waer af de voerschreven heer gillis nyet
+te vreden en was ende vuyt graemscap begonst bekeren ende
+kannen naer de voerscreven supliant te werpen soe dat hij suppliant
+in pericule zyns lyfs was ende en waere nyet ontgaen ten
+waere geweest by helpe vanden werdt vanden huyse ende
+anderen dien hem verlosten ende de voerscreven priester inde
+couckene vanden voerscreven bierhuyse gesloten hielden
+ende soe de voerscreven supliant op den wech was van syn
+woenhuys soe dede de priester dachterste duere vanden
+coucken op ende liep naer de voerscreven suppliant die hij achterhaelde
+nam de selue van achter stack hem duer syn been ende
+wierp hem ter eerde ende pynde hem ter doot te bringen
+waer om de voerscreven supliant om zyn lyf te salueren daer toe
+bedwongen track zyn brootmes ende daer mede stack de
+selue heer gillis inder dyckden van synen beene waeraf
+hy sekeren tyt daer nae van leuen ter doot gecomen is
+het welke de supliant hertelycke leet is. ende hoewel
+de voerscreven supliant corts daer nae te rome getogen es ende
+vanden feyte voerseyt abolicie van onsen heyligen vader
+de paus vercregen heeft mits rehabilitacie ende restitucie
+tot zynen beneficien ende partyen gesuendt ende te vreden
+gestelt heeft des nyet min want hy om sekere redenen wille
+allen zynen beneficien gerenuncieert heeft ende es weerlyc
+geworden beduchtende strancheyt van iusticie hy hem
+sychtent meesten deel van onsen lande ende heerlicheyde
+van brabant geabsenteert heeft ende en soude inden selue
+nyet wel derren verkeeren ten waere ouer midts onsen gracie
+vanden welken midts quittancie van allen peyne ende
+amende lyflyc criminelle en civil aengesien den toecomst
+vande voerscreven feyten en dat hy hem in anderen saken eerlich
+gehadt ende gedragen heeft hy ons oetmoedelycke gebeden
+heeft soe ist dat wy de sake voirscreuen overgemerct
+genegen wesende ter supplicatie vanden voerscreven supliant ende hem in
+desen gracie te presenteren voer stranheyt van iusticie
+ende in faueur van onsen lieuen ende getrouwen neuen den
+graue van nassouw ende de heer van chierues hebben
+de voergenoemden coenrart van gauere suppliant in geualle als
+bouen vergeuen quytgescolden ende $ geremitteert vergeuen
+schelden quyt ende remitteren vuyt sunderlinge gracie
+by desen het feyt ende dootslach voerscreven mitsgaders alle
+boeten ende amenden lyffelycke criminelycke ende ciuile
+inde welke hy ter cause van dien met des daer aen
+cleeft tegens ons ende iusticie eenichssins geuallen
+mach zijn ende hebben hem desen aengaende $ gerestitueert
+ende restitueren midts desen tot zijnen goeden name ende
+fame tot onsen lande ende heerlichede van brabant ende
+tot zynen onverbuerden goeden indien hy eenige heeft
+gelyc ende in alder manieren als hy was voer de toecomste
+vanden voerscreven dootslage imponerende hier op silencie ende een
+eewich swigen onsen procureur generael ende allen anderen
+onsen officieren wy en die zyn satisfactie ierst gedaen der
+partye geinteresseerde indien die alnoch nyet gedaen
+en zy ende eenige daer toe behorende ciuilick alleenlyck
+ontbieden daer omme onsen lieve ende getrouwe cancelier
+ende den luyden van onsen raide van brabant dat
+voer hen geroepen dient behoeren sal zy procederen
+totter verificatien ende interinemente van desen ende dat
+gedaen zynde zy onsen drossat van brabant onsen meyer tot
+loeuenen ampman tot brucele marcgraven ende schout
+tot antwerpen schout te bosschen ende allen anderen
+onsen en de smale heeren officieren die dit aengaen sal
+doen laten ende gedoogen den voerscreven supliant van deser onser
+tegenwoerdiger gracie quytscheldinge en remissie
+ende van allen den inhouden van desen rustelic ende
+vredelic genieten ende gebruycken sonder hem eenich
+hinder letsel oft stoot te doen in lyue oft in goede
+ter contrarien ende oft hy oft zyn goeden hier
+omme geuangen gearresteert oft belet waeren dat
+zy die terstont ende sonder vertreck stellen en doen
+stellen tot volcomender ende geheelder deliurancie
+want ons alsoe gelieft ende ten eynde dat dit
+vast ende gestadich blyue hebben wy onsen zegel
+hier aen doen hangen behoudelic in desen onsen
+ende een iegelycken zyns rechts in allen gegeven
+in onser stadt van brussele inde maent van
+december int jaer onsses heeren duysent vijfhondert
+ende vyfthiene aldus stont gescreven onder
+opte plycke by mynen heer den prince ende
+geteekent du blioul en noch visa
+gecollationeert ende bevonden
+concorderende metten originele
+by my
+n strate $$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "around 7-8 years ago",
+  "persons": [
+    {
+      "firstname": "coenrart",
+      "lastname": "van gavere",
+      "role": "suppliant",
+      "function": "clerk"
+    },
+    {
+      "firstname": "roelant",
+      "lastname": "de bastard",
+      "role": "invited",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "gielis",
+      "lastname": "voirsters",
+      "role": "priest",
+      "function": "priester"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Coenrart van gavere, a clerk, asks for remission after an incident with a man named Roelant de bastard and a priest named Gielis voirsters. The incident occurred after school hours and involved drinking and violence, resulting in Coenrart fearing for his life.",
+    "fr": "Coenrart van gavere, clerck, demande la rémission après un incident avec un homme nommé Roelant de bastard et un prêtre nommé Gielis voirsters. L'incident s'est produit après les heures de l'école et a impliqué de boire et de la violence, entraînant la crainte de Coenrart pour sa vie.",
+    "nl": "Coenrart van gavere, klerk, vraagt om vergeving na een incident met een man genaamd Roelant de bastard en een priester genaamd Gielis voirsters. Het incident vond plaats na schooltijd en betrof drank en geweld, waarbij Coenrart bang was voor zijn leven.",
+    "de": "Coenrart van gavere, Kleriker, bittet um Erlass nach einem Vorfall mit einem Mann namens Roelant de bastard und einem Priester namens Gielis voirsters. Der Vorfall ereignete sich nach Schulschluss und beinhaltete Trinken und Gewalt, wobei Coenrart sein Leben fürchtete."
+  }
+}
+```

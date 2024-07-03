@@ -1,0 +1,199 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van een dootslage $oe godevaerd van dynant
+kaerle z$ doen te weten eenen iegelycken tegewoirdige ende
+toecomende dat wij ontfangen hebben die oitmoidige supplicatie van godevarde
+van dynant arm schamel geselle hantwercker ingeseten des dorpe van lare
+onder onse meyerye van thienen inhoudende hoe dat omtrent vier jaer es
+geleden dat hy suppliant sidt in zijnde vaders huize bynnen den dorpe aldair
+de welcke zyn vader hem vraegde godenaert wair t is sennen $ broeder
+dair op hy suppliant antwoirdt vader hy is in ons gebueren huys dair op zyn
+vader zeyde haelt hem dat hy by my come zoe dat hy suppliant vuyt
+bevele van zyn voirschreven vader aldaer ghinck ende vant hem zitten
+eten ende drincken ende dede de voirschreven hennen den suppliant aldair by
+hem sitten seggende ic sal schier met vader gaen ende dair een wijlt syts
+geseten hebbende zyn zy by den avont ende mitten donckeren wel by
+dranck zynde nae huys gegaen ende onderwegen gaen woudt de
+voirschreven suppliant den voirschreven zyne brueder met grootelycken woerten berispen
+seggende dat zyn vader gram wesen zoude dat hij niet eer thuys
+gecomen ende was mit meer andere woirden zoe dat de voirschreven hennen
+dairom seyden hem suppliant gram werdt in sulcke vuegen dat de selve
+hennen ter stont vuyt ter ack een zyn lanck mes slaendt dan
+mede met selven moede vinden voirschreven suppliant hem gevende twee
+oft drije slagen ende hem quetsende in zyn handt wairom de
+voorschreven suppliant zeere gecomoneert wesen ende willende zijn lijf
+defenderen heeft oic zyn lanck messe vuytgetrocken ende heeft $$
+mede onversienlyck alsoet doncker avont was nieyenen den
+voirschreven hennen zyn brueder van hem te keeren nae hem gesteken
+oft geslagen ende geraeckte hem boven in zijn been zoe dat hy
+corts dair nae van levende lijve ter doot gecomen is ende hoewel
+tvoirschreven feyt alzoe onnnoiselick tot gecomen zyn den voirschreven suppliant ende
+noyt man en messede noch slach noch stoot ende gaff zeer hertelicken
+leedt is ende dair aff gesien te weten zijn andere brudere ende
+zusters gesoent ende mit grooter pynen tevreden gestelt heeft
+ende tot inen oyck vor de ziele vanden ghenen zijn brudere een
+pelgremagie gedaen tot sinte peters ende pauwels te
+rome mit grooten arbeyde endt armoeden ende aldaer toe
+zyn mese aet openbair penitentie ontfangen ende gedaen heeft
+soe en gestroest hem nochtans de voirscreven suppliant nyet onse
+landt te gebruycken aen wie dat hem onser gratie huer op
+eerst ende voere al geoctroyeert wie alzoe de voorscreven suppliant zegt
+om de welcke hy ons zeer oitmoedelyck heeft gebeden soe
+eerst dat wij desen aengesien compassie ende medelijden
+hebben mitten voorschreven suppliant ende willen hem in desen gratie
+ende genade prefereren den rigeur van justitie hebben den selve
+suppliant in gevalle als boven geremitteert quytgeschonden
+ende vergeven remitteren quytschelden ende vergeven vuyt onser
+wel wetentheyt ende zunderlinger gratieen by desen den ongena
+ende dootslach voorschreven mitgaders alle peynen ende amenden corporelle
+ende crumuehe dair anne hy hem overmits ende vuyt sake
+van syten des voorschreven is tegene ons onse hoocheyt ende
+justiticie enich mach hebben misgaen ende hebben hem dye
+aengaende gerestitueert ende gestelt restitueren ende stellen
+by desen tot zynder goede famen ende name in onser voirschreven
+landt van brabant ende anderen onsen landen ende heerlicheyden ende
+tot zijner goeden nyet geconsistueert zijnde soe verre dan
+dinge zyn imponerende hier op silende ende eewich geswijch onser
+procureur generael ende allen anderen onsen richtenen justicieren
+ende officieren hoodanich die zyn oft wesen moegen satisfactie
+nochtans verstende al voeren gedaen der pertien getuterisseert
+zynde soe verre de nyet gedaen ende waere cunlick alleenlick
+behoudelyck dat de voirscreven suppliant gehouden zyn sal tvoorschreven
+feyt tegensonste beteren cunlick naer de gelegentheyt
+vanden mesaet ende de faculteyt van zijnre goeden ende dat
+hij oick gehouden wert op te betalen de redelycke costen
+van justiticien indien eninge huer dine gedaen zyn ter
+falatien van onsen hennen ende getruwen den ende ancelleren
+ende lieden van onser rade in brabant die van dair toe comissen
+by desen ontbieden dair om ende bevelen den voirschreven van
+onsen rade dat soe hen geroepen die gene die dair omtrent
+behoiren geroepen te zyn zy procederen wel ende
+duech delicken totter verificatien ende intermente van
+desen ende ter taxatien vander cunnere beternisse
+ende costen voirschreven ende dat gedaen ende de voirschreven onsere
+beternisse ende costen getaxeert ende betaelt zijnde in handen
+van den genen van onsen ontfangers dien dat behoeren sal
+die gehouden wordt dair aff rekeninge bewys ende relique
+t doen tot onsen behoeff metten anderen penn? van zynde ontvange
+zy onse voirschreven procureur generael drossaert van brabant meyer van
+loeven amman van brussel schoutetten van antwerpen ende
+vanden bossche ende alle andere onse ende onser vasallen
+ende finale heeren richteren justicieren officieren tegenwoirdige
+ende toekomende dyen dat behouden den voirschreven suppliant van dese
+onser tegewoirdiger gratien remissen ende quytscheldingen
+ende van alle den inhouden van desen inder vuegen ende manieren
+voien? vhaelt? rustelick vredelick volcomelicken ende dewelcken
+doen ende laeten genychten ende gebruycken sonder hen te
+doen noch te laten geschieden $$ noch in toecomende tijden
+ennich hinder letste oft moeyenisse aen zyne lyve noch
+goeden ter contrarien mair sudyen zijn lyff oft ennige
+van zyn voirschreven goeden dairom gevangen gearresteert oft
+becomert waeren dat zy die stollen ende setten oft doen
+stellen ende zetten tot gehelder ende volcommender delmeren
+want ons alzoe gelycst ende ten eynde dat dit vast
+ende gestadich blijven ende zy tot eewigen dagen zoe
+hebben wij onsen zegel hier aen doen hangen behoudelic
+in anderen saken onsen recht ende een yegelycken des
+zijne eeygenen in onse stadt van bruessel inde maent van
+decembrj int jaer ons heeren duyzent vijfhondert
+drientwintich ende van onsen rycken te weten vanden
+roomschen ende hongrien vyfste ende vanden spaenchen
+ende duchste aldus stont gescreven sonen opte plycke
+byden ten keyser in zyner raide ende geteckent momboir
+ende noch visa [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "approximately 4 years ago from the document creation",
+  "persons": [
+    {
+      "firstname": "godenart",
+      "lastname": "van dynant",
+      "role": "father",
+      "function": "deceased"
+    },
+    {
+      "firstname": "unnamed",
+      "lastname": "brother",
+      "role": "brother of the suppliant",
+      "function": "perpetrator"
+    },
+    {
+      "firstname": "unnamed",
+      "lastname": "siblings",
+      "role": "siblings of the suppliant",
+      "function": "consoled"
+    },
+    {
+      "firstname": "suppliant",
+      "lastname": "van dynant",
+      "role": "main character",
+      "function": "suppliant, victim"
+    }
+  ],
+  "locations": [
+    {
+      "name": "lare",
+      "loctype": "village"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "rome",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "The suppliant, van dynant, seeks remission for killing his brother in self-defense after being attacked with a long knife, resulting in the brother's death. The suppliant has suffered greatly and has sought penance in Rome. The King grants remission and pardon for the act and related penalties, allowing the suppliant to live peacefully in Brabant.",
+    "fr": "Le suppliant, van dynant, demande la rémission du meurtre de son frère, qu'il a tué en état de légitime défense après avoir été attaqué avec un long couteau, entraînant la mort de son frère. Le suppliant a beaucoup souffert et a cherché la pénitence à Rome. Le roi accorde la rémission et le pardon pour l'acte et les pénalités connexes, permettant au suppliant de vivre paisiblement en Brabant.",
+    "nl": "De suppliant, van dynant, vraagt om vergeving voor het doden van zijn broer in zelfverdediging nadat hij werd aangevallen met een lange mes, resulterend in de dood van zijn broer. De suppliant heeft zwaar geleden en heeft boete gedaan in Rome. De koning verleent vergeving en gratie voor de daad en de gerelateerde straffen, waardoor de suppliant vreedzaam kan leven in Brabant.",
+    "de": "Der Bittsteller, van dynant, sucht die Vergebung für die Tötung seines Bruders, den er in Notwehr getötet hat, nachdem er von seinem Bruder mit einem langen Messer angegriffen wurde, was zum Tod seines Bruders führte. Der Bittsteller hat sehr gelitten und hat Buße in Rom getan. Der König gewährt die Vergebung und die Gnade für die Tat und die damit verbundenen Strafen, so dass der Bittsteller friedlich in Brabant leben kann."
+  }
+}
+```

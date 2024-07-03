@@ -1,0 +1,216 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kenisse van dootslache
+phelipe bijder gratie gode ertshertoge van oistenrijk
+hertoge van bourgogne, van lotharingen, van brabant, van stiermark, van
+carintie, van cram, van limbourg, luxembourg ende van geldren, grave
+van vlaenderen, van habspourg, van tyrol, van ferrette,
+van kiburg, van artois, van bourgognien, palatyn van henegouwe
+van hollant van zeelant van namen ende van sutphen
+marcgrave des heylichs roemschen rycs ende van borgon
+lantgreve in elzaten heere van vrieslant opter windischemde$$$
+van portenau van salins ende van mechelen doen te wetene
+allen luyden iegenwoirdich ende toecomende dat wij ontfangen
+hebben die oitmoedige supplicatie van pieter van muyse
+jonckman geboren van deser onser stad van mechelen
+inhoudende hoe dat sinte pieters dach lestleden was een jaer
+die selve suppliant wesende int geselscap van jan vander
+genelle ende willem van alters in een dorp genaempt
+ter cruyse in onsen lande van brabant ten huyse van eenen
+genaempt helizens alias leerman om aldaer met elcanderen
+te drincken ende in tselve huys gecommen synde sach aldaer
+eenen luuc nys liggende up een bedde jan vanden meulne
+henrick ende pieter nys die alle saten ende droncken in een
+geselscap die welcke hij suppliant groettede ende alsoe hy
+suppliant ende die van synen geselscepe geseten waeren
+verbeydende wyer dat zy geheischt hadden die voirn. pieter
+nys gaf den voirs. suppliant eenen tuege te drincken ende als
+die selve suppliant gedroncken hadde gaf den voirs. pieter nys
+synen pot wederomme hem dair af bedanckende die voirn. jan
+vande muelne die wat bij drancke was dat siende toochde
+genouch maniere ende gelaet dat hij met wel te vreden en was
+dat die voirs. pieter nys den selven suppliant te drincken gegeven
+hadde ende begonste vele hoochmoedige woerden bedectelic te
+spreken userende van sekere tale ende sprake die de voirs.
+suppliant niet en verstont noch wat hy dair mede meynde
+maer mercte wel dat hy niet wel gemoet en was
+ende van stonden aen die voirs. luuc schoof up vander bedde
+dair hy lach ende noch eenige andere met hem roupende
+verrader tes hier te doene beghinnende te steken ende te slaen
+naerden voirs. suppliant soe dfat hy dair een wonde ontfinck
+in zijnen rechter aerm dat synde die ghene die dair by waer e
+sunderlinge den voirs. pieter ende henrick nys gebroeders
+hilden een wyle tyts den voirs. jan vander muelne maer
+byder dreyghingen ende overlast vanden selven luuc nys
+moesten hem laeten gaen bynnen middelen tijde ziende de selve suppliant dat hem scoonspreken niet helpen en mochte meenendehemlieden tontvlieden nam een corte pycke die hy voer de
+doere hadde laten staen ende liep dair mede omtrent eenenboechscuete weechs maer de voirs. luuc ended jan vander muelne
+vervolgden hem in sulcker wys dat hy hem moesten ommekeeren
+ende te weer stellen oft anders hij hadde in groeter vreesen
+geweest van synen lyve ende siende de voern. willemvan halteren wesende vanden geselscepe des voirs. suppliant
+tvoirs. gevecht ende dat de voirs. luuc nys ende jan vanden
+muelne henlieden met alder macht vervoirderden den voirs.
+suppliant te crencken liep daerweert met eenen stalenen boge
+die hy in zynen hande hadde ende daer mede bescieer$$$
+vele slagen die de selve vanden muelne ende luuc slougen
+naerden voirs. suppliant de welcke suppliant hem oic bedeckende
+onder den selve boge siende dat hy in soe grooter sorgen
+ende vreesen was stac den voirs. jan vanden muelne met
+syn pycke een steke in sijn borst van welcke steke
+de selve jan ter eerden viel ende zydert soe daer af als oic
+van quaden hummueren dair hij mede vervolt was es gevaeren
+van levende lyve ter doot ende hoe wel de voern. suppliant
+den selven dootslach gesoent ende partyen duechdelic daer af
+gebetert heeft oic mede dat hem tvoirs. stuck mat alle
+zijn herte leet is. nietemin duchtende ende ontsiende stranghyt
+van justicien hij en soude niet durven commen noch commerceren
+in onsen landen ende heerlicheyd maer is gescepen daer vuyt
+te moeten bliven ende te gaen leven in andere vremden lande in
+grooter armoede ende ketnichede$$$ wordde hem onse gracie ende
+genade hier up niet verleent alsoe hy soght ons zeere
+oitmoedelic dair omme biddende soe eest dat wij de saken
+voerscreven overgemerct hebben den voern. pieter van muyse
+suppliant genegen wesende tot zyn voirs. bede ende supplicatie
+ende willende hem in dit stuck gracie ende genade verleenen ende
+prefereren voer strengheyt van justicien sonderlinge
+ter eeren ende weerdicheid vanden heyligen passie die onse
+heere god voer ons allen geleden heeft op sulcken dach als
+huyden inden gevalle als boven vergeven quytgescolden
+ende geremiteert vergheven scelden quyte ende remiteren
+vuyt inser zunderlinger gracie by desen onsen brieve tfait
+ende dootslach boven verclaert mitgaders alle boeten broecken
+ende peynen corporel criminel ende civil dair inne hy ter cause
+van dien met datter ancleven mach mesbruyct ende ge
+mach zijn iegen ons ende justicie ende hebben als va
+desen gerestitueert ende wedergestelt restituren ende
+stellen weder tot sijne goede fame name ende geruchte in
+onsen voors. lande van brabant ende andere onse landen
+ende heerlicheyden tot alle zyne onverbuerde goeden in
+dien hij eenoge heeft in alder voegen ende manieren
+als hij was voir de toecompst vanden voirs. dootslage
+imponerende hier up scilencie ende eeuwich zwigen onsen
+procureur g enerael ende allen anderen onsen rechteren justicien
+ende officieren wie zy zyn satisfactie ende beteringen
+voiren ende alderwerck eerst gedaen der partyen geinteresseert
+up datter eenige toe dient ende die alnoch niet gedaen en es
+civilic alleenlic ter ordonnantie ende arbiter scepe van onsen
+lieven ende getruwen die cancellier ende luyden van onsen
+raide in brabant die wy dair toe commiteren ontbieden
+dair omme ende bevelen den selven onsen cancellier ende luyden
+van onsen voirs. raede in brabant dat zy voer hem
+geroupen die gene die dair toe behoren geroupen te syne procederen
+ende gaen voerts wel ende duechdelic ter verifficatie
+van desen onsen brieven naer huere voirme ende innehouden
+ende dat gedaen synde zy onse drossart van barbant
+meyer van loeven amman van bruessel nu grave
+van andwerpen schout van lyere ende alle andere
+onse richteren justicien ende officieren dient aengaen mach
+doen laten ende gedoogen den voirs. suppliant van dese
+onse gracie remissie quytsceldinge ende van al den inhouden
+van desen inder voegen ende manieren als voirs. es
+rustelic vredelic vulcomelic ende tot eeuwigen dagen
+genyeten ende gebruycken sonder hem te doen oft te
+laten geschien nu noch in toecomende tijden eenich
+hynder letsel oft moeyenisse a, myve oft an goede
+ter contrarien ende in dien zinnen persoen oft eenige
+van syne voirs. onverbuerde goeden ter causen van
+desen gevangen gearresteert oft eenichssins becommert
+waeren dat zy die stellen oft doen stellen terstont
+ende sonder vertaech tot geheele ende vulcomme delivrancie
+want ons alsoe gelieft ende ten eynde dat dit goet
+vast ende gestadich blyve hebben onsen zegel hier an doen hangen
+behoudelyck in anderen saken ons rechts ende een yegelic zijn recht in allen
+gegeven te mechelen opten heylige goeden vrydach inde maent van april
+int jaer ons heeren duysent vc ende twee. aldus ondergescreven ende getekent
+by myn heere den ertshertoge in zijnen raet. haneton coninklijken notaris
+gecollationeert ende bevonden concorderende
+metten originalen brieve by my [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "ON THE HOLY GOOD DAY IN THE MONTH OF APRIL, IN THE YEAR OF OUR LORD 1502",
+  "fact_date": "ON SAINT PETER'S DAY, ONE YEAR AGO",
+  "persons": [
+    {
+      "firstname": "phelipe",
+      "lastname": "byder gratie gode ertshertoge van oistenrijk",
+      "role": "the one who grants remission",
+      "function": "archduke of Austria"
+    },
+    {
+      "firstname": "pieter",
+      "lastname": "van muyse",
+      "role": "the supplicant",
+      "function": "none"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "vander muelne",
+      "role": "the attacker",
+      "function": "none"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "van halteren",
+      "role": "the one who helped the supplicant",
+      "function": "none"
+    }
+  ],
+  "locations": [
+    {
+      "name": "mechelen",
+      "loctype": "city"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Archduke Philipe of Austria grants remission to Pieter van Muyse, a citizen of Mechelen, for the death of Jan vander Muelne, who attacked Pieter while they were drinking together.",
+    "fr": "L'archiduc Philipe d'Autriche accorde la rémission à Pieter van Muyse, citoyen de Malines, pour le décès de Jan vander Muelne, qui l'avait attaqué alors qu'ils buvaient ensemble.",
+    "nl": "Aartshertog Filips van Oostenrijk verleent remissie aan Pieter van Muyse, een burger van Mechelen, voor de dood van Jan vander Muelne, die hem aanviel tijdens hun drankgelag.",
+    "de": "Erzherzog Philipp von Österreich gewährt Pieter van Muyse, einem Bürger von Mecheln, Absolution für den Tod von Jan vander Muelne, der ihn angriff, als sie zusammen tranken."
+  }
+}

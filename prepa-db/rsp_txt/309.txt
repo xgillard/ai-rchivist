@@ -1,0 +1,226 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen condt allen luyden nu ende naemaels wesende
+dat wy ontfangen hebben die oetmoedige supplicatie van wouter
+pauwels woenende in onse stadt van antwerpen arm scamel
+arbeytere varende somtyden knaepschewyse te scepe inhoudende
+hoe dat den xxiiiien dach der maent van meye lestleden hy ende gorys
+raes zyn gegaen nae dbierhoot van antwerpen om aldaer te
+werckene ende zekere meel uuyt eene scepe te helpen dragen omdaer
+mede hueren cost te winnene ende op tselve hoot wesende soe zyn aen hen
+beyden gecommen een geheeten bottelneel ende gielis zwaefken beyde
+oyt arbeytere ende hebben met gestaerden moede tot henluyden geseegt
+ghy en sult hier nyet wercken ghevende den selven tot dien vele snoode
+woirden waerop de suppliant ende de voirs. goris raes hen wederom ter
+antwoirden gaven seggende wanneer ghylieden op ons hoot ende
+kaye compt om te werckene zoe en zuldy daer oyc nyet wercken ende zyn
+alsoe de voirs. suppliant ende de voirs. goris raes om voirderen twist ende
+geschil te scuwene vanden voirs. bierhoot gescheyden ende daernae te
+wetene den eersten dach der maent van junio anno voirs. is gebeurt dat de
+voirs. gielis zwaefken is gecomen op de hoye caye om aldaer te wercken
+den welcken ziende de voirs. suppliant zeyde dese of gelycke woirden ghy en
+sult oyck hier nyet wercken op dese caye want wij en mochten pot bierhoot
+nyet wercken want ghy ons verboot daer te werckene zoe en zuldy ghy
+hier oyc nyet wercken ten waere met rechte daerop de voirs. gielis
+zeyde ic ben tevreden daer toe vuegende dese woirden wildy oyc anders
+het es my al even eens ic en make van u egeen werck ende mits dien
+hebben zy underlinge eenige kijfwoirden gehadt ende binnen
+middelen tyden is aldaer gecomen een geheeten meeus baeck die
+welcke seyde totten voirs. gielise ghy bloetsuypere maect u van hier
+oft ic helpt u van hier ende mits dyen heeft de voirs. meeus vanstonden
+aen zyn bleymes uuyt getrocken ende daer mede sloech naeden voirs.
+gielisen maer en quetste den selven nyet ende track insgelycx de voirs.
+suppliant zynen opstekere uuyt maer en heeft nyemant daer mede gequetst
+maer den voirs. gielis met zynen opstekere gaf den voirs. meeuse een
+scrabbe ontrent zynder kelen ende cort daernae zyn de voirs. suppliant de
+voirs. gielis ende de voirs. meeus byde goede luyden daer tegewoirdich zynde
+verre van malcanderen gescheyden ende heeft de voirs. suppliant zynen
+opstekere inde scheyde gesteken sonder hem ennichssins meer strytvaer
+te makene want zy geappaiseert waeren ende de voirs. suppliant nyet
+wetende van eenigen voirderen gevechte soe heeft hy verstaen dat de
+voirs. meeus is vander voirs. hoye caye gegaen oft geloopen tot int
+veerstal aldaer hy den voirs. gielis heeft gevonden staende ende
+heeft de voirs. meeus den voirs. gielisen aldaer eenen steken met zynen
+weymes gegeven daer mede hy den selven heeft gequetst soe dat hy
+vanden voirs. quetsuere tsanderdaechs is gestorven dwelc den voirs.
+suppliant zeer hertelyck leet is ende hoewel de voirs. suppliant daerby
+noch aen en es geweest daer de meeus is vanden voirs. hoye caye
+gegaen oft geloopen tot in veerstal aldaer hy de voirs. gielis heeft
+de voirs. meeus den voirs. gielisen den steeck heeft gegeven nyetemin
+mits dien dat hy is geweest oirspronck vanden eersten kyfwoirden
+soe beducht hem die voirs. suppliant dat hy ter saken voirscreven soude
+mogen worden gepraempt ende gemolesteert ende mits dien en der$
+hy nyet zekerlyck achter straten gaen noch zyn broot winnen hoe$
+hy nae god recht ende redenen inden voirs. dootslach nyet gehouden en is
+ende des hem wel getroest tegen de partie maer om meer der overzekert hy
+soe heeft ons de voirs. suppliant oetmoedelyck gebeden hem onse gracie ende
+genade hierop te willen extenderen ende verleenen waerom soe
+eest dat wy desen aengesien geneycht wesende terbeden des voirs.
+wouter pauwels suppliant ende hem willende in dit stuck prefereren
+gracie ende misericordie voer strangheyt ende rigeur van justicien hebben
+den selven suppliant inden gevalle alsboven quytgeschonden geremitteert
+ende vergeven schelden quyte remitteren ende vergeven uuyt zunderlinge
+gracien by desen onsen brieve tfeyt ende dootslach boven geruert voer soe vele
+hij naer recht daer inne gehouden ende culpabel mach wesen mitgader
+alle offensie ende bruecke corporele ende criminele daer inne hy ter cause
+voirscreven mits dat daer aen cleven mach tegens ons ende justicie mesdae$
+ende mesbruyct mach hebben ende hebben hem daeraf wedergestelt ende
+gerestitueert stellen weder ende restitueren tot zynen goede name
+fame ende geruchte in onsen voirs. lande ende hertoochdomme van brabant
+ende allen anderen onsen landen ende heerlicheyden ende tot zynen onverbeurde
+goeden indyen hij ennige onder ons heeft gelyck ende in ander manieren
+zoe hij was voer de toecompst vanden voirs. feyte imponerende hierop $
+eeuwich geswych onsen procureur generael in brabant ende allen anderen
+onsen justicieren ende officieren wye zy zyn satisfactie ende beternisse
+eerst ende voeral gedaen der partie geinteresseerde indyen die noch nyet
+gedaen en zij ende eenige daer toe staet civilijck alleenlyck behoudel$
+dat de voirs. suppliant gehouden sal zyn tvoirs. feyt tegen ons te beteren
+civilyck naer gelegentheyt vander saken ende faculteyt van zyn goede$
+met oyc te betaelen de costen van justicien hieromme alreede gedaen ende
+te doene allet ter taxatien ende moderatien van onsen lieven ende
+getruwen den cancellier ende luyden van onsen raede in brabant die
+wij daer toe gecommitteert hebben en committeren mits desen ontbieden
+daerom ende bevelen den selven onsen cancellier ende raedsluyden
+dat voer hen geroepen die gene die daerom behoiren geroepen te zyne
+zij procederen wel ende duechdelyck ter verificatie ende interinement
+vandesen ende totter taxatie ende moderatie vanden voirs. amende ende
+costen alsoe zy zullen bevinden behoirende welck interinement de voirs.
+suppliant gehouden sal zyn te versueckene ende hem in persoene te
+presenteren in onsen voirs. raede binnen eenen jaere naestcomende opte
+pene van te verbeure deffect van desen ende dat gedaen ende
+deselve civile boete ende costen van justicien getaxeert ende
+betaelt zynde in handen vanden genen dien dat behoiren sal zy
+onsen voirs. procureur general in brabant ende alle andere onse rechteren
+justicieren officieren ende ondersaten iegewoirdige ende toecommende
+# sy hieraf verantwordt
+byden ontfanger vanden
+exploiten
+diendat aengaen sal moegen huere stedehouderen ende een yegelyck
+van hen besundere soe hem toebehoiren sal doen laeten ende gedoogen
+den voirs. suppliant van deser onsen iegewoirdiger gracien remissien ende pardoene
+ende van alle den inhouden van desen inder vuegen ende manieren voere
+verhaelt rustelyck vredelyck volcommelyck ende eeuwelyck genyeten
+ende gebruycken sonder hem te doene noch te laeten geschieden nu
+noch in toecomende tyden ennich hynder letsel oft moeyenisse aen lyve
+noch aen goeden ter contrarien maer indyen zyn lyf oft ennige van
+zynen goeden daerom gearresteert becommert oft belet waeren dat zy
+die zetten ende stellen ter stont ende zonder vertreck tot geheelder
+ende volcommender delivrancie want ons alsoe gelieft ende ten eynde
+dat dit vast ende gestadich blyve tot eeuwygen dagen soe hebben
+wy onsen zegel hieraen doen hangen behoudelyck in anderen dingen
+onsen rechte ende eenen yegelycken anderen dessyns gegeven in
+onser stadt van bruessele inde maent van novembri int jaer onsheeren
+duysent vyfhondert ende achtendertich ende van onsen keyserycke
+txixe ende van onsen rycken van castillien ende anderen txxiiie aldus
+stont gescreven opte plycke byden keyser in zynen raede ende
+geteekent boudewyns noch stont gescreven opte selve plycke
+visa registrata
+ghecollacionneert tegens
+die originale brieven by my
+decock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "June 1st, 1584",
+  "persons": [
+    {
+      "firstname": "Wouter",
+      "lastname": "Pauwels",
+      "role": "suppliant",
+      "function": "arm scamel arbeytere"
+    },
+    {
+      "firstname": "Gorys",
+      "lastname": "Raes",
+      "role": "suppliant",
+      "function": "arm scamel arbeytere"
+    },
+    {
+      "firstname": "Bottelneel",
+      "lastname": "UNKNOWN",
+      "role": "witness",
+      "function": "arbeytere"
+    },
+    {
+      "firstname": "Gielis",
+      "lastname": "Zwaefken",
+      "role": "defendant",
+      "function": "arbeytere"
+    },
+    {
+      "firstname": "Meese",
+      "lastname": "Baeck",
+      "role": "intervener",
+      "function": "UNKNOWN"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Antwerp",
+      "loctype": "city"
+    },
+    {
+      "name": "Dbierhoot",
+      "loctype": "location"
+    },
+    {
+      "name": "Hoye Caye",
+      "loctype": "location"
+    },
+    {
+      "name": "Veerstal",
+      "loctype": "location"
+    }
+  ],
+  "summary": {
+    "en": "Wouter Pauwels and Gorys Raes, arm scamel arbeyters in Antwerp, received a remission for Gielis Zwaefken, another arm scamel arbeytter, after an altercation on a construction site in which Meese Baeck intervened.",
+    "fr": "Wouter Pauwels et Gorys Raes, arm scamel arbeyters à Anvers, ont reçu une remise concernant Gielis Zwaefken, un autre arm scamel arbeytter, après un incident sur un chantier de construction au cours duquel Meese Baeck est intervenu.",
+    "nl": "Wouter Pauwels en Gorys Raes, arbeiders van de arm scamel in Antwerpen, ontvingen een remissie voor Gielis Zwaefken, een andere arbeider van de arm scamel, na een botsing op een bouwplaats waar Meese Baeck zich heeft gemengd.",
+    "de": "Wouter Pauwels und Gorys Raes, Arbeiter der Arm Scamel in Antwerpen, erhielten eine Remission für Gielis Zwaefken, einen anderen Arbeiter der Arm Scamel, nach einer Auseinandersetzung auf einer Baustelle, an der Meese Baeck beteiligt war."
+  }
+}
+```

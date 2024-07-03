@@ -1,0 +1,301 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etcetera allen diegenen die dese onse brieven sullen
+sien oft hooren lesen saluijt. doen te wetene, dat
+wy hebben ontfangen die supplicatie van jan
+peeters sone roelants woonachtich onder den
+hertochdomme van arschot, inhoudende hoe dat
+opden thiensten dach vande maent van julius inden iaere
+xvic ende drijendertich ontrent den sesse uren
+des avonts in het gehucht van baele neffens
+die stadt van arschot inde schure van des supliants
+vader, alwaer men was besoignerende over
+die rekeninghe vande gemeijnte is gecommen
+wijlen peeter bols noch jongman ende metten dranck
+seer bevanghen wesende commende van arschot
+naer baele voorschreven, den welcken den selven zynen
+vader heeft begonst grootelijck te iniureren settende
+hem in posture , om hem te slaen, ende te smijten,
+het welcke den selven synen vader, als wesende
+een oudt man trachte te eviteren, ende maeckte
+hem vuijtten wech, oirsaecke dat den voorschreven
+peeter bols is gegaen naer het huijs des voorschreven
+suppliants vader, staende neffens die voorschreven
+schuere. ende den selven des suppliants vader
+naer dat hy noch een luttel tijts was gebleven
+over de voorschreven rekeninghe, is met het geselschap
+naer sijn voorschreven huijs gegaan, alwaer hij gecomen
+zijnde in de keucken, is de voorschreven bols hem gewaer
+geworden, synde hem terstont inne gevaeren,
+hem slaende met vuijsten, noemden hem honsvot
+ende met andere dijergelijcke toenaemen, ende
+iniurieuse woorden grootelijck affronterende
+waeromme alsoo den voorschreven zijnen vader was over-
+luijdt roepende om helpe, ende hem verwerende
+met een glas bier, d’welck hij in zyn handt hadde,
+is het getier gehoort bij hem suppliant, willem
+sijnen broeder, ende met andere wesende met henlieden
+inde camer , soo dat den voorschreven suppliant seyde
+teghens willem sijnen broeder het is ons vader
+zullen wij hem laeten doot slaen, ende syn daer-
+over t’saemen gecomen inde keucken alwaer
+zij hunnen vader vonden ter aerde liggen geheel van
+syn selven, dan alsoo die voorschreven suppliant met synen
+voornoempden broeder aldaer waeren commende, soo hebben
+guillam bols des voorchreven wijlen peeter bols broeder
+met alnoch eenen jeroen coremans de selven willen
+beletten, dat zij hunnen vader niet en zouden
+assisteren, waeromme zy lieden oock den voorschreven
+guillam bols met vuijsten hebben aengegaen,
+ende synde soo voorts onderlinghe een groot gevecht
+geworden, inder vuegen dat men de messen heeft
+vuijtgetrocken, is aenden voorschreven wijlen peeter bols
+gegeven een steeck van een mes in zijne zijde
+sonder dat men wete, wijen het selve mach hebben
+gedaen, waernaer soo is den voorschreven wijlen peeter
+bols terstont met meer andere vuijtte voorchreven
+keucken ende huijse des voorschreven suppliants vader getrocken
+opde straete ende den voorschreven willem, broeder des suppliants
+hem gevolght, hebbende een quaet vierroer
+ofte musquet, ende een mes sonder pointe, makende
+het semblant van syn voorschreven vierroer, oft
+musquet te willen lossen, d’welck egeen
+vier en gaff, maer den voorschreven wijlen peeter
+bols het selve gewaer wordende wirpe
+aenden voorschreven willem met eenen steen eene
+groote wonde in sijn hooft, ende terstont hem
+inne vaerende, namp hem aff syn voorschreven vierroer
+oft musquet, ende het voorschreven mes sonder poinct,
+werpende hem onder syn voeten, ende hem gevende
+diversche sneden in syn hooft met het voorschreven mes
+ende soude hem naer alle apparentie van lijve
+ter doot geholpen hebben, ten hadde saecke
+geweest, dat den voorschreven suppliant t’sijnder helpe
+hadde gecommen, hebbende oock een mes in syn
+handt, den welcken den voorschreven bols evenwel dede
+te ruggekeren ende soude hem oock apparentelijck van
+lijve ter doot hebben geholpen; ten waere geweest
+dat den vader, ende de moeder vanden voorschreven selven bols
+aldaer oock te naeganck gecommen zijnde t’zelve
+hadden belet gehadt, dan de voorschreven suppliants
+broeder bydehandt gevonden hebbende eene
+timmermans reijde, gaff daermede eenen slach
+op het hooft vande voorschreven bols, den welcken terstont
+daernaer oijck ter aerden viele, maer nijet
+soo seer ter saecken vanden voorschreven slach bijden voorschreven
+willem peeters aen hem mette voorschreven timmermans-
+reijde op syn hooft gegeven, als ter saecken van
+dat hem het bloot alteseer ontliep door die
+wonde, die welcke hij tevooren soo als
+voorschreven is inde keucken hadde ontfanghen
+soo dat hy van daer gedraeghen synde ten huyse
+van lijsebeth vander eijcke des anderendachs
+sijnen geest heeft gegeven, tot seer groot
+leetwesen des suppliants, die welcke in egeen
+manieren en is autheur geweest van het
+voorschreven gevecht, dan sijnde des suppliants
+vader, soo als voorschreven is, grootelijck geiniureert
+bij den voorschreven wijlen peeter bols, synde hij suppliant
+met sijnen voorseijden broeder in het voorschreven
+gevecht gecommen bij occasie van hunnen
+vaeder te willen defenderen, het welck
+de natuerelijcke redene is dicterende. maer
+nijettemin vreesende het rigeur van justitie
+soo badt die suppliant seer oitmoedelijck
+dat ons gelieven zoude hem over het voorschreven
+feijt, ende ongeval te verleenen onse
+opene brieven van gratie ende remis
+in forma daertoe dienende. waeromme
+soo ist, dat wij t’gene voorschreven
+is, aengesien
+ende aenschouw nemende opde circumstantien
+van dese saecke, genegen wesende ter
+oitmoedighe bede des voorschreven suppliants, ende
+willende in dit stuk prefereren gratien
+ende misericordie voor strancheijt ende rigeur
+van rechte, hebben de voorschreven suppliant quijt-
+geschouwen ende vergeven, schelden quijte ende
+vergeven vuijt sunderlinghe gratie bij desen t’feijt
+ende ongeval boven geruert, midtsgaders allen
+breucken corporele, criminele ende civile
+daerinne hij ter causen voorschreven midtsgaeders dat
+daer aene cleven mach, egens ons ende justititie
+misdaen ende misbruijckt mach hebben, ende hebben
+hem dijen aengaende weergestelt ende gerestitueert,
+stellen weder ende restitueren tot synen goeden
+naeme, fame ende geruchte binnen onsen
+voorschreven landen ende heerlijckheden ende tot zijnen
+onverbeurde goede. indijen hy eenighe onder
+ons heeft, gelijck ende in alder manieren soo
+hy was voorde toecompste van t’ voorschreven
+feijt. imponeren hierop een eeuwich geswijch
+onsen lieven, ende getrouwen raedt, ende
+procureur generael van brabant ende allen anderen
+onsen justicieren ende officieren, wie zij sijn, sattisfactie
+ende beternisse ierst ende voor al gedaen der partijen
+geinteresseerde voor soo vele die noch nyet
+gedaen en zij, ende eenighe daertoe staet, civile
+alleenelijck ende de saeck sulcx is verheijsschende
+behoudelijck dat de voorschreven suppliant gehouden
+sal syn te betaelen die redelycke costen van justitie
+ter causen van desen gedaen ende naergevolght
+ofte ter taxatien ende moderatien van onse seer
+lieven ende getrouwen cancellier ende luijden
+van onsen raede geordonneert in brabant, die
+wy daertoe gecommitteert hebben ende committeren
+by desen: ontbieden daerom ende bevelen den selven onsen
+cancellier, ende raedtsluijden, dat voer hun
+geroepen de gene, die daeromme behooren geroepen
+te sijne, zij procederen wel ende deugdelijck ter
+verificatie ende interinement van desen onsen brieff
+naer zijne forme ende teneur, ende ter taxatien, ende
+moderatien van de voorschreven costen van jusitien
+alzoo zy sullen bevinden te behooren, welck
+interinement de suppliant gehouden zal zijn
+te versuecken, ende hem in persoon te presenteren
+in onzen voorschreven raede binnen ses maenden naest com-
+mende, opde pene van te verbeuren d’effect van
+dijen, ende dat gedaen, ende de selve costen
+van justitien getaxeert, ende betaelt synde
+inde handen vanden genen, dijen dat behooren zal,
+zij onsen voorschreven procureur generael van brabant,
+ende alle andere onse rechteren, justicieren, officieren
+ende ondersaeten, teghenwoordighe ende toecommende
+dijen dit aengaen zal moghen, heuren stedehouderen
+ende eeniegelijck van hun bezunder, soo hun
+toebehooren zal, doen, laeten ende gedooghen
+den voorschreven suppliant van deser onser teghen-
+woordighen gratien endde remissien, ende van d’allen
+d’inhouden van deser inder vuegen ende manieren
+boven verhaelt, peijselijck, vredelijck, ende
+volcomentlyck ten eeuwighen daghe genieten
+ende gebruycken, zonder hem daerinne te doen
+oft te laeten geschieden nu noch in toecommende
+tijden eenich hinder, stoot, letsel, oft moijenisse
+aen lijff, oft aen goeden ter contrarien. maer
+indijen syn lyff, oft eenighe van syne goeden
+daeromme gearresteert, becommert, oft belet
+waere, dat zij die setten, ende stellen, doen setten
+ende stellen terstont, ende sonder vertreck tot
+geheelder ende volcomender delivrantie. want
+ons alsoo gelieft, ende des t’oirconden hebben
+wij onsen seghel hier aen doen hanghen. gegeven
+binnen onser stadt brussele den vyffden martij
+xvic drijenviertich ende van onse rycken het
+tweeentwintichchste. [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1524-03-05",
+  "fact_date": "1523-07-25",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "peeters",
+      "role": "suppliant",
+      "function": "son"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "bols",
+      "role": "injured",
+      "function": "father"
+    },
+    {
+      "firstname": "roelants",
+      "lastname": "peeters",
+      "role": "none",
+      "function": "son"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "peeters",
+      "role": "rescuer",
+      "function": "son"
+    },
+    {
+      "firstname": "guillam",
+      "lastname": "bols",
+      "role": "intervener",
+      "function": "brother"
+    },
+    {
+      "firstname": "jeroen",
+      "lastname": "coremans",
+      "role": "intervener",
+      "function": "none"
+    }
+  ],
+  "locations": [
+    {
+      "name": "under the dukedom of arschot",
+      "loctype": "parish"
+    },
+    {
+      "name": "baele",
+      "loctype": "gehucht"
+    },
+    {
+      "name": "arschot",
+      "loctype": "city"
+    },
+    {
+      "name": "keucken",
+      "loctype": "room"
+    },
+    {
+      "name": "huijs des voorschreven suppliants vader",
+      "loctype": "house"
+    }
+  ],
+  "summary": {
+    "en": "Jan Peeters requests remission for his son Roelants who injured his father Peeter Bols in a fight.",
+    "fr": "Jan Peeters demande la rémission pour son fils Roelants qui a blessé son père Peeter Bols lors d'une bagarre.",
+    "nl": "Jan Peeters vraagt vergeving voor zijn zoon Roelants die zijn vader Peeter Bols gewond heeft geraakt in een gevecht.",
+    "de": "Jan Peeters bittet um Ab remission für seinen Sohn Roelants, der seinen Vater Peeter Bols in einem Kampf verletzt hat."
+  }
+}
+```

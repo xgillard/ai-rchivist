@@ -1,0 +1,118 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remisse jans duy caerle @ doen te wetene allen jegewoirdighenende
+toecomenden dat wy ontfaen hebben die ootmoedighe supplicatievan jan duy poirte
+onser stadt van brussel inhoudende hoe dat hysuppliant omtrent zesse weken
+geleden is gecommen gaende tusschennegen ende thien uren des avonts naer den
+etene opter
+merct onser voors stadt van bruess met zeken gesellen geheeten
+jan de milde ende joos de walsche ende daer zynde hebben zy gehoirt commen
+gaende opter selver merct seker gesellen te wetene jan van neerhemende claes de
+speelman ende zyn by malcanderen gegaen ende een vandengesellen vanden
+suppliant vraechde tot henlieden wie zy waeren, waer op de voirs.neerhem
+antwoirde seggende ic bent ende zyn zoe malcanderen wordden kennende endede
+voirs. claes de speelman ziende den suppliant zeyde met grooten evelen moede
+zweren goidtsmacht ende cracht jan duy zydy daer ghy hebt my hier voermaels
+gequetstuuyt treckende zyn lanck mes ende sloech zeer vresselic naer den
+suppliant,den selven gevende twee groote quetssueren in zyn lyff. doenantwoirde
+de suppliant, ghy wilt my verradelic vermoerden ende liepachterweerts, de
+voirs. claes met resterende van staene open suppliant ende want hy suppliant
+egheen mes en hadde ende beduchten aldairgeevelt te wordden van zynen lyve
+heeft genomen het mes vanden voirs. joos zynde geselle die aldair besyden
+stont, welcke jooshem dat nyet en wonde laeten nemen, waer op de suppliant
+zeydezuldy my laeten vermoorden, ic moet een mes hebben endeheeft alsoe
+fortdelinge het mes vanden voirs. joos genomenwaer mede tegen den voirs. claes
+staende heeft den selven claesmits dat hy over een hout geballen was onder
+andere een slachgegeven in zyn been welcke quetssuere zeer bloedende was zoo
+dat hy corts daernaer van levenden lyve ter doot gecommen is, welc fait den
+suppliant uuyt gront zyne herten leet es. ende hoe wel tselve fait
+zeeronnoozelic by commen es gemerct oic dat hy suppliant vanden aflingen
+zeergewont ende geslagen was eer hy hem weerde, desen nyet tegenstaenbeduchten
+rigeur van insanen heeft hem saidert moeten absoutenuuyt onsen lande ende
+hertoochdom van brabant ende zonderlinge uuyt deseonse stadt van bruessel
+aldaer hy nyet en soude derren commen hanterennoch converseren, maer in grooter
+armoeden ende miserienelders in vremden landen moeten bliven tzynder een wiger
+desolancienende destructien, @@ vlaenderen dat hem onse gracie hier op verleent
+waerenzoe hy zeyt ons ootmoedelic biddende om de selve ende hem tvoirs.fout
+ende manslach te willen vergeven zonderlinge infaveure ende contemplacie vanden
+blyder incompste van onse zeer lieve ende [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "duy poirte",
+      "role": "supplicant",
+      "function": "citizen of the city of Brussels"
+    },
+    {
+      "firstname": "claes",
+      "lastname": "de speelman",
+      "role": "accused",
+      "function": "unknown"
+    },
+    {
+      "firstname": "joos",
+      "lastname": "de walsche",
+      "role": "witness",
+      "function": "unknown"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Brussels",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Jan Duy Poirte, a citizen of Brussels, pleads for remission after being attacked by Claes de Speelman. The incident occurred near the eten (unknown location) around 7-10 PM. Jan Duy Poirte was unarmed and took a knife from Joos de Walsche, a bystander, to defend himself. He wounded Claes de Speelman, who died shortly after. Jan Duy Poirte had to leave the land and city of Brussels due to the consequences of this event.",
+    "fr": "Jan Duy Poirte, citoyen de Bruxelles, demande la rémission après avoir été attaqué par Claes de Speelman. L'incident s'est produit à proximité de l'eten (lieu inconnu) vers 19h-22h. Jan Duy Poirte était désarmé et a pris un couteau à Joos de Walsche, un passant, pour se défendre. Il a blessé Claes de Speelman, qui est décédé peu de temps après. Jan Duy Poirte a dû quitter le pays et la ville de Bruxelles en raison des conséquences de cet événement.",
+    "nl": "Jan Duy Poirte, een burger van Brussel, vraagt om vergeving na aanvallen door Claes de Speelman. Het incident vond plaats in de buurt van het eten (onbekende locatie) rond 19-22 uur. Jan Duy Poirte was ongewapend en nam een mes van Joos de Walsche, een toeschouwer, om zich te verdedigen. Hij verwondde Claes de Speelman, die kort daarna overleed. Jan Duy Poirte moest het land en de stad Brussel verlaten vanwege de gevolgen van dit evenement.",
+    "de": "Jan Duy Poirte, ein Bürger von Brüssel, bittet um Absolution nach einem Angriff durch Claes de Speelman. Der Vorfall ereignete sich in der Nähe des Etens (unbekannter Ort) gegen 19-22 Uhr. Jan Duy Poirte war unbewaffnet und nahm ein Messer von Joos de Walsche, einem Passanten, um sich zu verteidigen. Er verwundete Claes de Speelman, der kurz darauf starb. Jan Duy Poirte musste das Land und die Stadt Brüssel verlassen aufgrund der Folgen dieses Ereignisses."
+  }
+}

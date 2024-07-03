@@ -1,0 +1,214 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie jan molenmans
+kaerle etc$$. doen te wetene allen tegewoirdigen ende toecomende
+dat wij ontfangen hebben die oitmoedighe supplicatie van jan
+molenmans ?jonck gehuwet scamel geselle ingesetene $ dorps
+van ghierle onder turnhout gelegen in onsen land van brabant inhoudende
+hoe dat hy suppliant op sint jacops dach tsavons xvde veertichlestleden
+heeft geseten met synen vader ende moeder tot hueren huyse eten
+ende drinken aende tafel ende zyn zyn vader ende hy suppliant aldan gecompt
+geweest van maeyken melchiors hueren gebuer wijf om te commen
+hulpen laden een tonnebiers diram deselven suppliant ende vader derwaerts
+gegaen sijn ende is hen insgelicx gevolcht heyndrick de cleermakere
+om oyc te helpen welcken hendrick int gemoet commen zyn twee
+gesellen dair aff $$$ gert rombault $$$ geboren van ghele$ die
+totten selven cleermaker zeyden waer gaedi, daerop hy cleermaker
+antwoorde ick senne ?wel ende die bovenschreven rombault wederom
+seggende compt $$$ my dan met$ welcken worden vuyt gecommen
+is desselfs supplians moeder ende heeft den boivengenoemden cleermaekere
+om voorden twist te schouwen ewech gestoten oft hem $$ getoegde
+seggende laet staen uwe symen laet de gesellen gaen ende es alsoo
+den cleermaker gevolcht inden kelder om tvoirschreven bier te laeden
+dien$ zy geladen hebben ende es hij rombault onder tusschen blyven
+staen achter eenen boom buyten den huyse verwachten den voornoemden
+cleermaeker ende meenende denselven cleermaker ende suppliant naer huyse te gaene
+ende buyten commende nergens aff wetende riep den voorschreven rombault
+compt kendt my nu ende zyn de voirschreven rombault ende cleermaker
+wederomme bij malcanderen geraect ende werden vechtende hebbende
+den selven rombault eenen bloeten$ opsteken in syn handt dwelck
+hy suppliant ziende heeft tusschen beyen int bescheet? gegaen ende
+eenen steke gecregen vanden voirschreven rombaut omtrent syn borste waer
+naer hy suppliant tot hem rombault seyde bey ghy hoerensoon soudt
+ghy my steken dair ick tusschen beyden gaen soo waert
+tyt dat ick my weerde vecht wesende van bloede, ende om syn
+lyf te verweeren toech$ vuyt syn eetmes ende greep den selven
+rombault metten boes naer hem stekende twee steken achter
+in synen rugge over den hals dat hij rombault daer naer corte deser
+werelt ont$$$ es tot groot leetscap van$$ bovengenoemden suppliant ende
+nochtans vuyt vreeze van iusticie nyet vryelijck en soude dorven
+hanteren noch commerseren onse bovengenoemden lande van brabant ende andere onse
+landen ende heerlichheden?, al eest dat hy paix heeft met partie
+geinteresseert ten zy dat onse gratie ende genade hem hier
+op verclaert wordde alsoo hy seygt ons daeromme oitmoedelijck
+biddende $$$$ $$$$ dat wij de saeken voirschreven vuer gemerc
+ende hier op gehadt t advys van onsen wel beminden die schout ende
+scepenen van onse vryheyt van turnhout den bovengenoemden jan molenmans
+suppliant genegen wesende tsynder begeerte ende hem willende in dit
+stuck gracie ende genade / prefereren voor rigeur van iusticien
+hebben inden gevalle als boven dergenen quytgescholden ende
+geremitteert dergenen quytschelden ende remitteren vuut sunderlinge
+gracie mits de$ feyt ende manslach boven geroert mitsgaders
+alle peyne boete ende boverk$$$ corporelle ende criminelle dair
+inne hy ter cause van dien mit dieser arrest misdaen ende
+mesbruuckt mach hebben tegens ons ende justicie ende
+hebben hem aeff hier aff wedergestelt ende gerestitueert
+stellen weder ende restitueren tot synder goeder fame ende name
+in onsen voirschreven lande van brabant ende allen anderen onse landen ende
+heerelicheden mitgaders tot syne? onder?buerden goeden indien hy eenige
+heeft alsoe hy was voerde toecompste vanen voirschreven macht
+imponerende hier op een eeuwich swygen ende sillencie onse procureurs
+generael ende allen andere onse rechteren ende officieren wien zy
+sijn satisfactie ende beteringe eerst ende aelvooren gedaen der
+geinteresseerde partyen in dyen die noch nyet gedaen en zy
+ende eenige tot staet civilyck? allenelyck behoudelyck dat den bovengenoemden suppliant
+---rand:
+bij? af verantwoort
+bij onse vanden $$$
+---einde rand
+gehouden wordt tselve feyt iegens ons oyc civilyck te beteren
+naer de gelegentheyt vander mesdaet ende de faculteyt
+van synen goeden ende onse ordonnantie daerop gemaict ende oyck te
+reffonderen ende betalen die redelycke costen van justicie indien
+hieromme eeniche gedaen ende naergevolght zyn al ter taxacie
+ende arbiterscepe van onsen lieven ende getrouwen die gar$$ille$$$ ende
+luyden van onsen lande in brabant die wij dairtoe committeren
+den welcken wy bevelen dat voor hen gecompen die gene dier
+behooren gecompen te sijne zy procederen wel ende duechdelyck
+ter verschaere ende inter$$$$mente van desen naer hun? vorme
+ende inhouden welck inter$$$ment hy suppliant gehouden sal syn
+aldair te versueckende binnen eenen halven jaer naer datum van
+desen $$$$ verbruerte van te ver$$$$$ende dessert der selver ende
+tot taxacie ende arbiterscepe vander amende civile ende costen van
+justicien voirschreven ende dat gedaen ende de voorschreven amende civile
+getaxeert ende betaelt synde in handen van onsen ontfangeren
+dient behooren sal dewelcke gehouden wordt dairaff ontfanck
+te maken rekenninge ende reliqua te doen tot onsen proffyte
+metten anderen penningen van synen ontfange ende onsen schout van
+turnhout ende allen anderen onse rechteren instrueren ende officieren
+dien dit aengaen sal hueren stedehouderen ende eenyegelyck van hen
+besonder soe hen toebehoren sal doen laeten ende gedoogen
+den bovengenoemden suppliant van dese onse gracie remissie quytscheldinge
+ende pardoene ende van al den inhouden van dien inder vuegen ende
+manieren vooren verhaelt rustelyck ende vredelyck genyeten ende
+gebruicken sonder hem te doende noch te laeten geschuen nu
+noch in toecommende tyden aen lyfce noch aen goede eenich
+hinder letsel oft moeyenisse ter contrarien in eeniger manieren
+maer bij alsoe syn lyf oft eenige van synen goeden nyet
+geconfisqueert synde dairomme gevangen ver$$$$mmert oft belet
+waeren dat sy die stellen oft doen stellen ter stont ende sonder
+vertreck tot geheelder del$$$ want ons alsoe gelieft
+ende ten ten eynde dat die goet vast ende gestadich blyve ten
+eeuwigen dagen soo hebben wy onsen segel hier aen doen hangen
+behoudelyck in anderen sacken ons recht ende eenygelycl tzyne
+in allen gegeven in onser stadt van bruessele inde maent
+van merte int jaer ons heeren duysent vyfhondert eenenveertich
+van onsen $$$ $$$ ende van onsen coninckrycken
+van castillien ende anderen $$$ aldus stont geschreven
+opte plycke byden keyser in synen raide ende onder
+geteekent vereyken
+gecoll$$$ ende bevonde accorderene
+met zynen originale $$$ $$$
+$$$$$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "15th of August (unsure)",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "molenmans",
+      "role": "suppliant",
+      "function": "jan molenmans"
+    },
+    {
+      "firstname": "henderick",
+      "lastname": "de cleermakere",
+      "role": "cleermaker",
+      "function": "cleermaker"
+    },
+    {
+      "firstname": "heyndrick",
+      "lastname": "geboren van ghele",
+      "role": "worker of the cleermaker",
+      "function": "worker"
+    },
+    {
+      "firstname": "maeyken",
+      "lastname": "melchiors",
+      "role": "wife of the suppliant's parents",
+      "function": "wife"
+    },
+    {
+      "firstname": "gert",
+      "lastname": "rombault",
+      "role": "worker of the cleermaker",
+      "function": "worker"
+    }
+  ],
+  "locations": [
+    {
+      "name": "ghierle",
+      "loctype": "dorp"
+    },
+    {
+      "name": "turnhout",
+      "loctype": "city"
+    },
+    {
+      "name": "onsen land van brabant",
+      "loctype": "land"
+    }
+  ],
+  "summary": {
+    "en": "Jan Molenmans, the suppliant, requests remission for a fight that took place with a cleermaker and his workers. The fight occurred after the suppliant's mother asked the cleermaker for help in carrying a barrel of beer. The cleermaker and one of his workers, Gert Rombault, demanded payment from the suppliant's mother, which led to a dispute. The suppliant intervened and was subsequently injured by Rombault. The suppliant requests remission for the act and any legal consequences that may follow.",
+    "fr": "Jan Molenmans, le suppliant, demande la rémission pour une bagarre qui a eu lieu avec un fabricant de tonneaux et ses ouvriers. La bagarre a eu lieu après que la mère du suppliant a demandé l'aide du fabricant de tonneaux pour transporter un tonneau de bière. Le fabricant de tonneaux et l'un de ses ouvriers, Gert Rombault, ont réclamé un paiement à la mère du suppliant, ce qui a entraîné un différend. Le suppliant est intervenu et a été blessé par Rombault. Le suppliant demande la rémission pour l'acte et toutes les conséquences juridiques qui pourraient suivre.",
+    "nl": "Jan Molenmans, de suppliant, vraagt vergeving voor een gevecht dat heeft plaatsgevonden met een kuipmaker en zijn arbeiders. Het gevecht vond plaats na verzoek van de moeder van de suppliant om hulp bij het dragen van een vat bier. De kuipmaker en een van zijn arbeiders, Gert Rombault, eisten betaling van de moeder van de suppliant, wat leidde tot een conflict. De suppliant is tussenbeide gekomen en is daardoor gewond geraakt door Rombault. De suppliant vraagt vergeving voor de daad en eventuele juridische gevolgen die daaruit kunnen voortvloeien.",
+    "de": "Jan Molenmans, der Bittsteller, bittet um Absolution für einen Kampf, der mit einem Böttcher und seinen Arbeitern stattgefunden hat. Der Kampf fand statt, nachdem die Mutter des Bittstellers den Böttcher um Hilfe beim Tragen eines Bierfasses gebeten hatte. Der Böttcher und einer seiner Arbeiter, Gert Rombault, forderten Zahlung von der Mutter des Bittstellers, was zu einem Streit führte. Der Bittsteller griff ein und wurde von Rombault verletzt. Der Bittsteller bittet um Absolution für die Tat und alle möglichen rechtlichen Folgen, die daraus resultieren könnten."
+  }
+}
+```

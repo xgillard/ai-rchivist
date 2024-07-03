@@ -1,0 +1,229 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen te wetene alle iegenwoirdige ende toecommende
+dat wy ontfaen hebben die oitmoedige supplicatie van henrick verstappen
+arm schamel man inhoudende hoe dat hy suppliant opten sesten dach van
+april anno xvc xliii naer paesschen met zekere geselscap versaemt is
+geweest in zekere herberge oft taverne gestaen tot sint jans inden
+scrieck binnen onsen lande van brabant alwaer hy suppliant vandt wylen
+hendrick van eyssche welcke henrick ziende den suppliant zeyde dese
+oft gelycke woerden ghy hebt my eens geworpen niet eenen pot aen
+mynen aerm waer doere ick aen mynen arm hebbe moeten draegen
+eenen baendoeck dwelcke my coste iiii stuyvers wildy my die wederomme
+geven waerop de suppliant antwoirde ick en hebbe u noydt geworpen
+dat ghy eenen baendoeck gedragen hebt maer gheeft ghy vier stuivers
+int gelage ick salder oick vier geven op dat hem tgeselscap verblye
+dwelcke de voers. wylen henrick van yssche hoirende gaff den suppliant
+vele injurieuse woerden deur welcke hy suppliant een tange in zyn
+hant nam gaende daermede binnen ende buyten den voers. huyse
+tot dat hy aen een tafele ginck sitten dwelck die voers. overleden
+ziende is byden suppliant gecommen nemende den hecht van zynen messe
+in zyn handt injurierende zoe lange zoe meer den suppliant met woerden
+maer deur middele van vrouwen wordden zy gescheyden ende mit
+dyen is de voers. hendrick buyten den voers. huyse gegaen ende
+wederomme commende ghinck sitten by jorissen verstappen brueder vanden
+suppliant zeggende totten suppliant geeft nu die vier stuyvers int gelage
+ick salder oick vier geven waerop de suppliant antwoirde ick en sal
+cruys noch munte geven doet dat ghy wilt dwelcke die voers.
+hendrick aenhoirende injurierende wederomme den suppliant als voere doen
+seyde jooris verstappen brueder vans. suppliant hendrick ick raide u
+dat ghy thuyswaerts gaet want ghy en hebt hier egeen vrienden
+ende ghy soudt my oick gram maecken midts den welcken de voers.
+hendrick is es byden vierens gegaen malignerende ende den suppliant
+ende den suppliant altyts zeer injurierende dwelcke hoorende byden
+suppliant zeyde totten voers. hendrick van yssche dese oft gelycke
+woerden hendrich willen wy den veede malcanderen quytscelden
+ende doot drincken zoe geeft my u handt want ick en sal u
+anders nyet geven waerop den selven hendrick antwoirde houdt
+daer myn handt maer ich en schelde den veede nyet quyte noch
+ich en wils oick nyet doot drincken welcke handt de suppliant met
+zynder handt aenveerde ende hoirende dat den voers. hendrich
+den veede nyet quytschelden noch doot drincken en wilde heeft
+hy suppliant vuyt hitte van bloede met zyn ander handt den voers.
+hendrick mit zynen opsteker boven oner zyn schouderen eenen
+steecke oft quetsure gegeven in zynen rugge mit welcke steeck
+oft quetsure de voers. hendrick vier maenden eenen dach min
+gegaen ende gestaen heedt ende hem selven qualick bewaert ende
+nyet doen cureren noch willen laten cureren van experte cyurgynen
+die hy suppliant zelff tot tween toe hem geschickt ende toegesonden heeft
+die hem wel hadden meynen te cureren alsoe dat behoirdt overmidts
+dat de voers. wonde nyet dootlick en was alzoe die chyrurgynen
+ende geswoeren meesters onser stadt van mechelen verclaert hebben
+ende is alzoe de voers. hendrick hebbende de voers. wonde oft
+quetsure laeten verrotten ende vervuylen by zynder verzwyentheyt
+ende ommargsienheyt ende die gedraegen gaende ende staende achter
+straeten vier maenden eenen dach min is upden xxviiien dach van
+julio daernae gecommen van levende lyve ter doot ende hoewel
+tw tvoers. feyt den suppliant vuyt gront zynder herten leet is ende
+dat hy daertoe midts den grooten injurien hem byden voers. wylen
+hendrick op geseyt ende geinfereert es geproneceert geweest ende dat
+hy oick der partyen geinteresseerde vanden voers. wylen hendrick
+gebetert heeft die binnen zynen leven tyt den suppliant omme de passie
+onsheeren hem de quetsure ende mesdaet vergeven heeft als dat
+blycken mach by instrumenten daeraff zynde biddende zyn vrienden
+naer zyn doot gheene wraecke te doene aenden suppliant nyetmin
+vreesende rigeur ende stranckheyt van justicien heeft hem zichtent
+geabsenteert vuyt onsen lande alwaer hy nimmermeer en soude
+dorren commen hanteren oft converseren ende zy dat onse gracie
+ende genade hem hierop gedeelt wordde alzoe hy seeght omme
+de welcke gemerckt tguut des voers. is zunderlinge dat de voers.
+wonde oft quetsure luttel was oft nyet dootlyck hebbene gegaen
+ende gestaen vier maenden eene dach min nae die quetsure laten
+die vaeren sonder die te bewaeren encle te doen cureren hy ons oitmoedelyck
+gebeden heeft soe eest dat wy de zaken voers. overgemerckt
+den voernoempden hendrick verstappen suppliant genegen wesende tzynder
+voers. bede ende begeerte ende hem willende in dit stuck gracie ende
+genade prefereren voer rigeur van justicien hebben inden gevalle als
+boven vergeven quytgescolden ende geremitteert vergeven scelden
+quyte ende remitteren vuyt sunderlinger gracien mits desen tfeyt
+ende manslach boven geroert mitsgaders alle peyne boete ende bruecke
+corporelle ende crimminelle daer inne hy ter cause van dyen
+mit diesser aencleeft misdaen ende misbruyckt mach hebben jegens
+ons ende justicie ende hebben hem als hieraff wedergestelt encle
+gerestitueert stellen weder ende restitueren tot zynder goede fame
+ende naeme in onser landen van brabant ende allen anderen onsen landen
+ende heerlicheden mitgaders tot zynen onverbeurden goeden indyen hy
+ennige heeft alsoe hy was voer de toecompste vanden voers. manslach
+imponerende hierop een eeuwich zwygen ende silencie onser procureur
+generael van brabant ende allen anderen onser rechteren ende officieren
+wyen zy zyn satisfactie ende beteringe eerst ende alvoren gedaen
+der geinteresseerde partyen indyen die noch nyet gedaen en zy ende
+eenige toe staet civilick alleenlick behoudelick dat de voern. suppliant
+gehouden wordt tselve feyt jegens ons te beteren oick civilick naer
+de gelegentheyt vander misdaet ende faculteyt van zynen goeden ende
+onse nieuwe ordonnancie daerop gemaickt ende oick te refonderen ende
+betaelen die wettelicke costen van justicien indyen hieromme ennige
+gedaen zyn al ter taxatie ende arbiterscepe van onser lieven ende
+getrouwen die cancellier ende luyden van onsen raide in brabant die
+wy daertoe commiteren den welcken wy bevelen dat voer hen geroepen
+dye ghene dyer behoiren geroepen te zyne zy procederen wel ende
+deughdelick ter verificatie encle interinemente van desen naer heure
+vorme ende inhouden welck interinement hy suppliant gehouden sal
+zyn te versuecken in onser voers. raide binnen zesse toecommende
+maenden opte verbeurte van te verliesen deffect der selver ende
+tot taxatie ende arbitrescepe vander amende civile ende costen
+van justicien voers. ende dat gedaen ende de voerseyde amende
+civile ende costen van justicien getaxeert ende betaelt zynde
+in handen vanden genen van onsen ontfangers dyet behoiren sal
+die daeraff gehouden wordt ontfang te maecken rekeninge bewys
+ende reliqua te doene tonsen prouffyte mitten anderen penningen
+van zynen ontfanck zy onsen drossaet van brabant meyer van
+loeven amman van bruessele schoutetten van antwerpen ende
+vanden bossche ende allen anderen onsen rechteren ende officieren
+iegenwoirdich ende toecommende dyen dat aengaen sal
+dat zy den voernoemden suppliant doen laten ende gedoegen
+van dese onse gracie remissie ende quytsceldinge ende perdoene
+ende van al den inhouden van desen inder vougen ende manieren
+voeren verhalt rustelyck ende vredelick genyeten ende gebruycken
+sonder hem te doene noch te laten gescyen nu noch in toecommende
+tyden aen lyve noch aen goede eenich hinder letssel oft moyenisse
+ter contrarien in enniger manieren maer by alsoe zyn lyff
+oft eenige van zynen goeden nyet geconfisqueert zynde daeromme
+#sy hier$ verantwordt
+byden ontfanger vande exploiten
+gevangen becommert oft belet waeren dat zy die stellen oft doen
+stellen terstont ende sonder vertreck tot geheelder ende volcommender
+delivrancie want ons alsoe gelieft ende ten eynde dat dit
+goet ende gestadich blyve te eeuwigen dagen zoe hebben wy onser
+zegel hieraen doen hangen behoudelicken in anderen zaken ons
+recht ende eenyegelick tzyne in allen gegeven in onser stadt van
+bruessele inde maent van augusto int jaer ons heeren duysent
+vyfhondert vyfenveertich van onser keyserycke txxvie ende
+van onsen coninckrycken van castillen ende anderen txxxe aldus
+gescreven op de plycke byden keyser in zynen raide ende geteekent
+verreycken visa registrata
+gecollacionneert ende bevonden accorderende
+met zynen originale by my
+deruwez [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "16th April, 1543",
+  "persons": [
+    {
+      "firstname": "henrick",
+      "lastname": "verstappen",
+      "role": "applicant",
+      "function": "poor man"
+    },
+    {
+      "firstname": "hendrick",
+      "lastname": "van eyssche",
+      "role": "tavern keeper",
+      "function": "innkeeper"
+    },
+    {
+      "firstname": "jorissen",
+      "lastname": "verstappen",
+      "role": "brother of the applicant",
+      "function": "family member"
+    },
+    {
+      "firstname": "voers.",
+      "lastname": "hendrick",
+      "role": "injurer",
+      "function": "assailant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "onser lande van brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "sint jans inden scrieck",
+      "loctype": "tavern"
+    }
+  ],
+  "summary": {
+    "en": "Henrick Verstappen, a poor man, applies for remission after being injured by Hendrick van Eyssche, an innkeeper. The incident occurred in a tavern in Brabant, where Henrick Verstappen was accused of not paying for a pot of drink. A brawl ensued, resulting in Henrick Verstappen being injured. Hendrick Verstappen did not seek medical attention for four months, resulting in a slow healing process. Hendrick Verstappen's assailant was sentenced but later pardoned. The assailant and Henrick Verstappen have since reconciled.",
+    "fr": "Henrick Verstappen, un homme pauvre, demande la rémission après avoir été blessé par Hendrick van Eyssche, un tenancier de taverne. L'incident s'est produit dans une taverne de Brabant, où Henrick Verstappen a été accusé de ne pas payer pour une cruche de boisson. Une bagarre a éclaté, entraînant la blessure de Henrick Verstappen. Henrick Verstappen n'a pas cherché de soins médicaux pendant quatre mois, entraînant un processus de guérison lent. L'agresseur de Henrick Verstappen a été condamné mais plus tard gracié. L'agresseur et Henrick Verstappen se sont depuis réconciliés.",
+    "nl": "Henrick Verstappen, een arme man, vraagt om vergeving na blessures opgelopen door Hendrick van Eyssche, een herbergier. Het incident vond plaats in een herberg in Brabant, waar Henrick Verstappen werd beschuldigd geen betaling te hebben verricht voor een pot drinken. Een gevecht ontstond, resulterend in verwondingen van Henrick Verstappen. Henrick Verstappen zocht geen medische hulp voor vier maanden, resulterend in een langzaam geneesproces. De aanvaller van Henrick Verstappen werd veroordeeld maar later gratie verleend. De aanvaller en Henrick Verstappen zijn inmiddels verzoend.",
+    "de": "Henrick Verstappen, ein armer Mann, beantragt eine Begnadigung nach Verletzungen, die er durch Hendrick van Eyssche, einem Wirt, erlitten hat. Das Ereignis fand in einer Herberge in Brabant statt, wo Henrick Verstappen beschuldigt wurde, keine Zahlung für ein Trinkgefäß geleistet zu haben. Ein Streit entstand, was zu Verletzungen von Henrick Verstappen führte. Henrick Verstappen suchte vier Monate lang keine medizinische Versorgung auf, was zu einem langsamen Heilungsprozess führte. Hendrick Van Eyssche, der Angreifer von Henrick Verstappen, wurde verurteilt, aber später begnadigt. Der Angreifer und Henrick Verstappen haben sich seitdem versöhnt."
+  }
+}
+```

@@ -1,0 +1,213 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen te wetene alle iegenwoerdige ende toecomende
+dat wy ontfaen hebben die oetmoedige supplicatie van godevaert
+van utthem arm scamel geselle inhoudende hoe dat hy suppliant omtrent
+twee ende een halven jaeren geleden gecommen is ten huyse van aerden
+aerts inden dorpe van leefdaele met veel goede gesellen daer
+onder eenen mede was geheeten peeter van haren welcke voerscreven
+peter ende den voerscreven suppliant met malcanderen eenen pot bier
+oft meer gedroncken hebbende hebben begonst te speelen
+ende te hutsen elcken slage om een ort stuvere ende
+was geseeght soe wie vier oerden achter een e$ eerst
+wondt van henbeyden soude een ort te vuen? geven
+inden gelage vanden gemeyn gesellen zoe es gebuert
+dat nae dien zy wat gespeelt hadden dat de voerscreven
+suppliant tegen den voerscreven peeter verloe? vyf speelen ende
+oerden ende heeft den selven suppliant het vyfste oert
+den weert gegeven die siende de voirscreven pieter en
+is daermede nyet tevreden geweest ende twee ons
+$$ macht dat ort dat willen selver hebben siende
+de voerscreven suppliant dat peeter soe qualycken daermede
+te vreden was om alle twist te schouwen heeft
+het voerscreven oert weder vanden weert gehaelt ende
+de voern peter gegeven desen nochtans nyet tegenstaende
+dat de voern suppliant hem het voerscreven oert gegeven
+hadde dwelck hem nochtans nyet toe en behoerde
+maer behoerde int gelach te comen als voerscreven es
+zoe en heeft de voerscreven peeter nochtans nyet gelaten
+te zweren noch te eevelen ende veel ongebonden
+woirden te spreken de voergenoemden suppliant ziende dat het hem
+nyet en baette al hadde hy hem het voerscreven oert laten
+volgen zeyde tot den selven peeter haddic het oirt
+weder ghy en soudet hemeer hebben doen toeghde
+de voirnoemde peeter den suppliant dat ghelt seggende tot
+hem suppliant sidy soe cloeck nemet waer op de selve
+suppliant antwoirden het en es geen noot want myn en
+staet gheen onleede aen mettien nam de voergenoemden
+suppliant den pot metten bier ende woude zynder huysvrouwe
+te drincken geven die aldaer by hem gecomen was
+om hem te haelen alsoe zy verstaen hadde dat hy
+woirden tegen eenige gecregen hadde ende de voers
+peeter nam voir hem dat de voergenoemden suppliant hem metten
+potte werpen wouden seggende totten suppliant ende swoer
+by de macht soude ghy my met den pot worpen
+ende metten selven woirden soe stack de selve peter
+met eenen opsteker naden selven suppliant ende geraecte
+hem op zyn scouder doer zynen rock maer en quetste
+hem nyet alsoe den selven opsteker egheenen poent
+en hadde de voergenoemden suppliant ziende dat den selven
+peetre hem geerich was ende sonder twyfel van levende
+lyf ter doot gebracht soude hebben indien hy hadde
+geconnen is verhyt van woede gewoerden ende metter selver
+hitte nam den voerscreven suppliant zynen opsteker ende stack
+den selven peeter eenen steeck in zynen slincken arm als
+dat hy bloede ende doen her stark de selve suppliant
+ende geraecte noch den selven peeter omtrent zynen
+herten van welcken quetsueren de voerscreven peter cort
+daer d nae quam van levende lyve ter doot tercanse
+van welcken feyt ende dootslacht de voern suppliant
+hoewel de hy pays ende satisfactie gedaen heeft der
+geinteresseerde partien beduchtende rigeur van iusticie
+es hem geabsenteert vuyt onse landen vant brabant
+hertochdom van brabant aldaer hy nyet soude
+dorren wederom comen keeren hanteren noch converseren
+zoe verre onsen gratie ende genade hier op verleent ende
+gedeylt en wordde alsoe hy seeght ons omme deselve
+zeer oetmoedeic biddende got eyst dat wy de saecken
+voer screven overgemerct den selven godenaert van cottem
+suppliant genegen wesende tot zynder bede ende supplianticatie
+ende willende hem in dit stuck gracie ende genade boirden?
+ende prefereren voer rigeur van iusticie zunderlinge tot
+desen onsen blyder incompst in ons stadt van antwerpen
+hebben inden gevallen als voven vergeven quytgescolden
+ende geremitteert vergeven schelden quyt ende remitteren
+vuyt onser sunderlinge gracie medts desen onsen brieve tfait ende
+dootsclacht boven verclaert mistsgaders allen peynen
+ende? bruycken corporelle ende criminelle daer inne hy
+vuyt cansen van dien mit datter aencleeft feyten ons
+ende iusticie mesdaen ende mesbruyct mach hebben
+ende hebben hem als te desen wedergestelt ende gerestitueert
+stellen weder ende restitueren midts desen onsen voerscreven brieve
+tot zynder goede fame name ende geruchte in onsen voern
+landen ende hertochdom van brabant ende allen anderen onsen
+landen ende heerlicheden ende tot zynen onverbuerden goeden
+indien hy enige heeft gelyck ende in alder manieren als
+hy was voer die toecompste vanden dootslacht voerscreven
+imponerende hier op eeuwich zwigen ende scilencie onsen procureur
+generael van brabant ende allen anderen onsen rechteren iusticieren
+ende officieren wyen zy zyn satisfactie ende beternisse
+eerst ende voir alle werck gedaen der geinteresseerde partyen
+indien die noch nyet gedaen en zy ende eenige daer toe
+dient civilick alleenlyck behoudelycken oick dat de
+voirnoemdesuppliant gehouden sal zyn den voerscreven dootslach civilick
+tegens ons te beteren nae gelegentheyt vande saken
+ende de faculteyt van zynen goeden ter ordonnancie ende taxatie
+van onsen lieven ende getrouwen die conchelier ende
+luyden van onsen rade in brabant die wy daer toe
+committeren ontbieden daer om ende bevelen den selven
+van onsen rade in brabant dat voer hemlieden geroupen
+die ghenen dier behoeren geroupen te zynen zy procederen
+wel ende duechdelyc ter verifficatie ende interinemente
+van desen voerscreven brieve nae hueren vorme ende inhouden
+ende ter taxacie vanden voirnoemdecivile boete ende dat
+gedaen ende de selve civile boete getaxeert betaelt
+ende volcomen zynde in handen vanden ghenen van onsen
+ontfangers oft anderen onsen officier dient behoeren
+sal die daer van gehouden sal wesen rekeninge bewys
+ende relcka te doene tonsen proffyte metten anderen
+penningen van zynen ontfange zy onsen drossat van
+brabant ende allen anderen onsen ende der smaelre heren
+rechteren iusticieren ende officieren tegenwoirdich ende
+toecomende dient dit aengaen ofte aenroeren sal
+moigen? hueren stedehouderen ende eenyegelyck van hen
+by sonder zoe hem toebehoeren sal doen laten ende
+gedoogen den voern godenaert van cottem suppliantiant
+van desen voerscreven tegewoerdiger gracie remissie ende
+pardoene ende van alden inhouden van desen inder voegen
+ende manieren voeren verhaelt rustelic vredelick volcommelic
+ende eeuwelic genyeten ende gebruycken zonder hem
+te doen oft te laten geschien nu noch in toecomende
+tyden eenich hinder stoot letsel ofte moyenisse aen
+lyve noch aen goeden ter contrarien in eeniger manieren
+maer indien zyn lyf oft eenige van zynen voerscreven
+onverbuerden goeden zo voerscreven es daer omme namaels
+gevangen gearresteert ofte becommert waeren dat
+zy die stellen ende setten oft doen stellen ende setten
+terstont ende zonder vertreck tot geheele en volcoome deliverancie
+want ons alsoe gelieft ende ten eynde dat dit goet
+vast ende gestadich blyven tot eeuwigen dagen soe hebben
+wy den zegel daervan onse heere ende grootvader die
+$$ ende wy duerende den tyt van onser ombejaertheden
+gebruyckt hebben hier aen doen hangen behoudelycken
+in anderen saecken ons recht en eenyegelycken tzynen
+in allen gegeven in onsen voirnoemdestat van antwerpen
+in de maent van februario int jaer onsser heeren duysent
+vyfhondert ende veerthiene . aldus stont gescreven
+boven opte plycke by mijnen heere den prince in
+zynen rade ende geteekent haneton ende noch
+visa
+gecollationeert ende bevonden accorderen
+metten originalen by my
+xxx handtekening [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "approximately 2.5 years ago from the document date",
+  "persons": [
+    {
+      "firstname": "godenaert",
+      "lastname": "van cottem",
+      "role": "suppliant",
+      "function": "applicant for remission"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "unknown",
+      "role": "opponent",
+      "function": "involved in the conflict"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Godenaert van cottem applies for remission for a conflict with Peeter that occurred approximately 2.5 years ago. They were playing a game and a dispute arose about a bet. Peeter threatened Godenaert and injured him with a stabbing tool. Godenaert, fearing retribution, left the country. Now, he returns to ask for remission and pardon.",
+    "fr": "Godenaert van cottem demande la rémission d'un conflit avec Peeter il y a environ 2,5 ans. Ils jouaient à un jeu et un différend est survenu concernant un pari. Peeter a menacé Godenaert et l'a blessé avec un outil pointu. Godenaert, craignant des représailles, a quitté le pays. Désormais, il revient demander la rémission et le pardon.",
+    "nl": "Godenaert van cottem vraagt om vergeving voor een conflict met Peeter dat ongeveer 2,5 jaar geleden plaatsvond. Ze speelden een spel en er ontstond een meningsverschil over een weddenschap. Peeter bedreigde Godenaert en verwondde hem met een stootwapen. Godenaert, bang voor represailles, verliet het land. Nu keert hij terug om vergeving te vragen.",
+    "de": "Godenaert van cottem beantragt eine Begnadigung für einen Konflikt mit Peeter, der etwa 2,5 Jahre zurückliegt. Sie spielten ein Spiel und es entstand ein Streit über einen Einsatz. Peeter bedrohte Godenaert und verletzte ihn mit einem Stichwerkzeug. Godenaert, ängstlich vor Repressalien, verließ das Land. Jetzt kehrt er zurück, um Begnadigung und Vergebung zu bitten."
+  }
+}
+```

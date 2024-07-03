@@ -1,0 +1,216 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te weeten allen tegenwoirdich ende
+toecommende alsoe inde compste van onsen lieven
+ende beminden soene den prince van spaengien in
+ons land van herwaerts over jan van kelfs laboreer
+tot rotselaer heeft met huysvrouwe ende kinderen
+denselven ons selven grepresenteert heeft syne
+suplicatie versuekende byder selver gracie remissie
+ende pardoen vanden dootslach daer inne
+gementioneert te wetene dat geleden van in
+september lestleden hebbende syne beesten inde
+weyde gedreven commen is tot rotselaer byden
+anthuens ende siende daer voer de venstere vanden
+marten staende peeteren de keppere op straete
+seyde in ge$$chte maect u van dair daerop deselven
+peeter straffelyc antwoirde seggende waer u broe$$ broer?
+by u nyet ghy en soudet nyet dorren d$$cken ende
+tselve hoorende de supliant dat hy hem staerde
+seyde peeter al segge ick sulcke woerden ick en
+hebber geen aerch inne dan begeerde te wetene
+wye ghy waert leggende soe syn hant opde
+erm vanden selven peeteren weder verhalende
+daer egeen erch inne te hebbene dien nyet tegen
+staende seyde dieselven peeter even straffelyc wat
+hebdy my taenveerdene gaet by u wyff thuys
+ende seert u wyff ende supliant hoorende dat hy
+hem noch meer stoorde seyde gaet ende seertse
+selve daerop dieselve peeter antwoirde wat
+soudick in u huys gaen ghy sout seggen dat ick u
+gelt genomen hadde hem tselve seggende in
+verwyte om dat den supliant te voren in syn huys
+seker gelt genomen was seggende daertoe ick
+soude op u vleesch slaen al esser u bruer noch eens ende
+dat de supliant seyde myn bruer en esser nyet maer
+soudy my slaen ick soude my dorren weeren ende
+soe tsamen nae huys gaende want sy eenen wech
+inne gaen moesten heeft die selve peeter den supliant
+veele injurien opgeseet ende onder den anderen
+ghy conte ghy en sout u nyet dorren weeren ende
+tycht eenen yegelycken u gelt ane dwelck nyet
+en is ende tselve de supliant hoorende ende dat
+hy van injurien ende qualyc te spreken nyet en
+cesseerde hebbende eenen stuynstaeck in syn
+hant seyde totten selven peetere draeghde ghy u
+ane dats alle dage te doene gevende soe den $$
+peeteren twee off drye slagen op syn hooft met welcken
+slagen die voirs. peeter ter eerden gevallen is ende
+opgehaven synde is geleyt ten huyse peeters van
+kelfs aldaer hy binnen vyf dagen daer nae van lyve
+ter doot gecommen is dwelck den supliant vuyt gronde
+zyns herten leet is ende hebbende tvoirs. feyt
+toecomen ende gebuert is als voirs. is by qualyc spreken
+ende groote injurien des voirs. aflivigen hy soude
+hem nochtans die die selve supliant ontsiende rigeur
+van iusticie nyet dorren houden binnen onsen lande
+maer mach hem houden in abstracten? plaetsen ten sy
+dat onse graacie ende genade hem hier op verleent wordde
+ons daer inne seer oitmoedelyc biddende ende onse
+voirs. soene gerepresenteert hebbende de voirs. suplicacie
+ons op dinhouden van dien te useren van onse gewoenllycke
+gaacie ende genade wy aensthods nemende op de toe
+compste vanden voirn. feyte ende dootslach ende ter
+begeerte van ons voirs. soene willende in syn $$
+ende ter consideratie van syne voirs. compste deselven
+den supliant prefereren gracie ende genade voir rigeur van
+justicie hebben inden gevalle als boven vergeven
+geremitteert ende quitgescholden remitteren ende schelden
+quite vuyt onse sunderlinge gracie by desen tfeyt ende doot
+slach boven verclaert mitsgaders oick alle peinen ende amenden
+corporelle en criminelle daer inne hy hem ondanks
+ende vuyt saken van tgene des voirs. es tegens ons
+onse hoocheeyt ende iusticie eenichszins mach hebben
+ontgaen ende hebben hem dien aengaende gerestitueert
+ende gestelt restitueren ende stellen by dese tot syn goede
+fame ende name in onsen lande ende hertochdomme
+van brabant ende van over$$ ende allen anderen onsen
+landen ende heerlichheden ende tot synen ongeconfisqueerden
+goeden indien hy eenige heeft gelyc als hy was voirden
+voirs. dootslach imponerende hierop een eeuwich
+swygen ons procureur generael ende alle anderen onsen
+iusticieren ende officieren onsser voirs. lants van brabant
+wie sy syn satisfactie ende beteringe ierst ende alle
+alvooren gedaen der partyen geiteresseert indien hy
+die noch nyet gedaen en waere civiele alleene
+behoudelyc nochtans dat de voirn. supliant gehouden
+sal syn tselve feyt tegens ons te beteren civiele
+naer die gelenty gelegentheyt vander mesdaet
+faculteyt van synen goeden ende onser ordonancien daerop
+gemaect ende oyck te betaelen die redelycken costen
+van iusticie indien eenig daeromme gedaen ende naergevolght
+syn ter taxatie ende arbiterscape van onsen lieven ende
+getrouwen den cancellier enden lieden van onen rade in
+brabant die wij$ daertoe committeren ontbieden daeromme
+ende bevelen den voirs. van onsen rade in brabant dat
+voir henluiden geroupen diegene die daeromme
+sullen behoiren geroupen te syne sy procederen
+wel ende duechdelyc totter verificatie ende
+interinnemente van desen onsen tegenwoirdigen brieve
+naer huere vorme ende inhouden welck interinemente
+de selve supliant schuldich sal syn te versuecken
+by onsen voirs. rade binnen eenen halven jaere ....
+naer date van desen opde peyne te verbueren deffect
+$$ $$ ende dat gedaen ende de voirs. amende civile
+ende costen van iusticie getaxeert ende betaelt synde
+$$ alst behoirt van welcker amende onsen ontfang
+ontfanger vanden exployten van onsen voirs. rade
+en hieraf verantwoirdt
+byz ontfange $$ explo$$ten’
+van brabant oft andere onse officier dient behoiren sal
+gehouden wert ontfanck te maken rekeninge bewys
+ende reliqua te doene tot onsen prouffyte metten
+anderen peinen van synen ontfange sy onse drossaert
+van brabant ende alle andere onse ende onser
+vassalen oft smaelre heeren iusticien ende
+officieren voirs. lants van brabant ende van ondersaten?
+hoedanige die syn oft wesen moegen tegenwoirdi...
+ende toecommende hueren stedehouderen ende aengaende mach
+den voirs. supliant van deser onser iegenwoirdiger
+gracien ende quytsceldinge inder manieren als
+boven peyselyck volcoomelyck ende tot eeuwigen dagen
+doen ende laten genyeten ende gebruycken sonder hem te
+doene noch te laten geschien nu noch in toecomende
+in eeniger manieren maer indien syn lyff oft
+eenige van synen ongeconfiqueerden goeden waeren
+daeromme gevangen becommert oft gearresteert dat
+dat sy die terstont stellen oft doen stellen tot volcoomen
+delivrancie want ons ons alsoe belieft ende ten
+eynde dat dit goet vast ende gestadich blyve tot
+eeuwigen dagen soe hebben wy onsen segele hier
+aen doen hangen behoudelyc in anderen saken
+onsser recht ende eenyegelyc tzyne in allen gegeven
+in onser stadt van bruessele in de maent van
+may int jaers ons heeren duyesent vyfhondert ende
+xlix 1549 van onsen keyserycke txxxe ende van onsen
+rycken van castille ende andere txxxiiijte
+aldus gescreven op de plycke byden keyser
+ende geteekent verreycken / visa $$$
+gecollacioneert en bevonden accorderend
+met ... originalen by mij [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "September, last year",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "kelfs",
+      "role": "supplicant",
+      "function": "prince of spain's son"
+    },
+    {
+      "firstname": "peeter",
+      "lastname": "keppere",
+      "role": "opponent",
+      "function": "unknown"
+    }
+  ],
+  "locations": [
+    {
+      "name": "rotselaer",
+      "loctype": "unknown"
+    }
+  ],
+  "summary": {
+    "en": "The prince of Spain's son, Jan Kelfs, supplicates for remission and pardon for a homicide mentioned in his petition. The homicide occurred when his beasts were driven in a meadow near Rotselaer and Peter Keppere, who was standing in front of the window of Martin's, spoke rudely to him. A fight ensued, and Peter was killed. Jan Kelfs requests grace and favor, and the case is referred to the Council for further proceedings.",
+    "fr": "Le fils du prince d'Espagne, Jan Kelfs, demande la rémission et le pardon pour un homicide mentionné dans sa supplique. L'homicide s'est produit lorsque son bétail était conduit dans un pré près de Rotselaer et que Peter Keppere, qui se tenait devant la fenêtre de Martin, lui a parlé grossièrement. Un combat a éclaté et Peter a été tué. Jan Kelfs demande grâce et faveur, et l'affaire est renvoyée devant le Conseil pour la suite des procédures.",
+    "nl": "De zoon van de prins van Spanje, Jan Kelfs, vraagt om vergeving en gratie voor een moord die in zijn verzoek wordt vermeld. De moord vond plaats toen zijn vee werd gedreven op een weiland nabij Rotselaer en Peter Keppere, die voor het raam van Martin stond, op ruwe wijze tegen hem sprak. Een gevecht ontstond en Peter werd gedood. Jan Kelfs vraagt om genade en gunst, en het geval wordt voorgelegd aan de Raad voor verdere behandeling.",
+    "de": "Der Sohn des spanischen Prinzen, Jan Kelfs, beantragt die Vergebung und das Gnadengesuch für eine Ermordung, die in seiner Bittschrift erwähnt wird. Der Mord ereignete sich, als sein Vieh auf einer Weide in der Nähe von Rotselaer getrieben wurde und Peter Keppere, der vor dem Fenster von Martin stand, unhöflich zu ihm sprach. Ein Kampf brach aus und Peter wurde getötet. Jan Kelfs bittet um Gnade und Gunst und der Fall wird dem Rat zur weiteren Behandlung vorgelegt."
+  }
+}
+```

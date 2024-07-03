@@ -1,0 +1,282 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips bijder gracien godts coninck. van castillien van leon van arragon
+van beyde sicillien van jerusalem van portugael etc.
+allen den genen die dese jegenwoordige sullen sien oft
+hooren lesen saluijt doen te weten dat wij hebben
+ontfangen doitmoedige supplicatie van jan schellemans
+geboren van grimbergen inhoudende hoe dat hij opden
+vijffden dach der loopenden maent van meij lestleden bij deze
+onsen $$$ onder wie bevinden den
+schouteth onser stadt antwerpen is geapprehendeert
+ende ooick capitalijck ter hooger vierschaere aldaer
+opden thientsen daer naer beticht ende aengesproocken
+als dat hij op den voorz. vijffden meij hem soude hebben
+vervoordelt met sijne complicen naementlijck
+nicolaes kiekenbos ende passchier rogier grooten
+moetwil te bedrijven soo opde baen van hoboken
+als opden steenwech van berchem / stroopende ende
+$$$ de passagiers : item dat hij hem alnoch
+soude hebben vervoordert ten voors. tijde met een
+gelaeden roer te dreijgen te schieten lanx de venster
+vande herberge genaempt de croone / gestaen opden
+voors. steenwech ende daer naer lanx de valdeur
+vanden voorz. huijse te stooten opde deure naer dijen
+hij op sijn roer noch eenen cogel hadden laeten loopen
+item dat hij soude hebben geseijt schietter eenen om
+verre ick salder oock eenen om verre schieten oft
+diergelijcke woorden in substantie ende dat daer over
+soude wesen gevolght den voorz. passchier rogier
+den welcken heeft doorschoten den persoon van
+gommaer van soost. alle de welcke feijten de
+suppliant ten voorz. daege antwoordende heeft
+ontkent gehadt ende tot den dijen voor sijne
+defensien geposeert ende verbalijck doen verhaelen
+vele contrarie feijten ende namentlijck dat hij met
+sijne huijsvrouwe ten voorz. tijde is genoijt geweest
+tot hoboken opde kermisse bij eenige sijne vrienden
+aldaer / ende dat hij bij occasie onder wegen maer en
+is gecomen int geselschap vanden voorz. nicolaes
+kiekenbos, ende passchier rogier die hem seijden
+dat hij nijet voorder en soude gaen midts dijen datter
+een stercke partije soldaten vanden vijandt opden
+wech was waer over hij met hen achterwaerts
+omdraeijende ontrent den avont is gecomen opden
+voorz. steenwech van berhem alwaer den
+voorz. passchier rogier met sijn roer heeft doot=
+=geschoten den voorz. gommaer van soost sonder
+dat hij suppliant daer toe hantdadich is geweest
+in eeniger manieren maer is ten selven tijde ende $$
+het ongeluck achter inden hoff geschiede geweest
+voor aende deure sijnde van voorz. schouteth ten
+voorz. daege op sijne geposeerde feijten gewesen
+ten thoon ende heeft voorts gesustineert dat de
+suppliant soude worden gebrocht ter scherpen
+examinatie waaroppe aenden selven suppliant
+is geconsenteert sijnen contrarien $$$ $$$
+te mogen affleijden op $$$ middeler tijdt het
+versueck van scherper examinatie ende alhoewel
+hij principalijck wordt belast om dat hij geweest is
+inde compagnie vanden voorz. passchier rogier
+het voorz. ongeluck gecommitteert hebbende
+vreesende voor t rigeur van iustitien
+soo ist
+dat hij sijnen toevlucht naempt tot ons desen
+aengemerckt ende besondere oock geconsidereert
+dat den suppliant is een man staende tot goeden naeme
+ende faem, die voorz. desen noijdt over eenige quade
+feijten en is geweest in handen van justitie maer
+wel ter contrarien tonsen dienste eenige jaeren
+gedient hebbende als bootsgesel bij den franschen
+vijandt is gevangen geworden te weten inden
+slach van rockroeij alswanneer hij seven maenden
+lanck in groote miserie gevangen gestelt geweest
+hebbende den suppliant voorts altijds hem tevreden
+gehouden gaende op sijnen vijandt met tgene hem
+de huijslieden hebben toegevueght sonder oock
+de passagiers te trauaillieren oorsaeche dat den
+suppliant ons naermaels ter saecken als voore nijet
+gemolesteert te worden hem is hoorende tot ons
+biddende in alder oitmoet onse oepene brieven van
+remis daer toe dienende waeromme soo ist dat
+wij desen aengesien hier op eerst gehadt d’advies van
+onsen lieven ende wel beminden die schouteth onser
+stadt antwerpen genegen wesende ter beden des
+voorz. suppliants willende hem in dit stuck prefereren
+gratie ende misericordie voor strangheijt ende
+rigueur van rechte hebben den selven suppliant inden
+gevalle als boven quijtgeschouwen ende vergeven
+schellen quijt ende vergeven vuijt onse sunderlinge
+gratie bij desen onsen brieven tfeijt ende ongeval
+boven geroert midtsgaders alle breucken corporele
+ende criminele daer inne hij ter causen voorschreven
+midtsgaeders dat daeraene cleven mach tegens ons
+ende justitie misdaen ende misbruijkt mach hebben
+welcken aengaende hebben hem wedergestelt ende
+gerestitueert stellen weder ende restitueren tot sijnen
+goede naem fame ende geruchte in onsen voorz.
+lande van brabant ende in allen anderen onsen landen
+ende heerlijckheden midtsgaders tot sijne onverbeurde goeden
+indijen hij eenige onder ons heeft ghelijck ende in
+alder manieren soo hij was voorde toecompste
+vanden voorz. feijte imponerende hierop een
+eeuwich geswijch onsen lieven ende getrouwen
+procureur generael van brabant onsen drossaert
+van brabant schouteth ende onderschouteth
+van onse stadt antwerpen ende allen anderen onsen
+ende onser vassallen oft der smalre heeren richteren
+justicieren officieren ende dienaeren wie sij sijn satisfactie
+ende beternissen ierst ende voor al gedaen der partijen
+geinteresseerde indijen die noch nijet gedaen en is, ende
+eenige daer toe staet civilijck alleenelijck ende de
+saecke sulcx is verheijsschende behoudelijck dat den
+voorz. suppliant gehouden sal sijn tvoorz. feijt
+tegens ons te beteren civilijck naer gelegentheijt
+van het misdaet ende facultijt van sijne goeden ende
+oock te refunderen te betaelen die redelijcke costen
+van justitie die ter causen van desen gedaen ofte
+naergevolght sijn aller ter tauxatie arbitrage
+ende moderatie van onse lieven ende getrouwen
+cancellier ende raedtsluijden dat voor hun geroepen
+de gene die daeromme behooren geroepen te sijne
+sij procederen wel ende deuchdelijck ter verificatie
+ende interinement van desen onsen brieff naer
+sijne forme ende teneur ende ter tauxatie ende
+moderatie vande amende civile ende costen van
+justitie voorz. alsoo sij sullen bevinden te
+behooren welck interinement den suppliant
+gehouden sal sijn te versoecken ende hem in persoone
+te presenteren in onsen voorz. raede binnen sesse
+maenden naestcomende op pene van te verbeuren
+het effect vande selve onse brieven ende dat gedaen
+ende de voorz. amende civile ende costen van
+justitie getauxeert ende betaelt sijnde in handen
+vanden genen van onse ontfangers dijen dat behooren
+sal, den welcken gehouden wordt daeraff ontfanck
+te maecken rekeninge bewijs ende reliqua te
+doen tonsen proffijte mette andere penningen
+van sijnen ontfanck bij onsen voors. procureur
+generael van brabant schouteth
+van antwerpen ende alle onse rechteren justicieren
+officieren ende ondersaeten tegenwoordige ende
+toecomende dijen dat aengaen sal mogen heuren
+stedehoudere ende een jegelijck van hun besundere
+soo hun toebehooren sal doen laeten ende gedoogen
+den voorz. suppliant van dese onse tegenwoordige
+gratie remissie ende pardon, ende van alle d inne=
+=houden van deser inder vueghen ende manieren
+boven verhaelt peijsibel $$$ vredelijck ende
+volcomentlijck ten eeuwigen daege genieten
+ende gebruijcken sonder hem daer inne te doene
+oft te laeten ende geschieden nu oft in
+toecomende tijden eenigen hinder stoot letsel
+oft moijenisse aan lijff oft aan goeden ter contrarien
+maer indijen sijn lijff oft eenige van sijne goeden
+daeromme gearresteert becommert oft beleth
+waere dat hij die setten stellen doen setten oft stellen
+terstont ende sonder vertreck tot geheelder
+ende volcomender delivrancie want ons alsoo
+belieft nijettegenstaende dat voorz. ongeval niet en
+is overjaert ende onse ordonnantie desen aengaende
+ter contrarien die wij den voorz. suppliant
+niet en willen te prejudicieren maer hebben den selven
+desen aengaende midts der onnooselheijt ende vuijt
+andere redenen boven verhaelt vuijt onser sunder
+linge gratien hebben gederogeert ende derogeren bij
+desen de selve anderssints blijvende in haere macht
+cracht ende vigeur ende ten eijnde dat dit vast ende
+gestadich blijve tot eeuwigen daegen soo hebben wij
+onsen segel hier aen doen hangen behoudelijck
+in anderen dingen onsen rechte ende eenen ijegelijck
+anderen dessijns gegeven binnen onse stadt brussele
+in de maent van julij des jaers ons heeren sestien
+hondert sevenen veertich ende van onsen rijcke
+het sessentwintichsten. [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "May 5th, 1647",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "schellemans",
+      "role": "suppliant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "grimbergen",
+      "lastname": "geboren van",
+      "role": "birthplace of suppliant",
+      "function": "location"
+    },
+    {
+      "firstname": "schouteth",
+      "lastname": "onsener stadt antwerpen",
+      "role": "accuser",
+      "function": "magistrate"
+    },
+    {
+      "firstname": "nicolaes",
+      "lastname": "kiekenbos",
+      "role": "accomplice",
+      "function": "citizen"
+    },
+    {
+      "firstname": "passchier",
+      "lastname": "rogier grooten moetwil",
+      "role": "accomplice",
+      "function": "citizen"
+    },
+    {
+      "firstname": "gommaer",
+      "lastname": "van soost",
+      "role": "victim",
+      "function": "citizen"
+    }
+  ],
+  "locations": [
+    {
+      "name": "hoboken",
+      "loctype": "parish"
+    },
+    {
+      "name": "berchem",
+      "loctype": "parish"
+    },
+    {
+      "name": "onsen stadt antwerpen",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Jan Schellemans, a citizen of Antwerp, pleads for remission of his crimes committed on May 5th, 1647. He was accused by the schout (magistrate) of Antwerp of attacking and robbing passengers with his accomplices Nicolaes Kiekenbos and Passchier Rogier Grooten Moetwil, and killing Gommaer van Soost. Jan Schellemans denies the accusations and states that he was with his wife and friends at a fair in Hoboken and accidentally encountered his accomplices. He fears the rigor of justice and seeks mercy from the court.",
+    "fr": "Jan Schellemans, citoyen d'Anvers, demande la rémission de ses crimes commis le 5 mai 1647. Il a été accusé par le schout (magistrat) d'Anvers d'avoir attaqué et dépouillé des passagers avec ses complices Nicolaes Kiekenbos et Passchier Rogier Grooten Moetwil, et tué Gommaer van Soost. Jan Schellemans nie les accusations et déclare qu'il était avec sa femme et des amis à une fête à Hoboken et a rencontré accidentellement ses complices. Il craint la rigueur de la justice et cherche la miséricorde du tribunal.",
+    "nl": "Jan Schellemans, burger van Antwerpen, vraagt om vergeving van zijn misdaden gepleegd op 5 mei 1647. Hij werd beschuldigd door de schout (magistraat) van Antwerpen van aanvallen en diefstallen van passagiers met zijn medeplichtigen Nicolaes Kiekenbos en Passchier Rogier Grooten Moetwil en het doden van Gommaer van Soost. Jan Schellemans ontkent de beschuldigingen en stelt dat hij met zijn vrouw en vrienden op de kermis in Hoboken was en toevallig zijn medeplichtigen ontmoette. Hij vreest de strenge justitie en vraagt om genade van het gerecht.",
+    "de": "Jan Schellemans, Bürger von Antwerpen, bittet um Absolution seiner Verbrechen, die am 5. Mai 1647 begangen wurden. Er wurde vom Schout (Magistrat) von Antwerpen beschuldigt, Passagiere mit seinen Komplizen Nicolaes Kiekenbos und Passchier Rogier Grooten Moetwil angegriffen und ausgeraubt und Gommaer van Soost getötet zu haben. Jan Schellemans bestreitet die Anschuldigungen und behauptet, er sei mit seiner Frau und Freunden auf der Kirmes in Hoboken gewesen und habe seine Komplizen zufällig getroffen. Er fürchtet die Strenge der Justiz und bittet um Gnade des Gerichts."
+  }
+}
+```

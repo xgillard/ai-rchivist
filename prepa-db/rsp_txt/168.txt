@@ -1,0 +1,281 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslage voer janne joes
+kaerle etc. doen te weten allen iegenwoirdich ende
+toecoomende dat wy ontfaen hebben die oitmoidige supplicatie
+van jan joos houtbrekere ingeseten poirte r onser stadt van
+antwerpen inhoudende hoe dat des donderdaechs acht
+dagen in meye lestleden nae dat hy suppliant hadde inde
+eycke in onse voers. stadt met goeden geselscape
+geteert ende goede chiere gemaect tot omtrent thien
+uuyren inden avont ende van daer gegaen met jooss
+vanden weru een vanden voers. geselscape oyc houtbrekere
+om den selven tot zynen huyse te leydene is hy suppliant
+omtrent elf uren met zynen knechte dier tyt genaempt
+paesschier maerschalck die welcke om hem gecomen
+was gesceyden vuyten huyse vanden voers. joose ende
+thuyswaert gegaen nemende zynen wech voirby eene
+taverne genaempt den grooten crauwel aldair hy suppliant
+begheerde noch een pinte biers te drincken ende heeft
+tot dien eynde geclopt zoe dat hy innegelaten
+was by henrick bouwens zone vander weerdinnen
+ende vant den voers. hendricke aldaer sitten drinckende
+inder ceukene met peter aerts ende eenen meisken
+geheeten tanneken de welcke was geheeten de
+bruyt staende in geloften van beslapen trouwen met
+henricke voers. ende aldair wat tyts gedroncken
+hebbende de selve heyndryck voers. coomende totten suppliant
+ende de voern. peter aerts scrynmaker naer hem begheerde
+mitten suppliant met teerlingen te spelen tdelck twelck hy dede
+ende speelden zoe lange dat hy suppliant alle zyn
+payement of zilver gelt dat hy by hem hadde verspeelde ende waes
+tot omtent achthien oft negenthien stuvers toe
+ende omtrent den eynde vanden spele begheerde hy
+suppliant aenden voers. henricke een stuck gouts gewisselt
+oft zesse of acht stuvers daerop geleent te
+hebben ende tspel gelaten zynde heeft de zelve
+suppliant noch gedroncken mitten voers. geselscip tot
+eenen gelage toe van eenen stooter ende na dien hy
+tgelach hadde doen rekenen seyde dat men hem zyn gelage
+soude willen borghen begherende alsoe van daer mitten
+voers. paesschier zyn knecht te sceyden ende thuyswaert
+te gane dwelck aenhoirende de voers. heyndrick heeft
+zeere straffelycken tot hem suppliant geseet gehadt jan
+joos betaelt u gelach daerop hy suppliant antworde in
+effecte ic en cans u nyet betalen ghy weet wel dat
+ic geen payement en hebbe ic salt u morgen oft overmorgen
+wel betalen waerop de voers. heyndryc seyde ende riep tot
+zynder moeder die welcke boven in een camer was moeder
+jan joos wilt met zyner gelage gaen zeyt ghy daermede
+te vreden daer op die moeder wederomme riep ende antworde
+neeinck heyne doeghet hem betalen hy is my meer
+sculdich daer of ic nyet betaelt en ben souden wy alsoe
+sitten waken en braken ende dan nyet betaelt wesen daerop
+de voern. suppliant antworde soude ic emmers moeten betalen
+nu sal ic gaen op myn poirters recht ende besien wien? my
+sal doen betalen vuyt welcker antworden de voern. henrick
+meer geanimeert wesende is terstont met zynen sweerde
+in zyn hant vuyter voers. cuekenen ende voerts ter doren
+ute op de strate haestelinge gegaen seggende ende
+roupende tot hem suppliant compter vuyte hier aen desen
+hoeck sult ghy betalen eer ghy vuyt of verby gaen sult
+mits den welcken de voers. paesschier beduchtende dat daer
+vuyt eenich quaet coomen soude heeft eenen stooter vuyt
+zynen buydel oft tessche getrocken ende op de tafele
+inden voers. cuekenen voerden voers. peteren aerts geworpen
+seggende daer is tgelach voere janne joos welcken stater
+de voers. peeter aerts heeft aenveert seggende ende roupende
+totten voers. henricke heyndrick compt ende syt te
+vreden tgelach is betaelt ende alsoe is de voers.
+henrick wederomme doer de zydore in huys ende voerts
+inde ceukene byden voers. peter aerts gecoomen ende hy
+suppliant voere vuyten huyse gegaen tot omme den hoeck
+nyemande opder straten vindende vragende heyne waer
+zyt ghy nu ghy wout vlens vlues vut coomen soudt
+ghy nu wel willen of dorren vuyt coomen daer op de voers.
+henrick van binnen den huyse dat hoirende antwoirde zeggende
+waeromme soude ic nu vuytgaen u gelach is betaelt
+sonder ander oft meer ombescheyden oft twistige woirden
+doen ter tyt tegen malcanderen te hebben nu eist dat
+de voers. paesschier de voers. stooter alsoe betaelt
+hebbende quan quam buten der voers. cuekenen tot inden ganck
+ende van daer tot buyten der doren vanden huyse om den suppliant
+zynen meester te volgen ende voirts mit hem thuyswaerts
+te gane ende alsoe hy suppliant buyten den huyse op wegh
+was thuyswaert te gaen meynende dat de voers. paesschier
+hem gevolgt hadde de selve paesschier gehoirt
+hebbende de antworde die de voers. henrick ter stont
+gaf op de vrage hem byden voers. suppliant vuytgaende als
+voeren gedaen ende sonder bevel wete ende in absentie vanden selven
+latende hem duncken dat den voers. heyndric anders
+geantworde hadde dan hem betaemptde heeft terstont
+van nyeuws hooge ende kivelycke woorden op ende tegen den
+voers. henricke ende de voers. heyndric wederomme tot
+den voers. paesschiere gesproken gehadt midts den welcken
+de voers. henrick met zynen bloten sweerde is gecoomen
+vuyter cueckenen inden ganck tegen den voers. paeschiere
+die hoirden de voers. suppliant van buyten huyse wesende
+heeft hem omgekeert ende siende paesschieren
+voor de deure zijn lanck zweert uter sceyden trecken
+riep van buyten met eenen getrocken opsteckende in zyn
+hant seggende tot den voers. paesschieren hoeresoen wat
+wildy? maken ende met dien is de selve paesschier
+alsoe in de dore gescoten met zynen blote sweerde
+in de handt in sulker vuegen dat de selve henrick
+gelyc hy suppliant naemaels heeft verstaen is ter stont
+byden voers. paesschieren in syn borst gesteken geweest
+zeer diepe dit gerucht hoirenden de voers. peeter
+aerts is vuyter cuekenen inden ganck gecoomen tegen
+den voers. paesschier zijn bloot lang zweert in syn hant
+hebbende grypende van voeren den selven paesschier met beyde
+synen armen vaste houdende want hy hem beduchte vanden
+voers. suppliant met zijn opstekere gesteken te wordden ende
+bynnen middelen tyde is de voers. henrick gecoomen
+tot inder ceukenen sonder wete desselfs peters aerts
+soe dat midts der verbaestheyt vanden blooten zweerde
+heeft deselve peter aerts hel paesschierren tzweert
+inde hant hebbende gedrongen nader voerdoeren vanden huyse
+soe dat de selvesuppliant ersselde tot vuyten huyse
+ende waeren de suppliant ende past paesschier tsamen vanden
+selven peeter aerts vuyten huyse gedrongen ende de
+doere toegesloten van welcke wonde ende quetsure
+die de voers. heynderick van paesschier ontfangen
+hadde hy terstont inder voers. cuekenen doot gevonden
+was ende nae desen de voirn. supliant nyet wetende datter
+yement gequetst ware daerof hy wel te vreden was is
+mitten voers. paesschier thyuswaert gegaen aldaer
+de voers. paesschier hem suppliant gethoent heeft zyn sweert
+zeere bebloet hem beduchtende ende zeggende tot den supliant
+naer duncken vanden voern. paesschier tselve sweert zeen
+diepe geweest zijnde overmidts welcken dootslach
+onse mercgreve van antworpen heeft zyn dieneers
+in supliants goet doen leggen ende doen invetorieren ende laten
+verborgen soe dat hy suppliant vuyt vreese van justicie
+heeft hem gesalmeert ende gehouden optgewyde
+ende en soude nyet hanteren noch converseren
+in onsen lande van brabant en zy dat onse gracie hem
+hierop verleent en wordde alsoe hy seet ons
+oitmoidelyck daer omme biddenen soe eest dat wy desen aengesien
+den voern. jan joos suppliant genegen wesende tot zyne
+bede ende supplicatie ende willende hem in desen gratie ende
+genade prefereren voor rigeur van justicien hebben
+inden gevalle als boven vergeven quijtgescholden ende
+geremitteert vergeven scelden quyte ende remitteren
+zijkant: $$$
+vuyt onser zunderlynger gratien by desen tfeyt ende dootslach
+boven geruert mitdaders alle pene ende amende corporelle
+ende criminelle daer inne hy hem ontrents ende vuyt
+sooken van tgene des voers. is tegens ons onse hoocheyt ende
+justicie eenichsins mach hebben ontgaen ende hebben hem
+dyen aengaende gerestitueert restitueren ende stellen tot
+zyne goede fame ende name in onsen voers. lande van brabant
+ende allen anderen onsen landen ende heerlicheden zunderlinge
+in onse voers. stede van antwerpen ende tot zijn goeden
+noch ter tyt met geconfisqueert zynde zoe verre daet eenige
+waren gelyc hy was voer de toecompste vanden voers.
+dootslach imponerende hier op een eeuwich zwygen ende silenen
+onsen procureur generrael ende allen anderen onsen rechteren justicien
+ende officieren ons voers. lants van brabant hoedanige die zyn
+of wesen mogen satiffactie nochtans ierst ende alvooren
+gedaen der partyen geinteresseert soe verre daer eenige
+toe stonde ende die noch nyet gedaen en ware cunlyc attestllyc
+behoudelyc nochtans dat hy gehouden wert den voers. dootslach
+tegens ons cunlyc te beteren naer gelegentheyt der
+misdaet ende faculteyt van zynen goeden ende oic betalende?
+de redelycken costen van jusicie daeromme gedaen ende
+naegevolgh$ $er taxatie ende arbiterscepe van onsen
+lieven ende getruwen den cancellier ende luden van onsen
+rade in brabant die wy daeromme commiteren ontbieden
+hieromme ende bevelen onsen cansellier ende luden van
+onsen voers. rade in brabant dat voor hen geroupen de
+gene die behoiren geroupen te zyne zy precederen wel ende
+deuchdelyc ter verificatie ende inter$$$ van desen intervenieren?
+ende ter taxatie vander voers. emmende cuule ende costen
+van justicie alst behoiren sal ende dat gedaen
+ende de selve amende cuule? ende costen van justicie
+getaxeert gearbitreert ende betaelt in handen van
+onsen officieren dient behoiren zal van welcke amende
+cuule den gene vanden selven onsen officieren dient
+aengaet gehouden wert ontfanc te maken rekeningen
+bewys ende reliqua te doen tot onsen prouffyte metten
+anderen penningen van zynen ontfange zy onsen drossaet
+van brabant meyer van laenen $$$$an van vruessele
+marcgreve van antwerpen ende alle anderen ende onsen
+vassalen of sinaelre heeren richteren justicieren ende
+officieren onss voers. landts van brabantende overmase
+hoedanich die zyn of wesen mogen tegenwoirdich ende
+toecoomende hueren stedehouderen ende elc van hen soe hen
+dat toebehoirt ende aengaen mach den voers. supliant
+van desen onser tegenwoirdicher gracien remissie pardoene
+inder manieren voerscreven peyselyc vulcomelyc ende tot
+eeuwigen dagen doen ende laten genyeten ende
+gebruycken sonder hem te doen noch te laten geschyen
+in leve noch in goede eenich hinder letsel of moynesse
+ter contrarien maer indien syn lyf of eenige van zynen
+ongeconfisquierden goeden waeren daeromme gevangen
+vecommert oft gearresteert dat zy die terstoen stellen
+oft doen stellen tot vulcoomen delivrance want ons alsoe
+gelieft ende ten eynde dat die goet vaste ende
+gestadich bleve tot eeuwigen dagen soe hebben wy
+onsen zegel hier aen doen hangen behouden ons in
+allen anderen saken onse recht ende een yegelyc des
+syns degenen in onse stede van bergen in henegauwe
+inde maent van julio int jaer ons heeren duyst
+vyfhondert ende twee twintich ende van onsen rycken
+te wetene vanden roomschen ende hongrien etc. tvierde ende
+van spaengnien etc. tzeveste aldus stont gescreven
+boven opte plycke byden keyser in zynen rade ende
+geteeken werde $ne ende noch visa
+gecollonneert met ende tegen
+die originiale brieven bij my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "Thursday, eight days in May last",
+  "persons": [
+    {
+      "firstname": "Jan",
+      "lastname": "Joos",
+      "role": "suppliant",
+      "function": "woodbreker"
+    },
+    {
+      "firstname": "Heyndrick",
+      "lastname": "Bouwens",
+      "role": "tavern keeper",
+      "function": "zone vander weerdinnen"
+    },
+    {
+      "firstname": "Heyndrick",
+      "lastname": "Aldaer",
+      "role": "father of the bride",
+      "function": "voers."
+    },
+    {
+      "firstname": "Peter",
+      "lastname": "Aerts",
+

@@ -1,0 +1,200 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te weten allen jegenwoirdich ende toecomende
+alzoe inde compste van onsen zeer lieven ende beminden zoene
+den prince van spangnen in onsen lande van herweerstovere
+laureys wouters geheeten die moeldere ingeseten van rethy den selven
+onsen zoene gepresenteert heeft zyne supplicatie versueckende byder
+selver gratie remissie ende pardoen vanden feyte ende dootslach daer
+inne gementioneert te wetene hoe dat alzoe hy suppliant opten
+xxien dach van octobri anno xvc achtenveertich tsavens omtrent den
+zesse uren is coutende geweest met twee meyskens op een velt
+aen een hecken oft veken staende tusschen jans van molle
+ende des vorsters van rethy zoe is aldaer gecomen ambrosius
+vloors anders geheeten proest nu overleden die duer tvoirs. veken
+oft hecken daer op hy suppliant lach passeren wilde dwelck hy
+suppliant nyet gedoogen en woude dit aenmerckende die voirs.
+overleden seyde tot hem suppliant dese oft gelycke woerden en
+zoudt ghy my nyet duerlaten waerop hy suppliant antwoerde
+zoude ick u moeten duerlaten dies hy overleden seyde jae
+waerom nyet het is eenen erffwech ende mitsdyen heeft die
+voirs. overleden hem suppliant met en vuyst voer zynen mont
+gestooten dat tvel affghinck ende voirts tselve veken open
+getrocken met forsse ende daer duer gepasseert dwelck siende
+deselve suppliant ende daer duer zeere vergrampt zynde heeft
+denselven overleden met eenen opstekere int voirs. hecke
+den steeck in zynen buyck gegeven tusschen zyn mannelyckheyt
+ende den navele ende is hem overleden metten selven -
+opstekere inde hant gevolght omtrent een halff roede lants
+seggende dese oft gelycke woerden ic zal u wel hebben weert
+u zonder dat hy suppliant hem nochtans yet meer mesdede doen
+hy overleden seyde tot hem suppliant dese oft gelycke woerden
+lauwereys hebbe ick u yet mesdaen dat bidde ick u om
+goidswille dat ghy my vergheeft nochtans hebdy my daer
+gedaen dat my de doot doen zal dwelck hy suppliant hoorende
+is van daer gescheyden ende die voirs. overleden is sanderdaighs
+gestorven tot grooten leetwesen vanden selven suppliant ende hoe
+wel dese overleden in zyn vuyterste hem suppliant vergeven
+heeft tvoirs. mesdaet ende begeert daeraff nemmermeer
+geen wrake te hebbene gelyck oick van gelycken gedaen
+hebben die kinderen desselffs overleden volgende de begeerte
+huers vaders ende daeraff laten zoenen zoe en zoude hy
+suppliant nochtans beduchtende riguer van justicien hem
+binnen dese onse landen nyet dorren vrydelyck houden maer
+moeten gaen dolen in vrempde contreyen tot zynen grooten
+verdriete hoewel hy noyt yet anders mesdaen en heeft
+weerdich van pugnitien oft reprehensien ten ware dat hem
+onse gratie ende genade hierop wordde verleent zoo hy seeght
+ons daerom oitmoedelyck biddende ende onse voirgenoempde
+zone ons gerepresenteert hebbende die voirs. supplicatie om
+op dinhouden van diere te useren van onse gewoenlycke
+gratie ende genade soe eest dat wy aenschouw nemende
+opte toecompste vanden voirgenoemde feyte ende dootslach ende ter
+begheerte van onsen voirs. zoene willende in zyn faveur ende
+ter consideratie van zyne voirs. compste in onsen voirgenoemde
+lande van herwertsover den voirs. laureyse wouters suppliant
+prefereren gratie ende genade voir strangheyt ende rigeur van
+rechte denselven suppliant hebben inden gevalle als boven
+quytgescholden ende vergeven schelden quyte ende vergeven
+vuytsunderlinger gratien by desen onsen brieve tfeyt ende ongeval
+boven geruert mitsgaders alle offentienende bruecken corporele
+ende criminele daer inne by hem overmits ende vuyt saken
+van tghene des voirs. is tegens ons onse hoicheyt ende justicie
+eenichssins mach hebben ontgaen ende mesdragen ende hebben
+hem dyen aengaende wedergestelt ende gerestitueert stellen
+weder ende restitueren tot zynen goeden name fame ende
+geruchte in onsen voirs. lande van brabant ende allen anderen
+onsen landen ende heerlicheyden ende tot zynen onverbuerden
+goeden indyen hy eenige onder ons heeft gelyck ende in alder
+manieren zoe hy was voir die toecompste vanden voirs. feyte
+imponerende hierop een eeuwich swygen onsen procureur generael in
+brabant ende allen anderen onsen justicieren ende officieren
+wye zy zyn satisfactie ende beternisse ierst ende voir al
+gedaen der partye geinteresseerde indyen die noch nyet gedaen
+en zy ende eenige daer toe staet civilyck alleenlyck behoudelyck
+dat de voirs. suppliant gehouden zal zyn tvoirs. feyt tegens ons te
+beteren civilyck nae die gelegentheyt vander mesdaet ende
+marge: en hier van ver$$
+byden ontfanger vanden
+exploicten
+faculteyt van zyne goeden met oick te betaelene die redelycke
+costen van justicien hieromme alreede gedaen ende te doene
+allet ter taxatie ende moderatie van onse zeer lieve ende getrouwe
+die cancellier ende luyden van onsen rade in brabant die wy
+daertoege committeert hebben ende committeren by desen ontbieden
+daerom ende bevelen denselven onsen cancellier ende raidsluyden
+dat voir henluyden geroepen die ghene die daerom sullen behoiren
+geroepen te zyne zy procederen wel ende duechdelyck ter
+verificatien ende interinemente van desen ende totter taxatie
+ende moderatie vande voirs. civile boete ende costen van
+justicien zoe zy zullen bevinden behoirende welck interinement
+de voirs. suppliant gehouden zal zyn te versuecken ende hem in -
+persoone te presenteren in onsen voirs. rade binnen zesse
+maenden naestcomende opte pene van te verbueren deffect
+van desen ende dat gedaen ende de voirs. amende -
+civile ende costen van justicien getaxeert ende
+betaelt zynde in handen vanden ghenen dien dat
+behoiren zal zy onse voirs. procureur generael in
+brabant ende alle andere onse richteren justicieren
+officieren ende ondersaten jegenwoirdige ende -
+toecomende dien dat aengaen zal moegen huere
+stedehouderen ende eenyegelyck van hen besundere
+zoo hem toebehoiren zal doen laten ende gedoogen
+den voirs. suppliant van deser onser jegenwoirdiger gratien
+ende remissien ende van alle dinhouden van desen inder
+vuegen ende manieren boven verhaelt rustelyck vredelyck
+volcommelyck ende eeuwelyck genyeten ende gebruycken
+zonder hem te doene oft te laten geschieden nu noch in
+toecommende tyde eenich hinder letsel oft moyenisse aen lyve
+noch aen goeden ter contrarien maer indyen zyn lyff oft eenige
+van zynen goeden daerom gearresteert becommert oft belet waeren
+dat zy die setten ende stellen oft doen setten ende stellen terstont
+ende zonder vertreck tot geheelder ende volcomender delivrantie
+want ons alzoe gelieft ende ten eynde dat dit goet vast gestadich
+ende van weerden zy blyve ende gehouden wordde tot eeuwigen
+dage zoe hebben wy onsen zegel hieraen doen hangen behoudelyck
+in anderen zaken onsen rechte ende eenenyelycken anderen
+desselffs in allen gegeven in onser stadt van bruessele inde maent
+van decembri int jaer onsheeren duysent vyfhondert xlix
+van onsen keyserycke txxxe ende van onsen coninckrycke van
+castillien ende anderen txxxiiiie aldus gescreven op de plycke
+byden keyser ende geteeckent $$$ visa recepta
+gecollo$$ ende bevonden accorderende
+met zyne originale by my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "15 october 1548",
+  "persons": [
+    {
+      "firstname": "UNKNOWN",
+      "lastname": "suppliant",
+      "role": "applicant",
+      "function": "individual"
+    },
+    {
+      "firstname": "Laureys",
+      "lastname": "Wouters",
+      "role": "accused",
+      "function": "individual"
+    },
+    {
+      "firstname": "UNKNOWN",
+      "lastname": "overleden",
+      "role": "deceased",
+      "function": "individual"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "The suppliant seeks remission for Laureys Wouters, who killed the deceased after a dispute over passing through a hedge. The suppliant fears retribution and wishes to safely remain in the country.",
+    "fr": "Le suppliant demande la rémission pour Laureys Wouters, qui a tué le défunt après un différend concernant le passage d'une haie. Le suppliant craint des représailles et souhaite rester en sécurité dans le pays.",
+    "nl": "De verzoeker vraagt vergeving voor Laureys Wouters, die de overledene doodde na een ruzie over het passeren van een houten hek. De verzoeker vreest wraak en wil veilig en vrij in het land kunnen blijven.",
+    "de": "Der Bittsteller sucht Vergebung für Laureys Wouters, der den Verstorbenen tötete, nachdem er sich weigerde, eine Hecke zu passieren. Der Bittsteller fürchtet Rache und möchte sicher im Land bleiben."
+  }
+}
+```

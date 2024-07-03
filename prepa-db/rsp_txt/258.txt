@@ -1,0 +1,215 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te wetene allen iegewoirdigen ende
+toecommende dat wy ontfangen hebben die oetmoedighe supplicacie
+van vranck van ghelman jonck ongehoudt man woenende inde
+stadt van leuwe ende gecoren deken vanden cameren van
+rethoricquen aldaer inhoudende hoe dat hy opden achsten dach
+decembris lestleden tzachternoens nae viere uren nae
+vesperen heeft met twee oft drye zyn anderen gesellen te wetenen
+henneken inden valck reyncken plaetmans ende henrick
+bessems ghaen bancketeren ende drincken eenen pot wyns
+ten huyse van goris marcielis inde kokene ende als zy daer
+een luttel tyts gheseten hadden soe is inde zelve kokene
+ghecommen jan pilepert de welcke binnen den selven huyse op een
+camer hadde sitten drincken ende de welcke soe de suppliant
+heeft verstaen hem te voeren hadde ghevanteert den selven
+te willen evelen ende daer commende dede deselve pilepert
+syn mutse aff in schimpicheyt seggende heer deken hoe commet
+dat ghy ons de schande doet dat ghy onse schotelen vander
+voirs. cameren laet vercoopen daer op de suppliant antworde
+dat tselve by synder schult nyet en was ghebuert ghelyck
+tselve oyck inder waerheyt nyet en was want hy
+suppliant tselve nyet en hadde ghedaen daerop die selve
+jan seyde ghy denoterende den suppliant zyt een zot ende
+dier gelycke affdragende woerden daerop de suppliant alleenlyck
+zeyde men vindt meer sotten soe dat de selve jan zeere criminerende
+ende onneerlyck sprekende heeft zyn mes vuyt getrocken
+ende naeden suppliant daer hy aende tafele sat by de schouwe
+vreeselyck geslagen in zulcker vuegen ende manieren dat
+hy den selven suppliant zyn hoot soude gecloven hebben ten
+waere gheweest dat de selve suppliant hadde gedoken inde
+schouwe soe dat den selven slach viele opt mantelhout
+vander selver schouwen daer mede de selve jan nyet te
+vreden wesende heeft ter stont naeden suppliant gesteeken
+welcken slach de selve suppliant heeft met zynder handt aff
+gheslagen meynende myt dyen den voirs. pilepert te
+ontloopenen twelck hy nyet wel en conste gedoen soe
+dat deselve pilepert den suppliant noch eenen stecke heeft
+gegeven op zyn boesem hem doerstekende rock wambays
+ende hempde tot op zyn bloot lyff toe midts den welcken
+deselve suppliant bevreest ende gecommoveert zynde is hem
+van noode gheweest te deffenderenen ende dat doende
+heeft hy vuytgetrocken zyn hangerken ende daer mede den
+selven janne eenen steeck gegeven omtrent zynder borste
+overmits dat de selve suppliant nyet en conste gevlieden noch
+anders tperykel vande doot ontgaen ende dat doende soe
+is de suppliant terstont vuyt geschoten ende gaen loopen vuyten
+huyse den welcken den selven jan heeft mit zynder blooter
+rapieren noch nageloopen tot aen een ander huys ende is
+daer nae by eenige aenverdt ende geleydt ende corts
+vander selver questueren gestorven dwelck sen selven suppliant
+vuyter herten leet es ende hoewel de suppliant als hem
+nootlick hebbende moeten deffenderen ende de welcke nyet en
+conste gevlieden noch tperikel van zynen lyve ontgaen
+daer aen nyet en meynt gedelynqueert te hebbenen ende dat
+hy daer aff ongepraemt in zynen persoone ende goeden soude
+behoiren te blyvenen desen nochtans nyet tegenstaende
+soe heeft onse meyeren van thienen hem gevoirdert opde
+goeden des suppliants te procederenen willende de selven ter
+causen vanden voirs. onghevalle als geconfisqueert
+aenveerden ten ocsuyne vanden welcken de suppliant
+beduchtende trigueur van justicien heeft hem geabsenteert
+vuyt onse lande ende hertoochdomme van brabant aldaer
+hy nyet en soude dorren wederkeeren hanteren noch
+converseren ten zy dat onse gracie ende ghenade hem
+hier op verleent wordde alzoe hy seght ons
+daeromme oetmoedelyck biddende soe eest dat de
+saken voirscreven overghemerct wy den voirs. vranck van ghelmen
+suppliant genegen wesende tzynder beden ende begheerte ende hem
+willende in dit stuck gracie ende ghenade prefereren voer
+rigeur van justicien zunderlinge ter eeren ende renerende
+vander bitter passie onserheeren jhesu christi die hy leet voer
+tmenschelycke geslachte op zulcken dach als huyden hebben
+inden ghevalle als boven vergheven quytgescholden ende
+gheremitteert vergheven ende schelden quytte vuyt sunderlinge
+gracie mits desen tfeyt ende dootslach boven verclaert
+mitsgaders alle peyne ende bruecke corporelle ende
+criminelle daer inne hy ter cause van dien met diesser
+aencleest iegens ons ende justicie mesdaen ende mesbruyct
+mach hebben hem alsdaer aff weder stellende ende restituerende
+tot zyn goede fame ende name in allen onsen voirs. landen
+ende heerlicheyden ende tot zynen onverbuerden goeden indien
+hy eenighe heeft gelyck ende in alder manieren als hy
+was voer de toecompste van tfeyt ende dootslach voerscreven
+imponerende hier op een eewich zwyghen ende silencie
+onsen procureur general ende allen anderen onsen rechteren
+justicieren ende officieren wy zy zyn satisfactie ende
+beternisse eerst ende alvoeren gedaen der gheinteresseerde
+partie indien die noch nyet ghedaen en zy ende eenige
+daer toe staet civilyck alleenlyck behoudelyck
+dat de voirn. suppliant gehouden werdt den voirs. dootslach
+tegens ons te beteren civilyck naer de gelegentheyt
+vander mesdaet ende faculteyt van zynen goeden ende daer
+en boven betaelen ende refonderen die redelycke costen
+van justicien hier omme ghedaen ter taxacie ende
+arbitrescepe vanden cancellier ende luyden van onsen raede
+in brabant die wy daer toe committeren den welcken
+wy ontbieden ende bevelen dat voer hemlieden geroepen
+die ghene dier over behoiren gheroepen te zyne zy precederen procederen
+wel ende duechdelyck ter verifficacie ende interinemente
+van desen naer huere voerme ende inhouden ende ter
+taxacie ende arbitrescepe vander civile boete ende costen
+van justicie ende dat ghedaen ende de selve civile boete
+ende costen voirscreven ghetaxeert ende byden voirs. suppliant
+betaelt zynde in handen vanden ghenen van onsen ontfangers
+oft officiers dient behoiren sal de welcke daer aff gehouden
+werdt rekeninge bewys ende reliqua te doene tonsen
+proiffyte metten anderen peningen van zynen ontfanghen
+zy onsen meyere van thienen ende allen anderen onsen rechteren
+justicieren officieren ende ondersaeten wien dit aengaen
+oft roeren sal mogen hueren stedehouderen ende eenyegelyck
+van hem bysondere zoe hem toebehoiren sal doen laten
+ende ghedoogen den voirs. vranck van gelmen suppliant van deser
+onser gracie remissie ende pardoene ende van alden inhouden
+van desen inder vuegen ende manieren voirscreven rustelyck
+vredelyck volcomelyck ende eeuwelyck genyeten ende ghebruyc
+ghebruycken sonder hem te doene noch te laeten geschien
+nu noch in toecommende tyde eenich hinder letsel oft moyenisse
+ter contrarien in lyve noch in goede in eeniger manieren
+maer indien zyn lyff oft eenige van zynen onverbuerden goeden
+daeromme gevangen becommert oft ghearresteert waeren dat
+zy die stellen ende setten oft doen stellen ende setten ter stont
+ende sonder vertreck tot geheele ende volcommen delivrancie
+behoudelyck oyck dat voern. suppliant desen onsen iegewoirdigen
+brief presenteren sal onsen voirs. cancellier ende raeden van
+# sy hieraff verantworde
+byden ontfanger
+vanden exployten
+brabant ende tinterinement van dien versoucken bynnen
+eenen jaere naestcomende opte peyne deffect van dien
+te verliesen want ons alsoe belieft ende ten
+eynde dat dit goet vaste ende ghestadich blyve te eeuwigen
+daghen soe hebben wy onsen zegel hier aen doen hangen
+behoudelyck in anderen zaeken ons recht ende
+eenyeghelyck tzyne in allen ghegen in onsen
+stede van deinsse den heyligen vrydach inde maent van
+april int jaer onsheeren duyssent vyffhondert
+vyfendertich van onsen keyserycke txvie ende van
+onsen rycken van castillien ende andere txxe aldus
+stont ghescreven opde plycke byden keyser in zynen
+raede ende gheteekent g pensart visa recepta
+ghecollacionneert tegens
+doriginale brieven by my
+decock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "1650-12-08",
+  "persons": [
+    {
+      "firstname": "franck",
+      "lastname": "van ghelman",
+      "role": "applicant",
+      "function": "nobleman"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "pilepert",
+      "role": "assailant",
+      "function": "innkeeper"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Franck van ghelman, a nobleman, has applied for remission after being assaulted by Jan pilepert, an innkeeper, on December 8, 1650. The incident took place at the inn of goris marcielis in Leuven. Franck van ghelman had to defend himself and injured Jan pilepert in the process.",
+    "fr": "Franck van ghelman, noble, a demandé la rémission après avoir été agressé par Jan pilepert, aubergiste, le 8 décembre 1650. L'incident s'est produit à l'auberge de goris marcielis à Louvain. Franck van ghelman a dû se défendre et a blessé Jan pilepert dans la bagarre.",
+    "nl": "Franck van ghelman, een edelman, heeft vergiffenis aangevraagd na een aanval door Jan pilepert, herbergier, op 8 december 1650. Het incident vond plaats in de herberg van goris marcielis in Leuven. Franck van ghelman moest zich verdedigen en verwondde Jan pilepert tijdens de vechtpartij.",
+    "de": "Franck van ghelman, ein Adliger, hat um Vergebung gebeten, nachdem er von Jan pilepert, einem Wirt, am 8. Dezember 1650 angegriffen wurde. Das Ereignis fand in der Herberge von goris marcielis in Löwen statt. Franck van ghelman musste sich verteidigen und verletzte Jan pilepert im Handgemenge."
+  }
+}
+```

@@ -1,0 +1,198 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips et$ha. doen te wetene dat
+wij hebben ontfangen die supplicatie van
+cornelis van damme pachter opde hoeve vanden
+heere prelaet van perck tot melsbroeck
+inhoudende hoe dat hy verlooren hebben
+veele van sijne beesten door toeverije sulcx
+dat hy daerdoorens grootelycx ende tot veele
+honderden gulden is beschaedicht geweest hy
+onderricht is geworden dat sulcx gedaen ende
+geschiet moesten wesen door sekere oude weduwe
+aldaer woonachtich genaempt cathelyne
+schamparts d’welck den remt hem oock vaste
+lijck heeft laeten voorstaen mits de selve
+weduwe publicquelycken was befaempt van
+toverije tot daer toe dat sy als soodanich by
+een iegelyck wiert gehouden geschouwt ende
+gevliedt ende by verscheijde persoonen was ge-
+slaegen endequalyck getracteert geweest ter
+saecken vande schaede aen hunne beesten
+door haer gedaen ten eijnde sy de selve toverije
+soude hebben te ontdoen welcken volgende ge=
+beurt is dat hebbende den remt in junio xvic
+drijenvyftich beneffens verscheijde persoonen
+ende onder andere met jaecques meerts sche
+pene der voors. prochie : wijens sone oock
+was betovert sitten drincken tot ontrent den
+avondt ende verstaen hebbende dat den selven
+meerts ende synen sone waeren gegaen ten
+huijse der voorseijde weduwe is hun gevolgh$
+ende aldaer in huijs gecommen synde ende gehoort
+hebbende dat den voors. meerts met haer wa$
+sprekende over het ontoveren van synen sone
+heeft door de presentie vande selve weduwe
+consideratie vanden groten schaede die hij in
+syne beesten hadde geleden ende morale seker
+heijdt die hij was hebbende dat sulcx door
+haer was geschiet soo grootelijcx gemovee$$
+ene ontstelt geworden dat hij haer versoch$
+hebbende van dat sy syne beesten soude on$
+toveren sonder dat sy sulcx wilde doen hem
+nijet en heeft connen onthouden haer beneff$$$
+den voors. jaecques meerts te geven eenig$
+slaegen met eenen stock welcken hij in
+handen was hebbende waermede de selve
+weduwe haer ter aerden laeten vallen ende haeren
+sone die aldaer present was ende haer wilde
+defenderen hem geretireert hebbende in eene
+sijd camere soo is den remt daermede naer
+huijs gegaen sonder weete van dat de selve$
+weduwe was gequetst oft eenich mercklyck
+hinder oft letsel van hem hadde ontfangen te
+min alsoo hij noynt intentie noch gemoet en
+hadden gehadt sulcx te doen desen nijettegenstaende
+soo is de selve weduwe des anderen daeghs
+smorgens in haeren huijse doot gevonden
+ende heeft den officier aldaer onder pretexte
+dat sulcx soude sijn geschiedt door de voor=
+seijde slaegen vercregen decreet van appre=
+hentie soo wel ten laste des remts als vanden
+voors. jaecques meerts de welcke dijenvolgende
+alle beijde genootsaeckt sijn geweest hun te
+retireren ende absent te houden gelyck hij remt tot
+nochtoe zijnen grooten schaede ende prejudicie
+heeft gedaen in sulcker vuegen dat daer
+doorens sijne geheele ruine is veroorsaeckt
+ende hoe wel hij nyet en meijndt dat de slaegen
+die hy ande voorseijde weduwe mach gegeven
+hebben oirsaecke soude syn van haere doodt
+ene dat hij noijnt gemeynt noch intentie en
+heeft gehadt hem soo verre te verloopen
+ende dat in allen gevalle genomen sulcx waere
+des hij nijet en verhopt te selve als geschiedt
+door het eerste movement hem aengecomen
+door de presentie der voorseyde weduwe
+ende gedenckenisse vanden grooten schaede by
+hem geleden soude behooren geexcuseert te wor$$$
+als notoir synde quod obiecta movent potentiam
+soo is hy dyenaengaende overcommen mette kinde$$$
+der voorseyde weduwe aengaende hunnen pretensen
+interest civile gelyck te sien is uuijtte stucken
+hiermede gaende hoewel sy anderssints nijet
+gefondeert en waeren eenigen interest te
+pretenderen aengesien hunne voors. moeder wa$
+eene arme oude vrauwe die vanden h. geest
+der selver prochie moeste leven ende onderhoud$$
+worden ende soude voorts hij remt geerne
+oytmoedelyck remis versoecken over t’gene hij
+bij middele voors. eenichssints soude mogen
+hebben misdaen om t’selve hebbende weder te
+mogen keeren ende door sijne handen hem sijne
+huijsvrouwe ende kinderen den armen cost oo$$
+winnen ende besorgen keert hem daeromme
+tot ons oytmoedlyck biddende om onse oepe$$
+brieven van remis daertoe dienende $aerom
+soo est dat wij desen aengesien ende ierst
+gehadt het advis vanden officier der voors.
+prochie van melsbroeck ende gesien d’informa$$$
+by hem genomen over t’voors. feijt genegen [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "June 15 (around) ",
+  "persons": [
+    {
+      "firstname": "philips",
+      "lastname": "et$ha",
+      "role": "recipient",
+      "function": "unknown"
+    },
+    {
+      "firstname": "cornelis",
+      "lastname": "van damme",
+      "role": "supplicant",
+      "function": "pachter"
+    },
+    {
+      "firstname": "heere prelaet",
+      "lastname": "of perck",
+      "role": "landlord",
+      "function": "unknown"
+    },
+    {
+      "firstname": "cathelyne",
+      "lastname": "schamparts",
+      "role": "accused",
+      "function": "oude weduwe"
+    },
+    {
+      "firstname": "jaecques",
+      "lastname": "meerts",
+      "role": "victim",
+      "function": "son"
+    }
+  ],
+  "locations": [
+    {
+      "name": "melsbroeck",
+      "loctype": "parish"
+    },
+    {
+      "name": "perck",
+      "loctype": "unknown"
+    }
+  ],
+  "summary": {
+    "en": "Cornelis van Damme, tenant farmer of the lord of Perck in Melsbroeck, has written a supplication stating that he has lost many of his animals due to an old widow named Cathelyne Schamparts. He claims that she has caused him great financial loss and has been publicly accused of witchcraft. He and others went to her house and her presence made Jacques Meerts, son of a neighbor, so agitated that he asked her to undo the witchcraft. When she refused, Jacques hit her with a stick causing her to fall to the ground. The next day, the widow was found dead in her home and Cornelis and Jacques have been accused of causing her death. They claim that they did not intend for her to die and are seeking remission for their actions.",
+    "fr": "Cornelis van Damme, fermier du seigneur de Perck à Melsbroeck, a rédigé une supplique dans laquelle il déclare avoir perdu de nombreux animaux à cause d'une veuve âgée nommée Cathelyne Schamparts. Il affirme qu'elle lui a causé de graves pertes financières et qu'elle a été publiquement accusée de sorcellerie. Il s'est rendu à sa maison avec d'autres personnes et la présence de la veuve a tellement énervé Jacques Meerts, le fils d'un voisin, qu'il lui a demandé de lever le sort. Lorsqu'elle a refusé, Jacques l'a frappée avec une canne, ce qui l'a fait tomber à terre. Le lendemain, la veuve a été retrouvée morte dans sa maison et Cornelis et Jacques sont accusés de l'avoir tuée. Ils affirment ne pas avoir eu l'intention de la tuer et cherchent à être remis de leurs actes.",
+    "nl": "Cornelis van Damme, pachter van de heer van Perck in Melsbroeck, heeft een supplicatie ingediend waarin hij verklaart dat hij veel dieren heeft verloren door een oude weduwe genaamd Cathelyne Schamparts. Hij beweert dat zij hem grote financiële schade heeft berokkend en dat zij openbaar van hekserij is beschuldigd. Hij en anderen zijn naar haar huis gegaan en de aanwezigheid van de weduwe heeft Jacques Meerts, de zoon van een buurman, zo opgewonden dat hij haar vroeg om de vloek op te heffen. Toen zij weigerde, sloeg Jacques haar met een stok, waardoor zij op de grond viel. De volgende dag werd de weduwe dood in haar huis gevonden en Cornelis en Jacques worden beschuldigd van haar dood. Zij beweren dat zij niet de intentie hadden om haar te doden en zoeken vergeving voor hun daden.",
+    "de": "Cornelis van Damme, Pächter des Herrn von Perck in Melsbroeck, hat eine Supplikation verfasst, in der er erklärt, dass er viele seiner Tiere durch eine alte Witwe namens Cathelyne Schamparts verloren hat. Er behauptet, dass sie ihn großen finanziellen Schaden zugefügt hat und dass sie öffentlich der Hexerei beschuldigt wurde. Er und andere Personen sind zu ihrem Haus gegangen und die Anwesenheit der Witwe hat Jacques Meerts, den Sohn eines Nachbarn, so sehr aufgeregt, dass er sie bat, den Fluch aufzuheben. Als sie sich weigerte, schlug Jacques sie mit einem Stock, woraufhin sie zu Boden fiel. Am nächsten Tag wurde die Witwe in ihrem Haus totgefunden und Cornelis und Jacques werden beschuldigt, sie getötet zu haben. Sie behaupten, dass sie nicht die Absicht hatten, sie zu töten, und bitten um Vergebung für ihre Taten."
+  }
+}
+```

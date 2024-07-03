@@ -1,0 +1,210 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips byder gratien goidts coninck van castillien etc.
+doen te wetene allen iegenwoirdige ende toecommende
+dat wij ontfangen hebben die oijtmoedige supplicatie van
+merten stroobant ingeboren onser stadt van loven
+inhoudende hoe dat hij geleden de achthien maenden hij beschoncken wesende
+ende opde straete was fuminerende tegen sijn selven sonder yemanden
+aen te spreken, soo is hem aengecommen geweest bernaert
+van laecken, die hem al spottende vraeghde oft hij wilde vijffven
+twintich guldens oft eenen pot bier oft twee ten besten
+geven ende naer eenige woorden soo heeft den voorn. bernaert
+aen hem suppliant gegeven diversche vuijstslaegen, hoe wel
+ongemeriteert d’welck alsoo gevoelende, heeft hij sijn mes
+getrocken, om hem te defenderen, dan sijn alsoo t’samen geloopen
+ontrent de drij mooren, alwaer sij werden gescheijden, den
+voornoemden bernaert hem nijet contenterende mette aggrave
+aengedaen aenden voors. suppliant met de voernoempde
+vuystslagen, is naer huijs geloopen alwaer hij heeft
+gehaelt twee stocken, waermede hij meijnde hem suppliant
+te keer te gaen, iae evelen vanden lijve, als sijnde een seer
+quaet, iae uuytsinnich mensch, d’welck hij siende ende
+gewaer wordende, die alreede uuijten huijse was met die
+voernoempde stocken inde handt ende vreesende de groote
+furie des voorn. bernaerts heeft hem in defentie van synen
+lijve met sijn voornoemde mes gedefendeert ende door
+ongeval gegeven eenen steecke, die onnooselijcke is
+gevallen inden buijcke waervan hij is gestorven tot sijns
+suppliant seer grooten ende bitteren leet wesen, ende den
+voorn. afflyvigen wel wetende sijn groot ongelijck heeft
+binnen synen leven sulcx verclaert aen eenen pater
+religieux der ordene van ste augustijn binnen loven, ende
+dijen volgende heeft hem vergeven sulckdanigen neerslach
+dwelck oock wel geconsidereert hebbende de naeste
+vrienden ende magen vanden voorn. wijlen bernaert van
+laecken, sijn met den suppliant veraccordeert, gelijck is
+blijckende bijden instrumentie daervan sijnde, ende want
+hij suppliant in reverentie van justicie hem heeft vertrocken
+uuijt onser voors. stadt van loven, sijnde buijten landts
+latiterende, alwaer hij gerne soude wederomme
+commen ende hem dragen ende winnen den cost gelijck
+een man met eeren toestaet ende behoirt soo keerden
+hij hem tot ons biddende in alder oytmoet ende reverentie
+dat ons gelieven soude prefereren gratie voor rigeur
+van justitie, hem den voorn. manslach te remitteren met
+quytschel van alle penen corporele ende criminele
+civile hem doende daerop depescheren opene brieven in
+forma, soe eest dat wij desen aengesien ende ierst
+hierop gehadt d’avuijs vanden meijer onser stadt van
+loven geneijght wesende ter beden des voors. suppliant
+ende willende hem in dit stuck prefereren gratie ende
+misericordie voor strangheijt ende rigeur van rechte
+hebben denselven suppliant inden gevalle alsboven
+geremitteert, quytgeschuwen, ende vergeve, remit$
+schelden quijte ende vergeven uuijt sunderlinger gracien
+bij desen, onsen brieve t’feyt ende ongeval boven geruert
+mitsgaders alle offensie ende breucke corporele ende
+criminele daer inne hij hem overmits ende uuijt saecke
+van t’gene des voors. is tegen ons ende justitie
+eenichssints mach hebben ontgaen ende mesdragen
+ende hebben hem dijen aengaende weder gestelt ende
+gerestitueert, stellen weder ende restitueren tot synen
+goeden name, fame, ende geruchte in onsen voors.
+lande van brabant ende allen anderen onsen landen
+ende heerlicheden, ende tot sijne onverbeurde goede$
+indyen hij eenige onder ons heeft, gelijck ende in
+alder manieren soo hij was voorde toecompste
+vanden voors. feijte, imponerende hierop een eeuwich
+geswijch onsen procureur generael in brabant
+onsen meijer van loven ende allen anderen onsen
+justicieren, officieren, wie sijn sijn, satisfactie ende
+beternisse ierst ende vooral gedaen der partije
+geinteresseerde indijen die noch nijet gedaen en sij
+ende eenige daertoe stae civilijck, alleenlyck
+behoudelyck dat die voorscreven suppliant gehouden
+sal sijn ’t voors. feijt tegen ons te beteren civil$
+nae gelegentheijt vander saecken ende faculteyt
+van sijne goeden, met oock te betalen de redelycke
+costen van justicien alsoe sij sullen bevinden te behoiren
+welck interinement die voors. suppliant hieromme
+alreede gedaen ende te doene, allet ter taxatien
+ende moderatien van onsen seer lieven ende getrouwen
+cancellier ende lieden van onsen raede in brabant
+die wij daertoe gecommitteert hebben ende committeren
+bij desen, ontbieden daerom ende bevelen denselven
+onsen cansellier ende raidtsluijden, dat voor $$ geroepen
+degene die daerom behoiren geroepen te syne sij
+procederen wel ende deuchdelijck ter verificatie
+ende interinement van desen, ende totter taxatie
+ende moderatie vande voors. amende ende costen van
+justicien alsoo sij sullen bevinden te behoiren, welck interine
+ment die voors. suppliant schuldich ende gehouden sal sijn te versuecken
+ende hem in persoone te presenteren in onsen voors.
+raede binnen sesse maenden naestcommende, opde pene
+van te verbeuren deffect van desen, ende dat gedaen
+ende deselve civile boete ende costen van justitien
+getaxeert ende betaelt sijnde in handen vanden genen
+dijen dat behoiren sal, sij onse voors. procureur generael
+van brabant, onsen meijer van loven, ende alle andere
+onse rechteren, justicieren, officieren, ende ondersaeten
+iegenwoirdige ende toecommende, dijen dat aengaen
+sal mogen, heuren stedehouderen ende eenijegelycken van
+hen besundere soo hem toebehoiren sal, doen, laten, ende
+gedoogen, den voors. suppliant van desenr doorgehaald en overschreven door een onser iegen
+woirdiger gratien ende remissien, ende van alle d’inhouden
+van desen inder vuegen ende manieren boven verhaelt
+rustelyck, ende vredelijck, volcommentlijck, ende eeuwelyck
+genijeten ende gebruijcken, sonder hem te doene off te
+laten geschieden, nu noch in toecommende tijden
+eenich hinder, letsel off moijenisse aen lijve noch aen
+goede, ter contrarien, maer indyen syn lijff off
+eenige van sijne onverbeurde goeden daerom gearresteert,
+becommert off beleth waeren, dat sij die setten ende stellen
+terstont ende sonder vertreck tot geheelder ende volcomm$
+delivrancien, want ons salsoo gelieft, ende ten eijnde dat $
+vast ende gestadich blijve t’eeuwigen dagen, soo hebben
+wij insen segel hieraen doen hangen, behoudelyck in and$
+dingen onsen rechte ende eenijgelycken anderen dessyns $$$$
+gegeven in onser stadt van brussele den lesten dach
+der maent van octovri int jaer ons heeren duysent
+ses hondert ende drijentwintich, van onse rijcken td$$
+onder opde plycke stont aldus byden coninck ondert$
+cools ende was gesegelt met eenen groenen wassen se$
+uuijthangende in groen sijde snoeren visa [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "den lesten dach der maent van octovri int jaer ons heeren duysent ses hondert ende drijentwintich",
+  "fact_date": "achthien maenden tevoren",
+  "persons": [
+    {
+      "firstname": "merten",
+      "lastname": "stroobant",
+      "role": "suppliant",
+      "function": "ingeboren onser stadt van loven"
+    },
+    {
+      "firstname": "bernaert",
+      "lastname": "van laecken",
+      "role": "aggressor",
+      "function": "none"
+    },
+    {
+      "firstname": "philips",
+      "lastname": "byder gratien goidts",
+      "role": "granter",
+      "function": "coninck van castillien etc."
+    }
+  ],
+  "locations": [
+    {
+      "name": "loven",
+      "loctype": "city"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Merten Stroobant, a inhabitant of the city of Lovен, has supplicated Philip Byder Gratien Goidts, the king of Castillien, etc. He stated that eighteen months ago, while he was on the street smoking, Bernaert van Laecken approached him and, after some mocking words, hit him several times. Merten, trying to defend himself, accidentally killed Bernaert, for which he asks the king for remission.",
+    "fr": "Merten Stroobant, un habitant de la ville de Lovен, a supplié Philippe Byder Gratien Goidts, le roi de Castillien, etc. Il a déclaré qu'il y a dix-huit mois, alors qu'il était dans la rue en train de fumer, Bernaert van Laecken s'est approché de lui et, après l'avoir ridiculisé avec des mots, l'a frappé à plusieurs reprises. Merten, tentant de se défendre, a tué Bernaert accidentellement, pour quoi il demande au roi la rémission.",
+    "nl": "Merten Stroobant, een inwoner van de stad Lovен, heeft geflitst voor Philips Byder Gratien Goidts, de koning van Castillien, enz. Hij vertelde dat achttien maanden geleden, toen hij op straat rookte, Bernaert van Laecken naar hem toe kwam en, na hem met woorden te hebben bespot, hem meerdere klappen gaf. Merten, die zich probeerde te verdedigen, doodde Bernaert per ongeluk, waarvoor hij de koning vraagt om vergeving.",
+    "de": "Merten Stroobant, ein Einwohner der Stadt Lovен, hat Philipp Byder Gratien Goidts, den König von Castillien etc., angefleht. Er erklärte, dass es vor achtzehn Monaten war, als er auf der Straße rauchte, und Bernaert van Laecken sich ihm näherte und, nachdem er ihn verspottet hatte, ihn mehrmals schlug. Merten, der sich verteidigen wollte, tötete Bernaert versehentlich, für das er den König um Vergebung bittet."
+  }
+}
+```

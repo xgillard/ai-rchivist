@@ -1,0 +1,207 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslaghe
+philips by der gracien goide coninck van castillien van
+laon van granada artshertoge van oistr piomte van
+arragon ende hertoge van bourgongnen van lothr van brabant
+van stir van karenten van cram van limborch van lustenborch
+ende van gelre erene van vlaanderen van habsburc van tyrol
+van ferette van keburch van artois van bourgounguen palatyn
+van henegouwe van hollant van zeellant van namen en van
+zutphen mercgoeur des heylichs roomschen rycs ende
+van burgauw landgrave in elsaten heere van vrieslant
+van op den windschenmary van portenauw van salms ende
+van mechelen
+doen te weten allen ende eenen tegelyken
+tegewoirdich ende toecomende dat wy ontvangen hebben
+die oitmoedige supplicatie van henricke vanden putte inhouden
+hoe dat in octobri lestleden op de jairgedinge des voirschreven des proefste
+van hoeye in den dorpe van esemaele onder ghete die voirsschreven
+henrick suppliant als menere des voirschreven proefste met scepenen
+vergadert zynde ende opcroeren zyne officie nae der bancken
+ende onder gewoenten rechte aldaer gecommen is dair in
+zynre presentien een geheeten wylen henrick dillen ons
+te ontvangen zulcke goede als hem nae die doot van zynre
+hun s vrouwen ouderen gesuccedeert ende aencomen weren
+ende naedien dat de voirschreven menere mitten voirschreven scepenen
+huere devouoir dien aengaende gedaen hadden vraegden hen die
+voirschreven wylen henrick dillen wat zy dair af schuldich wese
+te hebben hem antworden dair op dat zy behoirde te hebben
+twee stuivers ende dat zy dair af nyet quyt schilden en wilden
+dit $$ die voirschreven wylen henrick dillen betalende die twee
+stuivers seide tot henlieden ghy en doet my niet als ic t
+gedaen hebbe maer nyetmin ic oft die myne dincken t wel
+morgen oft daerna te vinden dwelck die voirschreven suppliant
+aenhoiren seide totten voirschreven wylen henrick dillen houndt daer
+is uwe ghelt hem tselve presenteren ende want hy die
+pidtacie voir$ nyet aenveerden en wilde maer den zelven vanden
+putte dreygende heeft die selve vanden putte geseyt te
+sal a oick wel vinden eer ghy verloren zyt mits den welcken
+zy tegen malcanderen gecomen zyn om deen den anderen te slaen
+dwelcke by die lieden dair omtrent zynde belet werdt
+seide oick die selve suppliant ja soudt ghy my gelyck
+ghy eens hebt willen doen verraden en de vercoopen dat
+zult ghy betalen, soeckende met dien zyn dagge om den
+voirschreven henrick dillen te steken maer en heeft dat
+mits den belette voirschreven nyet connen volbrengen
+dat die selve wylen henrick dillen ongequetst ongeschynt
+en ongerant van daer is gegaen maer ter selver stont een
+geheten wouter thoenys dewelck is die voirschreven henrick
+van den putte zuster zoen? van verre zien dese handelinge is
+gecomen loopen vanden kerthonenmere aldaer hy affen was
+op de plaetste daer tgescil gebuerde met eenen op stekere oft
+eetmesse dewelck hy over hem hadde ende heeft den
+voirschreven wylen henrick dillen gegeven twee steken den
+eenen inde schouderen ende dien andern int dicke van den beene
+dat hy mits dien van luie ter doot gecomen is diens ziele
+god genadich zy overmits den welcken die voirschreven suppliant
+die nochtans alsoo hy anders nyet en weet noyt woude
+gegeven en hadde hem vuyt ons voirschreven lande van brabant
+zoude moeten houden ende want voirschreven feyt den
+voirschreven suppliant goeder herten leet is soe en de ore hy
+nochtans beduchtende ende ontsiende righeur van justitien
+hem tot zunre gewoenlyker woenstadt nyet houden maer
+moet hem buyten houden ende habandoneren zyn hun svrouwe
+ende kinderen asde dat hy mitten selven zynen wyven
+kinderen geschepen waere lantloopich te blyven tot zynre
+grooter schaden ongennechten ende verdriete noch meer
+wesen zonder ten ware dat wy onse gratie en genade
+te hemweerts keerden daerom hy ons oitmoedelick heeft
+gebeden soeerst dat wy desen aengesien
+compasse ende medelyden hebbende m$ten voirschreven suppliant
+willende hem in de by gratie ende ontfermen hertichen t
+gedaen werden teghen righeur ende strangheden van justitien
+bezundere ter eeren van de reveren der heiliger passen ons liefs
+heeren jhesus christus die hy leet aenden honte des conten opten
+dach van heden inthmerende ende gemeynth wesende ter
+seden ende begheerten vanden voirschreven suppliant hebben hem
+in gevalle als boven quytgeschouwen ende vergheven
+schelden quyte ende vergheven vuyt zunderlinger gracien by
+desen onsen brieve het voirschreven feyt mitgaders alle
+penen ende amenden corporelle criminele ene cuule dair inne
+sy hem vuyt saken van tgene die voirschreven is duchstus
+mesgrepen mach hebben tegen ons ende justitie ende
+hebben hem als van desen gerestitueert ende restitueren
+tot zynre goeder eeren name ende famen tot ons voirschreven lande
+van brabant ende tot allen zyner goeden met versiert zynde
+op datter dinge zyn gelyckerwys inder manieren hy was
+voe die geschiedenisse vanden feyte voirscreven imponerende
+hier op eeuwich geswych onsen procureu generael van brabant
+ende allen anderen onsen ende $$ maelen enz officieren ende dieneren officieren ende justiticieren dien dat
+aangaen mach satisfactie ende beternisse nochtans
+gedaen zynde der partien in desen geinteresseert alde be$$$
+die noch te doen zy ende dinge dair toe stae ontbieden hier
+om ende bevelen onsen l$$$$ ende getrouwen eancollr ende
+lieden van onsen raede in brabant dat sou hen geroepen
+die ghene die dair van behoiren geroepen te zyne zy pronden
+ende doen procederen wel ende duvels delick totter verificatien
+ende intermiente van desen zou dat behoeren sal ende dat
+gedaen zy onse drosstie van brabant meyeren van laenen
+ende van thienen ende alle andere onse ende selve heren officieren rehseren
+ende dieneren hue stedehouderen ende elck van hen die dat
+aengaen mach te doen ende laten den voirschreven suppliant van
+des$ onser tegenwoirdiger gracien ende remissen ine mannen
+voirstoenen rastelick ende bredelick gebruycken zonder
+hem dair tegen te doen oft laten geschieden ende oft in
+toecomende tyden aen zynen luie leden oft goeder smyen hinder
+arrest sloot oft seht ter contraren maer by alste
+hy oft zyne goeden voirstaenen dairomme gevangen gearresteert
+oft aengetast waeren zy die terstont ontslaen doen ende laten
+ontslaen ende hebben tot volcomender ende geheelder delmran
+ende ten eynde dat dit vaste ende gestadich eene tot
+eeuwigen daigen soe hebben wy onsten zegel den welcken
+wy tot hier toe gebruyckt hebben hier aen doen hangen
+behouden ons in anderen dingen onsen rechte ende eenen
+tegelyken anderen dessins gegeven opten goeden sondach
+int jair ons heren duysent vyfhondert ende viere ende van
+onsen rycke dyerste aldus onder gescreven opte plycke byden
+coninck ende geteckent. w.detielt ende noch visa
+gecollationneert ende $ $
+metten originale by my
+n. f$erte [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "October, last year",
+  "persons": [
+    {
+      "firstname": "Henricus",
+      "lastname": "Vandenputte",
+      "role": "suppliant",
+      "function": "nobleman"
+    },
+    {
+      "firstname": "Henricus",
+      "lastname": "Dillen",
+      "role": "deceased",
+      "function": "nobleman"
+    },
+    {
+      "firstname": "Wouter",
+      "lastname": "Thoenys",
+      "role": "accused",
+      "function": "relative of Henricus Dillen"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Eesmaele",
+      "loctype": "village"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "duchy"
+    }
+  ],
+  "summary": {
+    "en": "Henricus Vandenputte, a nobleman, has received a remission for Henricus Dillen, also a nobleman, who passed away. The latter was killed by Wouter Thoenys, relative of Henricus Dillen, after a dispute over a piece of land. The act took place in October of the previous year in Eesmaele, Brabant.",
+    "fr": "Henricus Vandenputte, noble, a reçu une remise pour Henricus Dillen, également noble, qui est décédé. Ce dernier a été tué par Wouter Thoenys, un parent de Henricus Dillen, après un différend concernant un lopin de terre. L'acte a eu lieu en octobre de l'année dernière à Eesmaele, dans le duché de Brabant.",
+    "nl": "Henricus Vandenputte, een edelman, heeft vergunning gekregen voor Henricus Dillen, eveneens een edelman, die is overleden. De laatste is gedood door Wouter Thoenys, een familielid van Henricus Dillen, na een conflict over een stuk land. Het feit vond plaats in oktober van vorig jaar in Eesmaele, Brabant.",
+    "de": "Henricus Vandenputte, ein Adeliger, hat eine Absolution für Henricus Dillen, ebenfalls ein Adeliger, erhalten, der verstorben ist. Letzterer wurde von Wouter Thoenys, einem Verwandten von Henricus Dillen, getötet, nach einem Streit über ein Stück Land. Die Tat fand im Oktober des letzten Jahres in Eesmaele, Brabant, statt."
+  }
+}
+```

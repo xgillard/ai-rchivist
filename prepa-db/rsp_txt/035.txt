@@ -1,0 +1,120 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remission de jehan le masson voor een dootslaghe
+maximilian etc. scavoir faisons a tous presens et advenir nous avoir receu
+l umble supplication de jehan le masson contenant comment au
+mois de may present au lieu grant leiz, par consentement de l officier
+du lieu et de la communaute illec l on ait fait une confrairie des archiers
+de l arcq a main et deux berseaux pour nous en servir au besoing
+et lesdits berseaulx faiz ledit suppliant et feu jehan jordan demourant
+audit lieu de grant leiz et voisins l ung a l aultre firent ensemble
+une parture, pour tirer comme ilz fitrent, et apres pluisieurs cops tirez
+ledit jehan jordan tirant encoires ung cop et allant devant, tira ledit
+suppliant pour le dernier cop de la parture, et mal decochant le
+trait assenna icellui feu jehan jordan en la teste tellement que
+d icellui cop il est depuis alle de vie a trespas. et combien que
+ledit cas est advenu comme dit est, et que pour ce ledit deffunct avant
+qu il partist du lieu ou ilz avoient tire congnoissant que par
+simplesse et ingnorance avoit este blesse, et le cop donne, quicta
+audit suppliant en presence des maire et eschevins dudit lieu sa mort
+et ne vouloit que jaymais on luy demandast riens. toutesfois
+n oseroit le suppliant craindant rigeur de justice frequenter noz pays
+et seigneuries sans de nous avoir dudit cas grace remission et pardon
+pour laquelle grace il nous a tres humblement supplie et requis.
+et pour ce est il que nous ce que dit est considere aians pitie dudit
+suppliant et luy voulans en ceste partie preferer grace a rigeur
+de justice, et en sur ce l adviz de noz ames et feaulx les gens
+de notre conseil ordonne en brabant, avons audit jehan le masson
+suppliant ou cas dessusdit quicte remis et pardonne, quictons
+remectons et pardonnons de grace especial par cestes le cas
+et homicide dessus declare ensemble toute paine et offense
+corporele et criminele, en quoy pour raison et a l occasion
+d icelluy cas il peult avoir mesprins offense et estre encourru
+envers nous et justice. et l avons quant a ce remis et
+restitue remectons et restituons a sa bonne renommee au pays
+et a ses biens non confisquez sancuns en a, tout ainsi comme il estoit
+au paravant ladvenu dudit cas. en imposant sur ce silence
+perpetuel a notre procureur generael de notredit conseil en brabant, et a tous
+noz officiers et de nos vassaulx et bassains seigneurs dudit notre pays
+de brabant. satisfaction toutesfois faicte a partie interessee
+se faicte n est et elle y chiet civillement seulement, et moyennant
+aussi qu il l amendra envers nous civilement selon l exigence
+dudit cas et la faculte de ses biens a l arbitraige et tauxation
+de notre ame et feal chancellier et lesdits gens de notre conseil
+ordonne en brabant, lesquelz commectons a ce. si donnons
+en mandement ausdits nos chancellier et gens du conseil que
+appellez ceulx qui pour ce feront a apeller, ilz procedent bien
+et deuement a la verification et internnement de ces presentes
+et a la tauxation de ladite amende civile, et ce fait et icelle
+amende tauxee arbitree et payee es mains d icellui de noz
+receveurs qu il appartiendra. ilz et quelzconcques noz officiers
+et ceulx desdits bassains seigneurs et nos vassaulx d icellui notredit
+pays de brabant, presens et advenir facent seuffrent et laissent
+ledit suppliant de notre presente grace remission et pardon selon et
+par la maniere que dit est plainement paisiblement et perpetuelement
+joyr et user sans luy faire mectre ou donner ne souffrir estre
+faitmis ou donne ores ne en temps avenir aucun destourbier
+arrest ou empeschement au contraire. et se son corps
+ou aucuns de ses biens sont ou estoient pour ce prins arrestez
+ou empeschez les mectent ou fachent mectre incontinent
+et sans delay a plaine et entiere delivrance car ainsi nous
+plaist il. et affin que ce soit ferme et estable a
+tousiours nous avons fait mectre notre scel a ces presentes.
+saulf en aultres choses notre droit et l autruy en toutes.
+donne en notre ville de louvain au moys de may l an
+de grace mil cincq cens et quatorze. et des regnes de
+nous empereur assavoir de germanie le xxixe et de hongrie etc
+le xxve, ainsi estoit escript sur le reploy par l empereur et
+monseigneur l archiduc en leur conseil et signe h de hane.
+collationne a l original
+par moy
+n strate [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "may 1514",
+  "fact_date": "may 1514",
+

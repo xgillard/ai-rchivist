@@ -1,0 +1,220 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. onsen lieven ende getrouwen cancellier ende lieden
+van onsen raide in brabant schout vanden bossche ende allen
+anderen onsen rechteren justicieren ende officieren wyen dit
+aengaen sal saluyt ende dilectie wij hebben ontfanghen
+doitmoedighe supplicatie van henrick anthonis loniss
+geboren ende eertijts innegeseten onder stadt van tshertogenbossche
+oudt omtrent dertich jaeren hebbende veel jaeren ende den
+meesten tyt zyns levens tot loven ende diversche andere
+fameuse universiteyten gestudeert sulcx dat hy inder
+griecxscher ende latijnscher talen ende tot dyen inden rechten
+sonder jactantie gesproken zoe heeft geprouffiteert dat hy
+diversche boecken heeft getranslateert vuyten griecxsche
+inder latijnscher talen, te weetene justiniani princips
+novellas institutiones ende diversche andere inhoudende hoe
+dat hy suppliant omtrent jaeren geleden tot loven noch
+woenachtich gecommen zynde tot tshertogenbossche voers.
+om zyn vrienden te besuecken, ende hem te vermaken is geraeckt
+soe inder herbergen als opter merct wandelende by eenige
+persoenen daermede hy heeft propoesten ende disputatien
+gehadt vander heyliger scriftueren ende eenige opinien
+contrarie der doctrinen vander heyliger kersten kercken den
+weerdigen sacramente des outaere aengaende gedefendeert
+meer ten eynde van arguatien ende disputatien dan van quaden
+gevuelen dwelck eenige daerby geweest zynde, sulcx
+nyet verstaende maer mits der selver disputatien gecommoveert
+ende vergrampt zynde hebben den suppliant zoe verre gemelt
+ende geaccuseert dat tselve ten lesten is gecommen ter kennissen
+van onsen procureur generael in brabant die welcke hem te dyer
+causen heeft doen dagen by edicte voer u lieden van onsen
+voirs. raide in brabant ten eynde hy hem daeraff soude
+commen purgeren, ende excuseren ende hoe wel die suppliant
+hem kende suyver van alle quade secten ende opinien, ende
+dat hy zyn leefdage lanck anders nyet en heeft gelooft
+dan een goet oprecht kersten mensche schuldich ende gewoenlyck
+is te geloove noch oick de voirs. disputatien vuyt eenich quaet
+gevuelen vanden heyligen kersten geloove gedaen vreesende
+nochtans rigeur van justicie ende besunder vander ordinancien
+by ons gemaeckt opt stuck vander heresye soe en heeft hy
+nyet gecompareert noch dorren compareren te min want
+hy noch jonck was ende hem te verstaen wordde gegeven, dat
+indien hy in handen quame nyet lichtelyck daer vuyt eysende
+hebben konnen geraecken maer geschapen ware geweest jaer
+ende dach gevangen te sitten mits den welcken heeft hy hem
+ysindert geabsenteert ende gehouden buyten lants in diversche
+universiteyten voirts inden rechten studerende waerduere
+hy is gecontumaceert ende by vonnisse vanden raide van
+brabant gebannen met confiscatie van goeden tot groot
+leetwesen ende desolatie vanden suppliant die geabsolveert
+hebbende zyne studie zoe inden rechten als anderssins
+hem geren schicken soude tot eenigen state om inden selven
+te leven ende zijn leven godlycken ende eerlycken gelyck een
+goet kersten mensche teynden, dwelck hy hier te landen
+des te liever soude doen, dat hy in brabant geboren is ende
+oick dat hy te meer mochte geoirsaeckt zyn om hem te geven
+tot rusten ende occupatien van synder studien daertoe hy
+hem ganselycken heeft gegeven, ende die selve zyn studien
+zoe met scryven ende compositien als anderssins zoe vele
+als in hem is ende den verstande hem van gode almachtich
+gegeven, te mogen employeren tot prouffyte ende eere vanden zyne
+patrye ende ingesetenen vanden selven liever dan vanden
+vrempden ende voirts vryelyck ende vredelyck te leven
+naeder justitien vander roomscher ende kersten kercken
+maer en soude tselve nyet mogen doen mits den voirs. ban
+ten waere dat wy geneycht zynde tot compassien den suppliant
+restitueerden totten lande ende zynen name fame ende
+goeden, ende tot dyen hem vergaven ende remitteerden dwelck
+byden voirs. erroneuse propoesten ende disputatien hy tegen
+onse edicten mach hebben misdaen waeromme hy ons
+zeer oitmoedelyck gebeden heeft soe eest dat wy de
+saken voerscreven overgemerckt ende hierop gehadt
+dadvys van u lieden van onsen voirs. raide in brabant
+onsen procureur generael daerop oick gehoirt zynde den voirs.
+henrick anthonis suppliant genegen wesende tzynder bede
+ende begeerte, ende willende hem in desen gratie ende genade
+prefereren voer stranckheyt van justitien hebben inden
+gevalle als boven vergeven ende quytgescholden vergeven
+ende schelden quite vuyt onse zunderlinge gratie mits desen
+onsen brieve, de delicten ende mesusen boven verclaert
+mitgaders al tgeene dat hy ter cause van dyen jegens
+ons ende justicie ennichssins mesdaen ende mesbruyckt mach
+hebben ende vuyt onse meerdere gratie hebben wederroepen
+ende nyeuwte gedaen wederroepen ende doen te nyeuwte alle
+contumacien ende deffaulten ende andere procedueren
+mitgaders oick den ban ter cause voirs. tegens hem
+gepronunchieert in onsen voirs. raide van brabant ende
+hebben hem daeraff gerestitueert ende wedergestelt
+restitueren ende stellen weder inden selven lande van brabant
+lymbourch ende landen van overmaze gelyck ende in
+alder manieren als hy was voer die toecompsten vanden
+faicten ende bannen voerscreven imponerende hierop een
+eeuwich zwygen onsen procureur generael, ende allen
+anderen onsen rechteren justicieren wye zy zyn satisfactie
+ende beeteringe eerste ende al voren gedaen der geinteresseerde
+partye indyen die noch nyet gedaen en is ende eenige
+daertoe $$$ alleenlyck behoudelyck dat die voirs. suppliant
+gehouden werdt te refunderen de redelycke costen van justicien
+tegen hem ter cause voirs. gedaen ter taxatie van u lieden
+van onsen voers. raide in brabant ende voirts abiureren
+renuncheren ende by eede affgaen in handen vanden
+inquisiteur ons heylichs crhisten geloofs alle dwalingen *
+quade opinien ende valsche leeringen daermede hy tot
+noch toe besmet ende geinfecteert soude mogen wesen
+waeraff hy gehouden wordt behoirlyck te doen blycken daer
+ende zoet behoiren zal des versocht zynde ontbieden u
+daeromme ende eenyegelyck van u lieden zoe hem toe behoiren
+sal dat by den voirs. suppliant de voirs. abiuratien al voeren
+gedaen zynde als voirs. is ghy hem van dese tegewoirdigen
+gratie pardoene ende rappel van banne doet ende laet
+vredelyck ende volcommelyck genyeten ende gebruycken sonder
+hem hier inne te doen oft laeten geschieden eenich
+hinder letsel oft moyenisse ter contrarien want ons
+alsoe geloeft. gegeven in onser stadt van bruessele den
+zesthiensten dach der maent van july int jaer ons heeren
+duysen tvyffhondert ende tweentzestich van onsen rycken
+van spaignien secillien t vii-e ende van napels t ix
+onder stont gescreven byden coninck in zynen raide ende
+geteeckent de langhe $$$
+gecollationeert ende bevonden accorderende
+met zynen originale by my
+$ facuwez $$$ [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "approximately 30 years ago from the document date",
+  "persons": [
+    {
+      "firstname": "Henrick Anthonis",
+      "lastname": "Loniss",
+      "role": "supplicant",
+      "function": "scholar"
+    },
+    {
+      "firstname": "Philips",
+      "lastname": "Onsen",
+      "role": "sender of the document",
+      "function": "councillor and liegeman of the council in Brabant, sheriff of the Bosch, and all other judges, justiciars, and officers there"
+    },
+    {
+      "firstname": "Onsen",
+      "lastname": "Procureur Generael in Brabant",
+      "role": "recipient of the supplicant's statement",
+      "function": "procureur generael in Brabant"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Tshertogenbossche",
+      "loctype": "city"
+    },
+    {
+      "name": "Brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "Bruessele",
+      "loctype": "city"
+    },
+    {
+      "name": "Spaignien",
+      "loctype": "country"
+    },
+    {
+      "name": "Napels",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Henrick Anthonis Loniss, a scholar from Tsertogenbossche, studying in various universities for many years, has been accused of heresy due to certain disputes about the holy scripture and the sacraments. He claims to be innocent and asks the council for remission of the ban, promising to live a godly and honest life as a good Christian.",
+    "fr": "Henrick Anthonis Loniss, un érudit de Tshertogenbossche, a étudié dans diverses universités pendant de nombreuses années. Il a été accusé d'hérésie en raison de certaines disputes concernant la Sainte Écriture et les sacrements. Il se déclare innocent et demande au conseil la remise du ban, s'engageant à vivre une vie pieuse et honnête en tant que bon chrétien.",
+    "nl": "Henrick Anthonis Loniss, een geleerde uit Tshertogenbossche, heeft jarenlang in diverse universiteiten gestudeerd. Hij is beschuldigd van ketterij vanwege bepaalde disputen over de Heilige Schrift en de sacramenten. Hij beweert onschuldig te zijn en vraagt de raad om vergeving van het ban, waarbij hij belooft een godvruchtig en eerlijk leven te leiden als een goed christen.",
+    "de": "Henrick Anthonis Loniss, ein Gelehrter aus Tshertogenbossche, hat über viele Jahre in verschiedenen Universitäten studiert. Er wurde der Häresie beschuldigt, wegen einiger Streitigkeiten über die Heilige Schrift und die Sakramente. Er behauptet, unschuldig zu sein, und bittet den Rat um Vergebung des Banns, wobei er sich verpflichtet, ein frommes und ehrliches Leben als guter Christ zu führen."
+  }
+}
+```

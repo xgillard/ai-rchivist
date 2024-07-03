@@ -1,0 +1,146 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen conde allen luden nu ende namaels wesende
+dat wy ontfangen hebben die oitmoedige supplicatie van
+thomas herdewyck inhoudende hoe dat zekeren tyt geleden
+binnen dese onse stadt van bruessel hem suppl met zekeren
+geselscape van daer zy tsamen geteert hadden tsavonts
+vutgegaen zynde wandelen ende commende voor een huys
+geheeten tspoirken inde putterye bynnen de selve stadt als
+tvoirs. geselscap neder geseten was op een sitten spelende
+op instrument van muysycke hem suppl daer omtrent
+oick op ende neder gaende es van boven neerweerts commen
+loopende eenen genoempt renen dysdonck den welcken de suppl
+metten boesem heeft genomen vragende wye es dese veynt
+daer op een vanden geselscap zeyde hy heeft noch eens hier
+geweest ende de voirs. renen zeyde in effecte wat hebt
+ghy daermded te doene waerop heeft de suppl geantweert
+in effecte zyt ghy zoe groote meester dat ghy nyet spreken
+en mogt en moge ghy nyet seggen wie ghy zyt antweerdende
+de voirs. renen strangelyc ende met eede zweerende byde vyf wonden
+wildyt oft zoudyt my doen seggen makende maniere oft hy zyn mes
+getogen zoude hebben / dwelck hoorende ende ziende de suppl
+heeft de voirs renen eenen steeck gegeven ende track zyn mes
+vuyt om te slaene maer wordden byden geselscape gehouden ende
+vanden steke bleef de voors. renen doot opte plaetse ende hoewel
+tvoors. mesval den voirs. suppliant hertelick leet is niettemin duchtende
+strancheyt van iusticien es hem geabsenteert van onser voirs. stede
+van bruessel ende hertochdom van brabant aldaer hy niet en zoude
+dorren wederkeren hanteren noch converseren maer es gescepen?
+daervan moeten blyven absent ende elders leven in grooter
+aermoede ende kethivichede tot zynen groote verdriete ten ware
+dat onse gracie ende genade hem hierop verleent wordde
+omme de welcke hy ons zere oetmoedelyc gebeden heeft
+soe eest dat wy de saken voorscreven overgemerct den
+voornoemden thomas herdewyck suppliant genegen wesende tzynder
+voirs. bede ende supplicatie ende willende hem in dit stuck gracie
+ende genade voorderen ende prefereren voor strangheyt van iusticien
+zonderlinge in faveur ende contemplacie van onser blyder
+wedercompste in onsen landen van herwaerts over ende in
+dese onse stadt van bruessel hebben inde gevalle als boven
+vergeven quytte ghescholden ende geremitteert vergeven schelden
+quyte ende remitteren vuyt onse zonderlinge gracie mits desen
+onsen brieven tfeyt ende dootslach boven geroert mitsgadere alle
+peyne ende boete corporelle ende criminelle daer inne hy ter cause
+van dien mesbruyct mach hebben tegens ons ende iusticien
+ende hebben hem als daervan wedergestelt ende gerestitueert
+tot zyne goede fame name ende geruchte tot onsen lande ende
+hertochdom van brabant stadt van bruessel ende allen anderen onsen
+landen ende heerlicheden ende tot tot zynen onverbuerden goeden indien
+hyre eenigen heeft gelyck ende in alder manieren als hy was
+voorde toecompste vanden dootslach voorscreven imponerende
+hierop een eeuwich zwygen ende scilencie onsen procureur generael
+ende allen anderen onser iusticieren ende officieren onser voors. lants
+van brabant wien zy zyn satisfactie ende beteringe eerst
+ende alvooren gedaen en zy ende eenige daertoe staet civillick
+behoudelyck nochtans dat de voors. suppl gehouden
+wordt tvoors. feyt ende dootslach tegens ons te beteren
+cunllyck nae de gelegentheyt vanden mesdaet ende faculteyt
+van zijner goeden ende dat hy ooc betalen ende refonderen sal
+de redelycken costen van iusticien daeromme gedaen ende naegevolgt
+indien eenige zyn alter taxatien ende arbitresscepe van onsen lieven
+ende getrouwen die cancellier ende luden van onsen rade geordoneert
+in brabant die wy daer toe commietteren ontbieden daeromme ende bevelen
+hemluden geroupen die gene die daertoe behoiren geroupen te zyn
+zy procederen wel ende duechdelyck ter verifficatie ende interinnemente
+van dese onse tegewordige brieve naer huere voorme ende inhoud
+ende ter taxacie ende arbiterscepe vanden voirs. civille boete ende costen
+getaxeert ende betaelt alst behoiren sal van welcke civille boete
+die gene van onsen ontfangere dient aengaen mach gehouden
+wordt rekeninghe bewys ende relycqua daervan te doene tot
+onsen proffyte metten anderen penninghen van zynen ontfangen zy
+onsen amman van bruessel ende alle andere onse ende der smalre heeren
+rechteren iusticieren ende officieren onsses voirs. lants van brabant
+dien dit aengaen sal mogen huere stedehoudren ende een yegelyc van
+hen zoe hen toebehoiren sal doen laten ende gedoogen de voors.
+thomas herdewyck suppl van dese onse tegewoirdige gracie
+quitscheldinghe remissie ende pardoene ende van al den inhouden
+van desen inder voegen ende manieren boven verclaert rustelyck
+vredelyck volcomelyck ende eeuwelyck genyeten ende gebruyken
+sonder hem te doene noch te laten geschien nu noch in
+toecomende tyden eenich hinder letsel oft moyenisse aen lyve noch
+aen goede ter contrarien in eeniger manieren maar indien
+zyn lyf oft eenige van zynen voors. onverbuerden goeden zyn
+of naemaels waeren ter cause voorscr. gevangen gearresteert
+ofte becommert dat zy die stellen ende setten oft doen stellen
+ende setten ter stont ende sonder vertreck tot volcommender
+slaekinghe ende delivrancie want ons alsoe gelieft ende ten
+eynde dat dit goet vaste ende gestadich zy tot eeuwigen dagen
+soe hebben wy onsen zegel hier aen doen hangen behoudelyck
+onser rechten in anderen dingen ende anderen huer rechten in
+eegenen in onse stadt van bruessel inde maent vant van iunio
+int jaer osheeren duust vyfhondert ende twintich ende
+van onser rycken te weeten vanden roomschen teerste ende van
+castille etc tvyste aldus stondt gescreven onder opte
+plycke byden concinck in zynen rade ende gheteekent
+i decock ende noch visa
+gecollacioneert ende bevonden acorderen
+metten originale by mij [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+

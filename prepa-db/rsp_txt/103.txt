@@ -1,0 +1,323 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+albert ende isabel clara eugnia
+etc. doen te wetene dat allen iegenwordien ende
+toecommenden dat wij ontfangen hebben die
+oijtmoedige supplicatie van jan ende lamber$
+de mouraille kinderen van sijmon de mouraille
+den ouden ingesetenen onser stadt van loven
+inhoudende soe dat sij supplianten hebben
+woonende gehadt eenen broeder met namen
+sijmon de mouraille metsere van sijn ambacht
+onder de vrijheijt van turnhout gelyck sy
+supplianten ingelycx syn metsers van haer
+ambacht welcken sijmon den broeder der
+supplianten tusschen de vijff ende ses jaeren
+tot turnhout voorscreven geresideert hebbende
+soo syn sy supplianten uuijt broederlijcke affect
+inden voorleden maend van julio int jaer
+ons heeren duijsent ses hondert ende sesthien
+gedwongen geweest hem eens te commen
+besoecken sijnde alsoo de supplianten bi$$
+turnhout gecommen sijnde bijden selven sim$
+heuren broeder geleydt geweest in seeckeren herberge
+aldaer om malcanderen wat te tracteren waer
+naer is gebeurt dat inde selve herberge seeckeren
+dronckaert is geweest met naeme jan creeckels
+cleermaecker van sijn ambacht die welcke tegens
+den voorschreven simon der supplianten broeder heeft
+querelle begonst te nemen onder pretext dat men hem den
+drinckpoth$ nijet tijts genoch en langde ende te
+drincken endede schoncke oft om andere diergelijcke
+cleyne oorsaecken sulcx dat sij supplianten om cracqueel
+te schouwen metten zelven simon sijn uuytte voors.
+herberge gegaen geweest gelijck oock is gegaen
+die voorschreven jan creeckels ende opde straete
+commende heeft die selve creeckels gesocht tegens
+den voorschreven simon der supplianten broeder te
+vechten gelijck sij oock sijn vechtende geworden
+sulcx dat sij supplianten nijet anders en hebben
+gedaen noch gesocht gehadt dan tusschen beyden te
+gaen maer alsoe tselve gevecht was gecommen
+aen oft voer de deure van eenen genampt jacob
+den timmerman van maestricht geboren soe is den
+selven jacob uuytgecommen ende met syn geweer
+in gevallen den voorschreven simon der supplianten
+broedere daer tegens sij eertijden noch hadden querelle
+gehadt in sulcker vuegen dat doer het rumoer
+ende gevecht eenighe vande gemeijnte aldaer
+sijn aengecommen met hun gewere roepende
+dat men den voorschreven simon soude gevangen
+nemen mitsgaders oock hen supplianten roepende
+voirts slaet dat slaet doot gelijck sij
+supplianten dijenvolgende oock seer deerlijcken
+syn geslagen ende gequetst geweest gelijck
+blijckt byden wonden ende quetsueren daer
+mede sy tegenwoordelijck gevanghen sijn sittende
+ende om nijet voirts dootgeslagen te worden
+syn sij supplianten alsdoen gevallen op hunne knie$
+biddende heurs slijffs genade maer alsoo die
+vooschreven jacob den timmerman even seer in$$
+den voorschreven simon der supplianten broeder
+soo eest gebeurt dat die selve simon den
+voorschreven jacob heeft gesteecken in sijnen
+buijck waer aff hy tot groot leedt wesen der
+supplianten naederhant is commen te sterven
+hebbende alleenelyck oversulcx die voors.
+jacob in sijn doot geleegt den voorschreven simon
+ende gedeclareert dat hij hem den doot steeck
+heeft gegeven ende nijemandt anders gelijck
+die voorschreven jacob voor sijn doot aenden
+pastoir van turnhout in presentie vanden
+coster ende andere persoonen allen tselve
+heeft verclaert gehadt volgende dattestatie
+daer aff sijnde hebbende alleenlijcken die
+voorschreven supplianten onnoselijcken ende by
+ras fortuijt present geweest ende nijet om
+te vechten off om eenighe querelle te sustineren
+die oyck tot conservatie van haer lijff ende
+leven hun hebben moeten deffenderen tegen den
+oploop vanden anderen ingesetenen off anderssints soud$
+sy daer oijck op staenden voeten doot hebben gebleven
+gehadt gelijck oock die voorschreven simon
+ewech geloopen sijnde soo is gequest geweest
+dat men verstaet dat hij daeraff is gestorven
+ende alsoo sij supplianten meynden bij alsdusdani$
+deffentie inculpate iut$$ nijet misdaen
+te hebben soo sijn sij oock gebleven inde pla$
+van turnhoudt voorschreven sonder hun
+vertrocken te hebben ende hoewel oijck
+naer natuerlycke redene gesproocken die$
+supplianten oyck nyet misdaen en hadden cum vim
+cui repellere licet soo eest nochtans dat den officier
+vanden selve plaetse is gecommen ende heeft den
+supplianten metterdaet gevanghen genomen ende
+binnen de voorschreven vryheyt in banden van ysere
+gestelt hebbende voirts tegens hun soo sij verstaen
+criminele conclusie gecomen gehadt onder
+pretext dat die voorschreven jan de mouraille
+een vande supplianten den voorschreven jacob
+afflijvigen naer den doot steeck oock noch met sijn
+rappier soude hebben geslaghen gehadt achter op
+sijn schouderen metten platte waer aff hij nochtans
+nijet en is gequest ende voirts onder pretext
+dat die voorschreven lambert de mouraille
+tweede suppliant in desen eenen anderen hun op
+geloopen hebbende in sijn oore soude hebben gesteecken
+gehadt ende alsoo mede soude hebben gevochten
+met hunnen voorschreven broeder simon welcke
+simon alsvooren bekennende het feyt ende het
+ongeluck is ewech geloopen geweest welcken
+aengemerckt ende dat sy supplianten hun altyts
+hebben gedraeghen in hun ambacht ende stijle
+van metsen bij een iegelicken van hunne kennisse
+sooby geestelijcke als weerlijcke persoonen gelijck
+jongmans met eeren toestaet te doen sonder
+bij ijemander ter werrelt uijt achterhaele te sijn
+van eenich misus oft het minste delict ende
+dat sy voirts nyet anders en hebben gedaen dan
+ijemant van verstande int gelijcken ras
+gestelt synde en soude vermogen te doen tot
+deffentie van hun lyff ende leven ende
+om parthyen combattanten van malcanderen
+te houden ende in egeen ongemack te vallen
+dat sij oversulcx qualyck ende tonrecht onder
+correctie worden aengesproecken tot straff vanden
+lijve ende in strickten gevanckenisse syn gestelt
+ende dat sij nijetemin geen oorsaecke van
+querelle en sijn geweest die hun altyt oyck eerlycken
+by geestelycken ende werlycken lieven hebben $$$
+gedraeghen gehadt volgende de attestatien ieerst
+vanden pastoir van sinte quintens tot loven
+vanden pater $ulard prister der societeyt jesus
+item van heer oricius puteranus radt van
+hunne hoocheden professeur histori schrijver van
+syne majesteijt ende by andere attestatien vanden
+geenen daer mede sy supplianten hebben gevrocht
+gehadt allen gelijck sij supplianten seyden hadden
+daeromme seer oijtmoedelyck gebeden om onse
+opene brieven van remis daertoe dienende
+soo eest dat wij desen aengesien gehadt hierop
+dadvijs vanden schoutete der vrijheyt van
+turnhout geneijcht wesende ter beden der
+voorschreven supplianten ende willende hen in dit
+stuck prefereren gratie ende misericordie vo$
+strangheyt ende rigeur van rechte hebben den
+selven supplianten inden gevalle als boven
+geremitteert quijtgeschonden ende vergeven
+remitteren schelden quijtte ende vergeven
+uuyt sunderlinger gratien by desen onsen brieve
+tfeyt ende ongeval boven geruert midtsgader
+alle offensie ende breucke corporelle ende
+criminele daer inne $n hen overmits
+ende uuyt saecken van tgene des voorschreven
+is tegen ons ende justitie eenichsints m$$
+hebben ontgaen ende mesdragen ende hebben
+ontgaen hen dijen aengesiende weder gestelt
+ende gerestitueert stellen weder ende
+restitueren tot sijnen * goeden name fame
+ende geruchte in onsen voorschreven lande
+van brabant ende allen anderen onsen lande
+ende heerlijckheden ende tot sijnen ** onverbuerde
+goeden indijen sy eenige onder ons heeft heb$
+gelyck ende in alder manieren soe sij
+waeren voor de toecompste vanden voorschreven
+feijte imponerende hier op een eeuwich geswych
+onsen procureur generael in brabant ende allen
+andere onsen justicieren ende officieren wije sij syn
+satisfactie ende beternisse ierst ende voer al
+gedaen der partije geinterresseerde indijen die noch
+nijet gedaen en sy ende eenige daertoe staet
+civilyck alleenlijck behoudelyck dat die voorschreven
+supplianten gehouden sullen sijn tvoorschreven feyt tegen
+ons te beteren civilyck naer gelegentheyt vander
+saecken ende faculteijt van syne * goeden met oyck
+te betalene de redelijcke costen van justitien
+hieromme al reede gedaen ende te doene allet
+ter taxatien ende moderatien van onse lieve
+ende getrouwe die cancellier ende lieden van
+onsen rade in brabant die wij daer toe gecommitteert
+hebben ende committeren by desen ontbieden daerom
+ende bevelen den selven onsen cancellier ende
+raetslieden dat voor hen geroepen die gene
+die daerom behooren geroepen te syne sij procederen
+wel ende deuchdelijck ter verificatie ende
+interinement van desen ende totter taxatie ende
+moderatie vanden voorschreven emende ende
+costen van justitien alsoe sij sullen vinden te
+behoorene welck interinement de voorschreven
+supplianten gehouden sullen sijn te versueckene ende
+hen in persoone te presenteren in onsen voors.
+rade binnen sesse maenden naestcomende
+opte pene van te verbeuren deffect van
+desen ende dat gedaen ende de selve civile
+boete ende costen van justitien getaxeert
+ende betaelt sijnde in handen vanden genen dyen
+dat behooren sal sij onse voorschreven procureur
+generael in brabant ende alle andere onse
+rechteren justicieren officieren ende ondersaeten
+iegenwordige ende toecomende dijen dat behou**
+aengaen sal mogen heure stedehouderen ende
+een yegelijck van hen besundere soe hen toe
+behooren sal doen laten ende gedoogen den
+voorschreven supplianten van dese onser iegenwordige
+gratie ende remissien ende van allen inhouden
+van desen inder vuegen ende manieren voeren
+verhaelt rustemijck vredelijck ende gebruycken
+volcomelijck * ende gebruycken sonder hen te
+doene oft te laeten geschieden nu noch in
+toecommende tyden ennich hinder letsel
+oft moyenisse aen lijff noch aen goeden
+ter contrarien maer indijen ** syn lijff oft eenig
+van sijne *** onverbeurde goeden daerom gearrestee$
+becommert oft belet waeren dat sij die setten
+ende stellen terstont ende sonder vertreck
+tot geheelder ende volcommender delivrancie
+want ons alsoe gelieft ende ten einde dat
+dit vast ende gestadich blijve tot eewigen
+dagen soe hebben wij onsen segel hier aen doen
+hangen behoudelijck in anderen dingen onser
+rechte ende eene ijegelijcke anderen dessijns
+gegeven in onser stadt van brussele inde$
+maent van augusto int jaer ons heeren
+duijsent ses hondert ende sesthien ende op die
+plicque stont aldus bijde eertzhertoghe end$
+onderteekent lombaerts gesegelt met
+eenen groenen segel uuijt hangende in sijden
+snoeren [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "1516-07",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "de mouraille",
+      "role": "suppliant",
+      "function": "son of sijmon de mouraille"
+    },
+    {
+      "firstname": "lambert",
+      "lastname": "de mouraille",
+      "role": "suppliant",
+      "function": "son of sijmon de mouraille"
+    },
+    {
+      "firstname": "sijmon",
+      "lastname": "de mouraille",
+      "role": "brother of the suppliants",
+      "function": "mason"
+    },
+    {
+      "firstname": "jacob",
+      "lastname": "timmerman",
+      "role": "deceased",
+      "function": "carpenter"
+    }
+  ],
+  "locations": [
+    {
+      "name": "loven",
+      "loctype": "city"
+    },
+    {
+      "name": "turnhout",
+      "loctype": "city"
+    },
+    {
+      "name": "maestricht",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "The brothers Jan and Lamber$ de Mouraille, residents of the city of Loven, submit a supplication concerning their brother Simon de Mouraille, a mason from Turnhout. Simon had been residing in Turnhout for five or six years and had been living in the same herberge as Jan Creeckels, a cleermaker, with whom he got into a fight. The fight escalated when Jacob timmerman, a carpenter from Maestricht, joined in and fatally wounded Simon. The suppliants claim that they and their brother had not been looking for trouble and had only acted in self-defense. Despite this, they were arrested and placed in bonds within the jurisdiction of Turnhout. They request a letter of remission for the offense they have been accused of.",
+    "fr": "Les frères Jan et Lamber$ de Mouraille, résidents de la ville de Loven, soumettent une supplique concernant leur frère Simon de Mouraille, un maçon de Turnhout. Simon avait résidé à Turnhout pendant cinq ou six ans et avait vécu dans la même auberge que Jan Creeckels, un cleermaker, avec qui il s'est battu. La bagarre a dégénéré lorsque Jacob timmerman, un charpentier de Maestricht, s'est joint à eux et a mortellement blessé Simon. Les suppliants affirment qu'ils et leur frère n'ont pas cherché la bagarre et ont seulement agi en légitime défense. Malgré cela, ils ont été arrêtés et placés enchaînés dans la juridiction de Turnhout. Ils demandent une lettre de rémission pour l'infraction dont ils ont été accusés.",
+    "nl": "De broers Jan en Lamber$ de Mouraille, inwoners van de stad Loven, dienen een supplicatie in betreffende hun broer Simon de Mouraille, een metser uit Turnhout. Simon had vijf of zes jaar in Turnhout gewoond en had in dezelfde herberg gewoond als Jan Creeckels, een cleermaker, met wie hij in gevecht is geraakt. Het gevecht is escaleert toen Jacob timmerman, een timmerman uit Maestricht, zich aansloot en Simon dodelijk verwondde. De supplianten beweren dat zij en hun broer geen ruzie zochten en enkel in zelfverdediging hebben gehandeld. Desondanks zijn zij gearresteerd en vastgezet binnen de jurisdictie van Turnhout. Zij vragen om een brief van gratie voor het vergrijp waarvoor zij zijn aangeklaagd.",
+    "de": "Die Brüder Jan und Lamber$ de Mouraille, Bewohner der Stadt Loven, reichen eine Supplikation ein, die sich auf ihren Bruder Simon de Mouraille, einen Maurer aus Turnhout, bezieht. Simon hatte fünf oder sechs Jahre in Turnhout gelebt und in derselben Herberge wie Jan Creeckels, ein Kleidermacher, gewohnt, mit dem er in einen Kampf geriet. Der Kampf eskalierte, als Jacob timmerman, ein Zimmermann aus Maestricht, sich anschloss und Simon tödlich verletzte. Die Supplianten behaupten, dass sie und ihr Bruder keinen Streit gesucht haben und nur in Selbstverteidigung gehandelt haben. Trotzdem wurden sie verhaftet und in Ketten gelegt innerhalb der Zuständigkeit von Turnhout. Sie bitten um einen Gnadenbrief für die Vergehen, für die sie angeklagt wurden."
+  }
+}
+```

@@ -1,0 +1,215 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. doen te wetene allen tegenwoirdige ende
+toecommenden dat wy ontfangen hebben die oitmoedige supplicatie
+van jan olivyers gebooren poorter onser stede van mechelen
+metsere van zynen ambachte belast met wyff ende
+kinders inhoudende hoe dat op des heylickx cruys dach in
+meye xvc lviij anthonis thyelens alias suwens ende jan de
+jonge met bernart van heyst ende wylen casen van heyst
+wulle wevers zyn geweest tot boonheyde onder de iurisdictie
+shoffe van beffere te putte in een herberge gestaen
+by der kercken genoempt het $$$ ende alsoe men aldaer
+alsdoon den papegay geschooten hadde ende dat de voirs. wylen
+casen seyde dat een heer cornelis * priestere hem gegeven
+hadde drye bouten zoe zyn int scheyden den zelven wylen
+casen ende bernaerdt van heyst zynen neve inde kokene
+vanden voirs. herberge gereesen groote twiestige woirden ende
+zulcke kyvagien dat hy bernaerdt den zelven casen goot een
+gelas biers in zyn aensichte ende dat uuyt zaickere van een
+vander bouten daer op hy bernardt seyde ghy heeft h$$
+den bout gegeven ende ick en heb den bout nyet ende sittende
+den suppliant alsdoen inde voirs. kokene omtrent der schouwen
+op hem zelven met een pintken biers aenhoirende de voirs.
+twistige woirden heeft naer het ghieten des voirs. gelas biers
+totten selven casen geseydt en kyft nyet meer om den bout
+ick hebben wech gedaen ende in stucken gebroken hy leegt inden
+stal ick sullen betaelen wat wilde daer voer hebben daerop
+de voirs. casen seyde ick en wilder nyet voier hebben maer
+ick wille mynen bout hebben god geve wat dat u cost ende
+met dyen sloech hy casen den voirs. suppliant met zyn vuyst oft
+handt op zyn aensichte alzoe dat hy suppliant bloydde ende
+alzoe geslaghen zynde wordden onderlinge vechtende dwelck
+siende de voirs. anthonis thyelens heeft tusschen beyden
+willen gaen ende namp den voirs. casen ende stelden beseyde
+willende henluyden van een scheyden ende te vreeden stellen
+ende casen gehouden zynde ende woude nyet swygen maer was
+zeer qualyck sprekende kyvende ende maniere makende den suppliant
+inne te varen sulcx dat de voirs. suppliant dat hoirende ende zynde
+geturbeert uuyttrack zyn pasmes oft weymes ende stack den
+voirgenoemden wylen casen onder zynen arme ende casen alzoe
+gestoken ende gewoont wesende ginck buyter voirs. cokene tot
+opden vloer vanden voirs. herberge ende viel aldaer ter aerden
+ende wordt daernae gebarcht tot zynen woenhuyse tot mechelen
+ende aldaer gelegen hebbende omtrent vyff dagen is van lyffve
+ter doot gecommen tot groot ende bitter leetwesen vanden voirgaenden
+suppliant die welcke vreesende rigeur van iusticien hem heeft
+moeten laeten absenteren van * zynder huysvrouwe ende kinderkins
+grooten achterdeelen en verdriete ende noch meer zyn en
+soude en wordde hem suppliant hier inne nyet versien by ende
+met onse opene brieven van remissien daer toe dienende
+ons om de zelve zeer oitmoedelyck biddende waeromme
+zoe eest dat wy de saicken voirs. overgemerckt den voirgenoemden
+jannen olyviers suppliant genegen wesende szynder bede ende
+begeerte ende hem willen in desen gratie ende genade prefereren
+voir rigeur van iusticien hem hebben inden gevalle alsboven
+vergeven quytgescholden ende geremitteert vergeven quytschelden
+ende remitteren uuyt zunderlinge gratie midts desen onsen
+brieff tfeyt ende manslach boven geruert midtsgaders alle
+pene boete ende bruecken corporelle ende criminele daerinne
+hy ter ter causen van dyen met deser aencleeft tegens ons
+ende iusticien mesdaen oft mesbruykt mach hebben ende
+ende hebben hem daeraff als wedergestelt ende
+gerestitueert stellen weder ende restitueren tot zynen
+goeden fame ende name in vo onsen voirs. lande ende
+hertochdomme van brabant ende allen anderen onsen landen
+ende heerlicheden mitsgaders tot zynen onverbeurden goeden
+indien hy eenige heeft alzoe hy was voer de toecompste
+vanden voirn. manslach imponerende hyer op een eeuwich
+zwygen ende silentie onsen procureur generael in brabant ende
+allen anderen onsen rechteren iusticieren ende officieren
+wy zy zyn satisfactie ende beteringe ierst ende $$$
+gedaen der geinteresseerde partyen indyen die noch nyet
+gedaen en is ende eenige daer toe staet civilyck alleenlyck
+behoudelyck dat die voirgaende suppliant gehouden wordt tzelve
+feyt tegens ons te beteren oick civilyck maer de gelegentheyt
+vanden misdaet ende faculteyt van zynen goeden volgende
+onse ordinantie daerop gemaeckt ende oick te betaelen
+die redelyckecosten van iusticien alreede gedaen ende noch te
+doene allet ter taxatien ende moderatien van onsen lieven
+ende getrouwen die cancellier ende luyden van onsen rade
+in brabant die wy daer toe gecommitteert hebben ende
+committeren by desen dat voir hen geroepen die ghene die
+daer over behoiren geroepen te zyn zy procederene wel ende
+duechdelyck ter verificatie ende interinemente van desen
+onsen brieff naer zynder formen ende inhouden welck
+interinement hy suppliant gehouden zal syn in onsen voirs. rade
+te versueckene bynnen eenen halfven jaere naer date
+van desen opte verbuerte van te verlyesen deffect
+der zelver ende dat gedaen ende de voirs. amende
+civile ende costen van iusticien getaxeert * ende betaelt
+zynde in handen vanden ghenen van onsen ontfangers dyet
+behoiren zal zy by onsen drossaet van brabant ende alle andere
+onsen ende onser vassalen oft smael$$ heeren rechteren
+iusticieren ende officieren ons voirs. lants van brabant
+tegenwoirdich ende toecommende huere stedehouderen ende een
+iegelyck van hen besundere zoe hem toebehoiren zal doen
+laten ende gedoogen den voirnoemde jan olyviers suppliant van dese
+onse gratie remissie quytscheldinge ende pardoen ende
+van allen allen de inhouden van desen inder vuegen ende
+manieren voertverhaelt rustelyck vredelyck volcommelyck ende eeuwelyck
+genyeten ende gebruycken sonder hem te doene noch te laeten
+geschieden nu noch in toecommende tyden aen lyff noch aen goet
+eenich hinder letsel oft moyennisse ter contrarien maer by
+alsoo zyn lyff of eenige van zynen goeden nyet geconfisqueert
+daeromme gevangen gearresteert becommeert oft beledt waeren
+dat zy die stellen ende doen stellen terstont ende sonder vertreck
+tot geheelder slakinge ende delivrance want ons alsoe
+gelieft ende ten eynde dat dit goet vast ende gestadich
+blyve tot eeuwyghen daigen soe hebben wy onsen zegele
+hier aen doen hangen behoudelyck in anderen saicken onsen
+rechte ende eenen iegelyck tzyne in allen gegeven in onsen
+stadt van bruessele inde maent van april duysent
+vyffhondert twe ende tsestich van onsen rycken van
+spaengnen ende sicillien tvije ende van naples
+tixe op de plycke stont gescreven by den
+coninck ende onderteekent $ de perre visa
+recepta
+gecollotioneert ende bevonden taccorderen
+met zynen originale by my
+$$$ [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "1556-04-00",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "olivyers",
+      "role": "suppliant",
+      "function": "poorter of our city of Mechelen, master of his craft"
+    },
+    {
+      "firstname": "anthonis",
+      "lastname": "thyelens",
+      "role": "witness",
+      "function": "none"
+    },
+    {
+      "firstname": "casen",
+      "lastname": "van heyst",
+      "role": "opponent",
+      "function": "weaver"
+    },
+    {
+      "firstname": "bernart",
+      "lastname": "van heyst",
+      "role": "opponent",
+      "function": "nephew of casen van heyst, weaver"
+    },
+    {
+      "firstname": "cornelis",
+      "lastname": "priestere",
+      "role": "giver of the button",
+      "function": "priest"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Mechelen",
+      "loctype": "city"
+    },
+    {
+      "name": "herberge gestaen by der kercken genoempt het $$$",
+      "loctype": "inn"
+    }
+  ],
+  "summary": {
+    "en": "Jan Olivyers, a master of his craft living in Mechelen, has supplicated for a remission. He states that on May 26, 1556, he was in an inn called '$$$' near the church, when a dispute arose between him and two weavers named Casen van Heyst and Bernart van Heyst, his nephew. The dispute was over a button that Cornelis, a priest, had given to Casen. Jan states that Casen claimed that he, Jan, had given the button to Bernart, but Jan denies this. The dispute escalated, and Casen struck Jan, who fell to the ground. Seeing this, Anthonis Thyelens intervened to separate them and bring peace.",
+    "fr": "Jan Olivyers, maître de son métier et habitant de Malines, a supplié pour une rémission. Il déclare qu'au mois de mai de l'année 1556, il se trouvait dans une auberge appelée '$$$' près de l'église, lorsqu'une dispute a éclaté entre lui et deux tisserands nommés Casen van Heyst et Bernart van Heyst, son neveu. Le différend portait sur un bouton que Cornelis, un prêtre, avait donné à Casen. Jan déclare que Casen a prétendu qu'il, Jan, avait donné le bouton à Bernart, mais Jan le nie. Le différend a dégénéré et Casen a frappé Jan, qui est tombé à terre. Anthonis Thyelens, témoin de la scène, est intervenu pour les séparer et rétablir la paix.",
+    "nl": "Jan Olivyers, meester in zijn vak en wonende in Mechelen, heeft om een remissie verzocht. Hij verklaart dat op 26 mei 1556 in een herberg genaamd '$$$' in de buurt van de kerk, een meningsverschil ontstond tussen hem en twee wevers genaamd Casen van Heyst en Bernart van Heyst, zijn neef. Het geschil ging over een knop die Cornelis, een priester, had gegeven aan Casen. Jan verklaart dat Casen zei dat hij, Jan, de knop had gegeven aan Bernart, maar Jan ontkent dit. Het geschil escaleerde en Casen sloeg Jan, die op de grond viel. Ziende dit, Anthonis Thyelens greep in om hen te scheiden en vrede te stichten.",
+    "de": "Jan Olivyers, Meister seines Faches und Einwohner von Mecheln, hat um eine Remission gebeten. Er
+   

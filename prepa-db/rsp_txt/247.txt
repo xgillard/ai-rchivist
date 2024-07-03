@@ -1,0 +1,250 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie voor peter devriese van eenen dootslage
+kaerle etc doen te wetene alle jegenwoirdige ende toecommende
+dat wij ontfaen hebben die ootmoedige supplicatie van
+pieter de vriese inhoudende hoe des geleden es meer dan een
+jaer hij suppliant ende willem zijn broeder gecommen zijnde van
+aelst in onsen stat van bruessel opten vlamsschen steen wech
+zijn zij met loemse de vriese hueren vader tsamen gegaen in
+een taverne aldaer geheeten den hooren om te drinckene
+tetene ende hen te droeghene mids dat zij moede waren van
+gane ende oick nat waren van regene ende inde selve
+taverne wesende heeft de voirsegde suppliant gestelt zijn javelyne
+in huis ende geleet zijne rock die zwart was met blauwen
+gevoedert op eenen stoel anden heert es gebuert dat nadien
+de voersegde ? ende willekin zijn broeder met hueren vader wat hadden
+ghegeten ende gedroncken ende de voorsegde hueren?? vader ewech
+was gegaen ter stat weerts inne zoe stonden zij oick
+corten daernae op om oick ter stat weerts inne te gane
+ende alsoe de voirsegde suppliant meynde zijnen voirsegde rock te nemende
+om wech te gane bevant dat die ewech was genomen
+dwelck siende seyde hij tot zekeren geselcape dat aldaer
+noch sat en dranck waer es mijnen rock die daer af
+nyet en wisten te spreken mits den welcken de selve
+suppliant hen vraechde wat lieden dat daer noch hadden
+sitten drincken ende van waer zij waeren daer up hem
+geantwerdt werdt dat zij waren van pamele vanden
+nat oft van daeromtrent dwelck hoirende de voersegde
+suppliant is metten selve willem zijnen broeder den voorsegde
+geselchape naegevolght daer onder dat wat een wijlen
+geheeten jan de winne ende hebben hem achterhaelt
+op een velt buyten ons voirsegde stat van bruessel leden
+den huysen alsoe men nae schuet gaet ende aldaer
+zijnde dwelck was ontrent een off twee uren naeder
+noenen ombegrepen vanden tijde soe heeft de voirsegde suppliant
+gebraecht den selven geselscapen die onder hen vieren
+waren gesellen weetts van mijnen rock nyet daer op
+zij antwordden neen ende aldus vraegende sach de
+voirnoemde suppliant zijn javelyne die hij oick als voere inde
+voerseyde taverne gestelt hadde liggen opten hals
+vanden voirseyde wijlen jan de winne dwelck ziende de
+selve suppliant ende hem daer af verwonderende seyden
+totten selve wijlen janne beydt ghy boeve ghy moet
+van mijnen rock weten want ghy hebt mijnen stock
+op uwen hals daer op de selve wijlen jan antwerde
+ick en doe ick hebben gecocht twee blancken waerop
+de selve suppliant seyde hij coste my meer dan twee
+blancken nemende met dien den selven zijnen stock
+off javelijne met zynder handt om dien den selven
+wijlen janne te ontreckene ende alsoe zij beyde trocken
+om dlancste seide de voirseyde suppliant totten voirseyde wijlen
+janne wilde mij mijnen stock nyet geven ic sallen u
+wel doorgeven ende want de selve wijlen jan den
+voirsegde suppliant zijnen stock nyet geven ende wilde zoe heeft
+de voornoemde suppliant vuyt hitte van bloede ende om tverlies
+van zijnen voerseyde rocke ende javelijne vuyt getrocken eenen
+cleynen opstekere ende houdende zijnen javelyne in zijn een
+hant die de selve wijlen jan oick hadde in zyn hant heeft
+den voirnoemde janne de winne metten selve opsteker gesteken
+van voere over zijn schouweren in zynen rugge oft zyde van
+welcke steken ende oick van eenen anderen slage die de selve
+suppliant hem gaf op zijn hoot nae dat hy den voirsegde wijlen
+janne zijnen stock ontrocken hadde de voirnoemde jan de winne
+corts daer nae gecommen es van levende lyve ter doot
+ter causen vande selve doot slach de voirsegde suppliant duchtende
+righeur van justicie heeft hem geabsenteert vuyt onsen
+lande ende hertochdom van brabant inden welcken hy niet en
+soude dorren commen noch converseren ten zij dat onse
+gracie hem hierop verleent en wordde ons oitmoerdelyck
+daeromme biddende soe eest dat wij des aengesien
+willende den voirnoemde suppliant in desen gracie ende genade
+prefereren voir righeur ende strancheyt van iusticien
+zonderlinige ter eere ende weerdicheyt vander heyliger
+passie onss liefs heeren die hy als huydent om onser alder
+verlossinge ende salich geleden heeft anden houte
+des cruysen hebben den selven suppliant inden gevalle
+als boven vergeven quytgescolden ende geremitteert vergeven
+scelden quyt ende remiteren vuyt onsen zunderlinghe gratie mids desen
+onsen brieve tfait ende dootslach boven verclaert mitgaders
+alle peyne ende bruyck corporelle ende criminelle daer inne
+hy ter cause van dien met datter ancleeft tegens ons ende
+iustitie mesdaen ende mesbruyct mach hebben wederoupende
+ende te nyente doende alsulcken van als jegen den voirnoemde
+suppliant ter cause voirseyde ? gegeven ende vuytgesproken es
+geweest hem als te desen wedergestelt ende gerestitueert
+stellen weder ende restitueren mits desen onser voirsegde brieve
+tot zijnder goeder fame name ende geruchte in ons voornoemde
+lande ende hertochdomme van brabant ende allen anderen onsen
+landen ende heerlyckheden ende tot zynen onverbuerden goed
+indien hijre? eenige heeft gelijck ende in alre manieren als hij
+was voir de toecomste vande dootslage voirseyd imponerende
+hierup een eeuwich zwighen ende silencie ons procureur generael
+van brabant ende allen anderen onsen rechteren justicieren ende
+officieren wie zy zijn satisfactie nochtans eerst ende
+alvoeren gedaen der geinteresseerde partie indien die noch nyet
+gedaen en zij enden eenige daertoe dient civielick alleenlyck
+behoudelyck dat de selve suppliant gehouden sal wesen tegens
+ons civielick te beteren nae gelegentheyt vander mesdaet ende
+faculteyt van zijnen goeden ende voirt betaelen die redelycken
+costen van iusticien indien daeromme eenige gedaen ende
+naegevolcht zijn ter taxatie ende arbitraige van onsen
+lieven ende getrauwen die cancellier ende luyden van
+onsen rade in brabant die wij daer ter committeren
+ontbieden daeromme ende bevelen den selven van onsen
+rade in brabant dat voir hen geroupen de gene die
+daeromme behoiren geroupen te zynen zij procederen ende
+duechdelyck ter verifficatie ende interinement van desen
+ende dat gedaen ende de civile boete ende costen
+getaxeert ende betaelt zynde in handen vanden ghenen
+van ons ontfangers officieren dient behoiren sal
+dwelck gehouden wert rekeninghe bewijs ende reliqua
+daervan te doene tot ons profyte metten anderen penn
+van zynen ontfange tzij onsen drossaert van brabant meyer
+van loeven amman van bruessel ende alle andere onse
+ende onser vassalen of smaelre heren rechteren iusticieren ende officieren
+tegenwoerdich ende toecommende hueren stedehouderen ende elc
+van hen bijsonder zoe hem toebehoiren sal doen laten
+ende gedoogen den voirnoemde suppliant van deser onser tegenwoordigen
+gratien remissien ende pardoene inder manieren voirscrevenen
+payselick volcomelick ende tot eeuwigen dagen
+doen ende laten genyeten ende gebruycken sonder
+hem te doen noch te laten geschien in lyve noch in
+goeden eenich hinder letsel oft moeyenisse ter contrarien
+maer indien zijn lyf oft eenige van zijn voirscreven enden
+onverbuerden goeden waeren daeromme gevangen
+verbuert of gearresteert dat zij die terstont stellen
+oft doen stellen tot volcommen delivrantie want
+ons alsoe gelieft ende ten eynde dat dit goet vast
+ende gestadich bliven tot eeuwigen dagen soe hebben
+den zegel daer van de keyser onse here ende grootvader
+ende wij gebruyckt hebben duerende den tyt van onsen
+onbejaertheden hier aen doen hangen behouden
+in anderen saecken ons recht ende een yegelick tzijne
+in allen gegeven in onse stat van mechelen
+opten goeden vrijdach int jaer ons heer duisent
+vijfhondert ende zeventhien zij van onsen rijcken
+tderde. aldus stont gescreven op te plycke bij den
+coninck in zijnen rade ende geteekent j de cock ende
+noch visa
+gecollationeert ende bevonden
+taccorderende metten originale
+bij mij [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "more than one year ago from the document date",
+  "persons": [
+    {
+      "firstname": "pieter",
+      "lastname": "de vriese",
+      "role": "suppliant",
+      "function": "applicant for remission"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "de vriese",
+      "role": "brother of the suppliant",
+      "function": "witness"
+    },
+    {
+      "firstname": "loemse",
+      "lastname": "de vriese",
+      "role": "father of the suppliant",
+      "function": "witness"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "de winne",
+      "role": "deceased",
+      "function": "victim of manslaughter"
+    }
+  ],
+  "locations": [
+    {
+      "name": "aelst",
+      "loctype": "town"
+    },
+    {
+      "name": "onsen stat van bruessel",
+      "loctype": "town"
+    },
+    {
+      "name": "den hooren",
+      "loctype": "tavern"
+    },
+    {
+      "name": "pamele vanden nat oft van daeromtrent",
+      "loctype": "town or region"
+    },
+    {
+      "name": "ons voirsegde stat van bruessel",
+      "loctype": "town"
+    },
+    {
+      "name": "een velt buyten ons voirsegde stat van bruessel",
+      "loctype": "field outside the town"
+    }
+  ],
+  "summary": {
+    "en": "Pieter de Vriese applies for a remission for a manslaughter committed more than a year ago. He, his brother Willem, and their father Loemse were in a tavern in Brussels, when Pieter left his black coat with blue lining on a chair. Later, he discovered it was stolen. He followed the thief, Jan de Winne, and caught him outside the town of Brussels. After a confrontation, Pieter accidentally killed Jan de Winne. Pieter had to flee the country and is now seeking remission.",
+    "fr": "Pieter de Vriese demande la rémission d'un homicide involontaire commis il y a plus d'un an. Lui, son frère Willem et leur père Loemse étaient dans une taverne à Bruxelles lorsque Pieter a laissé sa veste noire avec doublure bleue sur une chaise. Plus tard, il a découvert qu'elle avait été volée. Il a suivi le voleur, Jan de Winne, et l'a attrapé à l'extérieur de la ville de Bruxelles. Après une confrontation, Pieter a accidentellement tué Jan de Winne. Pieter a dû fuir le pays et cherche maintenant la rémission.",
+    "nl": "Pieter de Vriese vraagt om vergeving voor een doodslag die meer dan een jaar geleden is begaan. Hij, zijn broer Willem en hun vader Loemse zaten in een herberg in Brussel toen Pieter zijn zwarte jas met blauwe voering op een stoel zette. Later ontdekte hij dat hij gestolen was. Hij volgde de dief, Jan de Winne, en ving hem buiten de stad Brussel op. Na een confrontatie doodde Pieter per ongeluk Jan de Winne. Pieter moest het land ontvluchten en zoekt nu vergeving.",
+    "de": "Pieter de Vriese beantragt eine Begnadigung für eine Tötung, die vor mehr als einem Jahr begangen wurde. Er, sein Bruder Willem und ihr Vater Loemse saßen in einer Taverne in Brüssel, als Pieter seine schwarze Jacke mit blauer Veloursbesatz auf einem Stuhl ließ. Später entdeckte er, dass sie gestohlen worden war. Er folgte dem Dieb, Jan de Winne, und nahm ihn außerhalb der Stadt Brüssel fest. Nach einer Konfrontation tötete Pieter Jan de Winne versehentlich. Pieter musste das Land verlassen und sucht nun Begnadigung."
+  }
+}
+```

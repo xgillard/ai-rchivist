@@ -1,0 +1,226 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle byder gratien etc. onser roomsch
+keyser altyt vermeerder tsrycs conninck van germanien van
+castillien van leon van arragon van navarre van naples
+van sicillien van marocque van sardaine vanden eylanden
+van yndien ende vaster eerden ende zee occeane
+eertshertoge van oistenrycke hertoge van bourgoingne
+van lothryck van brabant van lymbourg van luxembourgs
+graeve van vlaenderen van artois van bourgoingnen
+palsgrave ende van henegouwe van hollandt van
+zeelandt van phirt van haguenauw van namen prince
+van zwave marcgrave des heylichs rycx heere van
+vrieslandt van salins van mechelen vander stadt steden
+ende landen van utrecht ende van overyssel ende
+dominateur in asien ende affricken doen condt
+allen luden iegewoirdige ende toecomende dat wy
+ontfangen hebben die oetmoedige supplicatie van gielis
+van weerde gevangenen op te steenpoirte binnen onser stadt
+van lovenen inhoudende hoe dat hy suppliant ontrent
+kersmisse lestleden verselschapt binnen der stadt van
+ludick met zekere lieden vander zelver stadt waer aff
+onder dandere een was genaempt santquin ende metter
+weerdinnen gerekent hebbende heeft de voirs. suppliant
+zyn ghelt gelangt ende opter tafel geleet om zyn
+gelach te betalenen ende tzelve ziende de voirs. santquin
+heeft dan des suppliant gelde genomen eenen stuiver ende
+ix te ende is daer mede buyten huyse gegaen ende de
+voirs. suppliant betaelt hebbende is hem gevolght vragende
+oft hy syn gelt weder geven wilde heeft de zelve santquin
+straffelick geantwoirdt neen ick seggende gaet van my
+ende en compt nyet naerdere dan myn weymes lanck
+es is dairop hy suppliant seyde wildy dan my gelt nyet
+geven zoe sullen wy malcanderen leet doen dwelck
+hoirende de voirs. santquin heeft ter stont zyn
+weymes getrocken ende strangelick naeden suppliant
+geslagen dwelck ziende de suppliant ende dat de zelve
+santquin van slaende nyet en cesseerde heeft tot
+zynder defensien een cleyn brootmes getrocken ende
+den selven santquin gegeven een steecxken op syn borst
+ende vallende metten hoofde tegen eenen steen is corts
+daernae van lyve ter doot gecommen dwelck hem suppliant
+vuyt gronde zyns herten leet is ende comende onlancx
+binnen onser voirts. stadt van lovenen nyemande meynende dat hy
+hem daer op geleyde zoude onthouden gelyck hy inden
+lande des heeren ende graven van nassou gedaen hadde
+om zyn broot te winnen is by onsen meyere van lovenen
+geapprehendeert ende opter poirten gestelt ende
+beducht hem de suppliant dat onse voirs. meyere tegen
+hem criminelick sal willen procederen tot zynder
+condempnatien dwelck commen soude tot des suppliant groots
+ongennechten scade ende verdriete indien onse gracie
+ende misericordie hem hier op nyet en worde geextendeert
+ende verleent alzoe hu suppliant zeegt ons daerom
+oetmoedelick biddende waeromme zoe eest dat
+wy desen aengesien geneyght wesende ter beden des voirs.
+gielis van weerde suppliant ende willende hem in dit stuct
+prefereren gracie ende misericordie voer strangheit ende
+rigeur van iusticien hebben den selven suppliant inden gevalle
+als boven quytgeschonden geremitteert ende vergeven scheld$
+quyte remitteren ende vergeven vuyt sunderlingen gracien
+bydesen onsen brieve tfeyt ende dootslach boven geruert
+mitgaders alle offensie ende bruecke corporelle ende
+criminelle dair inne hy ter causen voirscreven mits dat da$
+aen cleven mach tegen ons ende iusticie mesdaen ende
+mesbruyct mach hebben ende hebben hem daeraff
+wedergestelt ende gerestitueert stellen weder ende
+restitueren tot zynen goeden name fame ende geruchte
+in onsen lande ende hertoigdomme van brabant ende allen
+anderen onsen landen ende heerlicheyden ende tot zynen
+onverbeurden goeden indien hy eenige onder ons heeft
+gelyck ende in alder manieren zoe hy was voer de toecompste
+vanden voirs. feyte imponerende hier op een eeuwich
+geswych onsen procureur general in brabant ende allen anderen
+onsen iusticieren ende officieren wie zy zijn satisfactie
+ende beternisse ierts ende voeral gedaen der partie
+geinteresseerde indien die noch nyet gedaen en zijn ende
+eenige daertoe staet civilyck alleenlick behoudelyck
+dat de voirs. suppliant gehouden zal zyn tvoirs. tfeyt tegen
+ons te beteren civilick nae gelegentheyt vander saken
+ende faculteyt van zynen goeden met oick te betalenen
+de costen van iusticien hieromme alreede gedaen ende te
+doene allet ter taxatien ende moderatien van onsen
+lieven ende getruwen den cancellier ende luden van
+onsen raede in brabant die wy daertoe gecommitteert
+hebben ende committeren by desen ontbieden dairom
+ende bevelen den zelven onsen cancellier ende raedsluden dat
+voer hen geroepen die ghene die dairom behoiren geroepen
+te zyne zy procederen wel ende duegdelick ter verificatie
+ende interinemente van desen ende totter taxatie en moderancie vander
+voirs. amende ende costen alzoe zy sullen bevinden
+behoirende dwelck internemente de voirs. suppliant
+gehouden sal zyn te verzueckene ende hem in persoone
+te p$$teren presenteren? in onsen voirs. raede binnen eenen iaere
+naestcomende opde peyne van te verbuerende deffect
+van desen ende dat gedaen ende de zelve civile
+boete ende costen van iusticien getaxeert ende
+betaelt zynde in handen vanden genen dien dat behoiren
+sal zy onse voirs. procureur generael in brabant ende alle
+andere onse rechteren iusticieren officieren ende ondersaten
+iegewoirige et toecommende dien dat aengaen zal mogen
+huere stedehouderen ende een yegelick van hen bezundere
+zoe hem toebehoiren sal doen laten ende gedoogen
+den voirs. suppliant van deser onser iegewoirdiger gracien
+#sy hieraf veranrword
+byden ontfangerre vanden
+exploiten
+remissien ende pardoenen ende van alle den inhouden
+van desen inder vuegen ende manieren voer verhaelt
+rustelick vredelick volcomelick ende eeuwelick
+genyten ende gebruycken zonder hem te doene noch te
+laeten geschieden nu noch in toecommende tyden eenich
+hinder letsel oft moyenisse aen lyve noch aen goeden
+ter contrarien maer indien zyn lyf oft eninge
+van zynen goeden daerom gearrestteert becommert oft
+belet waeren dat zydie zetten ende stellen oft doen
+setten ende stellen terstont ende zonder vertreck
+tot geheelder ende volcommender delivrancie want ons
+alzoe gelieft ende ten eynde dat dit vast ende
+gestadich blyve tot eeuwigen dagen zoe hebben wy
+onsen zegel hieraen doen hanghen behoudelick in
+anderen dingen onsen rechte ende eenen yegelycken anderen
+destyns ghegeven in onser stadt van bruessele
+inde maent van septembre int iaer onssheren duysent
+vyffhondert ende zessendertich ende van onser
+keyserycke txviie ende van castillien $ txxie
+aldus stont gescreven opte plycke byden keyser
+in zynen rade ende geteekent boudewyns
+visa $$ ta
+ghecollacionnneert tegens
+doriginale brieven bij mij
+decock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "gielis",
+      "lastname": "van weerde",
+      "role": "suppliant",
+      "function": "prisoner"
+    },
+    {
+      "firstname": "onsen meyere",
+      "lastname": "van lovenen",
+      "role": "apprehender",
+      "function": "mayor"
+    },
+    {
+      "firstname": "onsen procureur",
+      "lastname": "general in brabant",
+      "role": "prosecutor",
+      "function": "procureur general"
+    }
+  ],
+  "locations": [
+    {
+      "name": "onser stadt van lovenen",
+      "loctype": "parish"
+    },
+    {
+      "name": "lande des heeren ende graven van nassou",
+      "loctype": "province"
+    },
+    {
+      "name": "onsen voirs. raede binnen eenen iaere naestcomende",
+      "loctype": "court"
+    },
+    {
+      "name": "inde maent van september int iaer onssheren duysent vyffhondert ende zessendertich",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Gielis van Weerde, a prisoner, requests remission after killing a man in self-defense. He was apprehended by the mayor of Lovenen and is now summoned to appear before the council within a year. The incident occurred in Lovenen, and Gielis fears prosecution by the procureur general.",
+    "fr": "Gielis van Weerde, prisonnier, demande la rémission après avoir tué un homme en légitime défense. Il a été arrêté par le maire de Lovenen et est maintenant convoqué devant le conseil dans l'année à venir. L'incident s'est produit à Lovenen, et Gielis craint d'être poursuivi par le procureur général.",
+    "nl": "Gielis van Weerde, een gevangene, vraagt vergeving na de moord op een man in zelfverdediging. Hij werd aangehouden door de burgemeester van Lovenen en wordt nu gesommeerd te verschijnen voor de raad binnen een jaar. Het incident vond plaats in Lovenen, en Gielis vreest vervolging door de procureur-generaal.",
+    "de": "Gielis van Weerde, ein Gefangener, bittet um Vergebung nach der Tötung eines Mannes in Notwehr. Er wurde vom Bürgermeister von Lovenen festgenommen und wird nun aufgefordert, sich innerhalb eines Jahres vor dem Rat zu melden. Der Vorfall ereignete sich in Lovenen, und Gielis fürchtet eine Verfolgung durch den Procureur général."
+  }
+}
+```

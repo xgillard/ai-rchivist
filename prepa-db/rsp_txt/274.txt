@@ -1,0 +1,220 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te wetene allen tegenwoirdighe ende
+toecommende dat wy ontfangen hebben die oetmoedige
+supplicatie van joes halfrose de jonghe inhoudende hoe dat hy
+omtrent half meerte xvc xxxv sat en dranck inden hert
+int wermoesbroeck alhier te bruessele aldair doen inne
+quam wylen doen levende hennen claes den wecke hy suppliant
+noyt gesien en hadde ende heeft dese wylen hennen
+dairoick gedroncken met twee vrouwen by hem zittende
+dairaff die een zeyde totten suppliant dat zy zyn vader
+wel kinde ende vraeghde hem oft hy hendrick haveloes
+zoene nyet en was waer op de suppliant antwoirde jae ic
+doen die voirs. overleden vraechde totten selven suppliant
+wat hy in zyn gelach te spreken hadde dwelck hy
+suppliant hoirende zeyde tot hen ic en spreke u nyet
+toe ic spreke de vrouwe toe doen die overleden noch
+nyet cesserende van woerden te maken ende questie
+te zoucken nam eenen pot ende woude naer tsuppliant
+hoeft worpen dat ziende de voirs. suppliant om te
+beletten dat hy nyet gegraest en zoude worden namp
+een tange ende woude hem toe mair zy werden beyde
+gehouden zoe datter gheen arch af en geschiede doen
+stiet den wert den voirn. overleden uuyten huyse ende
+namp hem zyn mutse om zyn gelach waer naer die
+suppliant dair noch een halfure bleef drincken ende dit
+gedaen zynde zoe ghinck hy spuuliant buyten huyse mits
+welcken die overleden hem volghde dwelck die suppliant
+gewaer wordende om twist te schouwen ghinck tot
+willem spierinck in huys dair die overleden den suppliant
+uuyten huyse riep seggende compt uuyt ghy verrader
+ghy dief welcke injurieuse woerden die suppliant
+hoirende ende hem dair inne zeer vergrammende heeft
+uuyt hitte van bloede eenen stock genomen ende es
+dairmede uuytgecommen mits welcken soe gaf die
+overleden hem suppliant eenen slach op syn hoeft dat hy
+suppliant ter eerden viel waer naer hy suppliant opgestaen
+es ende heeft hem eenen slach gegeven metten voirs.
+stocke zoe dat die zelve hennen claes tsanderdaaechs
+snachs dair af gevaeren es van levende lyve ter doot ende
+hoewel dit feyt gecommen is ten grooten verdriete ende
+onghenoechte vanden suppliant mits dat die overleden
+tzelve op hem zeer versochte ende hem injurierde ende
+soe dat hy suppliant zyn lyff moeste verweren dies nyet
+min vreesende rigeur van justicie en soude nyet
+vryelyck dorren hanteren in uwen onsen landen ende heerlicheden
+hoewel hy tot twee oft drie reysen toe heeft doen
+vergaderen die inge geinteresseerde partie om uuyt
+leetscap vanden toecompste van tvoirs. feyt met hemluyden
+minnelyck te accorderen van huerluyden interest civil
+soe dat hy gescapen es altyt dair uuyt te moeten blyven
+tzynder eeuwiger bederssenisse ten zy dat hem hierop onse
+gracie ende genade verleent worde alzoe hy seegt
+ons dairomme oetmoedelyck biddende soe eest dat wy
+de zake voirs. overgemerct ende hierop gehadt tadvys
+van onsen welbeminden die burgemeesters scepenen ende
+raidt onser stede van bruessele den voirn. joes halfrose
+in dit stuck geracie ende genade prefereren voere rigeur
+van justiecie hebben inde gevalle als boven vergeven
+quytgeschonden ende geremitteert vergeven schelden
+quyte ende remitteren uuyt onse zunderlinge gracie mits desen
+tfeyt ende manslach boven geroert mistgaders alle peyne
+ende boete corporelle ende criminelle dairinne hy ter cause
+van dien mit diesser aencleest tegens ons ende justicie
+misdaen ende misbruyct mach hebben ende hebben hem als
+hier aff wedergestelt ende gerestitueert stellen weder ende
+restitueren tsynder goeder fame ende name in onsen lande
+van brabant ende allen anderen onsen landen ende heerlicheden
+mitsgaders tzynen onverbuerde goeden in dien hyer eenige
+heeft alzoe hywas voere de toecompste vanden manslach
+voirs. imponerende hierop een eewich zwygen ende silencie
+onsen procureur general ende allen anderen onsen rechteren
+justicieren ende officieren wye zy zyn satisfactie
+ende beteringe eerst ende alvoeren gedaen der geinteresseerde
+partyen indyen die noch nyet gedaen en is ende
+eenige daertoe staet civilyck alleenlyck behoudelyck
+dat de voirn. suppliant gehouden wordt tzelve feyt iegens ons
+te beteren oyck civilyck naer de gelegentheyt vander
+misdaet ende faculteit van zynen goeden ende oyck te
+refonderen ende betalen de redelycke costen van justicien
+indien hieromme eenige gedaen zyn al ter taxacie
+ende arbiterscepe van onsen lieven ende getrouwen die
+cancellier ende luyden van onsen raede in brabant die wy
+dairtoe committeren den welcken wy bevelen dat voer hen
+geroepen die ghene dier behoiren geroepen te zyne
+zy procederen wel ende dueghdelyck ter verificatie
+ende interinemente van desen naer huere vorme ende
+inhouden ende tot taxacie ende arbiterscepe vander
+amende civile ende costen van justicien voers. ende
+# sy hieraf verantwordt
+byden ontfaner vanden
+exploiten
+dat gedaen ende voirs. amende civile getaxeert
+ende betaelt zynde in handen van onsen ontfanger diet
+behoiren die welcke gehouden wert daeraf ontfanck te
+maken rekeninge bewys ende reliqua te doene
+tonsen proffite metten anderen penningen van zynen ontfange
+zy ende allen anderen onsen rechteren justicieren ende
+officieren tegenwoirdich ende toecommmende hueren stedehouderen
+ende een yegelyck van hun bezundere zoe hem toebehoirenn
+sal doen laeten ende gedoegen den voirn. suppliant van dese
+onse gracie remissie quytschelinge ende pardoene ende
+van allen den inhoude van desen inder vuegen ende manieren
+voeren verhaelt rustelyck vredelyck volcommelyck ende
+eeuwelyck genieten ende gebruycken sonder hem te
+doene noch te laeten geschien nu noch in toecommende
+tyden aen lyff noch aen goet eenich hinder letsel oft
+moyenisse ter contrarien maer by alzoe zyn lyf oft
+eenige van zynen ongeconfisqueerde goeden daeromme
+gevangen becommert oft gearresteert waeren dat zy die
+stellen terstont ende zonder vertreck tot geheelder
+delivrancie want ons alzoe gelieft ende ten
+eynde dat dit goet vast ende gestadich blyve
+teewigen daghen soe hebben wy onsen zegel hieraen doen
+hangen behoudelyck in anderen zaken ons recht ende
+eenyegelyck tzyne in allen ende dat de voirn. suppliant
+binnen een jaer naestcomende desen onsen brief presenteren
+zal ende dinterinement versuecken opte peyne
+deffecte van dien te verliesen ghegeven in
+onse stadt van bruessele inde maent van
+october int jaer onsenheeren duysent
+vyffhondert ende zessendertich van onsen
+keyserycke txviie ende van onsen anderen rycken
+van spaengnen ende castillen anderen $ txxie
+opde plycke stont ghescreven byden keyser in
+zynen raede ende gheteekent l du blioul
+visa recepta
+ghecollacionneert tegens
+doriginale brieven by my
+decock [/INST] {
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "jos",
+      "lastname": "halfrose de jonghe",
+      "role": "suppliant",
+      "function": "applicant"
+    },
+    {
+      "firstname": "claes",
+      "lastname": "den wecke",
+      "role": "deceased",
+      "function": "deceased person"
+    },
+    {
+      "firstname": "hennen",
+      "lastname": "claes",
+      "role": "deceased's chickens",
+      "function": "deceased person's chickens"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "spierinck",
+      "role": "addressee of the insults",
+      "function": "third party"
+    }
+  ],
+  "locations": [
+    {
+      "name": "bruessele",
+      "loctype": "city"
+    },
+    {
+      "name": "wermoesbroeck",
+      "loctype": "inn"
+    }
+  ],
+  "summary": {
+    "en": "Joes Halfrose the Young applied for a remission regarding the death of Claes den Wecke. The incident took place in an inn in Brussels, where Halfrose the Young had never seen Claes den Wecke before. Claes den Wecke was drinking with two women, one of whom asked Halfrose the Young if he knew Henrick Haveloes. Halfrose the Young answered affirmatively, which led to a verbal altercation. Claes den Wecke was killed in the fight, and Halfrose the Young was afraid of the rigor of justice and the loss of his life and goods. He had gathered interested parties to reach a civil agreement, but the case was eventually brought before the authorities in Brussels. The authorities granted remission to Halfrose the Young, quashing and remitting all charges, fines, and corporal and criminal penalties related to the case.",
+    "fr": "Joes Halfrose le Jeune a demandé une remise concernant la mort de Claes den Wecke. L'incident s'est produit dans une auberge à Bruxelles, où Halfrose le Jeune n'avait jamais vu Claes den Wecke auparavant. Claes den Wecke buvait avec deux femmes, l'une d'entre elles a demandé à Halfrose le Jeune s'il connaissait Henrick Haveloes. Halfrose le Jeune a répondu affirmativement, ce qui a conduit à une altercation verbale. Claes den Wecke a été tué dans la bagarre, et Halfrose le Jeune craignait la rigueur de la justice et la perte de sa vie et de ses biens. Il avait rassemblé des parties intéressées pour parvenir à un accord civil, mais l'affaire a finalement été portée devant les autorités à Bruxelles. Les autorités ont accordé une remise à Halfrose le Jeune, éteignant et remettant toutes les accusations, amendes et peines corporelles et criminelles liées à l'affaire.",
+    "nl": "Joes Halfrose de Jonghe vroeg om een remissie voor de dood van Claes den Wecke. Het incident vond plaats in een herberg in Brussel, waar Halfrose de Jonghe Claes den Wecke nooit eerder had gezien. Claes den Wecke dronk met twee vrouwen, een van wie Halfrose de Jonghe vroeg of hij Henrick Haveloes kende. Halfrose de Jonghe antwoordde bevestigend, wat leidde tot een woordenwisseling. Claes den Wecke werd gedood in de ruzie, en Halfrose de Jonghe vreesde de rigoreuze justitie en de verlies van zijn leven en goederen. Hij had partijen bijeengeroepen om een burgerlijke overeenkomst te bereiken, maar het geval werd uiteindelijk voorgelegd aan de autoriteiten in Brussel. De autoriteiten verleenden remissie aan Halfrose de Jonghe, waardoor alle aanklachten, boetes en lichamelijke en criminele straffen in verband met het geval werden geschorst en vervallen.",
+    "de": "Joes Halfrose der Jüngere beantragte eine Begnadigung für den Tod von Claes den Wecke. Der Vorfall ereignete sich in einer Herberge in Brüssel, wo Halfrose der Jüngere Claes den Wecke zuvor nie gesehen hatte. Claes den Wecke trank mit zwei Frauen, von denen eine Halfrose der Jüngere fragte, ob er Henrick Haveloes kenne. Halfrose der Jüngere antwortete bestätigend, was zu einer Wortgefecht führte. Claes den Wecke wurde in der Schlägerei getötet und Halfrose der Jüngere fürchtete sich vor der Strenge der Justiz und dem Verlust seines Lebens und Gutes. Er hatte interessierte Parteien zusammengebracht, um eine zivile Einigung zu erzielen, aber der Fall wurde schließlich den Behörden in Brüssel vorgelegt. Die Behörden gewährten Halfrose der Jüngere Begnadigung, alle Anschuldigungen, Geldstrafen und körperlichen und strafrechtlichen Strafen im Zusammenhang mit dem Fall aufzuheben und zu verwerfen."
+  }
+}

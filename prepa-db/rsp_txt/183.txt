@@ -1,0 +1,174 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etcetera doen te wetene alle tegenwordige
+ende toecomende dat wy hebben ontfangen d’oytmoedige
+supplicatie van servais bollen ingesetene van cuntich inhoudende
+dat hij op den 21 maart 1652 geadresseert geweest syn van raphael
+maes daer hy werckte ontrent syn vaeders huys t’sels daetelyck
+heeft gaen seggen aen synen vaeder die daer oppe met die suppliants
+moeder naer den voorschreven raphael maes syn geloopen alwaer die suppliant
+syn roer gehaelt hebbende oock is by gecomen ende naer eenich gevecht
+mette schupen ende stocken die sy inde handen hadden ende groote injurien
+die der voorschreven raphael maes soo aende vaeder als moeder des supliants
+hadde naer geroepen heeft den suppliant in eoden conflict uet colere
+ende door deselve bewecht synde syn roer gelost op den voorschreven
+raphael maes waerdoor den selven midts sy naer by den anderen
+waeren soo geraeckt is geworden inden buyck dat hy corts
+daernaer is gestorven tot groot leetwesen des supliants
+die geene meyninghen hadde van den selve ter doot te brengen
+midts het voorschreven roer maer gelaeden en was met haegel
+welcken aengemerckt ende dat die suppliant hen andersints altyt
+seer wel heeft gedraegen ende nu soo lange inde gevanckenisse
+hadde geseeten t’sedert den voorschreven neerslach soo badt hy oytmoedelyck
+dat ons geliefden hen te verleenen onser oepene brieven
+van remissie in forma daertoe dienende soo eest dat wy
+desen aengesien geneyht wesende ter bede des voorschreven sippliant ende
+willende hen in dit stuck prefereren gracie ende misericordie
+voor strengheyt ende rigeur van rechte hebben den selre suppliant inden
+gevalle alsboven geremitteert quytgeschonden ende vergeven
+remitteren schelden quyte ende vergeven vuyt sunderlinge goeden by
+desen onsen brenafkorting? t’feyt ende ongeval boven geruert midts gresafkorting ?
+alle offentie ende breucke corporele ende criminele daer
+inne hy hem overmidts ende vuyt saecke van t’gene des voorschreven is
+tegens ons ende justitie eenichsints mach hebben
+ontgaen ende mesdraegen ende hebben hen dyenaengaende
+weder gestelt ende gerestitueert ende stellen weder
+ende restitueren tot syn goeden naeme ende fame ende geruchte
+in onsen voorschreven lande van brabant ende alle andere
+onse landen ende heerlycheden ende tot synen onverbeurden
+goeden indien hy eenighe onder ons heeft gelyck ende
+in alder manieren soo hy was voor de toecompste van
+voorschreven feyte imponerende hierop een eeuwich geswych
+onsen seer lieven ende getrouwen raedt ende procureur generael
+in brabant ende alle andere onse justicieren ende officieren
+wie sy sy syn statisfactie ende beternisse ierst ende vooral gedaen
+der partye geinteresseerde inden die noch nyet gedaen en sy
+ende eenighe daertoe stae civilyck alleenlyck behoudelyck dat ae$
+voorschreven suppliant gehouden sal syn t’voorschreven feyt tegens ons te beter$
+civilyck naer gelegentheyt vande saecke ende faculteyt
+van synen goeden met oock te betaelen den rederlycke costen van
+justitien hieromme alreede gedaen ende te doene alles ter
+taxatie ende moderatie van onsen seer lieven ende getrouw$
+die cancellier ende lieden van onsen raede in brabant
+die wy daertoe gecoitteert hebben ende coitteren by desen
+ende te betaelene eene dobbele amende
+ontbieden daerom ende bevelen den selve onsen cancelier
+ende ricedtslieden dat voor hen geroepen dengenen
+die daerom behooren geroepen te syn sy procederen w$
+ende deuchdelyck ter verificatie ende interinemente
+van desen ende totter taxatie ende moderatie van voorschreven
+costen van justitien ende dobbele amende alsoo sy sullen
+vanden te behoorne welck interinement die suppliant
+gehouden sal syn te versueckene ende hen in persoone te
+presenteren in onsen voorschreven raede binnen sesse maenden
+naestcomende op pene van te verbeuren d’effeckt
+desen ende dat gedaen ende deselve dobbele amende costen
+van justitien getaxeert ende betaelt synde in handen
+van dengenen dien dat behooren sal sy onse voorschreven procureur
+generael in brabant ende alle andere onse rechteren
+justicieren officieren ende ondersaeten tegenwoordig
+ende toecomende dyen dat aengaen sal moghen
+heure stedehouderen ende eeniegelyck van hen besundere
+soo hen toebehooren sal doen laeten ende gedoogen de voorschreven suppliant
+van deser onser tegenwoordiger gracien ende remissien ende van
+allen den inhouden van desen indervuegen ende manieren boven
+verhaelt rustelyck vredelyck ende volc$mentlyck genieten ende gebruycken
+sonder hen te doene oft laeten geschieden nu noch in toecome$
+tyden eenich hinder letsel oft moyenisse aen lyff noch
+aen goeden ter contrarien maer indien zyn lyft oft eeni$
+van synen onverbeurde goeden daerom gearrestert boven
+macht oft belet waeren dat sy die setten ende stellen terstont ende
+sonder vertreck tot geheelder ende volcomender delivranti$
+$$antons alsoo gekest ende ten eynde dit vast ende gestand$
+blyve t’eeuwichen daege daerop hebben wy onsen zegel ge$
+aen doen hangen behoudelyck nu andere dingen aasen richt$
+ende eenen zegel dessyns gegeven inde daernsr stadt brue$
+inde maendt van april int jaer onsheeren 165$
+ende van onsen rycke get 54e
+sas happart [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "April, 165$",
+  "fact_date": "March 21, 1652",
+  "persons": [
+    {
+      "firstname": "philips",
+      "lastname": "ETCETERA",
+      "role": "petitioner",
+      "function": "unknown"
+    },
+    {
+      "firstname": "servais",
+      "lastname": "bollen",
+      "role": "petitioner",
+      "function": "resident of cuntich"
+    },
+    {
+      "firstname": "raphael",
+      "lastname": "maes",
+      "role": "victim",
+      "function": "unknown"
+    }
+  ],
+  "locations": [
+    {
+      "name": "cuntich",
+      "loctype": "unknown"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "Philips etcetera and Servais Bollen have submitted a petition for remission. On March 21, 1652, Servais Bollen had a conflict with Raphael Maes, resulting in the latter's death due to a weapon wound. Servais Bollen claims that he did not intend to kill Raphael Maes and was provoked. The incident has been investigated, and Servais Bollen has been detained. He now requests remission and has promised to be of good behavior in the future.",
+    "fr": "Philips etcetera et Servais Bollen ont soumis une supplique pour remise. Le 21 mars 1652, Servais Bollen a eu un conflit avec Raphael Maes, qui est décédé des suites d'une blessure causée par une arme. Servais Bollen prétend qu'il n'avait pas l'intention de tuer Raphael Maes et qu'il a été provoqué. L'incident a été étudié et Servais Bollen a été détenu. Il demande maintenant la remise et a promis de se comporter correctement à l'avenir.",
+    "nl": "Philips etcetera en Servais Bollen hebben een verzoek om vergeving ingediend. Op 21 maart 1652 had Servais Bollen een conflict met Raphael Maes, die als resultaat van een wapenwond overleed. Servais Bollen beweert dat hij Raphael Maes niet van plan was te doden en dat hij werd geïrriteerd. Het incident is onderzocht en Servais Bollen is vastgehouden. Hij vraagt nu vergeving en heeft beloofd zich in de toekomst goed te gedragen.",
+    "de": "Philips etcetera und Servais Bollen haben ein Gnadengesuch eingereicht. Am 21. März 1652 hatte Servais Bollen einen Konflikt mit Raphael Maes, der aufgrund einer Waffenverletzung starb. Servais Bollen behauptet, er habe Raphael Maes nicht töten wollen und sei provoziert worden. Der Vorfall wurde untersucht und Servais Bollen wurde inhaftiert. Jetzt bittet er um Gnade und hat versprochen, sich in Zukunft gut zu verhalten."
+  }
+}
+```

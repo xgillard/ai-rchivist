@@ -1,0 +1,237 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+karel $$ doen te weten eenen iegelicken tegewoirdich ende
+toecomende dat van ontvangen hebben die oitmoedige supplicatie
+van willem brieders jonck geselle oude omtrent 21 jaeren
+ongehouwe woenen binnen onse stadt van leeuwe ende
+scuttere aldaer vanden voetboghe inhouden hoe dat
+de voirs. gulde huen vogel geschoten hadden nader onder
+gewoenten voer theilicht sacrament dach lestleden ende dat
+mits dien der selven gulden competeerde alleenlick openbaer
+feeste voer huer camer te houden met seclusen van alleen
+anden gulden inder voirs. onse stadt wesen tot sacraments
+dach voirs. incluys gemerct dat die andere gulden elck
+op huer tyden als zij hueren voghel schieten gelycke
+preeminentie van feesten hebben met seclusien vanden
+anderen gulden ende het zoe zy dit nyemanden vanden
+andere gulden en betaempde noch geoirloeft en was op den
+selven tijt als de voirs. vanden voetboge huer voirs. feeste
+hielden die dueren nader onder gewoenten tot sacraments
+dach incluys eenige openbaer feeste op| oft voer huer
+camer te houden desen nochtans niettegenstaende soe heeft
+op sacraments dach lestleden die avonts hen gevordert een
+genoempt willem van gelmen een vanden colvenriers gulden
+in syn gulde ome te gaen gane met eender tellooren ende
+feeste van die colvenriert camer te makene ende teekende
+opte selve teillore metten voirs. crye die ghene die met
+hem die voirs. feeste houden ende maken wouden soe
+verre dat die selve willem met zynen medegesellen die met
+hem adhereerden hebben voer hueren gulden camer geset ende
+ontsteken een pecvat opden selven sacramente avont lestleden
+makende ende houwen aldair feeste dwelck vernomen hebben
+die voirs. vanden voetboghe soe hebben die voirs. suppliant ende lybrecht
+speken guldebruederen vanden voirs. voetboghe aende voirs.
+vanden colvenriert gegaen hen adverterende dat zy souden
+desisten van enige feeste voer huer conne te houden
+maer dat zy den voirs. voetboghe die lieten hanteren
+achtervolgens der onder gewoenten dair die voirs. willen
+ende syne adherenten vande colvenriert antworden dat zy dat
+nyet doen en zouden maer huer feeste continueren seggende
+noch tot dien dat zy tselve souden doen in spyt vanden
+ghenen diet leet woit ende wilden noch darenboven den voirs.
+suppliant ende lybrechte speken slaen ende dat gedaen synde
+die voirs. willem van gelmen ginck staen roepen voer den
+stathuys der voirs. onse stat van leeuwe dese oft gelycke
+woerden in effectie ic hebbe dese feeste gemaeckt ende
+int werk gestoken ende sal noch wel een mes in myn handen
+houden connen of dat mach dat daer nae die hooftman
+vander voirs. gulden vanden voetboghe es gegaen met eenen
+synen diene voer die camere vanden colvenriers ende heeft
+die selve diene vuyt bevele van synen meestere tpeckvat
+afgestooten mits den welcken syn die voirs. colvenriert totten
+getale van viven te messe gegaen ende hebben den voirs.
+hoofman ende synen diene opgeloopen ende op hen geslagen
+soe dat die voirs. suppliant die was gegaen tot opde camer
+vanden voetboghe hooren tgeruchte is terstont afgecomen
+ende heeft inden hoop geloopen geslagen ende gequetst
+eenen genoempt peetere van gelmen soen willeme die de
+feeste begonst hadde in syn stouwe ende slach daer af
+egheen peryckel vander doot en was ende daer om hy de strate
+noyt en heeft dorven laten noch te bedde gheleghen. ende
+die suppliant heeft ter contrarien inden selven gevechte ontfangen
+diverse dootwonden inden hoofde ende inden arm die hem benaest
+overhouden was sal dat hy ver doot daer bleeft liggen nietmin
+de voirs. peeter van gelmen heeft hem geabsenteert beduchten
+de voirs. suppliant sterven soude vander quetsuren maer is
+de selve suppliant by zeer goeden toestene ende bewaernisse genesen
+maer blijft verminckt inden arm ende de voirs. peeter van gelmen
+es by onnaxemheit quaden bewaren faultren ende versnemenissen
+van chirurgyn binnen thien oft twelf dagen gestorven
+ende hoewel tvoirs. stuck es zeer onnosel ende sulck dat
+noie recht schynt den suppliant inden dootslach niet gehouden
+te zijne besuugt gemerct dat die woude egheen doot woude
+en es geweest hoewel by onaxemheit ende neghligencie vanden
+aflivighen oft cirurgyn de voirs. peeter van live ter doot
+gecomen es nochtans beducht hem die suppliant rigeur van
+justicien want aengaen den live zeer perikeuleux es dingen
+ende en soude hem onder ons niet dorven houden noch verkeeren
+maer in vreemde landen ende contreien in grooter armoden
+moeten leven soe verre hem onse gratie hier op nyet
+gedeylt en waere alsoe de voirs. suppliant seet ons daerom
+oitmoedelyck bidden soe eest dat wij dese aengesien compassie
+ende medeliden hebben metten voirs. suppliant ende willen hem in
+dese gracie ende genade prefereren den rigeur van justicien
+hebben den selven suplliant ingevalle boven geremitteert
+quytgesconden ende vergheven remitten quytschelden ende
+vergheven vuyt onse sunderlinger gratien by desen speyt
+ongeval ende dootslach voirscrevenen metgaders alle penen ende
+amenden corporelle ende criminelle daer inne hy hem
+overmits ende vuyt saken van tgene des voirs. es tegens ons
+onse hoocheit ende justitie enichssins mach hebben mesgaen
+ende hebben hem dien aengaende gerestitueert ende gestelt
+restituen ende stellen tot syne goeder famen ende name
+in onsen lande van brabant ende andere onser landen ende
+heerlicheden ende tot zyn goeden niet geconfiscueert
+syn soe verre daer vuyte waren imponerende hier op een
+ewich geswych ende stilecie onser procureur generael ende allen
+anderen onser richteren justicieren ende officieren hoedanighe
+die syn oft wesen moghen satisfactie is nochtans
+jerst ende al voeen gedaen der pertien getuterisseert syn
+soe verre daer enige toestonde ende de noch niet gedaen
+en ware cuul alleenlick behoudet dat die voirs. suppliant tvoirs.
+ongeval tegens ons beeten sal gelegentheit van$ mesdaet
+ende faculteyt van synen goeden ende oick dat hij gehouden
+syn sal te betalen die redelicke costen van justicien in den
+daer enighe gedaen syn ter taxatien ende arbitragien van onsen
+eenen ende getruwen den cancellier ende $uden van onsen
+rade in brabant dien wij daer toe comitteeren bij dese
+ontbieden daerom ende bevelen onse voirs. cancellier
+ende roudsluden dat voer hen geroepen die ghene die *
+behoeren sullen geroepen te zyne zy procederen wel ende
+duechdel ter verificatien ende intermente van dese ende
+dat gedaen ende de voirs. cuul beternisse ende costen van
+justitien getaxeert gearbitreert ende betaelt alst
+behoeren sal van welcke cuul beternisse die ghene
+van onsen rentmeesters dien dat aengaet gehouden werdt
+ontfanck te maken rekeninghen ende reliqua te doene tot onsen
+proffijte metten anderen van syne ontfange zy onse
+drosset van brabant meyere van loven baillien van nyvelle
+ende van onse walsthen lande van brabant amman van
+bruessel schouthetten van antwerpen ende vanden bossche
+ende alle andere onse ende onse vasallen ende smale heeren
+richten justicien en de officieren ons voirs. lants van brabant ende van
+overmaze ende anderen onse landen ende heerlicheden
+hoedanige die syn oft wettelycs mogen tegenwordige ende toecomende
+huere stathouderen elcken van hen dan voirs. suppliant van
+dese onse tegewoirdigen gracien remissen ende
+quytsceldingen gelyck ende inder mannen voirscreven tot
+ewigen dagen peiselyck vredelyck volcomelick doen ende laten
+gebruycken sonder hem ter contrarien van dien te doene
+oft laten geschieden nu noch in toecomende tyden ennigen
+hinder stoot oft letsel in synen line oft goeden in
+enigen manieren maer by alsoe hy oft enigen van
+syn voirs. ongeconfisqueerden goeden ter com$$ voirs.
+enighssins aengetast gearresteert oft becommert waren
+sy die selve in die gevalle terstont ende sonder
+vertreck ontslaen ende stellen oft ontsla$$ ende stellen
+doen tot geheelder ende volcomender delivereren want ons
+alsoe gelieft ende ten eynde dat dit vast ende gestadigh
+zy ende blyve tot ewige dagen soe hebben wij onse
+segel hier aen daer hanghen behouden ons in allen
+anderen saken ons rechts ende eenen iegelycken des zyns
+gegeven in onse stadt van bruessel voirs. inde maent
+van octobre int jaer ons heren duysent vyfhondert
+ende negenthiene ende van onse rycken $erde
+aldus stondt gescreven onder opte plycke bijden
+coninck in zynen raede ende gheteekent rysele ende
+noch visa
+gecollationneert ende bevonden
+$deren metten originale
+by my
+n strate [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "OCTOBER 1599",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "karel",
+      "lastname": "UNMENTIONED",
+      "role": "author",
+      "function": "king"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "brieders",
+      "role": "supplicant",
+      "function": "citizen"
+    },
+    {
+      "firstname": "peetere",
+      "lastname": "van gelmen",
+      "role": "involved party",
+      "function": "citizen"
+    }
+  ],
+  "locations": [
+    {
+      "name": "leeuwe",
+      "loctype": "city"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    }
+  ],
+  "summary": {
+    "en": "King Karl grants remission to William Brieders, a citizen of Leuwe, involved in a feud with another citizen, Petere van Gelmen, after the latter died due to negligence of a surgeon.",
+    "fr": "Le roi Charles accorde la rémission à Guillaume Brieders, citoyen de Leuwe, impliqué dans une querelle avec un autre citoyen, Peetere van Gelmen, après que ce dernier soit décédé des suites de la négligence d'un chirurgien.",
+    "nl": "Koning Karel verleent vergeving aan Willem Brieders, een burger van Leuwe, die betrokken is bij een vete met een andere burger, Peetere van Gelmen, nadat laatstgenoemde is overleden door de nalatigheid van een chirurg.",
+    "de": "König Karl gewährt Willem Brieders, einem Bürger von Leuwe, Absolution, der in einen Streit mit einem anderen Bürger, Peetere van Gelmen, verwickelt war, nachdem letzterer aufgrund von Nachlässigkeit eines Chirurgen gestorben ist."
+  }
+}
+```

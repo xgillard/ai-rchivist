@@ -1,0 +1,210 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+remissie van dootslaege
+philips byder gratien goids eersthertoge van oistryck hertoge van bourgongnien
+van lothringen van brabant van stier van karentien van cram van limburg van lucemburg ende
+van ghelre greve van vlaenderen van habsburg van thirol van firette
+van kieburg van artois van bourgoingnien palatyn van henegouwe van holland
+van zeeland van namen ende van zutphen mercgreve des heilichs rycs
+roemschen rycs ende van bourgauw lantgreve in elsaten heere van vrieslant
+van opter windischenmerck van portenauw van salms ende van mechelen.
+doen te weten allen luyden jegewoirdich ende toecomende dat wy ontfangen
+hebben die oitmoedige supplicatie van bertelmeeuse ghysels ende simoen
+zynen zoenen geboren van onser stad van herentals. inhoudende hoe dat omtrint
+onderhalf jaer geleden die voirs. bertelmeeus quam gaende opte merct tot
+herentals voirs. mit eenen vogel op zyn hant geheeten havic tersel nergens
+af wetende. aldaer tot hem gecomen es een geheeten henneken van lyere zoene
+lanceloets hebbende blyde gedroncken vragende den selven suppliant hoe compt
+ghy aenden voghel. antwordende hem huesschelic dat hy den voghel gecocht
+hadde tegen heynen hoye die dan present ende tegenwoirdich stont sprekende
+alsdoan stuerlic die voirs. vragende doen die selve henneken tegen wyen
+antwordde dat hy die gecocht hadde tegen heynen hoye die daer present ende
+tegewoirdich stont sprekende alsdoen stuerlyc die voirs. henneken totten
+selven heynen. wat hebdy mynen vogel te vercoopene die ghy my gegeven hebt
+dair op die voirs. heyne seyde jan het es wair. ic hadde v gegeven. hadde
+ghy en gehaelt. mair nv heeften bertelmeeus ghijsels gecocht. soe
+hoort hy hem toe. dwelc hoirende de selve bertelmeeus ende om den voirs.
+henneken te believene nemende den vogel van zynder hant mitten hantschoene
+seggende nempt dair jan den vogel. ic schinken v gherne soe dat hy
+alsdoen den vogel van bartelmeeuse aenveerde. ende nae dien die selve bertelmeeus
+hem den vogel gegeven hadde. soe heeften henneken opten staende voet
+vercocht janne den bastart van peruwez om eenen gulden$. welc bastart des
+avonts vorts dair nae wederom den voirs. vogel den voirs. suppliant gegeven
+heeft alsdoen quam ten aengange symon ghysels bertelmeeus zoene
+sonder den voirs. henneken oft yemande te messeggene. seggende tot
+hem dyerste dat ic v vinde. ic sal eenen pyl in v lyf duwen. dair op die
+vader vanden voirs. simoenen doen seyde. henneken wairom zoudy dat doen ic
+en hebts tegen v niet verdient want ic hebbe v menige vrintscap
+gedaen. mair soude ghyt hem doen doeghet my. het soude my even zeere
+doen ende namp alsoe die voirs. suppliant om allen twist te scuwen zynen zoene
+mitter hant ende ghingen tsamen thuyswerts in hueren vrede dair nae die
+voirs. henneken namp zynen ganck rechts oft hy hadde willen gaen naeden
+huyse desselfs suppliant ende tusschen wegen hy henneken eenen goeden
+man geheeten jan govaerts in zyn huys jaeghde. den welcken des
+voirs. jan govaerts huysvrouwe groot van kinde gaende meynde te bescuddene
+seggende doen die voers. henneken tot haer. gaet van my oft ic sal
+v dit zweert doer uwen buyck steken dwelck siende die gebueren
+seyden totten selven henneken. gaet henen strycken oft men sal v doen
+gaen ende van daires hy wederom gecomen naden huyse des voirs.
+suppliant ende gepasseert zynde tot inde molenstrate hy binnesach
+siende staen den selven suppliant ende zynen zoene in hueren huyse
+bynnen der doeren aldaer. keerende wederomme de selve henneken ende comende
+genouch nae tvoirs. huys tot huewerts ende nemende zyn mess mitten
+hant om den selven suppliant ende zynen zoene te willen bevechten
+ende evelen van hueren liven gelyc hy dat opten selven avont te twee oft
+te drie plaetsen gesocht hadde. ende mits dat zy des voirs. hennekens
+niet en consten ontslagen noch verdragen gezyn. soe es de voirs. symon
+een vanden supplianten hem inne geloopen mit eender corten daggen ende stack
+nae hem maer hy en raectes nyet schietende alsoe malcanderen toe om
+deen den anderen te evelen. dwelc ziende die voirs. suppliant zynen zoene
+in dangier ende noode van zyne live es hy den selven te baeten geloepen
+gevende den selven henneken twee quetsueren mit eenen weymesse dair
+af hy des anderen daighe daer nae gestorven es. overmits welcken
+ongevalle die voirs. suppliant hebbende eene huysvrouwe ende vele kinderen
+mitten voirs. zynen zoene symoenen. laetende huer ambacht huysgezyn ende
+familie hem altyt heeft moeten absenteren ende hem alnoch buyten houdende
+es in miserien tot huerer ongenuchten verdriete ende ewiger destructien.
+alsoe hy seegt ons dairomme zeer oitmoedelic biddende om onse gratie
+ende genade in desen. soe eest dat wy de saken voirscreven
+overgemerct hebben den voirs. bertelmeeuse ghysels ende symoene zynen
+zoene supplianten genegen wesende tot huerer voirs. beede ende supplicatie
+ende willende hen in dit stuck gratie ende genade verlenen ende prefereren
+voer strangheyt van justicien. sonderlinghe ter eeren ende weerdicheyt
+vander heyliger passie die onse heere god voer ons alle geleden heeft
+op sulcken dach als huden. inden gevalle als boven vergheven quytgescouden
+ende geremitteert vergheven schelden quyte ende remitteren vuyt
+onser sunderlinger gratien by desen onsen brieve tfait ende dootslach
+boven verclairt. mitgaders alle boeten bruecken ende peynen corporel
+criminel ende civil dair inne zy ter causen van dien mit datter
+aencleven mach mesbruyct ende gevallen mogen zyn tegen ons ende
+justicie ende hebben hen als van desen gerestitueert ende
+wedergestelt restitueren ende stellen weder tot hueren goeden
+fame name ende geruchte in onsen voirs. lande van brabant ende andere
+onse landen ende heerlicheyden. tot alle huere onverbuerde goeden in
+dien zy enighe hebben inder manieren zy waren voer de toecompst vanden
+voirs. dootslage imponerende hier op silentie ende eewich zwygen
+onsen procureur generael ende allen anderen onsen richteren justicieren
+ende officieren wie zy zyn. satisfactie ende beteringe ierst
+en voer al gedaen der partien geinteresseert op datter ennige toe dient
+ende die alnoch niet gedaen en es civillic aleenlic ter ordinantie van onsen
+lieven ende getruwen die cancellier ende luden van onsen rade in brabant
+die wy dair toe committeren. ontbieden dairomme ende bevelen den selven
+onsen cancellier ende luden van onsen voirs. rade dat zy voer hen geroupen
+die gheene die dair omme behoiren geroupen te zyne. procederen ende voirts
+vaeren wel ende dueghdelic totter verificatien van desen onse brieve nae
+huere forme ende inhouden. ende dat gedaen zynde zy onse drossaet
+van brabant meyere van loevene amman van bruessel mercgreve van
+antwerpen scouthet van herentals ende van lyere ende alle andere onse
+rechteren justicieren ende officieren dient aengaen sal mogen doen laten
+ende gedoegen den voirs. suppliant van dese onse gratie remissie quytsceldinge
+ende van al den inhouden van desen inder vuegen ende manieren als voirs. es
+rastelic vredelic volcomelic ende tot ewigen dagen genyeten ende gebruycken
+sonder hen te doene oft te laten gescieden nv oft in toecomende tyden
+enich hinder stoot oft letsel aen live oft aen goede ter contrarien ende
+in dien huere persoene oft enige van huere onberuerlycke goeden ter causen van
+desen gevangen gearresteert oft eenichssins becommert waeren dat zy
+die stellen oft doen stellen terstont ende sonder vertreck tot geheelder
+ende volcomender delivrantie want ons alsoe gelieft ende ten
+eynde dat dit goet vast ende gestadich blive hebben wy onsen segel
+hier aen doen hangen. behoudelic in anderen saken ons rechts ende
+eenen iegelyck den zynen in allen. gegheven te ghendt opten heyligen
+goeden vrydach inde maent van aprille. int jaer onss heeren duysent
+vyfhondert ende drie alsoe ondergescreven op de plycke by mynen
+heere den eertshertoge ende geteykent . . j. crokaert ende noch visa
+gecollationeert metten originale
+bezegelden brieve ende daermede
+bevonden concorderende bij my [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "opten heyligen goeden vrydach inde maent van aprille. int jaer onss heeren duysent vyfhondert ende drie",
+  "fact_date": "ontrent half jaer geleden",
+  "persons": [
+    {
+      "firstname": "bertelmeeuse",
+      "lastname": "ghysels",
+      "role": "suppliant",
+      "function": "citizen of Herentals"
+    },
+    {
+      "firstname": "simoen",
+      "lastname": "zynen zoenen",
+      "role": "suppliant",
+      "function": "son of bertelmeeuse ghysels"
+    },
+    {
+      "firstname": "henneken",
+      "lastname": "van lyere",
+      "role": "accused",
+      "function": "citizen of Herentals"
+    },
+    {
+      "firstname": "heynen",
+      "lastname": "hoye",
+      "role": "mentioned",
+      "function": "unknown"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "govaerts",
+      "role": "mentioned",
+      "function": "citizen of Herentals"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Herentals",
+      "loctype": "parish"
+    }
+  ],
+  "summary": {
+    "en": "Philips the Bold, Duke of Burgundy, grants remission to Bertelmeuse ghysels and his son Simoen for the death of Jan bastart of Peruwez, caused by Henneken van lyere.",
+    "fr": "Philippe le Hardi, duc de Bourgogne, accorde la rémission à Bertelmeuse ghysels et à son fils Simoen pour le décès de Jan bastart de Peruwez, causé par Henneken van lyere.",
+    "nl": "Filips de Dappere, hertog van Bourgondië, verleent remissie aan Bertelmeuse ghysels en zijn zoon Simoen voor de dood van Jan bastard van Peruwez, veroorzaakt door Henneken van lyere.",
+    "de": "Philipp der Kühne, Herzog von Burgund, gewährt Abbitte an Bertelmeuse ghysels und seinen Sohn Simoen für den Tod von Jan bastard von Peruwez, verursacht durch Henneken van lyere."
+  }
+}
+```

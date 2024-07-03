@@ -1,0 +1,239 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. allen den ghenen die desen onsen brieve
+zullen sien oft hoiren lesen saluyt wy hebben ontfangen
+die oetmoedighe supplicatie van ian van dryele inhoudende
+hoe dat hy tusschen twee oft drye jaeren geleden hem zynde
+ter luythaegen by onser stadt van antwerpen ende liggende
+in zyn bedde aen hem suppliant gecommen is ten geheeten
+jacques de ratte die geleent begheerde te hebben wat
+ghelts op welcke zyn begheerte hy suppliant hem leende
+vier phls philips? guldenen ende want de selve jacques egh$
+devoir en dede hem zyn ghelt weder te ghevenen soe is
+gebuert dat opden meydach lestleden hy suppliant inder
+voirs. onser stadt van antwerpen ontmoetende den voirs.
+jacques omtrent der camerstrate opden hoeck vanden on$
+straetken hem vraeghde onder andere woerden wanneer
+hy hem betaelen soude vander iiii phls guldenen die hy hem
+inder luythaegen leende in vrientscap waer op de selve
+jacques wel by dranck weesende hem suppliant met gramm$
+moede antwoerde dat hy hem nyet en woude gheven op
+welcke woerden de selve suppliant hem vraeghde waer om
+en wilde my nyet betaelen seyde daer op de selve jacq$
+myn ghelt is my met botten ende dobbelen affghewonnen
+daer teghen de selve suppliant seyde waer om segdy dat het
+zyn zoe goede luyden als ghy oft ick zyn op welcke
+woerden hy jacques den selven suppliant antwoirde daer
+liech dy aen ick ben beter dan ioncker hendrick vande$
+elst denoterende daer tegen hy inder luythagen gespeelt
+hadde ende ghy met allen uwen geslachte de welck$
+iniurieuse woerden ende andere hy suppliant hoorende die
+nyet wel en waeren te verdraghen zoe heeft hy zyn
+rapiere van scheyden getoghen ende daer mede den selve
+jacques geslaegen metten platte op zyn hooft in
+zulker vuegen dat de bonnette hem vander hooffde viel
+ende dien slach gegeven hebbende heeft hy suppliant zyn
+rapier weder in zyn scheyde gesteken ende ghinck
+zynder verden den welcken de selve jacques ter stont
+volghende met eenen langhen vuytgetoghen opsteeker in zyn hant
+om den selven suppliant te evelen van zynen lyve dwelck
+merckende des suppliants diener roepende tot zynen meester wacht
+u meester dewelcke woerden hy suppliant hoirende hem
+omkeerde en het selve syende zoe heeft hy zyn voirs.
+rapier wederom vuytgetoegen om hem te deffenderen seggende
+totten selven jacques en compt my nyet naerder dan myn
+rapier lanck en is op welcke woerden nyet achtende soe
+heeft de selve jacques hem zelven gevoirdeert om den suppliant
+inne te loopenen ende is in zulcker manieren ende vueghen
+inde voirss. rapier geloopen tot twee oft drye mael
+nyet tegenstaende dat de suppliant altyt erselde den selven
+suppliant stekende drye oft vier steken doer zyn cappe
+ende doer de mouwen van zynen rock metten welcken
+loop de voirs. jacques twee wonden inde borst ende
+buyck creegh ende een in zyn been ende tselve gevuelende
+heeft hy zynen voirs. opsteeker naeden suppliant geworpen
+doer zyn cappe ende rock naeden welcken worp die
+goede lieden tusschen beyde gecommen zyn de suppliant is
+vertrocken nae zynder moeder huys ende de selve jacques
+is gegaen naer des barbiers huys om hem te doen
+vermaecken vanden voirs. wonden ende vermaect wesende
+is hy voirts van daer naer huys gegaen daer hy gelegen
+heeft omtrent xiiii daegen ombegrepen soe langhe
+dat de wonden vander borst ende buyck geheelt waeren
+nyettemin mits de quade bewaringhe cleyn acht den
+steeck die hy int been hadde ende soe die surgynen willen
+seggen mits der versuymptheyt vanden afflininghen soe
+is hy naeden selven tyt daer aff gestorven hoe wel nochtans
+de voirs. steeck gheen dootlycke wonde en was dwelck
+den suppliant vuyt gronde zynder herten leet is ende al
+eest zoe dat de voirs. afflininghe selve doirsaeck is geweest
+van zynder afflinicheyt in zyn leven zeer periculeus hebbenen
+twee ongevallen gedaen ende lesten zonder woerden
+oft gekyff te hebbene zeer moerdaetlyck daer aff hy ten
+daghe van zynder afflinicheyt noch ballinck was ende dat
+de suppliant zonder iactancie te sprekene is van goeden eerlyck$
+ouders staende tot goeden naeme ende fame ende tghene
+dat geschiet is is genouch geschiet verweeren zynde
+lyffs dat daerom hier aff hy qualyck met rechte waere$
+te belasten nyettemin soe heeft hy de geinteresseerde party$
+voldaen ende vernueght nochtans de selve suppliant onts$
+die strangheyt van rechte en heeft hem yesindert noch $
+soude voirtaene nyet dorren houden blyven wandelen noc$
+verkeeren onder ons in onsen voirs. lande van brabant oft
+overmaest het en waer dat hem daer op by ons en wordde$
+versien van onser zunderlingher gracien ende genaede
+ende hem daer op gegeven ende verleent wordden onse oep$
+brieven van remissien in behoirlycken formen om de
+welcke hy ons oetmoedelyck heeft doen bidden waerom
+zoe eest dat ghemerct tghene des voirs. is wy ter bed$
+des voirs. suppliants geneyght ende willende altyt
+ende besundere te desen maele gracie ende genade prefere$
+ende voirtkeeren voer strangheyt van rechte hebben den
+voirs. suppliant ingevalle als boven quytgesconden ende
+vergheven schelden quyte ende vergheven vuyt onser rech$
+wetentheyt ende van zunderlinger gracien overmidts desen onsen
+brieve den voirs. dootslach ende alle penen boeten kueren ende
+bruecken het zy van lyve leden oft goeden in die welcke hy
+overmits ende vuyt saecken vanden voirs. dootslage eenich $
+teghen ons ende den gerichte gevallen mach zyn stellende
+als van desen den voirs. suppliant wederomme in zynre eeren
+goeden naeme ende famen ende tot allen zynen goeden nijet
+verbuert zynde op dat hy eenighe heeft hem oirlovenen ende
+consenterenen dat hy dyen nyet tegenstaende sal moghen
+commen blyven keeren ende verkeeren alomme bynnen onser voirs.
+lande van brabant ende overmaese gelyckerwys ende
+alsoe hy dede voere die geschiedenisse vanden voirs. feyte
+imponerende hier aff een eeuwich geswych onsen procureur
+van brabant ende allen anderen onsen officieren dien dat
+eenichssinds aengaen mach satisfactie ieest ende voer
+al gedaen den partyen geinteresseert zoe verre die
+alnoch nyet gedaen en syn civilyck alleenen ende behoudelyck
+dat tot dien de voirs. suppliant gehouden zal zyn dat aen ons
+civilyck te beteren nae de gelegentheyt ende exigencie
+vander stuck ende die faculteyt van zynen goeden ter
+arbitraigen ende taxatien van onsen lieven ende getruwen
+ridder cancellier heeren adolfnen vander noot ende anderen
+van onsen raede geordineert in barbant voirs. dat voere
+hen geroepen die ghene die daer om zullen behoiren geroepen
+te zyne zy procederen ende doen procederen totter
+verifficatien ende internemente van desen ende totter
+arbitraigen vander voirs. civilder beternissen inder manieren
+ende alzoot behoiren sal ende dien gedaen ende de
+voirs. civile beternisse gearbitreert getaxeert ende
+betaelt zynde in handen vanden ghenen van onser rentmeesteren
+dien dat behoiren zal ende de welcke gehouden zal
+wesen ontfanck te maecken tot onsen behoeff ontbieden
+wy voerts ende bevelen den selven onser cancellier
+ende anderen luyden van onser voirs. raede onsen
+drossaet van brabant meyere van loevenen amptman
+van bruessel schoutheten van antwerpen ende
+vanden bossche ende allen anderen onsen ambachteren
+richteren ende dieneren ons voirs. lants van brabant
+ende overmaze ende den ambachteren richteren ende
+dieneren vande smaelen heeren inden selven onsen lande
+geseten ende hueren stedehouderen nu zynde ende naemaels
+wesende dat zy ende een iegelyck van hen alsoe hem
+toebehoirt den voirs. suppliant van deser onser voirs.
+gracien remissen ende quytscheldinghen doen ende laeten
+rastelyck ende vredelyck genyeten ende ghebruycken tot
+eeuwighen daghen inder manieren voirscreven sonder
+hem daer teghen te doene oft te laeten geschienen aen
+zynen voirs. lyve leden oft goeden eenighen hinder stoot
+oft letsel ter contrarien maer zoe verre de voirs.
+suppliant oft zyne voirs. goeden nyet verbuert zynde
+waeren ten ocsuyne van desen aengetast gearrestheert
+oft gecommert zy die zonder vertreck ontslaen ofte
+sy hier af verantwordt
+byden ontfanger
+vanden exploiten
+doen ontslaen ende stellen tot volcomender delivrancien
+want ons alsoe gelieft ende wy dat gedaen willen
+hebben behoudelyck ons in allen anderen zaecken
+onsen rechte ende een yeghelyck des zyns ende d$
+toirconden hebben wy onsen zegel hier aenen doen hangh$
+gegeven in onser stadt van antwerpen inde
+maent van novembri int iaer onsheeren duysent
+vyffhondert ende virendertich ende van ons en
+keyserycke tsesthienste ende van onsen rycke
+van spaengnen beyde cecillien ende anderen twintichste
+aldus stont gescreven opte plycke byden keyser ende
+gheteekent zype visa recepta
+ghecollacionneert tegens
+doriginale brieven by my
+decock [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "TWO OR THREE YEARS AGO",
+  "persons": [
+    {
+      "firstname": "Ian",
+      "lastname": "van Dryele",
+      "role": "plaintiff",
+      "function": "citizen"
+    },
+    {
+      "firstname": "Jacques",
+      "lastname": "de Ratte",
+      "role": "defendant",
+      "function": "citizen"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Antwerp",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Ian van Dryele requests a remission for a fight he had with Jacques de Ratte in Antwerp two or three years ago. Ian lent Jacques four Philipps guldens, which Jacques did not want to pay back. After a verbal altercation, Ian wounded Jacques with his sword, for which he asks remission.",
+    "fr": "Ian van Dryele demande la rémission pour une rixe qu'il a eue avec Jacques de Ratte à Anvers il y a deux ou trois ans. Ian avait prêté à Jacques quatre gulden de Philippe, que Jacques ne voulait pas rembourser. Après une altercation verbale, Ian a blessé Jacques avec son épée, pour laquelle il demande la rémission.",
+    "nl": "Ian van Dryele vraagt om vergeving voor een gevecht dat hij had met Jacques de Ratte in Antwerpen twee of drie jaar geleden. Ian had Jacques vier gulden van Filips geleend, die Jacques niet wilde terugbetalen. Na een woordenwisseling verwondde Ian Jacques met zijn zwaard, voor wie hij om vergeving vraagt.",
+    "de": "Ian van Dryele beantragt eine Remission für einen Kampf, den er vor zwei oder drei Jahren mit Jacques de Ratte in Antwerpen hatte. Ian hatte Jacques vier Philipps-Goldgulden geliehen, die Jacques nicht zurückzahlen wollte. Nach einem Wortgefecht verwundete Ian Jacques mit seinem Schwert, für das er Remission beantragt."
+  }
+}
+```

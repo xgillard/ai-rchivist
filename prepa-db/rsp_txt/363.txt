@@ -1,0 +1,160 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc. doen te wetene allen jegewoirdich ende toecomende
+dat wy ontfaen hebben die oitmoedige supplicatie van hendrick
+vander valcke scamel gehuwet man oudt xxvii jaeren ofte
+dairomtrent inhoudende hoe dat hy suppliant inde maent van octobri
+in dit jaer xvc xliii gegaen is ten ommegange binnen onsen stadt
+van loevenen gheen quaet bemoedende aldair hy sach staen op de groote
+merct twee oft drie gesellen spelen op een queerbeit dair onder
+andere was sebastiaen de nagelmakere van loevenen de welcke
+groote questie hadde jegens den meester vanden voirn. queerspele zo
+dat zy onderlinge vochten dit siende de suppliant hadde gheerne
+ten besten gesproken maer siende dat zyn tusschen spreker
+niet helpen en mochte ende mits dat hy sach dat de speeldere
+den selven sebastiaen oepenbaer ongelyck dede seyde slaen
+ofte steect dien cortten gesell$ metten queerberde ofte gelyck
+woirdden in substancie ende naer dien heeft den selven
+queerspeeldere den voirn. sebastiaen de nagelmakere twee
+steken gegeven dairaff hy gevaren es van levende lyve ter doot
+welcke den suppliant hertelyck leet es ende al iest dat hy
+suppliant anders nyet daertoe gedaen en heeft dan zo voirs. es
+nochtans hy heeft hem mede vluchtich gemaict ende vreest
+datmen hem oick ter causen van dien soude moeghen toespreken
+ofte molesteren hy en soude nyet vryelyck durven weeder keeren
+binnen onsen lande van brabant ten waere dat hem tvoirs. ongeval
+alzo verre alst hem aengaet by ons vergeven waere ons dairomme
+oidtmoedelyck biddende soe eest dat wy de saken voirscreven
+overgemerct ende hierop gehadt tadvys van onsen beminden den
+burchmeesteren scepenen ende raedt onser voirs. stadt van loevenen den
+voirn. suppliant geneycht wesende tzynder supplicatie ende begeerte
+hebben inden gevalle als boven geremitteert quytgescolden ende vergeven
+remitteren scelden quyte ende vergeven uuyt onse sunderlinge gracie
+by desen tfeyt ende dootslach boven verclaert mitsgaders oick
+alle penen ende amende corporelle ende criminelle dair inne
+hy hem overmits ende uuyt saken van tgene des voirs. es tegens
+ons onse hoocheyt ende justicie eenichssins mach hebben ontgaen
+ende hebben hem dien aengaende gerestitueert ende gestelt restitueren
+ende stellen by desen tot zyn goede fame ende name in onsen
+voirs. lande ende hertoegdomme van brabant ende allen anderen
+onsen landen ende heerlicheden ende tot zynen ongeconfisqueerden
+goeden in dyen hy eenige heeft gelyck als hy was voer den voirs.
+dootslach imponerende hierop een eeuwich zwygen ende silencie
+onsen procureur generael ende allen anderen onsen rechteren justicieren
+ende officieren ons voirs. lants van brabant wie zy syn satisfactie
+nochtans eerst ende alvoeren gedaen der partien geinterresseert
+zoe verre die noch nyet gedaen en waeren civilyck behoudelyck
+nochtans dat de voirn. suppliant gehouden sal syn tselve feyt
+tegens ons te beteren civilyck naer die gelegentheyt der mesdaet
+faculteyt van zynen goeden ende onsen ordonancie dairop gemaict ende
+oick te betalen die redelycke costen van justicien indien
+eenige dairomme geen ende naegevolgt ter taxacien ende
+arbiterscepe van onsen lieven ende getrouwen den cancellier ende luden
+van onsen rade in brabant die wy dairtoe committeren ontbieden
+dairomme ende bevelen den selven van onsen rade in brabant
+dat voer hen geroepen die gene die dairomme behoiren
+sullen geroepen te syne zy procederen wel ende deuchdelyck
+totter verificatie ende interinemente van desen iegewoirdigen
+brieve welck interinement de selve suppliant schuldig sal
+syn te versuecken in onsen voirs. rade binnen eenen halfven
+jaere naestcomende op de peyne te verbeuren deffect van desen
+ende dat gedaen ende de voirs. amende civilyck
+ende costen van justiecien getaxeert ende betaelt synde
+alst behoirt van welcker amende onsen ontfangher
+vanden exploicten van onsen voirs. rade of andere
+onse officier dient behoiren sal gehouden wert ontfanck
+te maken rekeninge bewys ende reliqua te doene
+tot onsen proffyte metten anderen penningen van synen ontfange
+zy onse drossaet van brabant meyer van loevenen amptman van
+bruessel scoutteten van antwerpen ende van tshertogenbossche
+ende alle andere onse ende onser vassallen of smaelre
+heeren rechteren justicieren ende officieren ons voirs. lants
+van brabant ende van overmaze hoedanige die syn oft wesen
+mogen tegenwoirdiche ende toecomende ende aengaen mach den
+voirs. suppliant van deser onser iegenwoirdiger gratien
+remissien ende quytscheldingen inder manieren voirscreven peyselyck
+volcomelyck ende tot eeuwigen dagen doen ende laten genyeten
+# sy hier af verantwort
+byden ontfang vanden exploicten
+ende gebruycken sonder hem te doen noch te laten
+geschien nu noch in toecomende tyde in lyve noch in goeden
+eenich hinder letsel oft moeyenisse ter contrarien maer indien
+zyn lyff of eenige van zyn ongeconfisqueerde goeden waeren
+daeromme gevangen becommert oft gearresteert dat zy
+die terstont stellen oft doen stellen tot vulcommen slakinge
+ende delivrancie want ons alsoe gelieft ende ten eynde dat
+dit goet vast ende gestadich blyve tot eeuwigen dagen
+soe hebben wy onsen zegel hieraen doen hangen behoudelyck
+in anderen zaken ons recht ende eenyegelyck tzyne in allen
+gegeven in onser stadt van bruessele inde maent van
+april int jaer ons heeren duysent vyffhondert ende dryenveertich
+voer paesschen van onsen keyserrycke txxve ende van onsen
+rycke van castillien ende anderen txxixe aldus gescreven
+opte plycke byden keyser in zynen rade ende
+onderteekent de zoete visa recepta
+gecollacioneert ende bevonden accorderende
+met zynen originale by my
+jacuwez [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1543-10",
+  "fact_date": "1543-10",
+  "persons": [
+    {
+      "firstname": "hendrick",
+      "lastname": "vander valcke scamel",
+      "role": "suppliant",
+      "function": "man"
+    },
+    {
+      "firstname": "sebastiaen",
+      "lastname": "de nagelmakere",
+      "role": "involved in a fight",
+      "function": "citizen of Leuven"
+    },
+    {
+      "firstname": "

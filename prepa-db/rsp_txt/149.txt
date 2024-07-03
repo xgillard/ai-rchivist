@@ -1,0 +1,252 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+philips etc. doen te weten allen tegenwoir-
+digen ende toecommenden dat wij ontfangen hebben
+d’oytmoedige supplicatiee van louis guardo jong-
+man geboeren van onser stadt mechelen inhoudende
+hoe dat hij woonende met andere vier jongmans
+ten huijse van meneer jean tripet om die chirugie
+te leeren hunne op den 27 december 1640 te saemen
+inden winckel hebben gevonden lachende ende
+spelende als wanneer den requestrant wesende ver-
+nangen metten dranck heeft met eene rentie gest-
+ruecken laeten loepe eenighe druppelen pisse
+op de broeck van een van syne voorscrevene vier
+cameraden ghenoempt nicolaes de blocq
+denwelcken hier doer ghestuert wesende aenden
+requestrant heeft geseyt diverssche iniurien dwelck
+den requestrant siende heeft aen selven soocken te vercoe-
+len met soote woerden, vraegende doorsaecke van
+syne gramschap, gemerckt tvoergaende niet en was
+geschiet om hem gram te maecken hem remonstrer-
+ende die groote vrintschappen die deuoergaens tuss-
+chen hun hadde geweest sonder oiit enige dis-
+pute ghehadt te hebben, daer op hy de blocq antw-
+oerden dat syn cleet daer doere bedorven was, ende
+hem daer doer meer ende meer in colere was stell-
+ende, jae soo verre dat hy syn handt in synen sack
+heeft ghestecken om vuyt te trecken een
+sackpistoel, dwelck hij gewoon was overhen
+te draegen gelaeden ende gespannen, dwelck siende
+seekeren nicolaes dauffis die alleen vande vier
+present was gebleven durende dese dispute is naer
+die keuken gheloepen om synen meester te roepen
+doer dien den requestrant hem tegen het aenstaende
+paryckel van doerschoten te worden, hem hadde
+versien van een vier schuppe, ende siende datter
+niemant en was om hem te secoureren heeft
+hem de blocq daer mede eenen slach op syn hoeft
+gegeven, dat hij ter erde viel, dwelck den requestrant
+alsoo haest berand ende heeft den gequetsten selver
+op geholpen ende in eenen stoel geset, om hem te curere
+tgene den voors. meneer tripet niet en begeerden en heeft
+# selver willen oock, saenderdaechs heeft hy den gequetsten
+vuyt syn huijs doen draegen, in eenen kelder $$$ ramaticg
+ende vochtich, daer doerghaens lynwaert wort ghe-
+wassen, ende spijse wort geaccomodeert, met
+aiuyn ende anderssints seer contraerie aen quetsure
+oorsaecke dat den requestrant den voorscreven tripet heeft
+gaen vinden ende bidden om synen tsoille soo vele te
+willen duen den gequetsten in synen huyse te nemen
+tgene hij hem ten lasten heeft geaccordeert, die
+de requestrant daer heeft doen draeghen ende versien
+van doctoor chirugyn, medecijnen bichtvaedere
+die hij selver ghonck roepen ende andere necess-
+iteijt dan niet tegenstaende alle goede denviren
+is door de vochticheyt vanden kelder eene vercau-
+theijt inde wonde geslaegen, soo dat hy den sesden
+dach daer naer deser werelt overleden is
+tot groot leedtwesen vanden requestrant alleen dwelck
+den overleden geduurende syne sieckte heeft bekent
+voorden notaris pedro nivele ende sek seecker
+getuygen geschiet te wesen gelyck voerfeyt is
+hebbende den requestrant tsedeert gheexileert ende
+lantloepich geweest onversien van ouders
+ofte middelen over voersulx in groote armoede
+heeft moeten synen cost winnen tgene die naeste
+vrinden vrinden overladen naer goede informatie
+het ongeluck meer door oorsaecke van hunnen broe-
+der ende andere accidenten totte wonde
+geslaegen, die doodt gecauseert te hebben als
+wel door den slach ofte quetsure hebben den
+requestrant voor soo veele sy moegen gheinterresseert
+wesen, het feyt overgheven badt den suppliant
+oversulx oijtmoedelyck om onse opene brieven van
+remis $$$$$$$$$$$$$$$$$$$$$$ informatie
+daer toe dienende tsoo eest dat wy desen aenge-
+sien geneijght wesende ter beden des voorschreven-
+suppliants ende willende hem in dit stuck prefere-
+ren gratie ende misericordie voer strangheijt
+ende rigeur van rechte hebben den selven
+suppliant inden gevalle als boven geremitteert
+quijt geschonden ende vergeven remitteren schelden
+quijte ende vergeven vuyt sunderlinger gratien bij
+desen onsen brieve tfeyt ende ongeval boven
+geruert midtsgaders alle offensie ende bru
+ecke corporele ende criminele daer in hy hem
+overmidts ende vuyt sacken van tgene des voorsc.
+is tegen ons ende justicie ennichssins mach
+hebben ontgaen ende misdragen ende hebben
+dien aengaende wedergestelt ende gerest
+itueert, stellen weder ende restitueren
+tot synen goeden name fame ende geruchte in
+onsen voorseyden lande van brabant ende allen
+anderen onsen landen ende heerlicheijden ende tot
+syn onverbeurden goeden indijen hy eenige onder ons
+heeft gelijck ende in alder manieren zoo hij was
+voerde toecompste vanden voorseyden feijte imponer
+ende hier op een eeuwich geswych onsen procureur
+generael in brabant onsen amptman van onser stadt bru
+ssele ende allen anderen onsen justicieren ende offi
+cieren wije zy zyn, satisfactie ende beternisse eerst
+ende vooral gedaen der partije geinteresseerde indijen
+die noch niet gedaen en sy ende eenige daer toe staet
+civilijck alleenlyck behoudelyck dat die voorseyde suppliant
+gehouden sal syn tvoorseyde feijt tegen ons te beteren
+civilijck nae gelegentheijt vander saecken ende fa-
+culteijt van syn goederen met oock te betaelen die rede
+lycke costen van justicien hier toe $$$ alrede gedaen
+ende te doen allet ter taxatien ende moderatien
+van onse zeer lieve ende getrouwe die cancellier
+ende luyden van onsen rade in brabant die
+wy daer toe gecommitert hebben ende committeren
+by desen ontbieden daerom ende bevelen den selven
+onsen cancellier ende raedsluden dat voer hem
+geroepen de gene die daerom behooren geroepen te
+syn zy procederen wel ende deuchdelyck ter veriff-
+icatie ende interinement van desen ende totter
+taxatie ende moderatie vanden voorscreve amende
+ende costen van justicien alzoo zij sullen bevinden
+behoorende welck interinement die voorseyde sup-
+pliant schuldich ende gehouden sal zyn te versuecken
+ende hem in persoone te presenteren in onsen voorscreven
+rade binnen zesse maenden naestcommende op
+de pene van te verbeuren d’effect van desen ende
+dat gedaen ende de selve civile boete ende
+costen van justicien getaxeert ende betaelt
+zynde in handen vanden ghenen dijen dat behooren
+sal zij onse vorseyde procureur generael in brabant
+onse amptman deser stast brussele
+ende alle andere onse rechteren justicieren offi-
+cieren ende ondersaeten iegenwoerdige ende
+toecommende dijen dat aengaende sal mogen heu-
+re stedehouderen ende eenijegelijck van hen besu-
+ndere soo hem toebehooren zal doen laten ende
+gedoogen den voorseyden supliant van deser onser
+tegenwordiger gratien ende remissien ende
+van alle d’inhouden van deser inder vueghen
+ende manieren verhaelt rustelyck vredelyck vol-
+comelyck ende eeuwelyck genijeten ende gebruycken
+sonder hem te doen oft te laeten geschieden nu
+noch in toecommende tyden eenich hinder letssel
+oft moeijnisse aen lyve noch aen goeden terc
+ontrarien maer indijen zyn lijf oft eenige
+van zyne onverbeurde goeden daerom gearresteert
+becommert oft belet waeren dat $ zy die setten
+ende stellen terstont ende zonder vertreck tot
+geheelder ende volcommender delivrantie
+$$sant ons alsa gelieft ende ten eijnde dat
+dit vast ende gestadich blyve teeuwigen daghen
+soo hebben wy onsen segel hieraen doen hanghen
+behoudelyck in andere dinghen onsen rechte ende
+eenijegelycken anderen dessyns gegeven
+binnen onser stadt brussele den dertichsten
+januarij 1642 [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1642-01-30",
+  "fact_date": "1640-12-27",
+  "persons": [
+    {
+      "firstname": "unknown",
+      "lastname": "requestrant",
+      "role": "victim",
+      "function": "unknown"
+    },
+    {
+      "firstname": "Louis",
+      "lastname": "Guardo",
+      "role": "supplicant",
+      "function": "apprentice"
+    },
+    {
+      "firstname": "Nicolaes",
+      "lastname": "de Blocq",
+      "role": "aggressor",
+      "function": "apprentice"
+    },
+    {
+      "firstname": "Nicolaes",
+      "lastname": "Dauffis",
+      "role": "witness",
+      "function": "apprentice"
+    },
+    {
+      "firstname": "Jean",
+      "lastname": "Tripet",
+      "role": "master",
+      "function": "surgeon"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Mechelen",
+      "loctype": "city"
+    },
+    {
+      "name": "Bruxelles",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "In 1640, Louis Guardo, an apprentice from Mechelen, was learning surgery with Jean Tripet, along with three other apprentices, including Nicolaes de Blocq. On December 27, while they were in the shop, de Blocq urinated on the brock of another apprentice, Nicolaes Dauffis, after getting drunk with him. Following a dispute, de Blocq threatened the requestrant with a pistol. The requestrant, fearing for his life, asked for help from his master, who gave de Blocq a slap. The requestrant then took care of the injured de Blocq and asked Tripet to take him in, which he refused. The requestrant then found a cellar where de Blocq could recover. However, due to the unsanitary conditions, de Blocq developed an infection and died six days later. The requestrant, who had been exiled and was poor, was accused of being responsible for de Blocq's death and asked for a letter of remission.",
+    "fr": "En 1640, Louis Guardo, apprenti à Malines, apprenait la chirurgie avec Jean Tripet, accompagné de trois autres apprentis, dont Nicolaes de Blocq. Le 27 décembre, alors qu'ils étaient dans la boutique, de Blocq a uriné sur le broc de l'un de ses camarades, Nicolaes Dauffis, après avoir bu avec lui. Suite à une dispute, de Blocq a menacé le requérant avec un pistolet. Le requérant, craignant pour sa vie, a demandé de l'aide à son maître, qui a giflé de Blocq. Le requérant a ensuite pris soin de l'injuré de Blocq et a demandé à Tripet de le prendre en charge, ce qu'il a refusé. Le requérant a ensuite trouvé une cave où de Blocq pouvait récupérer. Cependant, en raison des conditions insalubres, de Blocq a développé une infection et est décédé six jours plus tard. Le requérant, qui avait été exilé et était pauvre, a été accusé d'être responsable de la mort de de Blocq et a demandé une lettre de rémission.",
+    "nl": "In 1640 was Louis Guardo, leerling uit Mechelen, aan het leren van chirurgie bij Jean Tripet, samen met drie andere leerlingen, waaronder Nicolaes de Blocq. Op 27 december, terwijl ze in de winkel zaten, urineerde de Blocq op het bekken van een van zijn medeleerlingen, Nicolaes Dauffis, nadat hij had gedronken met hem. Na een ruzie bedreigde de Blocq de requérant met een pistool. De requérant, bang voor zijn leven, vroeg om hulp van zijn meester, die de Blocq een slag gaf. De requérant nam vervolgens zorg van het gewonde de Blocq en vroeg Tripet om hem op te nemen, wat hij weigerde. De requérant vond vervolgens een kelder waar de Blocq kon herstellen. Door de onhygiënische omstandigheden ontwikkelde de Blocq echter een infectie en overleed zes dagen later. De requérant, die was verbannen en arm was, werd beschuldigd van de dood van de Blocq en vroeg om een brief van remissie.",
+    "de": "Im Jahr 1640 war Louis Guardo, ein Lehrling aus Mechelen, bei Jean Tripet in die Chirurgie eingeführt worden, zusammen mit drei anderen Lehrlingen, darunter Nicolaes de Blocq. Am 27. Dezember, als sie im Laden waren, urinierte de Blocq auf den Becher eines seiner Kameraden, Nicolaes Dauffis, nachdem er mit ihm getrunken hatte. Nach einer Auseinandersetzung bedrohte de Blocq den Antragsteller mit einer Pistole. Der Antragsteller, der um sein Leben fürchtete, bat seinen Meister um Hilfe, der de Blocq eine Ohrfeige gab. Der Antragsteller kümmerte sich dann um das Verletzte de Blocq und bat Tripet, ihn aufzunehmen, was er ablehnte. Der Antragsteller fand dann ein Keller, wo de Blocq sich erholen konnte. Aufgrund der unhygienischen Bedingungen entwickelte de Blocq jedoch eine Infektion und starb sechs Tage später. Der Antragsteller, der verbannt und arm war, wurde beschuldigt, für den Tod von de Blocq verantwortlich zu sein, und bat um einen Erlassbrief."
+  }
+}
+```

@@ -1,0 +1,202 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+kaerle etc doen te weten allen luden nu ende naemaels
+wesende dat wy ontfangen hebben de oitmoedige supplicatie
+van jan baten woenende tot werchteren gehouwt arm
+scamel handtwercker inhoudende hoe dat hy suppliant des anderen
+daegs nae kersmisse op sinte stevens dach anno xvct ende xxxij
+omtrent zesse uren naeder noene heeft met willem baten
+zynen brueder ten huyse roelants schoefs tot tieldonck sitten
+drincken met eenen geheeten willeken vande sande de jonge
+aldaer oyck in tselve huys in een ander gelach wylen jan
+als.. hansken onroncx ende syne complicen saten en droncken aldair
+de voirscreven willeken vande sande de jonge tegen den voirscreven janne
+ouroucx woirden hadde ter cans van sekere opsprake die
+de voirscreven jan ouroucx pretendeerde byden voirscreven willeken vande sande
+geseegt te syne in diffamatie des voir jan ouroucx vader
+ende daeromme sy malcanderen wilden slaen mair is tselve
+geappaiseert geweest soe dat de voirscreven jan ouroucx is
+van dair met syner geselscape gesceyden ende meynde die suppliant
+dat de voirscreven jan nae huys ginck mair is hy corts daernae
+wederomme int voirscreven gelach syn verder gecomen seggende totten
+suppliant ende syner geselscape dese oft gelycke woirdden bevr$$
+$$ op my segget mits denwelcken de waerdinne ende huere
+geselscap syn opgestaen hebbende den voirscreven janne ouroucx
+met syn anderen twee gesellen buyten huyse gestooten ende
+die suppliant ende syn geselscap meynende dat de voirscreven jan
+ouroucx ware nae huys gegaen is oic opgestaen om thuisweert
+te gaene ende die suppliant buyten huyse wesende in meyningen
+wesende voirts nae huys te gaen heeft den voirscreven jan ouroucx
+bevonden liggende achter de schuere vanden voirscreven huyse dair sy
+gedroncken hadden den suppliant lagender lagen wachtende die
+den suppliant siende is van stonden aen op gesprongen ende heeft
+nae hem met eenen stock in euvelen moede geslagen ende smeten
+soe dat suppliant van noode is geweest hem ter defensien te
+stellen gelyck hy oic gedaen heeft inder vuegen dat hy
+heeft met eenen mutsaert stock den slach des voirscreven jan
+ouroucx geschut dwelck die voirscreven willem baten des
+suppliants brueder aenmerckende heeft de voirscreven janne ouroucx
+met eenen mutsaert stock op syn hooft gesmeten soe dat hy
+ter eerden viel van welcken slage den voirscreven jan ouroucx is
+corts daernae gestorven wyens siele god genadich zy
+dwelck den supplen hertelycken leet is ende hoe wel
+tvoirscreven ongeval is seer onnoeselyck toegecomen eende dat hy
+suppliant daer aff heeft gesoent ende partye geinteresseerde
+gecontenteert soe en dorre nochtans die suppliant hem
+nergerincx int openbaer bynnen desen onsen lande van brabant
+vinden vreesende rigeur van iusticie ten ware dat ons
+gracie ende genade hem hier op wordde ge$ttendeert ende
+verleent ons daerom oitmoedelyck biddende soe eest dat
+wy des aengesien geneyght wesende ter ... des voirscreven
+jans baten suppliant ende willende hem in dit stuck prefereren
+gracie ende misericordie voer strangheyt ende rigeur van
+iusticie hebben den selven suppliantint gevalle als boven
+quytgesconden geremitteert ende vergeven schelden quyte remitteren
+ende vergeven vuyt sunderlinger gracien by desen onsen brieve tfeyt
+ende ongeval boven geruert midtgaders alle offensie ende
+bruecke corporelle ende criminele dair inne hy ter cansen
+voirscreven mit dat daeraen cleven mach tegn ons ende iusticie
+gevallen mesdaen ende mesbruyckt mach hebben ende
+hebben hem dair aff wedergestelt ende gerestitueert
+stellen weder ende restitueren tot synen goeden name fame
+ende geruchte in onsen voirscreven lande van brabant ende allen anderen
+onsen landen ende heerlicheyden ende tot synen onverbeurden goeden
+indien hy enige onder ons heeft gelyck in alder manieren soe
+hy was voer de toecomste vanden voirscreven feyte imponerende
+hier op een eeuwich geswych onsen procureur generael in brabant
+ende allen anderen onsen iusticieren ende officieren wie sy syn
+satisfactie ende beternisse ierst ende voer al gedaen der
+partie geinteresseerde die noch nyet gedaen en sy ende ennige
+dair toe stae civilyc allenlyck behoudelyck dat de voirscreven
+suppliantgehouden sal syn tvoerscreven feyt tegen ons te beteren
+civilyck naer gelegentheyt vander saken ende faculteyt
+van syn goeden ende oic te betalen de costen van iusticien
+hieromme gedaen ende te doene allet ter taxatien ende
+moderatien van onsen lieven ende getrouwen den cancellier
+ende luden van onsen rade georduneert in brabant die wy daertoe
+gecomitteert hebben ende committeren by desen ontbieden dairom
+ende bevelen denselven onsen cancellier ende raedsluden dat
+voer hen geroepen deghene die daerom behoiren geroepen te
+syne sy procederen wel ende duegdelyck ter verificatie ende interinnemente
+van desen ende totter taxatien ende moderatie vande voirscreven
+amende ende costen alsoe sy sullen bevinden behoiren dwelck
+interinement de voirscreven suppliant gehouden sal syn te versueken ende
+hem in persoon te presenteren in onsen voirscreven rade binnen een
+jare naestcomende opde peyne? van te verbueren deffect van
+desen ende dat gedaen ende de selve civile boete ende costen van
+iusticien getaxeert ende betaelt synde in handen vande
+ghenen dat behoiren sal zy onsen voirscreven procureur generael
+in brabant ende alle anderen onse rechteren iusticieren officieren
+ende ondersaten iegewoirdige ende toecomende dien dat aengaen
+sal mogen hueren stedehouderen ende eenyegelyck van hen besundere
+soe hem toebehoiren sal doen laten ende gedoogen den voirscreven
+suppliant van deser onser iegewoirdiger gracien remissie ende
+pardoene ende van allen inhouden van desen inder vuegen
+ende manieren als boven verhaelt rustelelyck verdelyck volcomelyck
+ende eewelyck genyeten ende gebruycken sonder hem te doen oft
+te laten gescieden nu noch in toecommende tyden eenich hynder
+letsel oft moeyenisse aen lyve noch aen goeden ter contrarien
+mair indien syn lyf ofte enige van synen goeden dairomme
+gearresteert becommert oft belet waren dat sy die
+setten ende stellen ter stont ende sonder vertreck tot
+geheelder ende volcomender deliverancie want ons alsoe
+gelieft ende ten eynde dat dit vast ende gestadich blyve
+tot eeuwigen dagen soe hebben wy onsen segel hier aen doen
+hangen behoudelyc in anderen dingen onsen rechte ende een
+yegelyck anderen dess$s in ons stadt van bruessele
+in de maent van septembri int jaer ons heeren duysent
+vyfhondert ende eenenveertich van onsen keyser rycke
+txxije ende van onsen rycke van castillien ad txxije
+aldus gescreven opte plycke by den keyser in synen rade
+ende onder geteeckent boudewyns / visa $$
+gecollationeert ende bevonden accorderend
+met zyne originalen brieve [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "UNKNOWN",
+  "fact_date": "26th December 1532",
+  "persons": [
+    {
+      "firstname": "jan",
+      "lastname": "baten",
+      "role": "suppliant",
+      "function": "arm scamel handtwercker"
+    },
+    {
+      "firstname": "willem",
+      "lastname": "baten",
+      "role": "witness",
+      "function": "brueder"
+    },
+    {
+      "firstname": "willeken",
+      "lastname": "vande sande",
+      "role": "involved",
+      "function": "geheeten jonge"
+    },
+    {
+      "firstname": "jan",
+      "lastname": "ouroucx",
+      "role": "involved",
+      "function": "son"
+    },
+    {
+      "firstname": "UNNAMED",
+      "lastname": "waerdinne",
+      "role": "witness",
+      "function": "innkeeper"
+    }
+  ],
+  "locations": [],
+  "summary": {
+    "en": "Jan Baten, an arm scamel handtwercker from Werchteren, pleads for remission after the death of his son, Jan Ouroucx. Jan Ouroucx had a dispute with Willeken vande Sande, leading to a confrontation in an inn. Jan Ouroucx accused Willeken of slander against his father, leading to a physical altercation. Jan Baten tried to intervene but was attacked by Jan Ouroucx, resulting in his death. Jan Baten pleads for remission, fearing legal repercussions.",
+    "fr": "Jan Baten, un arm scamel handtwercker de Werchteren, demande la rémission après la mort de son fils, Jan Ouroucx. Jan Ouroucx avait un différend avec Willeken vande Sande, qui a conduit à une confrontation dans une auberge. Jan Ouroucx a accusé Willeken de diffamation envers son père, ce qui a entraîné une bagarre. Jan Baten a tenté d'intervenir mais a été attaqué par Jan Ouroucx, ce qui a entraîné sa mort. Jan Baten demande la rémission, craignant des répercussions juridiques.",
+    "nl": "Jan Baten, een arm scamel handtwercker uit Werchteren, vraagt om vergeving na de dood van zijn zoon, Jan Ouroucx. Jan Ouroucx had een conflict met Willeken vande Sande, wat leidde tot een confrontatie in een herberg. Jan Ouroucx beschuldigde Willeken van smaad tegen zijn vader, wat leidde tot een vechtpartij. Jan Baten probeerde te bemiddelen, maar werd aangevallen door Jan Ouroucx, wat zijn dood veroorzaakte. Jan Baten vraagt om vergeving, bang voor juridische gevolgen.",
+    "de": "Jan Baten, ein arm Scamel Handwerker aus Werchteren, bittet um Erlass nach dem Tod seines Sohnes, Jan Ouroucx. Jan Ouroucx hatte einen Streit mit Willeken vande Sande, was zu einer Konfrontation in einer Schenke führte. Jan Ouroucx warf Willeken Diffamierung seines Vaters vor, was zu einer Schlägerei führte. Jan Baten versuchte zu schlichten, wurde aber von Jan Ouroucx angegriffen, was seinen Tod verursachte. Jan Baten bittet um Erlass, weil er rechtliche Konsequenzen befürchtet."
+  }
+}
+```

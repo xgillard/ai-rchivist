@@ -1,0 +1,209 @@
+[INST] # Instructions
+You are an assistant to the archivists of the kingdom. Your role is to help them extract metadata from achives document. Based on the given input document, you should give:
+- the type of document among the following possible classes: 'REMISSION', 'CONDEMNATION', 'UNKNOWN'
+- the persons mentioned in the document and their respective roles and functions
+- the dates (if unsure use the 'UNKNOWN' mention)
+- the parishes (when there are none, leave the list empty)
+- the names of the locations mentioned in the texte (when there are none, leave the list empty)
+- a brief summary of the content of the document. This summary shall be translated in english, french, dutch, and german
+
+I want you to provide me with an output in json format. I want the json to adhere to the following json schema:
+
+```
+{
+  "doctype": "the document type among the following possible classes 'REMISSION', 'CONDEMNATION', 'UNKNOWN'",
+  "act_date": "the date when the act has taken place (if unsure use the 'UNKNOWN' mention)",
+  "fact_date": "the date when the related facts have taken place (if unsure use the 'UNKNOWN' mention)",
+  "persons": [ // the list of people mentioned in the document
+        {
+          "firstname": "the first name of the mentioned person",
+          "lastname": "the last name of the mentioned person",
+          "role": "the role of that person in the document (why is that person mentioned)",
+          "function": "the function of that person (e.g. is it the king, a duke, a clerk, etc...)"
+        }
+   ],
+  "locations": [ // the list of locations mentioned in the text
+       {
+       "name": "the name of the mentioned location", 
+       "loctype": "the type of location (is it a parish, a province, a region, a country ?)"
+       }
+   ],
+  "summary": {
+    "en": "the english version of the document summary", 
+    "fr": "the french version of the document summary", 
+    "nl": "the dutch version of the document summary", 
+    "de": "the german version of the document summary", 
+  }
+}
+```
+
+# Constraints
+The assistant answer should strictly adhere to the json schema. No introductory text nor explanation shall be given, only the json output.
+
+
+
+
+# Document
+abolition pour jean de la rue
+philippes etc. a tous ceulx qui ces presentes lettres verront
+salut receu avons la supplication de jean de la rue
+eschevin de la hulpe contenant questant arrive
+audit hulpe quelques huissiers de notre conseil de
+brabant pretendans en vertu de certain appoinctement
+dauthorisation obtenu par le mayeur dudit hulpe
+subrepticement et obrepticement comme on entend vendre
+les chevaulx de herman hubert censier de la
+cense du cloistre de groenendal pour avoir
+une amende de huict florins par ledit mayeur
+de la hulpe pretendue pour la non preparation
+des eschevins ledit herman hubert at requis
+que les eschevins se voudroient assembler pour avoir
+ses chevaulx et charette arrestez audit hulpe
+soubz caution et comme lesdits eschevins estoient
+informez que par la derniere visitation par eux
+faicte des chemins et riviere dudit hulpe
+ledit herman hubert navoit este trouve
+en faulte comme il appert par certaine
+certiffication du greffier dudit hulpe, ledit
+suppliant avecq aultres epour assister aux
+oppressez ont conceuz et renduz certaine ordonnance
+par laquelle ilz ont ordonne que ledit herman hubert
+pourroit reprendre ses chevaulx soubz caution suffisante
+que certain anthoine bataille faisoit pour luy et en
+oultre obligeant sa personne et biens de se representer
+avecq ses chevaulx et charettes toute et quantesfois
+que besoing seroit apparant par lordonnance en
+estante sur laquelle ordonnance sont este esmeuz
+quelques propos entre ledit suppliant et aultres
+eschevins et lesdits huissiers entierement surprins
+de boisson sans toutesfois avoir dict aucune chose pour
+officier lesdits huissiers ou notre authorite ayant ce
+neantmoings lesdits huissiers faict leur plainctes
+en notre dit conseil tellement qua la requete du substitut
+procureur general seroit este emene prinse de corps
+a charge de bartholome vanden velde nicolas de
+brassine et consors entre eulx comprennant
+ledit suppliant et craignant aussi destre prins
+prisonnier sest refuge au cloistre de groenendale or est il que ledit suppliant
+se trouvant charge de femme et cincq petits
+enfans et nayans aulcuns moyens au monde
+sinon quelques petits meubles qui luy sont
+demeurez apres que les fraiz et vacations
+des huissiers sont este deduictz valissans
+cent cincquante florins ou environ ne desire de
+proceder contre ledit substitut procureur general
+mais il a mespris contre notre authorite assistant
+a faire ladite ordonnance contre une execution qui
+se faisoit par ordonnance de notredit conseil et
+quil se seroit monstre quelque peu eschauffe
+pour la maintenir et defendre il espere que
+nous considerons le tout estre faict par compassion
+voyant ledit herman hubert opresse parledict
+mayeur et par inadvertence et peu de consideration
+en une personne rusticque comme est ledit suppliant
+et nullement verse en ce quest de la
+practicque usera de grace a lendroit dudit suppliant
+sa femme et petits enfans cest pourquoy il
+supplioit bien humblement pour noz lettres dabolition
+requises en tel cas pour ce est il que nous
+les choses dessusdites considerees et ouy sur ce
+loffice fiscal de brabant audit suppliant
+inclinans favorablement asaditte requete avons
+au cas susdit quicte pardonne et aboly quittons
+pardonnons et abolissons de grace especialle
+par ces presentes tout ce qua cause dict
+et quen depend il peult avoir mesprins offence
+ou encouru envers nous et justice et
+mettans aneant toutes procedures si aulcunes
+peulvent avoir este encommenceez a
+lencontre de sa personne et lavons quant
+a ce remis et restitue, remectons et restituons
+a ses bonne fame et renommee en notredit pays et duche
+de brabant et en tous aultres noz pays et seigneuries tout
+ainsy quil estoit avant ladvenue dudit cas en imposans
+sur ce sylence anotre procureur general de brabant
+et atous aultres noz justiciers et officiers quelzconques
+a charge et condition que ledit suppliant sera tenu
+de payer et refondre les mises et despens raisonnables
+de justice a larbitrage et tauxation de noz amez et
+feaulx les chancellier et gens de notredit conseil
+en brabant que commettons a ce ensemble une amende
+a notre prouffict de vingt et cincq florins une fois
+si mandons et commandons a nosdits chancellier
+et aultres de notredit conseil et a tous aultres noz
+justiciers et officiers et a chascun deulx endroit
+soy et si comme aluy appentiendra que de notre
+presente grace quitance pardon et abolition
+soubz les conditions selon et par la forme
+et maniere que dict est ils facent souffrent
+et laissent ledit suppliant plainement et
+paisiblement jouir et user sans en celuy
+faire mettre ou donner ne souffrir estre faict
+mis ou donne en corps ou en biens aulcun
+destourbier ou empeschement au contraire
+mais si sondit corps ou aulcuns desdits biens
+estoient ou sont pour ce prins arrestez
+ou empeschez les mectent ou facent mettre
+incontinent et sans dilay a pleine et entiere
+delivrance car ainsy nous plaist il et en
+tesmoings de ce avons faict mettre notre seel a ces
+presentes donne en notre ville de bruxelles le vingt sixiesme doctobre seize cens et trente de noz regne le dixiesme signe mastelyn
+fin de ce registre [/INST] ```json
+{
+  "doctype": "REMISSION",
+  "act_date": "1630-10-26",
+  "fact_date": "UNKNOWN",
+  "persons": [
+    {
+      "firstname": "jean",
+      "lastname": "de la rue",
+      "role": "suppliant",
+      "function": "eschevin of la hulpe"
+    },
+    {
+      "firstname": "herman",
+      "lastname": "hubert",
+      "role": "accused",
+      "function": "censier of the cense du cloistre de groenendal"
+    },
+    {
+      "firstname": "bartholome",
+      "lastname": "vanden velde",
+      "role": "accused",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "nicolas",
+      "lastname": "de brassine",
+      "role": "accused",
+      "function": "UNKNOWN"
+    },
+    {
+      "firstname": "anthoine",
+      "lastname": "bataille",
+      "role": "caution",
+      "function": "UNKNOWN"
+    }
+  ],
+  "locations": [
+    {
+      "name": "la hulpe",
+      "loctype": "parish"
+    },
+    {
+      "name": "groenendal",
+      "loctype": "cloister"
+    },
+    {
+      "name": "brabant",
+      "loctype": "province"
+    },
+    {
+      "name": "bruxelles",
+      "loctype": "city"
+    }
+  ],
+  "summary": {
+    "en": "Jean de la rue, eschevin of La Hulpe, has been accused by some huissiers of the Brabant council of illegally selling the horses of Hermann Hubert, censier of the Cense du cloistre de Groenendal. The huissiers were supposed to receive an amende of eight florins from Hermann Hubert for not preparing the eschevins. However, Jean de la rue and others, in order to assist the oppressed, have rendered an ordonnance allowing Hermann Hubert to take back his horses under sufficient caution and obliging him to appear with his horses and carts whenever necessary. This ordonnance has caused some discussions among the eschevins and the huissiers, who have reported the matter to the Brabant council. The substitut procureur general has taken action against Jean de la rue and others. Jean de la rue, having no means to proceed against the substitut procureur general, has asked for a remission. He acknowledges his mistake but explains that it was due to compassion for Hermann Hubert, who was oppressed by the mayor and to inadvertence and little consideration for a rustic person like him. He hopes to be forgiven for this offense against the authority. The Brabant council has granted his request and quitted, pardoned, and abolished the offense.",
+    "fr": "Jean de la rue, échevin de La Hulpe, a été accusé par quelques huissiers du conseil de Brabant d'avoir illégalement vendu les chevaux d'Hermann Hubert, censier de la Cense du cloistre de Groenendal. Les huissiers auraient dû recevoir une amende de huit florins d'Hermann Hubert pour ne pas avoir préparé les échevins. Cependant, Jean de la rue et d'autres, dans le but d'assister les opprimés, ont rendu une ordonnance permettant à Hermann Hubert de reprendre ses chevaux sous caution suffisante et l'obligeant à comparaître avec ses chevaux et charrettes chaque fois que nécessaire. Cette ordonnance a suscité quelques discussions parmi les échevins et les huissiers, qui ont signalé l'affaire au conseil de Brabant. Le substitut procureur général a engagé des poursuites contre Jean de la rue et d'autres. Jean de la rue, n'ayant pas les moyens de procéder contre le substitut procureur général, a demandé la rémission. Il
+```
