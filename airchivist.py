@@ -7,7 +7,7 @@ from __future__ import annotations
 import os
 import json
 from typing import NamedTuple
-from io import StringIO
+import sqlite3  # type: ignore
 
 import datasets      # type: ignore
 import pandas as pd  # type: ignore
@@ -16,11 +16,6 @@ from dotenv import load_dotenv
 from mistralai.client import MistralClient
 from mistralai.models.chat_completion import ChatMessage
 
-from checkpointing import (
-    checkpointed,
-    generational,
-    latest_checkpoint,
-)
 
 ##############################################################################
 # SERVER INITIALIZATION
@@ -29,8 +24,8 @@ load_dotenv()
 DEFAULT_MODEL = 'open-mistral-7b'
 
 USE_LLM = str(os.getenv('USE_LLM')).lower() == 'true'
-CHECKPT = str(os.getenv('CHECKPOINT_DIR'))
 API_KEY = str(os.getenv('MISTRAL_API_KEY'))
+DATASET_DB = str(os.getenv('DATASET_DB'))
 
 app = Flask(__name__)
 client = MistralClient(api_key=API_KEY)
@@ -70,29 +65,35 @@ def prepare_dataset() -> pd.DataFrame:
     - file_id: what file did this document originate from
     - text: the original text of the document.
     '''
-    if previously_checkpointed := latest_checkpoint(CHECKPT):
-        return pd.read_json(previously_checkpointed)
-    ds = datasets.load_dataset('arch-be/brabant-xvii', name='doc_by_doc')
-    #
-    train = ds['train'].to_pandas()
-    test = ds['test'].to_pandas()
-    valid = ds['valid'].to_pandas()
-    # insert additional 'subset' column
-    train.insert(0, 'subset', ['train'] * len(train))
-    test.insert(0, 'subset', ['test'] * len(test))
-    valid.insert(0, 'subset', ['valid'] * len(valid))
-    # combine all subsets into one big dataframe
-    ds = pd.concat([train, test, valid], axis='index', ignore_index=True)
-    # insert one additional column to hold the json state
-    ds.insert(0, 'id', list(range(len(ds))))
-    ds.insert(4, 'validated', [False for _ in range(len(ds))])
-    ds.insert(5, 'labeling', [None for _ in range(len(ds))])
-    return ds
+    with sqlite3.connect(DATASET_DB) as conn:
+        try:
+            return pd.read_sql('SELECT * FROM dataset', conn)
+        except:
+            ### Initial computation is actually needed
+            ds = datasets.load_dataset('arch-be/brabant-xvii', name='doc_by_doc')
+            #
+            train = ds['train'].to_pandas()
+            test = ds['test'].to_pandas()
+            valid = ds['valid'].to_pandas()
+            # insert additional 'subset' column
+            train['subset'] = 'train'
+            test['subset'] = 'test'
+            valid['subset'] = 'valid'
+            # combine all subsets into one big dataframe
+            ds = pd.concat([train, test, valid], axis='index', ignore_index=True)
+            # append the utility columns (will be used to actually carry the labeling out)
+            ds['validated'] = False
+            ds['labeling'] = None
+            # add some metadata to the index and columns for efficient hdf5 serialization
+            ds.index.name = 'id'
+            ds.subset = ds.subset.astype('category')
+            ds.project = ds.project.astype('category')
+            ds.file_id = ds.file_id.astype(str)
+            ds.text = ds.text.astype(str)
+            ds.to_sql('dataset', conn)
+            return ds
 
-
-DATASET = prepare_dataset()
-NB_ITEMS = len(DATASET)
-
+_ = prepare_dataset()
 
 class Progress(NamedTuple):
     'A plain data class to keep track of the labeling progress'
@@ -105,23 +106,27 @@ class Progress(NamedTuple):
         return (self.done / self.all) * 100.0
 
 
-def save_dataset(fname):
-    'Saves the dataset to file'
-    DATASET.to_json(fname)
 
-
-def not_validated() -> pd.DataFrame:
+def one_id_not_validated() -> int:
     '''
-    returns the remainder of the dataset comprising only
-    those records that have not been validated
+    returns the id of an item that has not been marked as validated yet
     '''
-    return DATASET[~DATASET['validated']]
+    with sqlite3.connect(DATASET_DB) as conn:
+        df = pd.read_sql_query("SELECT id from dataset WHERE not validated LIMIT 1", conn)
+        return int(df.iloc[0,0])
 
 
 def progress() -> Progress:
     'Returns the current progress'
-    validated = DATASET[DATASET['validated']]
-    return Progress(len(validated), NB_ITEMS)
+    with sqlite3.connect(DATASET_DB) as conn:
+        df = pd.read_sql_query("""
+            WITH 
+                done AS (SELECT count(*) as done FROM dataset WHERE validated),
+                full AS (SELECT count(*) as full  FROM dataset)
+            SELECT done.done, full.full FROM done, full
+            """, conn)
+    row = df.iloc[0]
+    return Progress(row.done, row.full)
 
 
 ##############################################################################
@@ -133,8 +138,7 @@ def empty() -> Response:
     This is the default route. It redirects the user to a page
     where some random document has been chosen for annotation
     '''
-    doc = not_validated().sample(1)
-    num = int(doc['id'].iloc[0])
+    num = one_id_not_validated()
     return redirect(url_for('with_id', identifier=num))
 
 
@@ -145,12 +149,13 @@ def with_id(identifier: int) -> str:
     route that returns an html page based off a template for annotating
     the data of the document identified by the provided identifier
     '''
-    row = DATASET.iloc[identifier]
-    labeling, text = row[['labeling', 'text']]
+    with sqlite3.connect(DATASET_DB) as conn:
+        ds = pd.read_sql_query("SELECT labeling, text FROM dataset WHERE id = ? LIMIT 1", conn, params=(identifier,))
+    row = ds.iloc[0]
     app_state = (
-        json.loads(labeling, strict=False)
-        if labeling
-        else initial_interaction(DEFAULT_MODEL, identifier, text)
+        json.loads(row.labeling, strict=False)
+        if row.labeling
+        else initial_interaction(DEFAULT_MODEL, identifier, row.text)
     )
     return render_template(
         'index.html', app_state=app_state, progress=progress()
@@ -178,8 +183,6 @@ def initiate() -> dict:
 
 
 @app.route('/save', methods=['POST'])
-@generational(directory=CHECKPT)
-@checkpointed(save_dataset, directory=CHECKPT)
 def save() -> dict:
     '''
     This API tells the system that the user wants to save whatever work
@@ -188,10 +191,14 @@ def save() -> dict:
     '''
     app_state = request.json
     labeling = json.dumps(app_state)
-    DATASET.loc[int(app_state['id']), ['labeling', 'validated']] = (
-        labeling,
-        True,
-    )
+    with sqlite3.connect(DATASET_DB) as conn:
+        conn.execute('''
+            UPDATE dataset
+            SET labeling  = ?,
+                validated = 1
+            WHERE id = ?
+        ''',
+        (labeling, int(app_state['id'])))
     return app_state
 
 
@@ -212,21 +219,6 @@ def chat() -> dict:
     app_state['document_data'] = json.loads(response['content'], strict=False)
     app_state['document_data']['document'] = document
     return app_state
-
-
-@app.route('/dump')
-def dump():
-    '''
-    This API requests the system to just dump the content of the dataset in
-    JSON format. This is mostly meant for me to download the data once it is
-    ready.
-    '''
-    out = StringIO()
-    save_dataset(out)
-    out = out.getvalue()
-    response = Response(out, content_type='text/json')
-    response.headers['Content-Disposition'] = 'attachment; filename=data.json'
-    return response
 
 
 ##############################################################################
