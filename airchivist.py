@@ -13,6 +13,8 @@ import datasets      # type: ignore
 import pandas as pd  # type: ignore
 from flask import Flask, render_template, request, Response, redirect, url_for
 from dotenv import load_dotenv
+
+from llmlingua import PromptCompressor
 from mistralai.client import MistralClient
 from mistralai.models.chat_completion import ChatMessage
 
@@ -29,6 +31,11 @@ DATASET_DB = str(os.getenv('DATASET_DB'))
 
 app = Flask(__name__)
 client = MistralClient(api_key=API_KEY)
+compressor = PromptCompressor(
+    model_name='microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank',
+    use_llmlingua2=True,
+    device_map="cpu"
+)
 
 
 ##############################################################################
@@ -233,10 +240,10 @@ def initial_convers(document: str) -> list[dict]:
     '''
     with open('prompt.txt', encoding='utf8') as f:
         sysprompt = f.read()
-        usrprompt = document
+        longprompt = f'{sysprompt}\n\n# Document\n{document}'
+        shortprompt = compressor(longprompt)['compressed_prompt']
         return [
-            {'role': 'system', 'content': sysprompt},
-            {'role': 'user', 'content': usrprompt},
+            {'role': 'user', 'content': shortprompt},
         ]
 
 

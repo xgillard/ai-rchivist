@@ -109,7 +109,7 @@ function refresh_conversation(conversation) {
         return;
     } else {
         conversation
-            .slice(2) // skip the system prompt
+            .slice(1) // skip the system prompt
             .forEach(function(message) {
                 if (message.role.toLowerCase() == "assistant") {
                     try {
