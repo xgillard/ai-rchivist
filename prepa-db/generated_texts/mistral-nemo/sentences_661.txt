@@ -1,0 +1,1 @@
+id='68c9226fbcbb40c1b16a37703ea19520' object='chat.completion' model='open-mistral-nemo' usage=UsageInfo(prompt_tokens=63789, completion_tokens=9, total_tokens=63798) created=1726578985 choices=[ChatCompletionChoice(index=0, message=AssistantMessage(content='\ntoen the end of the document.', tool_calls=None, prefix=False, role='assistant'), finish_reason='stop')]
