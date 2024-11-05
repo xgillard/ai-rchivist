@@ -25,7 +25,7 @@ function nav_to(tab) {
 /************************************************************************************************************************************************************************/
 var state = {
     "id": 0,
-    "document_data": {
+    "documentdata": {
         "document" : "example document",
         "doctype"  : "UNKNOWN",
         "act_date" : "UNKNOWN",
@@ -41,12 +41,12 @@ var state = {
     },
     "conversation" : []
 };
-var document_data = state.document_data;
+var documentdata = state.documentdata;
 var conversation  = state.conversation;
 
 function ensure_ok_state(newstate) {
     newstate.id            = newstate.id || 0;
-    newstate.document_data = ensure_ok_documentdata(newstate.document_data);
+    newstate.documentdata = ensure_ok_documentdata(newstate.documentdata);
     newstate.conversation  = newstate.conversation || [];
     return newstate;
 }
@@ -67,7 +67,7 @@ function ensure_ok_documentdata(docdata) {
 
 function set_global_state(newstate) {
     state = ensure_ok_state(newstate);
-    set_global_documentdata(state.document_data);
+    set_global_documentdata(state.documentdata);
     set_global_conversation(state.conversation);
 }
 function set_global_model(model) {
@@ -75,8 +75,8 @@ function set_global_model(model) {
     $("#dta-model").val(model);
 }
 function set_global_documentdata(data) {
-    document_data = data;
-    refresh_documentdata(document_data);
+    documentdata = data;
+    refresh_documentdata(documentdata);
 }
 function refresh_documentdata(data) {
     refresh_document(data.document);
@@ -90,8 +90,8 @@ function set_global_conversation(convers) {
 }
 function reset_data_version(version) {
     console.log(version)
-    version.document    = document_data.document;
-    state.document_data = version;
+    version.document    = documentdata.document;
+    state.documentdata = version;
     set_global_documentdata(version);
 }
 /************************************************************************************************************************************************************************/
@@ -142,7 +142,7 @@ function send_chat() {
     message = {
         "role"   : "user",
         "content": $("#message-input").val(),
-        "version": JSON.stringify(document_data)
+        "version": JSON.stringify(documentdata)
     };
     conversation.push(message);
 
@@ -184,7 +184,7 @@ function initiate_conversation() {
     $.ajax({
         url:         "/initiate",
         type:        "POST",
-        data:        JSON.stringify({"id": state.id, "document": document_data.document}),
+        data:        JSON.stringify({"id": state.id, "document": documentdata.document}),
         contentType: "application/json; charset=utf-8",
         dataType:    "json",
         success: function(data) {
@@ -223,48 +223,48 @@ function set_metadata_summary(summary){
 /***** PERSON ***********************************************************************************************************************************************************/
 /************************************************************************************************************************************************************************/
 function refresh_persons() {
-    const n = document_data.persons.length;
+    const n = documentdata.persons.length;
     $("#tab-persons table tbody").empty()
 
     for (var i = 0; i < n; i++) {
-        display_person(document_data.persons[i], i);
+        display_person(documentdata.persons[i], i);
     }
 }
 
 function display_person(person, n){
     $("#tab-persons table tbody").append(
         "<tr>" + 
-            `<td contenteditable="true" data-field="first_name" onblur="document_data.persons[${n}].firstname = $(this).text()">${person.firstname}</td>` +
-            `<td contenteditable="true" data-field="last_name"  onblur="document_data.persons[${n}].lastname  = $(this).text()">${person.lastname}</td>`  +
-            `<td contenteditable="true" data-field="role"       onblur="document_data.persons[${n}].role      = $(this).text()">${person.role}</td>`      +
-            `<td contenteditable="true" data-field="function"   onblur="document_data.persons[${n}].function  = $(this).text()">${person.function}</td>`  +
+            `<td contenteditable="true" data-field="first_name" onblur="documentdata.persons[${n}].firstname = $(this).text()">${person.firstname}</td>` +
+            `<td contenteditable="true" data-field="last_name"  onblur="documentdata.persons[${n}].lastname  = $(this).text()">${person.lastname}</td>`  +
+            `<td contenteditable="true" data-field="role"       onblur="documentdata.persons[${n}].role      = $(this).text()">${person.role}</td>`      +
+            `<td contenteditable="true" data-field="function"   onblur="documentdata.persons[${n}].function  = $(this).text()">${person.function}</td>`  +
             `<td><button type="button"  class="btn btn-danger" onclick="delete_person(${n})"><i class="bi bi-trash3-fill"></i></button></td>`            +
         "</tr>"
     )
 }
 
 function add_person() {
-    const n       = document_data.persons.length;
+    const n       = documentdata.persons.length;
     const example = {
         "firstname": "John",
         "lastname" : "Doe",
         "role"     : "Example",
         "function" : "Peasant"
     };
-    document_data.persons.push(example);
+    documentdata.persons.push(example);
     display_person(example, n);
 }
 
 function delete_person(idx) {
     // actually delete some person
-    var n = document_data.persons.length;
+    var n = documentdata.persons.length;
     if (idx == 0) {
-        document_data.persons.shift();
+        documentdata.persons.shift();
     } else {
         for(var i = idx + 1; i < n; i++) {
-            document_data.persons[i-1] = document_data.persons[i];
+            documentdata.persons[i-1] = documentdata.persons[i];
         }
-        document_data.persons.pop()
+        documentdata.persons.pop()
     }
 
     refresh_persons()
@@ -273,41 +273,41 @@ function delete_person(idx) {
 /***** LOCATIONS ********************************************************************************************************************************************************/
 /************************************************************************************************************************************************************************/
 function refresh_locations() {
-    const n = document_data.locations.length;
+    const n = documentdata.locations.length;
     $("#tab-locations table tbody").empty()
 
     for (var i = 0; i < n; i++) {
-        display_location(document_data.locations[i], i);
+        display_location(documentdata.locations[i], i);
     }
 } 
 function display_location(location, n){
     $("#tab-locations table tbody").append(
         "<tr>" + 
-            `<td contenteditable="true" data-field="loc_name" onblur="document_data.locations[${n}].name    = $(this).text()" >${location.name}</td>`   +
-            `<td contenteditable="true" data-field="loctype"  onblur="document_data.locations[${n}].loctype = $(this).text()">${location.loctype}</td>` +
+            `<td contenteditable="true" data-field="loc_name" onblur="documentdata.locations[${n}].name    = $(this).text()" >${location.name}</td>`   +
+            `<td contenteditable="true" data-field="loctype"  onblur="documentdata.locations[${n}].loctype = $(this).text()">${location.loctype}</td>` +
             `<td><button type="button"  class="btn btn-danger" onclick="delete_location(${n})"><i class="bi bi-trash3-fill"></i></button></td>`        +
         "</tr>"
     )
 }
 function add_location() {
-    const n       = document_data.locations.length;
+    const n       = documentdata.locations.length;
     const example = {
         "name"    : "Neverland",
         "loctype" : "Country"
     };
-    document_data.locations.push(example);
+    documentdata.locations.push(example);
     display_location(example, n);
 }
 function delete_location(idx) {
     // actually delete some location
-    var n = document_data.locations.length;
+    var n = documentdata.locations.length;
     if (idx == 0) {
-        document_data.locations.shift();
+        documentdata.locations.shift();
     } else {
         for(var i = idx + 1; i < n; i++) {
-            document_data.locations[i-1] = document_data.locations[i];
+            documentdata.locations[i-1] = documentdata.locations[i];
         }
-        document_data.locations.pop()
+        documentdata.locations.pop()
     }
 
     refresh_locations()

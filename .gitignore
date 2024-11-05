@@ -4,4 +4,5 @@ virtualenv/
 checkpoints/
 prepa-db/rsp_json/
 prepa-db/dataset.db
+prepa-db/execution.log
 prepa-db/.ipynb_checkpoints/
