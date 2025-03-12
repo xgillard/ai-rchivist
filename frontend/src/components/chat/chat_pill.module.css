@@ -1,0 +1,14 @@
+
+.ChatPill {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    font-weight: bold;
+    color: whitesmoke;
+    border-radius: 50%;
+    background-color: deeppink;
+    border: none;
+}

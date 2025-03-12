@@ -1,0 +1,19 @@
+.CustomProgressBar {
+    position: relative;
+    width: 100%;
+}
+.ThickProgressBar {
+    height: 2.4rem;
+    line-height: 2.4rem;
+    width: 100%;
+}
+.AlwaysOnLabel {
+    position: absolute;
+    width: 100%;
+    color: white;
+    text-align: center;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    transform: translateY(-100%);
+    font-size: smaller;
+  }

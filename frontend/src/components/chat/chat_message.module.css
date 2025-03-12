@@ -1,0 +1,24 @@
+.AssistantMessage {
+    position: relative;
+    border-radius: 15px;
+    display: block;
+    padding: .5em;
+    margin: .5em;
+    width: 75%;
+    cursor: pointer;
+
+    float: left;
+    background-color:#31d2f2;
+}
+.UserMessage {
+    position: relative;
+    border-radius: 15px;
+    display: block;
+    padding: .5em;
+    margin: .5em;
+    width: 75%;
+    cursor: pointer;
+
+    float: right;
+    background-color:#a7fd92;
+}

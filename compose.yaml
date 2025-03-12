@@ -1,0 +1,43 @@
+###########################################################################
+# This file describes the infrastructure required to run ai-rchivist
+# -------------------------------------------------------------------------
+# This infrastructure comprises 2 distinct pieces:
+# 1. backend  :: a set of REST API (written in python) implementing the 
+#                bulk of the logic required to manage persitent data, as
+#                well as the interactions with the external LLM service.
+# 2. frontend :: a web-interface to let the users interact with the system
+#                is a more user-friendly way.
+# -------------------------------------------------------------------------
+# *Note:*
+# Given that this file expresses the infrastructure as a docker-compose
+# application, it means you can get the whole chain up and running with
+# single command. Namely:
+#
+# `docker compose up --build`
+###########################################################################
+name: ai-rchivist
+services:
+  # The backend service which consits of a set of REST api implemented
+  # in python. The purpose of these API is to manage the persistent data
+  # and the interactions with the external LLM provider.
+  backend: 
+    build: ./backend
+    ports: 
+      - "8080:80"
+    volumes:
+      - type: bind
+        source: ./backend/database
+        target: /db
+    environment:
+      DATABASE: /db/dataset.db
+      USE_LLM: true
+      MISTRAL_API_KEY: use_your_own
+  # The frontend service which consists of the web interface users can 
+  # interact with.
+  #
+  # The API URL is configured through the 
+  # .env.development and .env.production configuration files (which is due to react)
+  frontend:
+    build: ./frontend
+    ports: 
+      - "80:80"
