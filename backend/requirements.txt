@@ -18,8 +18,8 @@ jsonpath-python==1.0.6
 markdown-it-py==3.0.0
 MarkupSafe==3.0.2
 mdurl==0.1.2
-mistralai==1.5.1
 mypy-extensions==1.0.0
+ollama==0.4.7
 pydantic==2.10.6
 pydantic_core==2.27.2
 Pygments==2.19.1

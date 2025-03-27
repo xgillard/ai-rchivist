@@ -6,24 +6,38 @@ import os
 from pathlib import Path
 from sqlite3 import Cursor, connect
 
-import mistralai
+from ollama import Client
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import ValidationError
 
-from model import AppState, ChatRequest, DocData, InitialRequest, InitialResponse, Message, Progression, RandomId
+from model import (
+    AppState,
+    ChatRequest,
+    DocData,
+    InitialRequest,
+    InitialResponse,
+    Message,
+    Progression,
+    RandomId,
+)
 
 ##############################################################################
 # LLM API INITIALIZATION
 ##############################################################################
-DEFAULT_MODEL = "ministral-3b-latest"
+MODELS = [
+    "llama3.2",
+    "mistral-nemo",
+]
+DEFAULT_MODEL = MODELS[0]
 
 USE_LLM = str(os.getenv("USE_LLM")).lower() == "true"
-API_KEY = str(os.getenv("MISTRAL_API_KEY"))
 DATABASE = str(os.getenv("DATABASE"))
+LLM_URL = str(os.getenv("LLM_URL"))
+CLIENT = Client(host=LLM_URL)
 
-client = mistralai.Mistral(api_key=API_KEY)
-
+for model in MODELS:
+    CLIENT.pull(model)
 
 ##############################################################################
 # SERVER INITIALIZATION
@@ -43,7 +57,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/progression")
 def get_progress() -> Progression:
@@ -104,7 +117,8 @@ def save(app_state: AppState) -> None:
 def initiate(request: InitialRequest) -> InitialResponse:
     """Perform the first round of analysis with the LLM."""
     conversation: list[Message] = initial_conversation(request.document)
-    response: Message = chat(ChatRequest(model=request.model, conversation=conversation))
+    model = request.model if request.model in MODELS else DEFAULT_MODEL
+    response: Message = chat(ChatRequest(model=model, conversation=conversation))
     try:
         documentdata: DocData = DocData.model_validate_json(response.content)
     except ValidationError as e:
@@ -116,20 +130,16 @@ def initiate(request: InitialRequest) -> InitialResponse:
 @app.post("/chat")
 def chat(request: ChatRequest) -> Message:
     """Send the conversation to LLM."""
-    messages = [message_2_mistral(m) for m in request.conversation]
-    response = client.chat.complete(
-        model=request.model,
-        messages=messages,
-        response_format={"type": "json_object"},
+    response = CLIENT.chat(
+        model = request.model if request.model in MODELS else DEFAULT_MODEL,
+        messages=request.conversation,
+        format = DocData.model_json_schema(),
     )
 
     if not response:
-        raise HTTPException(status_code=503, detail="Mistral did not answer")
+        raise HTTPException(status_code=503, detail="No answer from the llm")
 
-    if not response.choices:
-        raise HTTPException(status_code=500, detail="No choice to pick from")
-
-    result = str(response.choices[0].message.content)
+    result = str(response.message.content)
 
     return Message(role="assistant", content=result)
 
@@ -140,20 +150,3 @@ def initial_conversation(document: str) -> list[Message]:
 
     return [Message(role="system", content=prompt), Message(role="user", content=document)]
 
-
-def message_2_mistral(message: Message) -> mistralai.Messages:
-    """Convert a message to the mistralai types."""
-    match message.role:
-        case "user":
-            return mistralai.UserMessage(content=message.content)
-        case "assistant":
-            return mistralai.AssistantMessage(content=message.content)
-        case "system":
-            return mistralai.SystemMessage(content=message.content)
-        case _:
-            raise ValueError
-
-
-def mistralai_2_message(message: mistralai.Messages) -> Message:
-    """Convert a mistralai message to the internal types."""
-    return Message(role=str(message.role), content=str(message.content))

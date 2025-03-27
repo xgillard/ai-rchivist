@@ -2,15 +2,7 @@
 
 from __future__ import annotations
 
-import re
-
-from pydantic import BaseModel, ValidationError
-
-
-class Generation(BaseModel):
-    """The ouput of a call to .generate() on some hf llm."""
-
-    generated_text: list[Message]
+from pydantic import BaseModel
 
 
 class ChatRequest(BaseModel):
@@ -39,22 +31,6 @@ class Message(BaseModel):
 
     role: str
     content: str
-    version: DocData | None = None
-
-    @property
-    def app_state(self) -> DocData | None:
-        """Attempt to find the appstate in a llm response."""
-        try:
-            match: re.Match | None = re.search(
-                r"```(json)?(?P<content>.*)```",
-                self.content,
-                flags=re.DOTALL,
-            )
-            text: str = match.group("content") if match else ""
-            return DocData.model_validate_json(text)
-        except ValidationError:
-            return None
-
 
 class AppState(BaseModel):
     """The airchivist application state.

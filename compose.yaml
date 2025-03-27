@@ -17,11 +17,26 @@
 ###########################################################################
 name: ai-rchivist
 services:
+  llm:
+    # A container running ollama so that you can run and serve quantized llms
+    # on your local hardware and call them with a seamless api.
+    image: ollama/ollama
+    ports: [11434:11434]
+    volumes:
+      - type: bind
+        source: ./llm/ollama
+        target: /root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: ["gpu"]
   # The backend service which consits of a set of REST api implemented
   # in python. The purpose of these API is to manage the persistent data
   # and the interactions with the external LLM provider.
   backend: 
     build: ./backend
+    depends_on: [llm]
     ports: 
       - "8080:80"
     volumes:
@@ -31,7 +46,7 @@ services:
     environment:
       DATABASE: /db/dataset.db
       USE_LLM: true
-      MISTRAL_API_KEY: use_your_own
+      LLM_URL: http://llm:11434
   # The frontend service which consists of the web interface users can 
   # interact with.
   #

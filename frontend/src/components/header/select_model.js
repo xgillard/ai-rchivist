@@ -6,11 +6,8 @@ function SelectModel({model, set_model}) {
             <div className="input-group">
                 <span className="input-group-text">Model</span>
                 <select className={`form-select ${classes.SelectModel}`} value={model} onChange={(event) => set_model(_ => event.target.value)}>
-                    <option value="open-mistral-nemo">Mistral NeMo</option>
-                    <option value="mistral-small-latest">Mistral Small</option>
-                    <option value="ministral-3b-latest">Ministral 3B</option>
-                    <option value="ministral-8b-latest">Ministral 8B</option>
-                    <option value="mistral-large-latest">Mistral Large</option>
+                    <option value="llama3.2">LLama 3.2 (3B)</option>
+                    <option value="mistral-nemo">Mistral NeMo</option>
                 </select>
             </div>
         </div>
