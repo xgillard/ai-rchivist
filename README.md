@@ -39,3 +39,9 @@ des données dans les documents et la nécessaire mise en contexte de ces dernie
   address   = {20 Pl. Sainte-Anne, 35000 Rennes, France}
 }
 ```
+
+## Tech notes
+
+Runing the container with GPU capabilities requires that docker be configured with
+the nvidia-container-toolkit. 
+https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html

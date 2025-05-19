@@ -21,7 +21,7 @@ services:
     # A container running ollama so that you can run and serve quantized llms
     # on your local hardware and call them with a seamless api.
     image: ollama/ollama
-    ports: [11434:11434]
+    ports: [11432:11434]
     volumes:
       - type: bind
         source: ./llm/ollama
