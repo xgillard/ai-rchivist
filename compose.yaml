@@ -46,7 +46,7 @@ services:
     environment:
       DATABASE: /db/dataset.db
       USE_LLM: true
-      LLM_URL: http://docker.host.internal:11432
+      LLM_URL: http://llm:11434
   # The frontend service which consists of the web interface users can 
   # interact with.
   #
