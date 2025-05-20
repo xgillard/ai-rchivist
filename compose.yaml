@@ -24,7 +24,7 @@ services:
     ports: [11432:11434]
     volumes:
       - type: bind
-        source: ./llm/ollama
+        source: ./llm/ollama/.ollama
         target: /root/.ollama
     deploy:
       resources:
@@ -38,7 +38,7 @@ services:
     build: ./backend
     depends_on: [llm]
     ports: 
-      - "8080:80"
+      - "8080:8080"
     volumes:
       - type: bind
         source: ./backend/database
@@ -46,7 +46,7 @@ services:
     environment:
       DATABASE: /db/dataset.db
       USE_LLM: true
-      LLM_URL: http://llm:11434
+      LLM_URL: http://docker.host.internal:11432
   # The frontend service which consists of the web interface users can 
   # interact with.
   #

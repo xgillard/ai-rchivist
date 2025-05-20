@@ -9,14 +9,14 @@ FROM python:3.10-alpine
 WORKDIR /workspace
 
 # Install the necessary dependencies in the container
-RUN pip3 install --upgrade pip
-RUN --mount=type=bind,source=requirements.txt,target=/tmp/requirements.txt \
-    pip3 install --requirement /tmp/requirements.txt
+RUN pip3 install --upgrade pip setuptools
+RUN pip3 install poetry
 
 # Install the application files in the container
-COPY src/* /workspace/
+COPY . /workspace/
+RUN poetry install
 
 # And serve them with fastapi for production setup. 
 # Please note that this container exposes it services on port tcp:80, so
 # make sure to remap that port to whatever you would like to expose. 
-CMD [ "fastapi", "run", "backend.py", "--port", "80"]
+CMD [ "poetry", "run", "uvicorn", "--host", "0.0.0.0", "--port", "8080", "airchivist.backend:app"]

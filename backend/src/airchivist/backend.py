@@ -6,12 +6,12 @@ import os
 from pathlib import Path
 from sqlite3 import Cursor, connect
 
-from ollama import Client
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from langchain_ollama import ChatOllama
 from pydantic import ValidationError
 
-from model import (
+from .model import (
     AppState,
     ChatRequest,
     DocData,
@@ -23,7 +23,7 @@ from model import (
 )
 
 ##############################################################################
-# LLM API INITIALIZATION
+# CONSTANTS and ENV VARS
 ##############################################################################
 MODELS = [
     "llama3.2",
@@ -34,10 +34,6 @@ DEFAULT_MODEL = MODELS[0]
 USE_LLM = str(os.getenv("USE_LLM")).lower() == "true"
 DATABASE = str(os.getenv("DATABASE"))
 LLM_URL = str(os.getenv("LLM_URL"))
-CLIENT = Client(host=LLM_URL)
-
-for model in MODELS:
-    CLIENT.pull(model)
 
 ##############################################################################
 # SERVER INITIALIZATION
@@ -48,6 +44,7 @@ origins = [
     "http://localhost",  # development react
     "http://www.arch.be",
     "http://arch.be",
+    "*",
 ]
 
 app.add_middleware(
@@ -130,17 +127,22 @@ def initiate(request: InitialRequest) -> InitialResponse:
 @app.post("/chat")
 def chat(request: ChatRequest) -> Message:
     """Send the conversation to LLM."""
-    response = CLIENT.chat(
-        model = request.model if request.model in MODELS else DEFAULT_MODEL,
-        messages=request.conversation,
-        format = DocData.model_json_schema(),
+    model = request.model if request.model in MODELS else DEFAULT_MODEL
+    llm = ChatOllama(
+        base_url=LLM_URL,
+        model=model,
+        temperature=0.0,
     )
+    structured = llm.with_structured_output(DocData)
+
+    response = structured.invoke([
+        (m.role, m.content) for m in request.conversation
+    ])
 
     if not response:
         raise HTTPException(status_code=503, detail="No answer from the llm")
 
-    result = str(response.message.content)
-
+    result = DocData.model_dump_json(response)
     return Message(role="assistant", content=result)
 
 
