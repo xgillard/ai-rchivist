@@ -9,6 +9,7 @@ from sqlite3 import Cursor, connect
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from langchain_ollama import ChatOllama
+
 from pydantic import ValidationError
 
 from .model import (
@@ -21,6 +22,8 @@ from .model import (
     Progression,
     RandomId,
 )
+
+from .prompt import INITIAL_CONVERSATION_SYSTEM_PROMPT
 
 ##############################################################################
 # CONSTANTS and ENV VARS
@@ -115,7 +118,7 @@ def initiate(request: InitialRequest) -> InitialResponse:
     """Perform the first round of analysis with the LLM."""
     conversation: list[Message] = initial_conversation(request.document)
     model = request.model if request.model in MODELS else DEFAULT_MODEL
-    response: Message = chat(ChatRequest(model=model, conversation=conversation))
+    response = chat(ChatRequest(model=model, conversation=conversation))
     try:
         documentdata: DocData = DocData.model_validate_json(response.content)
     except ValidationError as e:
@@ -141,14 +144,13 @@ def chat(request: ChatRequest) -> Message:
 
     if not response:
         raise HTTPException(status_code=503, detail="No answer from the llm")
-
-    result = DocData.model_dump_json(response)
-    return Message(role="assistant", content=result)
+    
+    return Message(role="assistant", content=DocData.model_dump_json(response))
 
 
 def initial_conversation(document: str) -> list[Message]:
     """Build the initial conversation around a given text document."""
-    prompt: str = Path("prompt.txt").read_text(encoding="utf8")
-
-    return [Message(role="system", content=prompt), Message(role="user", content=document)]
-
+    return [
+        Message(role="system", content=INITIAL_CONVERSATION_SYSTEM_PROMPT),
+        Message(role="human",  content=document)
+    ]

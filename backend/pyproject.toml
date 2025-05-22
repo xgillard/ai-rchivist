@@ -1,21 +1,29 @@
 [project]
 name            = "airchivist"
-version         = "0.1.0"
 description     = "AI-rchivist backend"
+version         = "0.1.0"
 authors         = [ {name = "Xavier GILLARD", email = "xaviergillard@gmail.com"} ]
 requires-python = ">=3.10,<3.12"
-packages        = [ {include = "airchivist", from = "src"} ]
-dependencies    = [
-    "fastapi[standard] (>=0.115.12,<0.116.0)",
-    "langchain (>=0.3.25,<0.4.0)",
-    "langchain-ollama (>=0.3.3,<0.4.0)",
-    "pydantic (>=2.11.4,<3.0.0)"
-]
 
 ############################ BUILD #####################################
 [build-system]
 requires               = ["poetry-core>=1.0.0,<3.0.0"]
 build-backend          = "poetry.core.masonry.api"
+
+############################ MYPY ####################################
+[tool.poetry]
+name                   = "airchivist"
+description            = "AI-rchivist backend"
+version                = "0.1.0"
+authors                = [ "Xavier GILLARD" ]
+packages               = [ {include = "airchivist", from = "src"} ]
+
+[tool.poetry.dependencies]
+python                 = ">=3.10,<3.12"
+fastapi                = { version="~0", extras=["standard"] }
+langchain              = "~0"
+langchain-ollama       = "~0"
+pydantic               = "^2.11"
 
 ############################ RUFF ####################################
 [tool.ruff]
